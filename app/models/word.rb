@@ -5,7 +5,7 @@ class Word < ActiveRecord::Base
   has_many :backward_translations, :class_name => 'Translation', :foreign_key => 'translated_word_id'
   has_many :words2, :through => :backward_translations, :source => :source_word
 
-  def words
-    words1 + words2
+  def translations
+    direct_translations + backward_translations
   end
 end

@@ -1,5 +1,7 @@
 <div>
-  <%=translation.translated_word.word%>
+  <% word = @word.nil? ? translation.translated_word : (@word.id == translation.source_word.id) ? translation.translated_word : translation.source_word  %>
+
+  <%=link_to word.word, word%>
   <%=link_to "x", translation, :method => :delete, :confirm => 'You sure?' %>
 </div>
 <br/>

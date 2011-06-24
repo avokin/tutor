@@ -19,4 +19,8 @@ class WordsController < ApplicationController
     @word = Word.find(params[:id])
     @translation = Translation.new
   end
+
+  def index
+    @words = Word.all
+  end
 end
