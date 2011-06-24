@@ -1,5 +1,5 @@
 module ApplicationHelper
   def logo
-    image_tag('logo.gif', :alt => 'Tutor', :class => "logo")
+    image_tag('logo.png', :alt => 'Tutor', :class => "logo")
   end
 end
