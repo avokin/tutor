@@ -1,0 +1,22 @@
+<header>
+  <%= link_to logo, root_path %>
+  <nav>
+
+
+    <ul>
+      <li><div>
+        <%= form_for(:search, :url => search_path) do |f| %>
+            <%= f.text_field :word, {'accesskey' => 's'}%>
+        <% end %>
+      </div>
+      </li>
+      <li>Log in</li>
+      <li>Recent words</li>
+      <li>About</li>
+</ul>
+
+
+
+  </nav>
+
+</header>

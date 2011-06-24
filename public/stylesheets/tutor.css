@@ -1,0 +1,10 @@
+header {
+
+}
+nav {
+    float: right;
+}
+
+nav ul li {
+    display: inline-block;
+}

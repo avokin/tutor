@@ -1,0 +1,19 @@
+<table border="1">
+  <tr>
+    <td>
+      <%= @word.word %>
+    </td>
+    <td>
+      <%= render @word.direct_translations %>
+      <%= form_for @translation do |f| %>
+          <div class="field">
+            <%= f.label :translated_word %>
+            <%= f.text_field :translated_word %>
+            <%= f.hidden_field :word_id,  :value => @word.id%>
+          </div>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<br/>
+
