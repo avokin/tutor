@@ -2,7 +2,7 @@ Tutor::Application.routes.draw do
 
   resource :search, :controller => 'Search'
 
-  resources :translations
+  resources :word_relations
   resources :words
 
   root :to => 'words#1'

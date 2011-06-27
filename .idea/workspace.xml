@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2d028b31-8339-4b0c-a82a-5fd184db09a4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/word_relations_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/word_relation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20110625200634_add_type_to_word_relation.rb" />
-      <change type="DELETED" beforePath="C:\projects\free\tutor\Rakefile" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects\free\tutor\app\controllers\translations_controller.rb" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects\free\tutor\app\models\translation.rb" afterPath="" />
+    <list id="2d028b31-8339-4b0c-a82a-5fd184db09a4" name="Default" comment="" />
+    <list default="true" id="1e5b4909-8d99-4340-b224-62c600ab3064" name="New changelist" comment="RubyMine delete necessary files! Reverting it">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/word_relations/_word_relation.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20110627081851_fix_translation_word_column_name.rb" />
       <change type="DELETED" beforePath="C:\projects\free\tutor\app\views\translations\_translation.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects\free\tutor\app\views\words\show.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects\free\tutor\config\application.rb" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects\free\tutor\config\routes.rb" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects\free\tutor\db\schema.rb" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/words_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/words_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/word.rb" afterPath="$PROJECT_DIR$/app/models/word.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/words/show.html.erb" afterPath="$PROJECT_DIR$/app/views/words/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/application.rb" afterPath="$PROJECT_DIR$/config/application.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
     </list>
     <ignored path="tutor.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -51,16 +45,43 @@
       <file leaf-file-name="words_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/words_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="6" selection-start="418" selection-end="418" vertical-scroll-proportion="0.0">
+            <state line="16" column="6" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="word_relations_controller.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/controllers/word_relations_controller.rb">
+      <file leaf-file-name="Rakefile" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Rakefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="0" selection-start="1029" selection-end="1029" vertical-scroll-proportion="0.7357513">
+            <state line="4" column="16" selection-start="235" selection-end="235" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_word_relation.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/word_relations/_word_relation.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="141" selection-start="147" selection-end="147" vertical-scroll-proportion="-0.65384614">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/words/show.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="33" selection-start="513" selection-end="513" vertical-scroll-proportion="-10.846154">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="33" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -69,16 +90,7 @@
       <file leaf-file-name="20110625200634_add_type_to_word_relation.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/migrate/20110625200634_add_type_to_word_relation.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="49" selection-start="358" selection-end="371" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="20110619174620_create_translations.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/migrate/20110619174620_create_translations.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="9" column="25" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -87,7 +99,16 @@
       <file leaf-file-name="20110623093034_fix_translation_word_id_column_name.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/migrate/20110623093034_fix_translation_word_id_column_name.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="7" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
+            <state line="2" column="58" selection-start="81" selection-end="135" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="20110627081851_fix_translation_word_column_name.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/db/migrate/20110627081851_fix_translation_word_column_name.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="53" selection-start="224" selection-end="224" vertical-scroll-proportion="0.2642487">
               <folding />
             </state>
           </provider>
@@ -116,7 +137,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/translations/_translation.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/words_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/words/edit.html.erb" />
         <option value="$PROJECT_DIR$/app/models/synonym.rb" />
@@ -124,14 +144,15 @@
         <option value="$PROJECT_DIR$/test/fixtures/synonyms.yml" />
         <option value="$PROJECT_DIR$/Rakefile" />
         <option value="$PROJECT_DIR$/db/migrate/20110625200634_add_type_to_word_relation.rb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20110627063940_fix_word_relation_reference_column_name.rb" />
-        <option value="$PROJECT_DIR$/app/views/word_relations/_word_relation.html.erb" />
         <option value="$PROJECT_DIR$/app/models/word_relation.rb" />
         <option value="$PROJECT_DIR$/app/controllers/translations_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/words/show.html.erb" />
         <option value="$PROJECT_DIR$/app/models/word.rb" />
         <option value="$PROJECT_DIR$/app/controllers/word_relations_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/words/show.html.erb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
+        <option value="$PROJECT_DIR$/app/views/word_relations/_word_relation.html.erb" />
+        <option value="$PROJECT_DIR$/db/migrate/20110627081851_fix_translation_word_column_name.rb" />
       </list>
     </option>
   </component>
@@ -297,83 +318,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="words" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tutor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tutor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tutor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tutor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tutor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tutor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tutor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tutor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -626,15 +571,18 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="2d028b31-8339-4b0c-a82a-5fd184db09a4" name="Default" comment="" />
+      <changelist id="1e5b4909-8d99-4340-b224-62c600ab3064" name="New changelist" comment="" />
       <created>1308374324838</created>
-      <updated>1308374324838</updated>
+      <updated>1309161283065</updated>
     </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3284553" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284553" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -647,7 +595,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -668,7 +615,7 @@
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Links added, translation rendering changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="RubyMine delete necessary files! Reverting it" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -683,6 +630,8 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="Changed logo and fixed heroku rake problem" />
     <MESSAGE value="Links added, translation rendering changed" />
+    <MESSAGE value="Translation was generalized" />
+    <MESSAGE value="RubyMine delete necessary files! Reverting it" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -719,16 +668,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20110625200634_add_type_to_word_relation.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/word_relations_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="49" selection-start="358" selection-end="371" vertical-scroll-proportion="0.0">
+        <state line="37" column="18" selection-start="1011" selection-end="1011" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20110623093034_fix_translation_word_id_column_name.rb">
+    <entry file="file://$PROJECT_DIR$/Rakefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="7" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
+        <state line="4" column="16" selection-start="235" selection-end="235" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -740,13 +689,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/words_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="6" selection-start="418" selection-end="418" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/word.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="39" selection-start="854" selection-end="854" vertical-scroll-proportion="0.0">
@@ -754,9 +696,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/word_relations_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/words_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="1029" selection-end="1029" vertical-scroll-proportion="0.7357513">
+        <state line="16" column="6" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/words/show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="33" selection-start="513" selection-end="513" vertical-scroll-proportion="-10.846154">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="33" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/word_relations/_word_relation.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="141" selection-start="147" selection-end="147" vertical-scroll-proportion="-0.65384614">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20110625200634_add_type_to_word_relation.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="25" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20110623093034_fix_translation_word_id_column_name.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="58" selection-start="81" selection-end="135" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20110627081851_fix_translation_word_column_name.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="53" selection-start="224" selection-end="224" vertical-scroll-proportion="0.2642487">
           <folding />
         </state>
       </provider>

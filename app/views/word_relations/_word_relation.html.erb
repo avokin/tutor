@@ -1,0 +1,7 @@
+<div>
+  <% word = @word.nil? ? word_relation.related_word : (@word.id == word_relation.source_word.id) ? word_relation.related_word : word_relation.source_word  %>
+
+  <%=link_to word.word, word%>
+  <%=link_to "x", word_relation, :method => :delete, :confirm => 'You sure?' %>
+</div>
+<br/>
