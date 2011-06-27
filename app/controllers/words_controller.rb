@@ -17,10 +17,23 @@ class WordsController < ApplicationController
   def show
     @title = 'Word'
     @word = Word.find(params[:id])
-    @translation = Translation.new
+    @word_relation = WordRelation.new
+  end
+
+  def edit
+    @word = Word.find(params[:id])
   end
 
   def index
     @words = Word.all
+  end
+
+  def update
+    @word = Word.find(params[:id])
+    if @word.update_attributes(params[:word])
+      redirect_to @word
+    else
+      render 'edit'
+    end
   end
 end
