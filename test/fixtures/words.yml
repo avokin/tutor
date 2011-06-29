@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  word: MyString
-  language_id: 1
-
-two:
-  word: MyString
-  language_id: 1

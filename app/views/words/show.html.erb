@@ -4,6 +4,9 @@
       <%= @word.word %>
     </td>
     <td>
+      <%= link_to "Edit", edit_word_path(@word) %>
+    </td>
+    <td>
       <%= render @word.translations %>
       <%= form_for @word_relation do |f| %>
           <div class="field">
