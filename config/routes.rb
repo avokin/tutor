@@ -1,6 +1,6 @@
 Tutor::Application.routes.draw do
 
-  resource :search, :controller => 'Search'
+  resource :search, :controller => 'search'
 
   resources :word_relations
   resources :words
