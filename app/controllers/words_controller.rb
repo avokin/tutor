@@ -1,6 +1,7 @@
 class WordsController < ApplicationController
   def new
     @title = "New word: #{params[:word]}"
+    @languages = Language.all
     @word = Word.new
     @word.word = params[:word] unless params[:word].nil?
   end

@@ -8,6 +8,7 @@ class AddTypeToWordRelation < ActiveRecord::Migration
   end
 
   def self.down
+    change_column :word_relations, :relation_type, :integer, :null => true
     remove_column :word_relations, :relation_type
     rename_table :word_relations, :translations
   end

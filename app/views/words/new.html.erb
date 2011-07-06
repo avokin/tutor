@@ -1,6 +1,9 @@
 <%= form_for(@word) do |f| %>
     <div class="field">
       <%= f.label :word %>
-         <%= f.text_field :word %>
+      <%= f.text_field :word %>
+
+      <%= f.label :language_id %>
+      <%= f.select(:language_id, @languages.map { |l| [l.name, l.id] }) %>
     </div>
 <% end %>

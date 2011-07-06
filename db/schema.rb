@@ -10,25 +10,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110627081851) do
+ActiveRecord::Schema.define(:version => 20110706131238) do
 
   create_table "languages", :force => true do |t|
-    t.string   "name"
+    t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "word_relations", :force => true do |t|
-    t.integer  "source_word_id"
-    t.integer  "related_word_id"
+    t.integer  "source_word_id",  :null => false
+    t.integer  "related_word_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "relation_type",   :null => false
   end
 
   create_table "words", :force => true do |t|
-    t.string   "word"
-    t.integer  "language_id"
+    t.string   "word",        :null => false
+    t.integer  "language_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
