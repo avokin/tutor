@@ -5,7 +5,7 @@ Tutor::Application.routes.draw do
   resources :word_relations
   resources :words
 
-  root :to => 'words#1'
+  root :to => 'words#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

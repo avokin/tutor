@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   def new
-    @title = 'New word'
+    @title = "New word: #{params[:word]}"
     @word = Word.new
     @word.word = params[:word] unless params[:word].nil?
   end
@@ -10,21 +10,23 @@ class WordsController < ApplicationController
     if (@word.save)
       redirect_to @word
     else
-      render 'none'
+      redirect_to 'pages#error'
     end
   end
 
   def show
-    @title = 'Word'
     @word = Word.find(params[:id])
+    @title = "Card for word: #{@word.word}"
     @word_relation = WordRelation.new
   end
 
   def edit
     @word = Word.find(params[:id])
+    @title = "Edit word: #{@word.word}"
   end
 
   def index
+    @title = "List of all words"
     @words = Word.all
   end
 

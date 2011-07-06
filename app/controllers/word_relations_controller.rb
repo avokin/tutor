@@ -28,7 +28,7 @@ class WordRelationsController < ApplicationController
     if (@word_relation.save)
       redirect_to @word
     else
-      render 'none'
+      redirect_to 'pages#error'
     end
   end
 
