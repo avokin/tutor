@@ -11,7 +11,7 @@ class WordsController < ApplicationController
     if (@word.save)
       redirect_to @word
     else
-      redirect_to 'pages#error'
+      render 'pages/message'
     end
   end
 

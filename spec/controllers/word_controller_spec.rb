@@ -7,7 +7,7 @@ describe WordsController do
   describe "POST 'create'" do
 
     before(:each) do
-      @attr = {:word => 'test'}
+      @attr = {:word => 'test', :language_id => 1}
     end
 
     it "should redirect to word's card if successful" do
@@ -18,8 +18,7 @@ describe WordsController do
 
     it "should redirect to error page if fail" do
       post :create
-      response.code.should == "302"
-      response.should redirect_to('pages#error')
+      response.should render_template('pages/message')
     end
   end
 

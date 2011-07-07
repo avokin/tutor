@@ -9,7 +9,7 @@ describe WordRelation do
 
   describe "word relations" do
     before(:each) do
-      @word_relation = @word.direct_translations.create(@attr)
+      @word_relation = @word.direct_translations.build(@attr)
       @related_word = Factory(:word)
       @word_relation.related_word = @related_word
     end
@@ -23,5 +23,9 @@ describe WordRelation do
   it "should require relation_type" do
     empty_relation = WordRelation.new
     empty_relation.should_not be_valid
+  end
+
+  it "should have correctly create related word" do
+
   end
 end

@@ -6,12 +6,12 @@ class WordRelationsController < ApplicationController
 
     relation = WordRelation.create_relation(word_id, translated_text, relation_type)
     if (relation.nil?)
-      render 'pages/error'
+      render 'pages/message'
     else
       if (relation.save)
         redirect_to relation.source_word
       else
-        render 'pages/error'
+        render 'pages/message'
       end
     end
   end

@@ -7,6 +7,9 @@ Tutor::Application.routes.draw do
 
   root :to => 'words#index'
 
+  match '/message', :to => 'pages#message'
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  def error
+  def message
     @title = 'Error'
   end
 end
