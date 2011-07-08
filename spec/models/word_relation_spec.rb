@@ -7,25 +7,21 @@ describe WordRelation do
     @attr = {:relation_type => 1}
   end
 
-  describe "word relations" do
+  describe "create_relation" do
     before(:each) do
-      @word_relation = @word.direct_translations.build(@attr)
-      @related_word = Factory(:word)
-      @word_relation.related_word = @related_word
+      @word1 = Factory(:word)
     end
-    it "Word relation must connect two words" do
-      @word_relation.should respond_to(:source_word)
-      @word_relation.source_word.should == @word
-      @word_relation.related_word.should == @related_word
+    it "should create a new related word" do
+      relation = WordRelation.create_relation(@word1.id, "new text", "1")
+      relation.should_not be_nil
+      relation.source_word.should == @word1
+      relation.related_word.word.should == "new text"
+      relation.relation_type.should == 1
     end
   end
 
   it "should require relation_type" do
     empty_relation = WordRelation.new
     empty_relation.should_not be_valid
-  end
-
-  it "should have correctly create related word" do
-
   end
 end
