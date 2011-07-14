@@ -1,3 +1,28 @@
+<script type="text/javascript">
+  var inputs = [""]
+  count = 1;
+
+  function addTranslation() {
+    var translations = document.getElementById("translations");
+    var createdInput = document.createElement("input");
+    count++;
+    createdInput.name = "translation_" + (count - 1);
+    createdInput.onkeypress = onKeyPressed;
+    translations.appendChild(createdInput);
+    createdInput.focus();
+  }
+
+  function onKeyPressed() {
+    if (event.keyCode != null) {
+      if (event.keyCode == 9) {
+        addTranslation()
+        event.preventDefault();
+        return false;
+      }
+    }
+  }
+</script>
+
 <%= form_for(@word) do |f| %>
     <div class="field">
       <%= f.label :word %>
@@ -6,4 +31,13 @@
       <%= f.label :language_id %>
       <%= f.select(:language_id, @languages.map { |l| [l.name, l.id] }) %>
     </div>
+
+    <br/>
+
+    <div id="translations">
+      <input type="button" value="Add translation" accesskey="A" onclick="addTranslation();"/>
+      <input type="text" id="translation_0" name="translation_0" onkeydown="onKeyPressed();"/>
+    </div>
+    <%= f.submit %>
 <% end %>
+<%=set_focus_to_id('translation_0')%>

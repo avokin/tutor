@@ -1,4 +1,11 @@
+
+
 <header>
+  <script type="text/javascript">
+    function onChanged() {
+
+    }
+  </script>
   <%= link_to logo, root_path %>
   <nav>
 
@@ -6,7 +13,7 @@
     <ul>
       <li><div>
         <%= form_for(:search, :url => search_path) do |f| %>
-            <%= f.text_field :word, {'accesskey' => 's'}%>
+            <%= f.text_field :word, {'accesskey' => 's', 'onchange' => 'onChanged();'}%>
         <% end %>
       </div>
       </li>
