@@ -1,6 +1,4 @@
 class WordsController < ApplicationController
-  #auto_complete_for :word, :word
-
   def new
     @title = "New word: #{params[:word]}"
     @languages = Language.all

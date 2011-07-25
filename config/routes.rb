@@ -9,6 +9,7 @@ Tutor::Application.routes.draw do
 
   match '/message', :to => 'pages#message'
 
+  get 'search/autocomplete_word_word'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

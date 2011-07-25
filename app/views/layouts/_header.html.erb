@@ -1,29 +1,18 @@
-
-
 <header>
-  <script type="text/javascript">
-    function onChanged() {
-
-    }
-  </script>
   <%= link_to logo, root_path %>
   <nav>
-
-
     <ul>
       <li><div>
-        <%= form_for(:search, :url => search_path) do |f| %>
-            <%= f.text_field :word, {'accesskey' => 's', 'onchange' => 'onChanged();'}%>
+
+        <%= form_for(:search, :url => search_path) do %>
+            <%= text_field_tag :word, '', :autocomplete => search_autocomplete_word_word_path %>
         <% end %>
       </div>
       </li>
       <li>Log in</li>
       <li>Recent words</li>
       <li>About</li>
-</ul>
-
-
-
+    </ul>
   </nav>
 
 </header>

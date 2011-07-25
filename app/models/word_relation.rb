@@ -11,6 +11,7 @@ class WordRelation < ActiveRecord::Base
     related_word = Word.find_by_word(translated_text)
 
     if (related_word.nil?)
+      # ToDo: move to class and provide logic by interface
       related_word = Word.new
       related_word.language_id = word.language_id == 1 ? 2 : 1
       related_word.word = translated_text
