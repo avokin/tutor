@@ -8,7 +8,7 @@ gem 'rails', '3.0.5'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'right-rails'
 
-gem 'rails3-jquery-autocomplete' '0.6.0'
+gem 'rails3-jquery-autocomplete', '0.6.0'
 gem 'nifty-generators'
 
 group :development, :test do
