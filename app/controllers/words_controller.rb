@@ -8,17 +8,7 @@ class WordsController < ApplicationController
 
   def create
     @word = Word.new params[:word]
-    i = 0
-    if (@word.save)
-      while !params["translation_#{i}"].nil? do
-        translation = params["translation_#{i}"]
-        relation = WordRelation.create_relation(@word.id, translation, "1")
-        unless relation.nil?
-          relation.save
-        end
-        i = i + 1
-      end
-
+    if @word.create_with_translations_and_categories(params)
       redirect_to @word
     else
       render 'pages/message'

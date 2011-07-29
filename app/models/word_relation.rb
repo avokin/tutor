@@ -5,14 +5,15 @@ class WordRelation < ActiveRecord::Base
   validates :relation_type, :presence => true
   validates :source_word_id, :presence => true
 
-  def self.create_relation(word_id, translated_text, relation_type)
-    word = Word.find(word_id)
+  def self.create_relation(word, translated_text, relation_type)
 
     related_word = Word.find_by_word(translated_text)
 
     if (related_word.nil?)
       # ToDo: move to class and provide logic by interface
       related_word = Word.new
+
+      # ToDo: provide customization
       related_word.language_id = word.language_id == 1 ? 2 : 1
       related_word.word = translated_text
 

@@ -4,12 +4,14 @@ Tutor::Application.routes.draw do
 
   resources :word_relations
   resources :words
+  resources :categories
 
   root :to => 'words#index'
 
   match '/message', :to => 'pages#message'
 
   get 'search/autocomplete_word_word'
+  get 'search/autocomplete_category_name'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

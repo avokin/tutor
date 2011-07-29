@@ -1,43 +1,67 @@
 <script type="text/javascript">
-  var inputs = [""]
-  count = 1;
+  var translationsCount = 1;
+  var categoriesCount = 0;
 
   function addTranslation() {
     var translations = document.getElementById("translations");
     var createdInput = document.createElement("input");
-    count++;
-    createdInput.name = "translation_" + (count - 1);
+    translationsCount++;
+    createdInput.name = "translation_" + (translationsCount - 1);
     createdInput.onkeypress = onKeyPressed;
     translations.appendChild(createdInput);
+    createdInput.focus();
+  }
+
+  function addCategory() {
+    var translations = document.getElementById("category");
+    var createdInput = document.createElement("input");
+    categoriesCount++;
+    createdInput.name = "category_" + (categoriesCount - 1);
+    createdInput.onkeypress = onKeyPressed;
+    createdInput.setAttribute("data-autocomplete", "/search/autocomplete_category_name");
+    categories.appendChild(createdInput);
     createdInput.focus();
   }
 
   function onKeyPressed() {
     if (event.keyCode != null) {
       if (event.keyCode == 9) {
-        addTranslation()
+        if (event.source.id.startsWith("translation")) {
+          addTranslation();
+        } else {
+          addCategory();
+        }
+
         event.preventDefault();
         return false;
       }
     }
+    return true;
   }
 </script>
 
 <%= form_for(@word) do |f| %>
-    <div class="field">
-      <%= f.label :word %>
-      <%= f.text_field :word %>
+  <div class="field">
+    <%= f.label :word %>
+    <%= f.text_field :word %>
 
-      <%= f.label :language_id %>
-      <%= f.select(:language_id, @languages.map { |l| [l.name, l.id] }) %>
-    </div>
+    <%= f.label :language_id %>
+    <%= f.select(:language_id, @languages.map { |l| [l.name, l.id] }) %>
+  </div>
 
-    <br/>
+  <br/>
 
-    <div id="translations">
-      <input type="button" value="Add translation" accesskey="A" onclick="addTranslation();"/>
-      <input type="text" id="translation_0" name="translation_0" onkeydown="onKeyPressed();"/>
-    </div>
-    <%= f.submit %>
+  <div id="translations">
+    <input type="button" value="Add translation" accesskey="A" onclick="addTranslation();"/>
+    <input type="text" id="translation_0" name="translation_0" onkeydown="onKeyPressed();"/>
+  </div>
+
+  <br/>
+
+  <div id="categories">
+    <input type="button" value="Add category" accesskey="C" onclick="addCategory();"/>
+  </div>
+
+  <%= f.submit %>
 <% end %>
 <%=set_focus_to_id('translation_0')%>

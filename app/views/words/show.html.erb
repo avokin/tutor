@@ -1,35 +1,46 @@
-<table border="1">
-  <tr>
-    <td>
-      <%= @word.word %>
-    </td>
-    <td>
-      <%= link_to "Edit", edit_word_path(@word) %>
-    </td>
-    <td>
-      <%= render @word.translations %>
-      <%= form_for @word_relation do |f| %>
-          <div class="field">
-            new translation
-            <%= f.text_field :related_word %>
-            <%= f.hidden_field :word_id, :value => @word.id%>
-            <%= f.hidden_field :relation_type, :value => 1%>
-          </div>
-      <% end %>
-    </td>
-    
-    <td>
-      <%= render @word.synonyms %>
-      <%= form_for @word_relation do |f| %>
-          <div class="field">
-            new synonym
-            <%= f.text_field :related_word %>
-            <%= f.hidden_field :word_id, :value => @word.id%>
-            <%= f.hidden_field :relation_type, :value => 2%>
-          </div>
-      <% end %>
-    </td>
-  </tr>
-</table>
-<br/>
+<div class="right">
+  <%= render @word.word_categories %>
+</div>
 
+<div class="title">
+  <%= @word.word %>
+  <%= link_to "Edit", edit_word_path(@word) %>
+</div>
+
+<hr/>
+
+<div class="word-translations">
+  <%= render @word.translations %>
+  <%= form_for @word_relation do |f| %>
+    <div class="block">
+      <div class="label">
+        new translation
+      </div>
+
+      <div class="block-inline">
+        <%= f.text_field :related_word %>
+      </div>
+    </div>
+    <%= f.hidden_field :word_id, :value => @word.id%>
+    <%= f.hidden_field :relation_type, :value => 1%>
+  <% end %>
+</div>
+
+<hr/>
+
+<div class="word-synonyms">
+  <%= render @word.synonyms %>
+  <%= form_for @word_relation do |f| %>
+    <div class="block">
+      <div class="label">
+        new synonym
+      </div>
+      <div class="block-inline">
+        <%= f.text_field :related_word %>
+      </div>
+    </div>
+    <%= f.hidden_field :word_id, :value => @word.id%>
+    <%= f.hidden_field :relation_type, :value => 2%>
+
+  <% end %>
+</div>

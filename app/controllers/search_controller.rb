@@ -1,5 +1,6 @@
 class SearchController < ApplicationController
   autocomplete :word, :word
+  autocomplete :category, :name
 
   def create
     text = params[:word]
