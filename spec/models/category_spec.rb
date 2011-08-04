@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Category do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "create category" do
+
+  end
+
+  describe "delete category" do
+
+  end
 end

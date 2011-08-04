@@ -1,14 +1,13 @@
 <header>
-
   <div class="nav">
     <nav>
       <ul>
-        <li><div>
-
-          <%= form_for(:search, :url => search_path) do %>
-            <%= text_field_tag :word, '', :autocomplete => search_autocomplete_word_word_path %>
-          <% end %>
-        </div>
+        <li>
+          <div>
+            <%= form_for(:search, :url => search_path) do |f| %>
+               <%= text_field_tag :word, '', :autocomplete => search_autocomplete_word_word_path %>
+            <% end %>
+          </div>
         </li>
         <li class="round">Log in</li>
         <li class="round">Recent words</li>
@@ -18,7 +17,6 @@
   </div>
 
   <div class="round">
-  <%= link_to logo, root_path %>
+    <%= link_to logo, root_path %>
   </div>
-
 </header>

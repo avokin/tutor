@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe WordCategory do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "create WordCategory" do
+
+  end
+
+  describe "delete WordCategory" do
+
+  end
 end

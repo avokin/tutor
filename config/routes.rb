@@ -2,7 +2,7 @@ Tutor::Application.routes.draw do
 
   resource :search, :controller => 'search'
 
-  resources :word_relations
+  resources :word_relations, :only => [:create, :destroy]
   resources :words
   resources :categories
 

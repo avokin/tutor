@@ -18,12 +18,15 @@ class Word < ActiveRecord::Base
   end
 
   def create_with_translations_and_categories(params)
+    # ToDo: work out params in controller
+
     Word.transaction do
       begin
         if (self.save)
           i = 0
           while !params["translation_#{i}"].nil? do
             translation = params["translation_#{i}"]
+            # ToDo:
             relation = WordRelation.create_relation(self, translation, "1")
             unless relation.nil?
               relation.save

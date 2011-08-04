@@ -18,7 +18,7 @@
       </div>
 
       <div class="block-inline">
-        <%= f.text_field :related_word %>
+        <%= text_field_tag :related_word, '', :autocomplete => search_autocomplete_word_word_path %>
       </div>
     </div>
     <%= f.hidden_field :word_id, :value => @word.id%>
