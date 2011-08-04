@@ -23,6 +23,7 @@ class Word < ActiveRecord::Base
     Word.transaction do
       begin
         if (self.save)
+          logger.debug("word saved correctly");
           i = 0
           while !params["translation_#{i}"].nil? do
             translation = params["translation_#{i}"]
@@ -34,14 +35,18 @@ class Word < ActiveRecord::Base
             i = i + 1
           end
 
+          logger.debug "translations saved correctly"
+
           i = 0
           while !params["category_#{i}"].nil? do
             category_name = params["category_#{i}"]
             WordCategory.create_word_category(self, category_name)
             i = i + 1
           end
+          logger.debug "categories saved correctly"
         end
       rescue
+        logger.error "error during saving word or categories"
         return false
       end
     end
