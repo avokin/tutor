@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'word_new.js' %>
+<%= javascript_include_tag 'words.js' %>
 
 <%= form_for(@word) do |f| %>
   <div class="field">
@@ -12,14 +12,18 @@
   <br/>
 
   <div id="translations">
-    <input type="button" value="Add translation" accesskey="A" onclick="addTranslation();"/>
+    <input type="button" value="Add translation" onclick="addTranslation();"/>
     <input data-autocomplete="/search/autocomplete_word_word" id="translation_0" name="translation_0" type="text" value=""/>
   </div>
 
   <br/>
 
+  <div id="synonyms">
+    <input type="button" value="Add synonym" onclick="addSynonym();"/>
+  </div>
+
   <div id="categories">
-    <input type="button" value="Add category" accesskey="C" onclick="addCategory();"/>
+    <input type="button" value="Add category" onclick="addCategory();"/>
   </div>
 
   <%= f.submit %>

@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'words.js' %>
+
 <div class="right">
   <%= render @word.word_categories %>
 </div>
@@ -9,38 +11,34 @@
 
 <hr/>
 
-<div class="word-translations">
-  <%= render @word.translations %>
-  <%= form_for @word_relation do |f| %>
-    <div class="block">
+<%= form_for(@word) do |f| %>
+  <div class="word-translations" >
+    <%= render @word.translations %>
+    <div class="block" id="translations">
       <div class="label">
         new translation
       </div>
 
       <div class="block-inline">
-        <%= text_field_tag :related_word, '', :autocomplete => search_autocomplete_word_word_path %>
+        <%= text_field_tag :translation_0, '', :autocomplete => search_autocomplete_word_word_path %>
       </div>
     </div>
-    <%= f.hidden_field :word_id, :value => @word.id%>
-    <%= f.hidden_field :relation_type, :value => 1%>
-  <% end %>
-</div>
+  </div>
+  <hr/>
 
-<hr/>
-
-<div class="word-synonyms">
   <%= render @word.synonyms %>
-  <%= form_for @word_relation do |f| %>
-    <div class="block">
-      <div class="label">
-        new synonym
-      </div>
-      <div class="block-inline">
-        <%= text_field_tag :related_word, '', :autocomplete => search_autocomplete_word_word_path %>
-      </div>
+  <div class="block" id="synonyms">
+    <div class="label">
+      new synonym
     </div>
-    <%= f.hidden_field :word_id, :value => @word.id%>
-    <%= f.hidden_field :relation_type, :value => 2%>
+    <div class="block-inline">
+    </div>
+  </div>
+  <hr/>
 
-  <% end %>
-</div>
+  <div id="categories">
+    <input type="button" value="Add category" onclick="addCategory();"/>
+  </div>
+
+  <%= f.submit %>
+<% end %>

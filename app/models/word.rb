@@ -17,38 +17,36 @@ class Word < ActiveRecord::Base
     direct_synonyms + backward_synonyms
   end
 
-  def create_with_translations_and_categories(params)
-    # ToDo: work out params in controller
-
-    Word.transaction do
-      begin
-        if (self.save)
-          logger.debug("word saved correctly");
-          i = 0
-          while !params["translation_#{i}"].nil? do
-            translation = params["translation_#{i}"]
-            # ToDo:
+  def save_with_children(new_translations, new_synonyms, new_categories)
+    begin
+      Word.transaction do
+        if self.new_record? && self.save || !self.new_record? && self.update_attributes(:word => self.word)
+          logger.debug("word saved correctly")
+          new_translations.each do |translation|
             relation = WordRelation.create_relation(self, translation, "1")
             unless relation.nil?
-              relation.save
+              relation.save!
             end
-            i = i + 1
           end
-
           logger.debug "translations saved correctly"
 
-          i = 0
-          while !params["category_#{i}"].nil? do
-            category_name = params["category_#{i}"]
+          new_synonyms.each do |synonym|
+            relation = WordRelation.create_relation(self, synonym, "2")
+            unless relation.nil?
+              relation.save!
+            end
+          end
+          logger.debug "synonyms saved correctly"
+
+          new_categories.each do |category|
             WordCategory.create_word_category(self, category_name)
-            i = i + 1
           end
           logger.debug "categories saved correctly"
         end
-      rescue
-        logger.error "error during saving word or categories"
-        return false
       end
+    rescue
+      logger.error "error during saving word or categories"
+      return false
     end
     true
   end

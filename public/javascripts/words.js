@@ -1,5 +1,6 @@
 var translationsCount = 1;
 var categoriesCount = 0;
+var synonymsCount = 0;
 
 function addInput(parentContainerId, name, autocomplete) {
   var parentContainer = document.getElementById(parentContainerId);
@@ -9,7 +10,6 @@ function addInput(parentContainerId, name, autocomplete) {
   if (autocomplete != null) {
     createdInput.setAttribute("data-autocomplete", autocomplete);
   }
-  //createdInput.onkeydown = onKeyPressed;
   parentContainer.appendChild(createdInput);
   createdInput.focus();
 }
@@ -24,6 +24,12 @@ function addCategory() {
   addInput("categories", "category_" + (categoriesCount - 1), "/search/autocomplete_category_name");
 }
 
+function addSynonym() {
+  categoriesCount++;
+  addInput("synonyms", "synonym_" + (synonymsCount - 1), "/search/autocomplete_word_word");
+}
+
+
 function onCtrlQ() {
   addTranslation();
 }
@@ -32,19 +38,6 @@ function onCtrlY() {
   addCategory();
 }
 
-function onKeyPressed() {
-  if (!event.ctrlKey) {
-    return true;
-  }
-  if (event.keyCode == 81) {
-    if (event.target.id.substring(0, 11) == "translation") {
-
-    } else {
-
-    }
-
-    event.preventDefault();
-    return false;
-  }
-  return true;
+function onCtrlB() {
+  addSynonym();
 }

@@ -6,19 +6,44 @@ class WordsController < ApplicationController
     @word.word = params[:word] unless params[:word].nil?
   end
 
-  def create
-    @word = Word.new params[:word]
-    if @word.create_with_translations_and_categories(params)
+  def create_or_update()
+    i = 0
+    new_translations = Array.new
+    while !params["translation_#{i}"].nil? do
+      new_translations << params["translation_#{i}"]
+      i = i + 1
+    end
+
+    i = 0
+    new_synonyms = Array.new
+    while !params["synonym_#{i}"].nil? do
+      new_synonyms << params["synonym_#{i}"]
+      i = i + 1
+    end
+
+    i = 0
+    new_categories = Array.new
+    while !params["category_#{i}"].nil? do
+      new_categories << params["category_#{i}"]
+      i = i + 1
+    end
+
+
+    if @word.save_with_children(new_translations, new_synonyms, new_categories)
       redirect_to @word
     else
       render 'pages/message'
     end
   end
 
+  def create
+    @word = Word.new params[:word]
+    create_or_update()
+  end
+
   def show
     @word = Word.find(params[:id])
     @title = "Card for word: #{@word.word}"
-    @word_relation = WordRelation.new
   end
 
   def edit
@@ -32,11 +57,7 @@ class WordsController < ApplicationController
   end
 
   def update
-    @word = Word.find(params[:id])
-    if @word.update_attributes(params[:word])
-      redirect_to @word
-    else
-      render 'edit'
-    end
+    @word = Word.find params[:id]
+    create_or_update()
   end
 end

@@ -11,8 +11,10 @@ function documentKeypress(e) {
       if (onCtrlY() != null) {
         onCtrlY();
       }
-    } else {
-      alert(e.keyCode);
+    } else if (e.keyCode == 2) {
+      if (onCtrlB != null) {
+        onCtrlB();
+      }
     }
   }
 }
