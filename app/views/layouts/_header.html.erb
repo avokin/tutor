@@ -5,7 +5,7 @@
         <li>
           <div>
             <%= form_for(:search, :url => search_path) do |f| %>
-               <%= text_field_tag :word, '', :autocomplete => search_autocomplete_word_word_path %>
+               <%= text_field_tag :word_to_search, '', :autocomplete => search_autocomplete_word_word_path %>
             <% end %>
           </div>
         </li>

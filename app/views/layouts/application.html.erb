@@ -7,9 +7,11 @@
 
   <%= javascript_include_tag :defaults %>
 
-  <%= javascript_include_tag 'jquery-1.5.1.min', 'jquery-ui-1.8.14.custom.min', 'autocomplete-rails' %>
+  <%= javascript_include_tag 'jquery-1.5.1.min', 'jquery-ui-1.8.14.custom.min', 'autocomplete-rails', 'tutor' %>
 
-
+  <script type="text/javascript">
+    document.onkeypress = documentKeypress;
+  </script>
 
   <%= csrf_meta_tag %>
 </head>

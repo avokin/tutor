@@ -1,44 +1,18 @@
-function addTranslation() {
-  var translations = document.getElementById("translations");
-  var createdInput = document.createElement("input");
-  translationsCount++;
-  createdInput.name = "translation_" + (translationsCount - 1);
-  createdInput.id = createdInput.name;
-  createdInput.setAttribute("data-autocomplete", "/search/autocomplete_word_word");
-  createdInput.onkeydown = onKeyPressed;
-  translations.appendChild(createdInput);
-  createdInput.focus();
-}
-
-function addCategory() {
-  var categories = document.getElementById("categories");
-  var createdInput = document.createElement("input");
-  categoriesCount++;
-  createdInput.name = "category_" + (categoriesCount - 1);
-  createdInput.id = createdInput.name;
-  createdInput.setAttribute("data-autocomplete", "/search/autocomplete_category_name");
-  createdInput.onkeydown = onKeyPressed;
-  categories.appendChild(createdInput);
-  createdInput.focus();
-}
-
-function test11() {
-  alert("test")
-}
-
-function onKeyPressed() {
-  if (!event.ctrlKey) {
-    return true;
-  }
-  if (event.keyCode == 81) {
-    if (event.target.id.substring(0, 11) == "translation") {
-      addTranslation();
+function documentKeypress(e) {
+  if (e.ctrlKey) {
+    if (e.keyCode == 9) {
+      var wordToSearch = document.getElementById("word_to_search");
+      wordToSearch.focus();
+    } else if (e.keyCode == 17) {
+      if (onCtrlQ != null) {
+        onCtrlQ();
+      }
+    } else if (e.keyCode == 25) {
+      if (onCtrlY() != null) {
+        onCtrlY();
+      }
     } else {
-      addCategory();
+      alert(e.keyCode);
     }
-
-    event.preventDefault();
-    return false;
   }
-  return true;
 }
