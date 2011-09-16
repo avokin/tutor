@@ -5,6 +5,7 @@ Tutor::Application.routes.draw do
   resources :word_relations, :only => [:create, :destroy]
   resources :words
   resources :categories
+  resources :users
 
   root :to => 'words#index'
 

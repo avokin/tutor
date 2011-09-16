@@ -39,7 +39,7 @@ class Word < ActiveRecord::Base
           logger.debug "synonyms saved correctly"
 
           new_categories.each do |category|
-            WordCategory.create_word_category(self, category_name)
+            WordCategory.create_word_category(self, category)
           end
           logger.debug "categories saved correctly"
         end
