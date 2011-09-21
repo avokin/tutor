@@ -13,7 +13,7 @@ describe SearchController do
     it "should create a new word if it doesn't exist" do
       post :create, :search => @attr
       response.code.should == "302"
-      response.should redirect_to(new_word_path(:word => 'test'))
+      response.should redirect_to(new_word_path(:word => @attr[:word]))
     end
 
     it "should open word's card if it exists" do

@@ -18,8 +18,9 @@ class Word < ActiveRecord::Base
   end
 
   def save_with_children(new_translations, new_synonyms, new_categories)
-    begin
-      Word.transaction do
+
+    Word.transaction do
+      begin
         if self.new_record? && self.save || !self.new_record? && self.update_attributes(:word => self.word)
           logger.debug("word saved correctly")
           new_translations.each do |translation|
@@ -42,12 +43,13 @@ class Word < ActiveRecord::Base
             WordCategory.create_word_category(self, category)
           end
           logger.debug "categories saved correctly"
+          return true
         end
+      rescue
+        logger.error "error during saving word or categories"
+        return false
       end
-    rescue
-      logger.error "error during saving word or categories"
-      return false
     end
-    true
+    false
   end
 end

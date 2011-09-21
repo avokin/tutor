@@ -12,7 +12,7 @@ describe WordRelation do
       @word1 = Factory(:word)
     end
     it "should create a new related word" do
-      relation = WordRelation.create_relation(@word1.id, "new text", "1")
+      relation = WordRelation.create_relation(@word1, "new text", "1")
       relation.should_not be_nil
       relation.source_word.should == @word1
       relation.related_word.word.should == "new text"

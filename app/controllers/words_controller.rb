@@ -58,6 +58,7 @@ class WordsController < ApplicationController
 
   def update
     @word = Word.find params[:id]
+    @word.word = params[:word][:word] unless @word.nil?
     create_or_update()
   end
 end

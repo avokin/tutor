@@ -66,7 +66,6 @@ describe WordsController do
   describe "PUT 'update'" do
 
     before(:each) do
-      @attr = {:word => 'test'}
       @word = Factory(:word)
     end
 
@@ -90,7 +89,7 @@ describe WordsController do
 
       it "should render edit template" do
         put :update, :id => @word.id, :word => @attr
-        response.should render_template 'edit'
+        response.should render_template 'pages/message'
       end
     end
   end

@@ -3,7 +3,7 @@ class SearchController < ApplicationController
   autocomplete :category, :name
 
   def create
-    text = params[:word_to_search]
+    text = params[:search][:word]
     @word = Word.find_by_word(text)
     if !@word.nil?
       redirect_to @word

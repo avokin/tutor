@@ -1,7 +1,7 @@
 class WordRelationsController < ApplicationController
   def create
     word_id = params[:word_relation][:word_id]
-    translated_text = params[:related_word]
+    translated_text = params[:word_relation][:related_word]
     relation_type = params[:word_relation][:relation_type]
 
     relation = WordRelation.create_relation(Word.find(word_id), translated_text, relation_type)
