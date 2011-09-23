@@ -8,3 +8,10 @@ Factory.define :word_relation do |word_relation|
   word_relation.sequence(:source_word_id) { |i| i}
   word_relation.sequence(:related_word_id) { |i| i + 1}
 end
+
+Factory.define :user do |user|
+  user.name                  "Michael Hartl"
+  user.email                 "mhartl@example.com"
+  user.password              "foobar"
+  user.password_confirmation "foobar"
+end

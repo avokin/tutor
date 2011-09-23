@@ -6,6 +6,7 @@ Tutor::Application.routes.draw do
   resources :words
   resources :categories
   resources :users
+  resources :sessions, :only => [:new, :create, :destroy]
 
   root :to => 'words#index'
 
@@ -13,6 +14,10 @@ Tutor::Application.routes.draw do
 
   get 'search/autocomplete_word_word'
   get 'search/autocomplete_category_name'
+
+  match '/signup',  :to => 'users#new'
+  match '/signin',  :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

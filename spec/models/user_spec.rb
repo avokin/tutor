@@ -35,5 +35,18 @@ describe User do
         User.authenticate(@attr[:email], 'invalid').should be_nil
       end
     end
+
+    describe 'authenticate_with_salt method' do
+      before(:each) do
+        @user = User.create!(@attr)
+      end
+      it 'should authenticate user' do
+        User.authenticate_with_salt(@user.id, @user.salt).should_not be_nil
+      end
+
+      it 'should decline user' do
+        User.authenticate(@attr[:id], 'invalid').should be_nil
+      end
+    end
   end
 end

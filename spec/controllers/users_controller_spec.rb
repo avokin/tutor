@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe UsersController do
   describe "POST 'create'" do
-
     describe "failure" do
       before(:each) do
         @attr = {:name => "", :email => "", :password => "", :password_confirmation => ""}
@@ -29,4 +28,9 @@ describe UsersController do
       end
     end
   end
+
+  describe "POST ''" do
+
+  end
+
 end
