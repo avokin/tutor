@@ -10,7 +10,12 @@
           </div>
         </li>
         <li class="round">Log in</li>
-        <li class="round"><%= link_to "Sign up", new_user_path%> </li>
+        <% if signed_in? %>
+          <li class="round"><%= link_to "Sign out", signout_path%> </li>
+        <% else %>
+          <li class="round"><%= link_to "Sign in", signin_path%> </li>
+        <% end %>
+
         <li class="round">Recent words</li>
         <li class="round">About</li>
       </ul>

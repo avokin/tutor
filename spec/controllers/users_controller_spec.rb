@@ -25,6 +25,7 @@ describe UsersController do
         lambda do
           post :create, :user => @attr
         end.should change(User, :count).by(1)
+        controller.should be_signed_in
       end
     end
   end
