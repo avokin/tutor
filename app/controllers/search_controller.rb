@@ -1,10 +1,12 @@
 class SearchController < ApplicationController
+  before_filter :authenticate
+
   autocomplete :word, :word
   autocomplete :category, :name
 
   def create
     text = params[:search][:word]
-    @word = Word.find_by_word(text)
+    @word = current_user.words.find_by_word(text)
     if !@word.nil?
       redirect_to @word
     else

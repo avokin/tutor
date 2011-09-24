@@ -3,9 +3,12 @@ require 'spec_helper'
 describe WordsController do
   render_views
 
+  before (:each) do
+    user = Factory(:user)
+    test_sign_in(user)
+  end
 
   describe "POST 'create'" do
-
     before(:each) do
       @attr = {:word => 'test', :language_id => 1}
     end
@@ -55,7 +58,6 @@ describe WordsController do
     end
   end
 
-
   describe "GET 'index'" do
     it "should have the right title" do
       get :index
@@ -64,7 +66,6 @@ describe WordsController do
   end
 
   describe "PUT 'update'" do
-
     before(:each) do
       @word = Factory(:word)
     end
@@ -93,5 +94,4 @@ describe WordsController do
       end
     end
   end
-
 end

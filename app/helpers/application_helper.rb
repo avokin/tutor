@@ -8,4 +8,14 @@ module ApplicationHelper
   def set_focus_to_id(id)
     javascript_tag("$('##{id}').focus()");
   end
+
+  private
+
+  def authenticate_user
+    deny_access if current_user.nil?
+  end
+
+  def deny_access
+    redirect_to signin_path
+  end
 end

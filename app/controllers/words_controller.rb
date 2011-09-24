@@ -1,4 +1,6 @@
 class WordsController < ApplicationController
+  before_filter :authenticate
+
   def new
     @title = "New word: #{params[:word]}"
     @languages = Language.all

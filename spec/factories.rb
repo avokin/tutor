@@ -3,6 +3,11 @@ Factory.define :word do |word|
   word.sequence(:language_id) { |i| i % 2 + 1 }
 end
 
+Factory.define :user_word do |user_word|
+  user_word.sequence(:user_id) { |i| i  % 2 + 1 }
+  user_word.sequence(:word_id) { |i| i % 2 + 1 }
+end
+
 Factory.define :word_relation do |word_relation|
   word_relation.sequence(:relation_type) { |i| 1 }
   word_relation.sequence(:source_word_id) { |i| i}
