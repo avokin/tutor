@@ -30,7 +30,6 @@ class WordsController < ApplicationController
       i = i + 1
     end
 
-
     if @word.save_with_children(new_translations, new_synonyms, new_categories)
       redirect_to @word
     else
