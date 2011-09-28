@@ -1,19 +1,19 @@
 <%= javascript_include_tag 'words.js' %>
 
 <div class="right">
-  <%= render @word.word_categories %>
+  <!--%= render @word.word_categories %-->
 </div>
 
 <div class="title">
-  <%= @word.word %>
-  <%= link_to "Edit", edit_word_path(@word) %>
+  <%= @user_word.word.text %>
+  <%= link_to "Edit", edit_user_word_path(@user_word) %>
 </div>
 
 <hr/>
 
-<%= form_for(@word) do |f| %>
+<%= form_for(@user_word) do |f| %>
   <div class="word-translations" >
-    <%= render @word.translations %>
+    <%= render @user_word.translations %>
     <div class="block" id="translations">
       <div class="label">
         new translation
@@ -26,7 +26,7 @@
   </div>
   <hr/>
 
-  <%= render @word.synonyms %>
+  <%= render @user_word.synonyms %>
   <div class="block" id="synonyms">
     <div class="label">
       new synonym

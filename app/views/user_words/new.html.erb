@@ -1,0 +1,33 @@
+<%= javascript_include_tag 'words.js' %>
+
+<%= form_for(@user_word) do |f| %>
+    <div class="field">
+      <%= fields_for @user_word.word do |word_fields| %>
+          <%= word_fields.label :word %>
+          <%= word_fields.text_field :text %>
+
+          <%= word_fields.label :language_id %>
+          <%= word_fields.select(:language_id, @languages.map { |l| [l.name, l.id] }) %>
+      <% end %>
+    </div>
+
+    <br/>
+
+    <div id="translations">
+      <input type="button" value="Add translation" onclick="addTranslation();"/>
+      <input data-autocomplete="/search/autocomplete_word_word" id="translation_0" name="translation_0" type="text" value=""/>
+    </div>
+
+    <br/>
+
+    <div id="synonyms">
+      <input type="button" value="Add synonym" onclick="addSynonym();"/>
+    </div>
+
+    <div id="categories">
+      <input type="button" value="Add category" onclick="addCategory();"/>
+    </div>
+
+    <%= f.submit %>
+<% end %>
+<%=set_focus_to_id('translation_0')%>

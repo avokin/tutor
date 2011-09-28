@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
 
   has_many :user_words
-  has_many :words, :through => :user_words
 
   validates :password, :presence => true,
             :confirmation => true,

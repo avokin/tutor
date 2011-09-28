@@ -4,14 +4,16 @@ class WordRelation < ActiveRecord::Base
   belongs_to :user
 
   validates :relation_type, :presence => true
-  validates :source_user_word_id, :presence => true
-  validates :related_user_word_id, :presence => true
-  validates :user_id, :presence => true
+  validates :source_user_word, :presence => true
+  validates :related_user_word, :presence => true
+  validates :user, :presence => true
 
   def self.create_relation(user, user_word, translated_text, relation_type)
-    WordRelation
     related_user_word = UserWord.get_for_user(user, translated_text, user_word.word.language_id == 1 ? 2 : 1)
-    related_user_word.save()
+    if (related_user_word.invalid? || related_user_word.word.invalid?)
+      return nil
+    end
+    #related_user_word.save()
 
     case relation_type
       when "1"
@@ -23,13 +25,15 @@ class WordRelation < ActiveRecord::Base
       else
         word_relation = nil
     end
-    word_relation.user_id = user.id
     if (!word_relation.nil?)
+      word_relation.user = user
       word_relation.related_user_word = related_user_word
-      if (!word_relation.valid?)
-        puts "not valid"
+      if (word_relation.valid?)
+        word_relation.save()
+      else
+        word_relation = nil
       end
-      word_relation.save()
     end
+    word_relation
   end
 end

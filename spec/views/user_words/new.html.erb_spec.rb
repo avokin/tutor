@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe UserWordRelation do
+describe "user_word/new.html.erb" do
   pending "add some examples to (or delete) #{__FILE__}"
 end

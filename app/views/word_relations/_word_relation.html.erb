@@ -1,8 +1,8 @@
 <div style="display: block">
-  <% word = @word.nil? ? word_relation.related_word : (@word.id == word_relation.source_word.id) ? word_relation.related_word : word_relation.source_word  %>
+  <% user_word = @user_word.nil? ? word_relation.related_user_word : (@user_word.id == word_relation.source_user_word.id) ? word_relation.related_user_word : word_relation.source_user_word  %>
 
   <div class="delete-button">
-    <%=link_to word.word, word%>
+    <%=link_to user_word.word.text, user_word%>
   </div>
   <div class="delete-button" >
     <%= link_to "x", word_relation, :method => :delete, :confirm => 'You sure?', :title => 'title' %>

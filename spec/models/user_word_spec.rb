@@ -5,6 +5,34 @@ describe UserWord do
     @user = Factory(:user)
   end
 
+  describe "should have related words" do
+    before(:each) do
+      @user_word1 = Factory(:user_word)
+      @user_word2 = Factory(:user_word)
+      @user_word3 = Factory(:user_word)
+
+      @relation1 = @user_word1.direct_translations.create(:related_user_word_id => @user_word2.id, :relation_type => 1)
+      @relation1.user = @user
+      @relation1.save()
+      @relation2 = @user_word2.direct_synonyms.create(:related_user_word_id => @user_word3.id, :relation_type => 2)
+      @relation2.user = @user
+      @relation2.save()
+
+      @user_word2 = UserWord.find(@user_word2.id)
+    end
+
+    it "should have related word" do
+      @user_word1.translations.count.should == 1
+      @user_word1.synonyms.count.should == 0
+
+      @user_word2.translations.count.should == 1
+      @user_word2.synonyms.count.should == 1
+
+      @user_word3.translations.count.should == 0
+      @user_word3.synonyms.count.should == 1
+    end
+  end
+
   describe 'create UserWord with relations' do
     before(:each) do
       @translations = ['translation1', 'translation2']
@@ -28,7 +56,7 @@ describe UserWord do
         word = Factory(:word)
         lambda do
           lambda do
-            UserWord.save_with_relations(@user, word.word, @translations, @synonyms, [])
+            UserWord.save_with_relations(@user, word.text, @translations, @synonyms, [])
           end.should change(Word, :count).by(3)
         end.should change(UserWord, :count).by(4)
       end
@@ -58,7 +86,7 @@ describe UserWord do
             @result = UserWord.save_with_relations(@user, @text, @translations, [], [])
           end.should_not change(UserWord, :count)
         end.should_not change(Word, :count)
-        @result.should == false
+        @result.should be_nil
       end
     end
   end
@@ -106,6 +134,16 @@ describe UserWord do
     end
 
     it 'should not delete the Word' do
+      pending
+    end
+  end
+
+  describe 'find_for_user' do
+    before(:each) do
+
+    end
+
+    it 'should find all UserWord' do
       pending
     end
   end

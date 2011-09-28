@@ -1,0 +1,2 @@
+module UserWordsHelper
+end

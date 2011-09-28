@@ -23,13 +23,13 @@ class UserWord < ActiveRecord::Base
 
   def rename(new_name)
     UserWord.transaction do
-      word = Word.find_by_word(new_name)
+      word = Word.find_by_text(new_name)
       if (word.nil?)
-        word = Word.new(:word => new_name, :language_id => self.word.language_id)
+        word = Word.new(:text => new_name, :language_id => self.word.language_id)
         if (!word.valid?)
           raise ActiveRecord::Rollback
         end
-        word.save()
+        word.save()  #ToDo: cascade update
       end
       self.word = word
       update()
@@ -37,9 +37,9 @@ class UserWord < ActiveRecord::Base
   end
 
   def self.get_for_user(user, text, language_id)
-    word = Word.find_by_word(text)
+    word = Word.find_by_text(text)
     if (word.nil?)
-      word = Word.new(:word => text, :language_id => language_id)
+      word = Word.new(:text => text, :language_id => language_id)
     end
 
     UserWord.new(:user => user, :word => word)
@@ -48,9 +48,9 @@ class UserWord < ActiveRecord::Base
   def self.save_with_relations(user, text, new_translations, new_synonyms, new_categories)
     user_word = UserWord.new :user_id => user.id
     UserWord.transaction do
-      word = Word.find_by_word(text)
+      word = Word.find_by_text(text)
       if (word.nil?)
-        word = Word.new(:word => text, :language_id => 1)
+        word = Word.new(:text => text, :language_id => 1)
         if !word.valid?
           raise ActiveRecord::Rollback
         end
@@ -72,9 +72,13 @@ class UserWord < ActiveRecord::Base
         #  WordCategory.create_word_category(self, category)
         #end
         #logger.debug "categories saved correctly"
-        return true
+        return user_word
       end
     end
-    false
+    nil
+  end
+
+  def self.find_for_user(user, text)
+     UserWord.where(:user_id => user.id).joins(:word).where(:words => {:text => text}).first
   end
 end

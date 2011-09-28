@@ -1,0 +1,9 @@
+<%= form_for(@user_word) do |f| %>
+    <div class="field">
+      <%= fields_for @user_word.word do |word_fields| %>
+          <%= word_fields.label :word %>
+          <%= word_fields.text_field :text %>
+      <% end%>
+    </div>
+<% end %>
+<%=set_focus_to_id('word_text')%>

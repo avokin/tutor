@@ -6,14 +6,16 @@ describe WordRelationsController do
   describe "POST 'create'" do
 
     before(:each) do
-      @word = Factory(:word)
+      user = Factory(:user)
+      test_sign_in(user)
+      @user_word = Factory(:user_word)
     end
 
     describe "fail" do
 
       describe "fail if incorrect relation type" do
         before(:each) do
-          @attr = {:word_id => @word.id, :related_word => 'related_word', :relation_type => "0"}
+          @attr = {:user_word_id => @user_word.id, :related_word => 'related_word', :relation_type => "0"}
         end
 
         it "should fail because of non-existed word" do
@@ -26,7 +28,7 @@ describe WordRelationsController do
 
       describe "fail if can't save relation'" do
         before(:each) do
-          @attr = {:word_id => @word.id, :related_word => nil, :relation_type => "1"}
+          @attr = {:user_word_id => @user_word.id, :related_word => nil, :relation_type => "1"}
         end
 
         it "should fail because of empty related word" do
@@ -40,7 +42,7 @@ describe WordRelationsController do
 
     describe "success" do
       before(:each) do
-        @attr = {:word_id => @word.id, :related_word => 'related_word', :relation_type => "1"}
+        @attr = {:user_word_id => @user_word.id, :related_word => 'related_word', :relation_type => "1"}
       end
 
       it "should create a new Word and a new WordRelation" do
@@ -54,7 +56,8 @@ describe WordRelationsController do
   describe "DELETE 'destroy'" do
 
     before(:each) do
-      @word = Factory(:word)
+      @user_word1 = Factory(:user_word)
+      @user_word2 = Factory(:user_word)
       @word_relation = Factory(:word_relation)
     end
 
@@ -63,7 +66,7 @@ describe WordRelationsController do
         lambda do
           delete :destroy, :id => @word_relation
           response.code.should == "302"
-          response.should redirect_to(word_path(@word))
+          response.should redirect_to(user_word_path(@user_word1))
         end.should change(WordRelation, :count).by(-1)
       end
     end

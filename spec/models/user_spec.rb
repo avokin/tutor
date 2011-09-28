@@ -24,9 +24,6 @@ describe User do
     end
 
     describe 'authenticate method' do
-      before(:each) do
-        @user = User.create!(@attr)
-      end
       it 'should authenticate user' do
         User.authenticate(@attr[:email], @attr[:password]).should_not be_nil
       end
@@ -37,9 +34,6 @@ describe User do
     end
 
     describe 'authenticate_with_salt method' do
-      before(:each) do
-        @user = User.create!(@attr)
-      end
       it 'should authenticate user' do
         User.authenticate_with_salt(@user.id, @user.salt).should_not be_nil
       end
