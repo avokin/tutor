@@ -128,23 +128,18 @@ describe UserWord do
     end
   end
 
-  describe 'delete UserWord' do
-    it 'should delete UserWord and relations' do
-      pending
-    end
-
-    it 'should not delete the Word' do
-      pending
-    end
-  end
-
   describe 'find_for_user' do
     before(:each) do
-
+      @user_word1 = Factory(:user_word)
+      @user2 = Factory(:user)
     end
 
-    it 'should find all UserWord' do
-      pending
+    it 'should not find word of another user' do
+      UserWord.find_for_user(@user2, @user_word1.word.text).should be_nil
+    end
+
+    it 'should find word of current user' do
+      UserWord.find_for_user(@user_word1.user, @user_word1.word.text).should_not be_nil
     end
   end
 end

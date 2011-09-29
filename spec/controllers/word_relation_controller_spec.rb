@@ -54,10 +54,7 @@ describe WordRelationsController do
   end
 
   describe "DELETE 'destroy'" do
-
     before(:each) do
-      @user_word1 = Factory(:user_word)
-      @user_word2 = Factory(:user_word)
       @word_relation = Factory(:word_relation)
     end
 
@@ -66,7 +63,7 @@ describe WordRelationsController do
         lambda do
           delete :destroy, :id => @word_relation
           response.code.should == "302"
-          response.should redirect_to(user_word_path(@user_word1))
+          response.should redirect_to(user_word_path(@word_relation.source_user_word))
         end.should change(WordRelation, :count).by(-1)
       end
     end

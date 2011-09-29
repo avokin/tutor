@@ -10,8 +10,8 @@ end
 
 Factory.define :word_relation do |word_relation|
   word_relation.sequence(:relation_type) { 1 }
-  word_relation.sequence(:source_user_word_id) { |i| i}
-  word_relation.sequence(:related_user_word_id) { |i| i + 1}
+  word_relation.association :source_user_word, :factory => :user_word
+  word_relation.association :related_user_word, :factory => :user_word
   word_relation.association :user
 end
 

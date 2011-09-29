@@ -28,6 +28,11 @@ describe UserWordsController do
   end
 
   describe "GET 'index'" do
+    before(:each) do
+      @user_word1 = Factory(:user_word)
+      @user_word2 = Factory(:user_word)
+    end
+
     it "should have the right title" do
       get :index
       response.code.should == "200"
@@ -35,7 +40,10 @@ describe UserWordsController do
     end
 
     it 'should not display words of other users' do
-      pending
+      test_sign_in(@user_word1.user)
+      get :index
+      response.should have_selector('a', :href => user_word_path(@user_word1), :content => @user_word1.word.text)
+      response.should_not have_selector('a', :href => user_word_path(@user_word2), :content => @user_word2.word.text)
     end
   end
 
@@ -123,6 +131,35 @@ describe UserWordsController do
     it "should redirect to error page if fail" do
       post :create, :word => Word.new
       response.should render_template('pages/message')
+    end
+  end
+
+  describe "DELETE 'destroy'" do
+    before(:each) do
+      @relation = Factory(:word_relation)
+      test_sign_in(@relation.source_user_word.user)
+    end
+
+    it 'should not delete UserWord of another user' do
+      test_sign_in(@user)
+      lambda do
+        lambda do
+          lambda do
+            delete :destroy, :id => @relation.source_user_word.id
+          end.should_not change(UserWord, :count)
+        end.should_not change(WordRelation, :count)
+      end.should_not change(Word, :count)
+      response.should render_template 'pages/message'
+    end
+
+    it 'should delete UserWord, WordRelations and do not delete Word' do
+      lambda do
+        lambda do
+          lambda do
+            delete :destroy, :id => @relation.source_user_word.id
+          end.should change(UserWord, :count).by(-1)
+        end.should change(WordRelation, :count).by(-1)
+      end.should_not change(Word, :count)
     end
   end
 end

@@ -26,10 +26,6 @@ describe WordRelation do
     end
   end
 
-  describe "delete relation" do
-    pending
-  end
-
   it "should require relation_type" do
     empty_relation = WordRelation.new
     empty_relation.should_not be_valid

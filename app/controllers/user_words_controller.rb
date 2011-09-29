@@ -64,17 +64,25 @@ class UserWordsController < ApplicationController
   end
 
   def index
-    if !current_user.nil?
-      @user_words = current_user.user_words
-      @title = "Your words"
-    else
-      render 'pages/message'
-    end
+    @user_words = current_user.user_words
+    @title = "Your words"
   end
 
   def update
     @word = Word.find params[:id]
     @word.word = params[:word][:word] unless @word.nil?
     create_or_update()
+  end
+
+  def destroy
+    @user_word = UserWord.find(params[:id])
+    if (!@user_word.nil?)
+      if (@user_word.user != current_user)
+        render 'pages/message'
+        return
+      end
+      UserWord.destroy(@user_word)
+      redirect_to root_path
+    end
   end
 end
