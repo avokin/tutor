@@ -162,4 +162,32 @@ describe UserWordsController do
       end.should_not change(Word, :count)
     end
   end
+
+  describe "PUT 'update'" do
+    before(:each) do
+      @user_word = Factory(:user_word)
+      test_sign_in @user_word.user
+    end
+
+    it 'should add translation, synonym' do
+      lambda do
+        lambda do
+          lambda do
+            put :update, :id => @user_word.id, :translation_0 => 'new translation', :synonym_0 => 'new synonym'
+          end.should change(UserWord, :count).by(2)
+        end.should change(Word, :count).by(2)
+      end.should change(WordRelation, :count).by(2)
+    end
+
+    it 'should change word and not to delete old word' do
+      lambda do
+      lambda do
+        put :update, :id => @user_word.id, :word => {:text => 'new word'}
+      end.should_not change(UserWord, :count)
+      end.should change(Word, :count).by(1)
+
+      @user_word = UserWord.find(@user_word.id)
+      @user_word.word.text.should == 'new word'
+    end
+  end
 end

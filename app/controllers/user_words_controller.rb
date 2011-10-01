@@ -10,7 +10,8 @@ class UserWordsController < ApplicationController
     @languages = Language.all
   end
 
-  def create_or_update()
+  def create_or_update(user_word)
+    text = params[:word][:text] unless params[:word].nil?
     i = 0
     new_translations = Array.new
     while !params["translation_#{i}"].nil? do
@@ -32,7 +33,7 @@ class UserWordsController < ApplicationController
       i = i + 1
     end
 
-    @user_word = UserWord.save_with_relations(current_user, @text, new_translations, new_synonyms, new_categories);
+    @user_word = UserWord.save_with_relations(current_user, user_word, text, new_translations, new_synonyms, new_categories);
     if !@user_word.nil?
       redirect_to @user_word
     else
@@ -41,8 +42,8 @@ class UserWordsController < ApplicationController
   end
 
   def create
-    @text = params[:word][:text]
-    create_or_update()
+    user_word = UserWord.new :user_id => current_user.id
+    create_or_update(user_word)
   end
 
   def show
@@ -69,9 +70,8 @@ class UserWordsController < ApplicationController
   end
 
   def update
-    @word = Word.find params[:id]
-    @word.word = params[:word][:word] unless @word.nil?
-    create_or_update()
+    user_word = UserWord.find params[:id]
+    create_or_update(user_word)
   end
 
   def destroy

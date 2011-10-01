@@ -42,12 +42,13 @@ describe UserWord do
     describe 'successful creation of UserWord' do
       before(:each) do
         @text = 'test_word'
+        @user_word = UserWord.new :user_id => @user.id
       end
 
       it 'should create Word if needed' do
         lambda do
           lambda do
-            UserWord.save_with_relations(@user, @text, @translations, [], [])
+            UserWord.save_with_relations(@user, @user_word, @text, @translations, [], [])
           end.should change(Word, :count).by(3)
         end.should change(UserWord, :count).by(3)
       end
@@ -56,20 +57,20 @@ describe UserWord do
         word = Factory(:word)
         lambda do
           lambda do
-            UserWord.save_with_relations(@user, word.text, @translations, @synonyms, [])
+            UserWord.save_with_relations(@user, @user_word, word.text, @translations, @synonyms, [])
           end.should change(Word, :count).by(3)
         end.should change(UserWord, :count).by(4)
       end
 
       it 'should create translations' do
         lambda do
-          UserWord.save_with_relations(@user, @text, @translations, [], [])
+          UserWord.save_with_relations(@user, @user_word, @text, @translations, [], [])
         end.should change(UserWord, :count).by(3)
       end
 
       it 'should create synonyms' do
         lambda do
-          UserWord.save_with_relations(@user, @text, [], @synonyms, [])
+          UserWord.save_with_relations(@user, @user_word, @text, [], @synonyms, [])
         end.should change(UserWord, :count).by(2)
       end
     end
@@ -77,13 +78,14 @@ describe UserWord do
     describe 'unsuccessful creation of UserWord' do
       before(:each) do
         @text = ''
+        @user_word = UserWord.new :user_id => @user.id
       end
 
       it 'should not create a Word' do
         @result
         lambda do
           lambda do
-            @result = UserWord.save_with_relations(@user, @text, @translations, [], [])
+            @result = UserWord.save_with_relations(@user, @user_word, @text, @translations, [], [])
           end.should_not change(UserWord, :count)
         end.should_not change(Word, :count)
         @result.should be_nil

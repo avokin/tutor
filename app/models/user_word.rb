@@ -45,18 +45,20 @@ class UserWord < ActiveRecord::Base
     UserWord.new(:user => user, :word => word)
   end
 
-  def self.save_with_relations(user, text, new_translations, new_synonyms, new_categories)
-    user_word = UserWord.new :user_id => user.id
+  def self.save_with_relations(user, user_word, text, new_translations, new_synonyms, new_categories)
     UserWord.transaction do
-      word = Word.find_by_text(text)
-      if (word.nil?)
-        word = Word.new(:text => text, :language_id => 1)
-        if !word.valid?
-          raise ActiveRecord::Rollback
+      if !text.nil?
+        word = Word.find_by_text(text)
+        if (word.nil?)
+          word = Word.new(:text => text, :language_id => 1)
+          if !word.valid?
+            raise ActiveRecord::Rollback
+          end
         end
+        user_word.word = word
       end
-      user_word.word = word
-      if user_word.new_record? && user_word.save
+
+      if user_word.new_record? && user_word.save || !user_word.new_record? && user_word.save
         logger.debug("UserWord saved correctly")
         new_translations.each do |translation|
           WordRelation.create_relation(user, user_word, translation, "1")
@@ -79,6 +81,6 @@ class UserWord < ActiveRecord::Base
   end
 
   def self.find_for_user(user, text)
-     UserWord.where(:user_id => user.id).joins(:word).where(:words => {:text => text}).first
+    UserWord.where(:user_id => user.id).joins(:word).where(:words => {:text => text}).first
   end
 end
