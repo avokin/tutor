@@ -37,12 +37,15 @@ class UserWord < ActiveRecord::Base
   end
 
   def self.get_for_user(user, text, language_id)
-    word = Word.find_by_text(text)
-    if (word.nil?)
-      word = Word.new(:text => text, :language_id => language_id)
+    result = find_for_user(user, text)
+    if result.nil?
+      word = Word.find_by_text(text)
+      if (word.nil?)
+        word = Word.new(:text => text, :language_id => language_id)
+      end
+      result = UserWord.new(:user => user, :word => word)
     end
-
-    UserWord.new(:user => user, :word => word)
+    result
   end
 
   def self.save_with_relations(user, user_word, text, new_translations, new_synonyms, new_categories)

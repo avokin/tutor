@@ -181,13 +181,41 @@ describe UserWordsController do
 
     it 'should change word and not to delete old word' do
       lambda do
-      lambda do
-        put :update, :id => @user_word.id, :word => {:text => 'new word'}
-      end.should_not change(UserWord, :count)
+        lambda do
+          put :update, :id => @user_word.id, :word => {:text => 'new word'}
+        end.should_not change(UserWord, :count)
       end.should change(Word, :count).by(1)
 
       @user_word = UserWord.find(@user_word.id)
       @user_word.word.text.should == 'new word'
+    end
+
+    it 'should change only link if renamed word exist' do
+      word = Factory(:word)
+
+      lambda do
+        lambda do
+          put :update, :id => @user_word.id, :word => {:text => word.text}
+        end.should_not change(UserWord, :count)
+      end.should_not change(Word, :count)
+
+      @user_word = UserWord.find(@user_word.id)
+      @user_word.word.should == word
+    end
+
+    it 'should create only relation if either source and related word exist' do
+      user_word2 = Factory(:user_word)
+      user_word2.user = @user_word.user
+      user_word2.save!
+
+      lambda do
+        lambda do
+          lambda do
+            put :update, :id => @user_word.id, :translation_0 => user_word2.word.text
+          end.should change(WordRelation, :count).by(1)
+        end.should_not change(Word, :count)
+      end.should_not change(UserWord, :count)
+      response.should redirect_to user_word_path(@user_word)
     end
   end
 end
