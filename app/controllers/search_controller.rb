@@ -1,7 +1,7 @@
 class SearchController < ApplicationController
   before_filter :authenticate
 
-  autocomplete :word, :word
+  autocomplete :word, :text
   autocomplete :category, :name
 
   def create

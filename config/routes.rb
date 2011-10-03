@@ -11,7 +11,7 @@ Tutor::Application.routes.draw do
 
   match '/message', :to => 'pages#message'
 
-  get 'search/autocomplete_word_word'
+  get 'search/autocomplete_word_text'
   get 'search/autocomplete_category_name'
 
   match '/signup',  :to => 'users#new'
