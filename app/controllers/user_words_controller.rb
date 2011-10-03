@@ -85,4 +85,9 @@ class UserWordsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def recent
+    @user_words = UserWord.find_recent_for_user(current_user, 50)
+    @title = 'Your recent words'
+  end
 end

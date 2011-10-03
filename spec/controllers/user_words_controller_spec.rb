@@ -27,6 +27,33 @@ describe UserWordsController do
     end
   end
 
+  describe "GET 'recent'" do
+    before(:each) do
+      @user_words = Array.new
+      (0..99).each do |i|
+        @user_words[i] = Factory(:user_word_with_first_user)
+      end
+    end
+
+    it 'should display only first 50 words' do
+      get :recent
+
+      (0..49).each do |i|
+        response.should have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].word.text)
+      end
+
+      (50..99).each do |i|
+        response.should_not have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].word.text)
+      end
+    end
+
+    it "should have the right title" do
+      get :recent
+      response.code.should == "200"
+      response.should have_selector('title', :content => "Tutor - Your recent words")
+    end
+  end
+
   describe "GET 'index'" do
     before(:each) do
       @user_word1 = Factory(:user_word)

@@ -1,13 +1,16 @@
 Tutor::Application.routes.draw do
+
+
   resource :search, :controller => 'search'
 
   resources :word_relations, :only => [:create, :destroy]
   resources :user_words
+  get "user_words/recent"
   resources :categories
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
 
-  root :to => 'user_words#index'
+  root :to => 'user_words#recent'
 
   match '/message', :to => 'pages#message'
 

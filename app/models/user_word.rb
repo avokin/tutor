@@ -86,4 +86,8 @@ class UserWord < ActiveRecord::Base
   def self.find_for_user(user, text)
     UserWord.where(:user_id => user.id).joins(:word).where(:words => {:text => text}).first
   end
+
+  def self.find_recent_for_user(user, count)
+    UserWord.order('created_at').where(:user_id => user.id).limit(count)
+  end
 end

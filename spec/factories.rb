@@ -15,6 +15,12 @@ Factory.define :word_relation do |word_relation|
   word_relation.association :user
 end
 
+Factory.define :user_word_with_first_user, :class => :user_word do |user_word|
+  user_word.user_id     1
+  user_word.association :word
+end
+
+
 Factory.define :user do |user|
   user.name                  "Michael Hartl"
   user.sequence(:email) {|i| "test#{i}@gmail.com"}
