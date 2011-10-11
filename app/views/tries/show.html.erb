@@ -1,0 +1,5 @@
+<div><%= @word_relation.source_user_word.word.text %></div>
+<%= form_tag :action => :check do %>
+    <%= hidden_field_tag :id, @word_relation.id %>
+    <%= text_field_tag 'answer' %>
+<% end %>

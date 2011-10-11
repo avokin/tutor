@@ -5,12 +5,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(params[:user])
-    if user.save()
-      sign_in(user)
-      redirect_to user
+    @user = User.new(params[:user])
+    if @user.save()
+      sign_in(@user)
+      redirect_to @user
     else
-      new()
+      @title = "Sign up"
       render 'new'
     end
   end

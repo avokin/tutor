@@ -48,39 +48,38 @@ class UserWord < ActiveRecord::Base
     result
   end
 
-  def self.save_with_relations(user, user_word, text, new_translations, new_synonyms, new_categories)
+  def save_with_relations(user, text, new_translations, new_synonyms, new_categories)
     UserWord.transaction do
-      if !text.nil?
+      if (!text.nil?)
         word = Word.find_by_text(text)
         if (word.nil?)
           word = Word.new(:text => text, :language_id => 1)
-          if !word.valid?
-            raise ActiveRecord::Rollback
-          end
         end
-        user_word.word = word
+        self.word = word
       end
 
-      if user_word.new_record? && user_word.save || !user_word.new_record? && user_word.save
-        logger.debug("UserWord saved correctly")
-        new_translations.each do |translation|
-          WordRelation.create_relation(user, user_word, translation, "1")
-        end
-        logger.debug "translations saved correctly"
+      if self.valid? && self.word.valid?
+        if self.save
+          logger.debug("UserWord saved correctly")
+          new_translations.each do |translation|
+            WordRelation.create_relation(user, self, translation, "1")
+          end
+          logger.debug "translations saved correctly"
 
-        new_synonyms.each do |synonym|
-          WordRelation.create_relation(user, user_word, synonym, "2")
-        end
-        logger.debug "synonyms saved correctly"
+          new_synonyms.each do |synonym|
+            WordRelation.create_relation(user, self, synonym, "2")
+          end
+          logger.debug "synonyms saved correctly"
 
-        #new_categories.each do |category|
-        #  WordCategory.create_word_category(self, category)
-        #end
-        #logger.debug "categories saved correctly"
-        return user_word
+          #new_categories.each do |category|
+          #  WordCategory.create_word_category(self, category)
+          #end
+          #logger.debug "categories saved correctly"
+          return true
+        end
       end
     end
-    nil
+    false
   end
 
   def self.find_for_user(user, text)

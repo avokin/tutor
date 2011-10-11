@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110927082324) do
+ActiveRecord::Schema.define(:version => 20111007081340) do
 
   create_table "categories", :force => true do |t|
     t.string   "name",       :null => false
@@ -62,6 +62,9 @@ ActiveRecord::Schema.define(:version => 20110927082324) do
     t.datetime "updated_at"
     t.integer  "relation_type",        :null => false
     t.integer  "user_id",              :null => false
+    t.integer  "status_id"
+    t.integer  "success_count"
+    t.integer  "subtype_id"
   end
 
   add_index "word_relations", ["source_user_word_id", "related_user_word_id", "relation_type", "user_id"], :name => "IndexWordRelationUnique", :unique => true

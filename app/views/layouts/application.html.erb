@@ -10,7 +10,7 @@
   <%= javascript_include_tag 'jquery-1.5.1.min', 'jquery-ui-1.8.14.custom.min', 'autocomplete-rails', 'tutor' %>
 
   <script type="text/javascript">
-    document.onkeypress = documentKeypress;
+      document.onkeypress = documentKeypress;
   </script>
 
   <%= csrf_meta_tag %>
@@ -19,6 +19,9 @@
 <div class="container">
   <%= render 'layouts/header' %>
   <section class="round">
+    <% flash.each do |key, value| %>
+        <div class="flash <%= key %>"><%= value %></div>
+    <% end %>
     <%= yield %>
   </section>
   <%= render 'layouts/footer' %>

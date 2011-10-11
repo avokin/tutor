@@ -33,9 +33,10 @@ class UserWordsController < ApplicationController
       i = i + 1
     end
 
-    @user_word = UserWord.save_with_relations(current_user, user_word, text, new_translations, new_synonyms, new_categories);
-    if !@user_word.nil?
-      redirect_to @user_word
+    saved = user_word.save_with_relations(current_user, text, new_translations, new_synonyms, new_categories);
+    if saved
+      @user_word = user_word
+      redirect_to user_word_path(@user_word)
     else
       render 'pages/message'
     end

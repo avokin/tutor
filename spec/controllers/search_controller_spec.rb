@@ -9,7 +9,7 @@ describe SearchController do
       Factory(:word)
       Factory(:word)
       @user_word = Factory(:user_word)
-      @another_user_word = Factory(:user_word)
+      @another_user_word = Factory(:user_word_for_another_user)
 
       @user = @user_word.user
     end

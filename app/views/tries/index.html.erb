@@ -1,0 +1,5 @@
+<%= form_tag :action => :start do %>
+    <%= select :tries, :targeting, @targets %>
+    <%= select :tries, :mode, @modes %>
+    <%= submit_tag "start" %>
+<% end %>

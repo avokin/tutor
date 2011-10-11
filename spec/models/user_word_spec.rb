@@ -11,14 +11,12 @@ describe UserWord do
       @user_word2 = Factory(:user_word)
       @user_word3 = Factory(:user_word)
 
-      @relation1 = @user_word1.direct_translations.create(:related_user_word_id => @user_word2.id, :relation_type => 1)
+      @relation1 = @user_word1.direct_translations.create(:related_user_word_id => @user_word2.id, :relation_type => 1, :user_id => @user.id)
       @relation1.user = @user
-      @relation1.save()
-      @relation2 = @user_word2.direct_synonyms.create(:related_user_word_id => @user_word3.id, :relation_type => 2)
+      @relation1.save!()
+      @relation2 = @user_word2.direct_synonyms.create(:related_user_word_id => @user_word3.id, :relation_type => 2, :user => @user)
       @relation2.user = @user
-      @relation2.save()
-
-      @user_word2 = UserWord.find(@user_word2.id)
+      @relation2.save!()
     end
 
     it "should have related word" do
@@ -48,7 +46,7 @@ describe UserWord do
       it 'should create Word if needed' do
         lambda do
           lambda do
-            UserWord.save_with_relations(@user, @user_word, @text, @translations, [], [])
+            @user_word.save_with_relations(@user, @text, @translations, [], [])
           end.should change(Word, :count).by(3)
         end.should change(UserWord, :count).by(3)
       end
@@ -57,20 +55,20 @@ describe UserWord do
         word = Factory(:word)
         lambda do
           lambda do
-            UserWord.save_with_relations(@user, @user_word, word.text, @translations, @synonyms, [])
+            @user_word.save_with_relations(@user, word.text, @translations, @synonyms, [])
           end.should change(Word, :count).by(3)
         end.should change(UserWord, :count).by(4)
       end
 
       it 'should create translations' do
         lambda do
-          UserWord.save_with_relations(@user, @user_word, @text, @translations, [], [])
+          @user_word.save_with_relations(@user, @text, @translations, [], [])
         end.should change(UserWord, :count).by(3)
       end
 
       it 'should create synonyms' do
         lambda do
-          UserWord.save_with_relations(@user, @user_word, @text, [], @synonyms, [])
+          @user_word.save_with_relations(@user, @text, [], @synonyms, [])
         end.should change(UserWord, :count).by(2)
       end
     end
@@ -82,13 +80,12 @@ describe UserWord do
       end
 
       it 'should not create a Word' do
-        @result
         lambda do
           lambda do
-            @result = UserWord.save_with_relations(@user, @user_word, @text, @translations, [], [])
+            @result = @user_word.save_with_relations(@user, @text, @translations, [], [])
           end.should_not change(UserWord, :count)
         end.should_not change(Word, :count)
-        @result.should be_nil
+        @user_word.should be_true
       end
     end
   end

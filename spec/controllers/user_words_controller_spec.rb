@@ -13,7 +13,7 @@ describe UserWordsController do
       @user_word1 = Factory(:user_word)
       test_sign_in(@user_word1.user)
 
-      @user_word2 = Factory(:user_word)
+      @user_word2 = Factory(:user_word_for_another_user)
     end
 
     it 'should redirect to error page if user asks word that does not belong to him' do
@@ -31,7 +31,7 @@ describe UserWordsController do
     before(:each) do
       @user_words = Array.new
       (0..99).each do |i|
-        @user_words[i] = Factory(:user_word_with_first_user)
+        @user_words[i] = Factory(:user_word)
       end
     end
 
@@ -57,7 +57,7 @@ describe UserWordsController do
   describe "GET 'index'" do
     before(:each) do
       @user_word1 = Factory(:user_word)
-      @user_word2 = Factory(:user_word)
+      @user_word2 = Factory(:user_word_for_another_user)
     end
 
     it "should have the right title" do
@@ -79,7 +79,7 @@ describe UserWordsController do
       @user_word1 = Factory(:user_word)
       test_sign_in(@user_word1.user)
 
-      @user_word2 = Factory(:user_word)
+      @user_word2 = Factory(:user_word_for_another_user)
     end
 
     it 'should redirect to error page if user asks word that does not belong to him' do
@@ -163,12 +163,13 @@ describe UserWordsController do
 
   describe "DELETE 'destroy'" do
     before(:each) do
-      @relation = Factory(:word_relation)
+      @relation = Factory(:word_relation_translation)
       test_sign_in(@relation.source_user_word.user)
+      @another_user = Factory(:user)
     end
 
     it 'should not delete UserWord of another user' do
-      test_sign_in(@user)
+      test_sign_in(@another_user)
       lambda do
         lambda do
           lambda do
@@ -232,8 +233,6 @@ describe UserWordsController do
 
     it 'should create only relation if either source and related word exist' do
       user_word2 = Factory(:user_word)
-      user_word2.user = @user_word.user
-      user_word2.save!
 
       lambda do
         lambda do

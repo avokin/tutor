@@ -55,7 +55,7 @@ describe WordRelationsController do
 
   describe "DELETE 'destroy'" do
     before(:each) do
-      @word_relation = Factory(:word_relation)
+      @word_relation = Factory(:word_relation_translation)
     end
 
     describe "success" do

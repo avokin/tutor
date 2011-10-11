@@ -3,6 +3,10 @@ Tutor::Application.routes.draw do
 
   resource :search, :controller => 'search'
 
+  post "tries/start"
+  post "tries/check"
+  resources :tries, :controller => 'tries'
+
   resources :word_relations, :only => [:create, :destroy]
   resources :user_words
   get "user_words/recent"
