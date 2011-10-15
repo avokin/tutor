@@ -48,14 +48,22 @@ class TriesController < ApplicationController
     else
       type = 2
     end
-    count = WordRelation.count(:conditions => "user_id = #{current_user.id} and relation_type = #{type}")
+
+    if cookies.signed[:mode] == "learning"
+      status_id = 1
+    else
+      status_id = 2
+    end
+    relations = WordRelation.find_all_by_user_id_relation_type_status_id(current_user, type, status_id)
+    count = relations.length
     if count == 0
       nil
     elsif count == 1
-      return WordRelation.find_by_relation_type type
+      return relations[0]
     else
       pos = rand(count - 1)
-      WordRelation.find_all_by_relation_type type, :offset => pos, :limit => 1
+      relations[pos]
+      #WordRelation.find_all_by_relation_type type, :offset => pos, :limit => 1
     end
   end
 end

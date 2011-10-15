@@ -158,17 +158,31 @@ describe TriesController do
 
     describe "'learning' mode" do
       it "should redirect to unlearned WordRelation" do
-        pending
+        @relation = Factory(:word_relation_translation)
+
+        post :start, :tries => {:targeting => "translations", :mode => "learning"}
+        response.should redirect_to try_path(@relation)
       end
 
       it "should inform that there is no word to learn" do
-        pending
+        post :start, :tries => {:targeting => "translations", :mode => "learning"}
+        response.should render_template("pages/message")
       end
     end
 
     describe "'repetition' mode" do
       it "should redirect to learned WordRelation" do
-        pending
+        @relation = Factory(:word_relation_translation)
+        @relation.status_id = 2
+        @relation.save!
+
+        post :start, :tries => {:targeting => "translations", :mode => "repetition"}
+        response.should redirect_to try_path(@relation)
+      end
+
+      it "should inform that there is no word to repeat" do
+        post :start, :tries => {:targeting => "translations", :mode => "repetition"}
+        response.should render_template("pages/message")
       end
     end
   end
