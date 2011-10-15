@@ -8,8 +8,6 @@ class UserWord < ActiveRecord::Base
   has_many :direct_synonyms, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :conditions => 'relation_type = 2', :dependent => :delete_all
   has_many :backward_synonyms, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :conditions => 'relation_type = 2', :dependent => :delete_all
 
-  #has_many :word_categories, :dependent => :delete_all
-
   validates :word, :presence => true
   validates :user, :presence => true
 
@@ -83,10 +81,11 @@ class UserWord < ActiveRecord::Base
   end
 
   def self.find_for_user(user, text)
-    UserWord.where(:user_id => user.id).joins(:word).where(:words => {:text => text}).first
+    where(:user_id => user.id).joins(:word).where(:words => {:text => text}).first
   end
 
   def self.find_recent_for_user(user, count)
     UserWord.order('created_at').where(:user_id => user.id).limit(count)
   end
+
 end

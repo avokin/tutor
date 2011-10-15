@@ -38,4 +38,30 @@ class WordRelation < ActiveRecord::Base
     end
     word_relation
   end
+
+  def check(answer)
+    if answer == related_user_word.word.text
+      self.success_count += 1
+      if (self.success_count == 5)
+        self.status_id = 2
+      end
+      save!
+      return :right_answer
+    else
+      translation_list = WordRelation.find_all_translation(user, source_user_word.word.text)
+      translation_list.each do |translation|
+        if translation.related_user_word.word.text == answer
+          return :another_word
+        end
+      end
+      self.success_count = 0
+      self.status_id = 1
+      save!
+    end
+    :wrong_answer
+  end
+
+  def self.find_all_translation(user, text)
+    WordRelation.where(:user_id => user.id).where(:relation_type => 1).joins(:source_user_word => :word).where(:words => {:text => text})
+  end
 end

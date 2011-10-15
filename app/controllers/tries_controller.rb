@@ -28,14 +28,15 @@ class TriesController < ApplicationController
   def check
     @relation = WordRelation.find params[:id]
     answer = params[:answer]
-    if answer == @relation.related_user_word.word.text
-      @relation.success_count += 1
-      @relation.save!
-      @relation = select_relation_to_learn
-    else
-      @relation.success_count = 0
-      @relation.status_id = 1
-      @relation.save!
+    result = @relation.check(answer)
+    case result
+      when :right_answer
+        flash[:error] = 'Success'
+        @relation = select_relation_to_learn
+      when :wrong_answer
+        flash[:error] = 'Wrong answer'
+      when :another_word
+        flash[:error] = "Another one"
     end
 
     redirect_to try_path @relation

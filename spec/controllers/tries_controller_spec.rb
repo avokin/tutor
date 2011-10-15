@@ -54,6 +54,9 @@ describe TriesController do
         @relation.success_count.should == 0
         @relation.status_id.should == 1
         response.should redirect_to try_path(@relation)
+
+        get :show, :id => @relation.id
+        response.should have_selector("div", :content => "Wrong answer")
       end
     end
 
@@ -77,6 +80,40 @@ describe TriesController do
             response.location =~ /#{try_path(@relation_translation3)}$/
 
         ok.should be_true
+      end
+
+      it "should mark relation as learned if user answered right 5 times" do
+        post :start, :tries => {:targeting => "translations", :mode => "learning"}
+        @relation_translation.status_id.should == 1
+        (1..5).each do
+          post :check, :id => @relation_translation.id, :answer => @relation_translation.related_user_word.word.text
+        end
+        @relation_translation.reload
+        @relation_translation.status_id.should == 2
+      end
+    end
+
+    describe "Another translation but right one" do
+      before(:each) do
+        @relation_translation1 = Factory(:word_relation_translation)
+        @relation_translation1.success_count = 1
+        @relation_translation1.save!
+
+        @relation_translation2 = Factory(:word_relation_translation)
+        @relation_translation2.source_user_word = @relation_translation1.source_user_word
+        @relation_translation2.save!
+      end
+
+      it "should not zero success count, but inform user that it expects another translation" do
+        post :start, :tries => {:targeting => "translations", :mode => "learning"}
+        @relation_translation1.success_count.should == 1
+        post :check, :id => @relation_translation1.id, :answer => @relation_translation2.related_user_word.word.text
+        @relation_translation1.success_count.should == 1
+
+        response.should redirect_to try_path(@relation_translation1)
+
+        get :show, :id => @relation_translation1.id
+        response.should have_selector("div", :content => "Another one")
       end
     end
   end
