@@ -4,6 +4,7 @@ describe User do
   before(:each) do
     @attr = {:name => 'test', :email => 'test@test.com', :password => 'password'}
   end
+
   describe 'Password encryption' do
     before(:each) do
       @user = User.create!(@attr)

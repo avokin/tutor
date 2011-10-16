@@ -35,6 +35,7 @@ describe UserWord do
     before(:each) do
       @translations = ['translation1', 'translation2']
       @synonyms = ['synonym1']
+      @categories = ["category1"]
     end
 
     describe 'successful creation of UserWord' do
@@ -43,7 +44,7 @@ describe UserWord do
         @user_word = UserWord.new :user_id => @user.id
       end
 
-      it 'should create Word if needed' do
+      it "should create Word if needed" do
         lambda do
           lambda do
             @user_word.save_with_relations(@user, @text, @translations, [], [])
@@ -51,7 +52,7 @@ describe UserWord do
         end.should change(UserWord, :count).by(3)
       end
 
-      it 'should not create Word if it exists' do
+      it "should not create Word if it exists" do
         word = Factory(:word)
         lambda do
           lambda do
@@ -60,16 +61,24 @@ describe UserWord do
         end.should change(UserWord, :count).by(4)
       end
 
-      it 'should create translations' do
+      it "should create translations" do
         lambda do
           @user_word.save_with_relations(@user, @text, @translations, [], [])
         end.should change(UserWord, :count).by(3)
       end
 
-      it 'should create synonyms' do
+      it "should create synonyms" do
         lambda do
           @user_word.save_with_relations(@user, @text, [], @synonyms, [])
         end.should change(UserWord, :count).by(2)
+      end
+
+      it "should create category" do
+        lambda do
+          lambda do
+            @user_word.save_with_relations(@user, @text, [], @synonyms, @categories)
+          end.should change(UserWordCategory, :count).by(1)
+        end.should change(UserCategory, :count).by(1)
       end
     end
 
@@ -139,6 +148,19 @@ describe UserWord do
 
     it 'should find word of current user' do
       UserWord.find_for_user(@user_word1.user, @user_word1.word.text).should_not be_nil
+    end
+  end
+
+  describe "relation with categories" do
+    before(:each) do
+      @user_word_category = Factory(:user_word_category)
+      @user_word = @user_word_category.user_word
+      @user_category = @user_word_category.user_category
+    end
+
+    it "should have list of category" do
+      @user_word.user_categories.length.should == 1
+      @user_word.user_categories[0].should == @user_category
     end
   end
 end

@@ -8,6 +8,9 @@ class UserWord < ActiveRecord::Base
   has_many :direct_synonyms, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :conditions => 'relation_type = 2', :dependent => :delete_all
   has_many :backward_synonyms, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :conditions => 'relation_type = 2', :dependent => :delete_all
 
+  has_many :user_word_categories
+  has_many :user_categories, :through => :user_word_categories
+
   validates :word, :presence => true
   validates :user, :presence => true
 
@@ -69,10 +72,10 @@ class UserWord < ActiveRecord::Base
           end
           logger.debug "synonyms saved correctly"
 
-          #new_categories.each do |category|
-          #  WordCategory.create_word_category(self, category)
-          #end
-          #logger.debug "user_categories saved correctly"
+          new_categories.each do |category|
+            UserWordCategory.create_word_category(self, category)
+          end
+          logger.debug "user_categories saved correctly"
           return true
         end
       end

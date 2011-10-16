@@ -21,7 +21,7 @@ function addTranslation() {
 
 function addCategory() {
   categoriesCount++;
-  addInput("user_categories", "category_" + (categoriesCount - 1), "/search/autocomplete_category_name");
+  addInput("categories", "category_" + (categoriesCount - 1), "/search/autocomplete_category_name");
 }
 
 function addSynonym() {
