@@ -1,0 +1,8 @@
+<div class="title">
+  <%= @category.name %>
+  <%= link_to "Edit", edit_user_category_path(@category) %>
+</div>
+
+<div class="word-list">
+  <%= render @category.user_words %>
+</div>

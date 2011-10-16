@@ -10,15 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111007081340) do
-
-  create_table "categories", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "categories", ["name"], :name => "IndexCategoryNameUnique", :unique => true
+ActiveRecord::Schema.define(:version => 20111015164042) do
 
   create_table "languages", :force => true do |t|
     t.string   "name",       :null => false
@@ -27,6 +19,22 @@ ActiveRecord::Schema.define(:version => 20111007081340) do
   end
 
   add_index "languages", ["name"], :name => "IndexLanguageNameUnique", :unique => true
+
+  create_table "user_categories", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",    :null => false
+  end
+
+  add_index "user_categories", ["name"], :name => "IndexCategoryNameUnique", :unique => true
+
+  create_table "user_word_categories", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_word_id"
+    t.integer  "user_category_id"
+  end
 
   create_table "user_words", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -47,13 +55,6 @@ ActiveRecord::Schema.define(:version => 20111007081340) do
   end
 
   add_index "users", ["email"], :name => "IndexUserEmailUnique", :unique => true
-
-  create_table "word_categories", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "word_id"
-    t.integer  "category_id"
-  end
 
   create_table "word_relations", :force => true do |t|
     t.integer  "source_user_word_id",  :null => false

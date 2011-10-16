@@ -1,7 +1,7 @@
 class AddWordIdCategoryId < ActiveRecord::Migration
   def self.up
     add_column :word_categories, :word_id, :integer, :references => :words
-    add_column :word_categories, :category_id, :integer, :references => :categories
+    add_column :word_categories, :category_id, :integer, :references => :user_categories
   end
 
   def self.down

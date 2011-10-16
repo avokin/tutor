@@ -10,7 +10,7 @@ Tutor::Application.routes.draw do
   resources :word_relations, :only => [:create, :destroy]
   resources :user_words
   get "user_words/recent"
-  resources :categories
+  resources :user_categories
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
 

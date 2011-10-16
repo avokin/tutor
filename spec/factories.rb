@@ -38,6 +38,16 @@ Factory.define :user do |user|
   user.password_confirmation "foobar"
 end
 
+Factory.define :user_category do |user_category|
+  user_category.user { first_user }
+  user_category.sequence(:name) {|i| "category #{i}"}
+end
+
+Factory.define :user_word_category do |user_word_category|
+  user_word_category.association :user_word
+  user_word_category.association :user_category
+end
+
 def first_user
   User.first || Factory(:user)
 end

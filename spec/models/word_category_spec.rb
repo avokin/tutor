@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe WordCategory do
+describe UserWordCategory do
   describe "create WordCategory" do
 
   end
