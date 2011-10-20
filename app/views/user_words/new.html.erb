@@ -19,6 +19,12 @@
     </div>
 
     <br/>
+    <div>
+      <% l = [3, @translations.length].min; (0..l).each do |i|%>
+          <%= check_box_tag("suggested_translation_#{i}", @translations[i], i == 0) %>
+          <%= @translations[i] %>
+      <% end %>
+    </div>
 
     <div id="synonyms">
       <input type="button" value="Add synonym" onclick="addSynonym();"/>

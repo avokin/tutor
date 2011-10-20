@@ -8,6 +8,7 @@ class UserWordsController < ApplicationController
     @user_word.word = Word.new
     @user_word.word.text = params[:word] unless params[:word].nil?
     @languages = Language.all
+    @translations = get_translations(:en, @user_word.word.text, :ru)
   end
 
   def create_or_update(user_word)
@@ -16,6 +17,12 @@ class UserWordsController < ApplicationController
     new_translations = Array.new
     while !params["translation_#{i}"].nil? do
       new_translations << params["translation_#{i}"]
+      i = i + 1
+    end
+
+    i = 0
+    while !params["suggested_translation_#{i}"].nil? do
+      new_translations << params["suggested_translation_#{i}"]
       i = i + 1
     end
 

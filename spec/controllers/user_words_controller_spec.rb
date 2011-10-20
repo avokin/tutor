@@ -153,6 +153,12 @@ describe UserWordsController do
         response.code.should == "302"
         response.should redirect_to(user_word_path(1))
       end
+
+      it "should parse translations suggested by online dictionaries" do
+        lambda do
+          post :create, :word => @attr, :suggested_translation_0 => 'suggested translation'
+        end.should change(UserWord, :count).by(2)
+      end
     end
 
     it "should redirect to error page if fail" do
