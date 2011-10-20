@@ -19,4 +19,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title = "User #{@user.name}"
   end
+
+  def init
+    unless current_user.nil?
+      init_languages
+      redirect_to current_user
+    else
+      redirect_to root_path
+    end
+  end
 end

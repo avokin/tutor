@@ -21,9 +21,10 @@ class UserWordsController < ApplicationController
     end
 
     i = 0
-    while !params["suggested_translation_#{i}"].nil? do
-      new_translations << params["suggested_translation_#{i}"]
-      i = i + 1
+    (0..3).each do |i|
+      if !params["suggested_translation_#{i}"].nil?
+        new_translations << params["suggested_translation_#{i}"]
+      end
     end
 
     i = 0

@@ -156,7 +156,7 @@ describe UserWordsController do
 
       it "should parse translations suggested by online dictionaries" do
         lambda do
-          post :create, :word => @attr, :suggested_translation_0 => 'suggested translation'
+          post :create, :word => @attr, :suggested_translation_1 => 'suggested translation'
         end.should change(UserWord, :count).by(2)
       end
     end

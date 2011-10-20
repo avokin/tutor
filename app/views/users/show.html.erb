@@ -1,1 +1,7 @@
 <%= @user.name %>
+
+<% if @user.email == "andrey.vokin@gmail.com" %>
+    <%= form_tag :action => :init do %>
+        <%= submit_tag "init" %>
+    <% end %>
+<% end %>

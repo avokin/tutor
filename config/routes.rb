@@ -11,6 +11,7 @@ Tutor::Application.routes.draw do
   resources :user_words
   get "user_words/recent"
   resources :user_categories
+  post "users/init"
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
 
