@@ -8,6 +8,8 @@ class WordRelation < ActiveRecord::Base
   validates :relation_type, :presence => true
   validates :source_user_word, :presence => true
   validates :related_user_word, :presence => true
+  validates :status_id, :presence => true
+  validates :success_count, :presence => true
   validates :user, :presence => true
 
   def self.create_relation(user, user_word, translated_text, relation_type)
@@ -15,14 +17,13 @@ class WordRelation < ActiveRecord::Base
     if (related_user_word.invalid? || related_user_word.word.invalid?)
       return nil
     end
-    #related_user_word.save()
 
     case relation_type
       when "1"
-        word_relation = user_word.direct_translations.build()
+        word_relation = user_word.direct_translations.build(:status_id => 1, :success_count => 0)
         word_relation.relation_type = 1
       when "2"
-        word_relation = user_word.direct_synonyms.build()
+        word_relation = user_word.direct_synonyms.build(:status_id => 1, :success_count => 0)
         word_relation.relation_type = 2
       else
         word_relation = nil

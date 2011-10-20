@@ -11,10 +11,10 @@ describe UserWord do
       @user_word2 = Factory(:user_word)
       @user_word3 = Factory(:user_word)
 
-      @relation1 = @user_word1.direct_translations.create(:related_user_word_id => @user_word2.id, :relation_type => 1, :user_id => @user.id)
+      @relation1 = @user_word1.direct_translations.create(:related_user_word_id => @user_word2.id, :relation_type => 1, :user_id => @user.id, :status_id => 1, :success_count => 0)
       @relation1.user = @user
       @relation1.save!()
-      @relation2 = @user_word2.direct_synonyms.create(:related_user_word_id => @user_word3.id, :relation_type => 2, :user => @user)
+      @relation2 = @user_word2.direct_synonyms.create(:related_user_word_id => @user_word3.id, :relation_type => 2, :user => @user, :status_id => 1, :success_count => 0)
       @relation2.user = @user
       @relation2.save!()
     end

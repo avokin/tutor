@@ -17,7 +17,9 @@ class TriesController < ApplicationController
     cookies.permanent.signed[:mode] = params[:tries][:mode]
     cookies.permanent.signed[:targeting] = params[:tries][:targeting]
 
+    logger.error("starting to select relation")
     relation = select_relation_to_learn
+    logger.error("finishing to select relation")
     if (relation.nil?)
       render 'pages/message'
     else
