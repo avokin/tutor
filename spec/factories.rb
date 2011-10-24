@@ -36,6 +36,8 @@ Factory.define :user do |user|
   user.sequence(:email) {|i| "test#{i}@gmail.com"}
   user.password              "foobar"
   user.password_confirmation "foobar"
+  user.success_count 5
+  user.native_language_id 2
 end
 
 Factory.define :user_category do |user_category|

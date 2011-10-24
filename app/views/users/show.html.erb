@@ -1,4 +1,15 @@
-<%= @user.name %>
+<div>
+  <div>
+    <%= @user.name %>
+  </div>
+  <div>
+    Success count:
+    <%= @user.success_count %>
+  </div>
+  <div>
+    native language <%= @user.language.name %>
+  </div>
+</div>
 
 <% if @user.email == "andrey.vokin@gmail.com" %>
     <%= form_tag :action => :init do %>
