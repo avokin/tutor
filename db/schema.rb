@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111015164042) do
+ActiveRecord::Schema.define(:version => 20111020152802) do
 
   create_table "languages", :force => true do |t|
     t.string   "name",       :null => false
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20111015164042) do
     t.datetime "updated_at"
     t.integer  "relation_type",        :null => false
     t.integer  "user_id",              :null => false
-    t.integer  "status_id"
-    t.integer  "success_count"
+    t.integer  "status_id",            :null => false
+    t.integer  "success_count",        :null => false
     t.integer  "subtype_id"
   end
 

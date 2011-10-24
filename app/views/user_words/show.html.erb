@@ -11,35 +11,41 @@
 
 <hr/>
 
-<%= form_for(@user_word) do |f| %>
-  <div class="word-translations" >
-    <%= render @user_word.translations %>
-    <div class="block" id="translations">
-      <div class="label">
-        new translation
+<div>
+  <div style="float:right">
+    learned: <%= word_status(@user_word) * 100 %>%
+  </div>
+
+  <%= form_for(@user_word) do |f| %>
+      <div class="word-translations" >
+        <%= render @user_word.translations %>
+        <div class="block" id="translations">
+          <div class="label">
+            new translation
+          </div>
+
+          <div class="block-inline">
+            <%= text_field_tag :translation_0, '', :autocomplete => search_autocomplete_word_text_path %>
+          </div>
+        </div>
+      </div>
+      <hr/>
+
+      <%= render @user_word.synonyms %>
+      <div class="block" id="synonyms">
+        <div class="label">
+          new synonym
+        </div>
+        <div class="block-inline">
+          <%= text_field_tag :synonym_0, '', :autocomplete => search_autocomplete_word_text_path %>
+        </div>
+      </div>
+      <hr/>
+
+      <div id="categories">
+        <input type="button" value="Add category" onclick="addCategory();"/>
       </div>
 
-      <div class="block-inline">
-        <%= text_field_tag :translation_0, '', :autocomplete => search_autocomplete_word_text_path %>
-      </div>
-    </div>
-  </div>
-  <hr/>
-
-  <%= render @user_word.synonyms %>
-  <div class="block" id="synonyms">
-    <div class="label">
-      new synonym
-    </div>
-    <div class="block-inline">
-      <%= text_field_tag :synonym_0, '', :autocomplete => search_autocomplete_word_text_path %>
-    </div>
-  </div>
-  <hr/>
-
-  <div id="categories">
-    <input type="button" value="Add category" onclick="addCategory();"/>
-  </div>
-
-  <%= f.submit %>
-<% end %>
+      <%= f.submit %>
+  <% end %>
+</div>

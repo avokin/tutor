@@ -1,4 +1,6 @@
 class UserWordsController < ApplicationController
+  include UserWordsHelper
+
   before_filter :authenticate
 
   def new
