@@ -1,3 +1,3 @@
-Given /^simple step$/ do
-  pending
+Given /^user$/ do
+  first_user
 end

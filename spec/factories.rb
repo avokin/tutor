@@ -32,12 +32,17 @@ Factory.define :word_relation_synonym, :class => :word_relation do |word_relatio
 end
 
 Factory.define :user do |user|
-  user.name                  "Michael Hartl"
+  user.name                  "UserName UserSurname"
   user.sequence(:email) {|i| "test#{i}@gmail.com"}
-  user.password              "foobar"
-  user.password_confirmation "foobar"
+  user.password              "password"
+  user.password_confirmation "password"
   user.success_count 5
-  user.native_language_id 2
+  user.language {second_language}
+end
+
+
+Factory.define :language do |language|
+  language.sequence(:name) {|i| "language #{i}"}
 end
 
 Factory.define :user_category do |user_category|
@@ -48,6 +53,13 @@ end
 Factory.define :user_word_category do |user_word_category|
   user_word_category.association :user_word
   user_word_category.association :user_category
+end
+
+def second_language
+  while Language.all.size < 2
+    Factory(:language)
+  end
+  Language.all[1]
 end
 
 def first_user
