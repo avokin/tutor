@@ -58,6 +58,7 @@ class UserWord < ActiveRecord::Base
         end
         self.word = word
       end
+      self.user = user
 
       if self.valid? && self.word.valid?
         if self.save

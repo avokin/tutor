@@ -7,6 +7,7 @@
               <div>
                 <%= form_for(:search, :url => search_path) do |f| %>
                     <%= f.text_field :word, :autocomplete => search_autocomplete_word_text_path %>
+                    <%= f.submit("Search") %>
                 <% end %>
               </div>
             </li>
