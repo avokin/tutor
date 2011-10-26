@@ -19,5 +19,13 @@ Feature: Login
     And should see "edit name"
     And should see "edit "
 
+  Scenario: Sign out
+    Given signed in user
+    And I am on the root page
+    When I press "Sign out"
+    Then I should be on the root page
+    And I should see "email"
+    And should see "password"
+
 
 

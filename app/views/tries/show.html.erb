@@ -2,4 +2,5 @@
 <%= form_tag :action => :check do %>
     <%= hidden_field_tag :id, @word_relation.id %>
     <%= text_field_tag 'answer' %>
+    <%= submit_tag "Check" %>
 <% end %>

@@ -17,6 +17,10 @@ module NavigationHelpers
         "/user_words/new"
       when /^the user\'s page$/
         "/users/1"
+      when /^start learning page$/
+        "/tries"
+      when /^learning page$/
+        "/tries/1"
       else
         begin
           page_name =~ /^the (.*) page$/
