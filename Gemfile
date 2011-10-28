@@ -8,14 +8,14 @@ gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', '0.6.0'
 gem 'nifty-generators'
 
-gem 'cucumber'
-gem 'cucumber-rails'
-
 group :development, :test do
   gem 'rspec-rails'
 end
 
 group :test do
+  gem 'cucumber'
+  gem 'cucumber-rails'
+
   gem 'webrat'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
