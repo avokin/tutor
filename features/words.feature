@@ -1,8 +1,8 @@
-add translation
-add synonym
-add category
-remove translation
-remove synonym
-remove category
+#add translation
+#add synonym
+#add category
+#remove translation
+#remove synonym
+#remove category
 
-rename word
+#rename word
