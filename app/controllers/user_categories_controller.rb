@@ -51,6 +51,6 @@ class UserCategoriesController < ApplicationController
     end
 
     category.destroy
-    redirect_to user_category_path
+    redirect_to user_categories_path
   end
 end

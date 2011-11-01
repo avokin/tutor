@@ -23,6 +23,8 @@ module NavigationHelpers
         "/tries/1"
       when /^the "([^"]*)" category page$/
         "/user_categories/1"
+      when /^the categories page$/
+        "/user_categories"
       else
         begin
           page_name =~ /^the (.*) page$/
