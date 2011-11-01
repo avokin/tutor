@@ -21,6 +21,12 @@ Given /^word "([^"]*)" with synonym "([^"]*)"$/ do |text, synonym|
   @user_word.save_with_relations(first_user, text, [], [synonym], [])
 end
 
+Given /^word "([^"]*)" with category "([^"]*)"$/ do |text, category|
+  @user_word = UserWord.new
+  @user_word.save_with_relations(first_user, text, [], [], [category])
+end
+
+
 Given /^word "([^"]*)" with translation "([^"]*)", synonym "([^"]*)", and category "([^"]*)"$/ do |text, translation, synonym, category|
   @user_word = UserWord.new
   @user_word.save_with_relations(first_user, text, [translation], [synonym], [category])

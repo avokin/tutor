@@ -21,6 +21,8 @@ module NavigationHelpers
         "/tries"
       when /^learning page$/
         "/tries/1"
+      when /^the "([^"]*)" category page$/
+        "/user_categories/1"
       else
         begin
           page_name =~ /^the (.*) page$/
