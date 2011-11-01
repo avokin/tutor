@@ -1,6 +1,8 @@
 Tutor::Application.routes.draw do
 
 
+  get "user_word_categories/delete"
+
   resource :search, :controller => 'search'
 
   post "tries/start"
@@ -8,6 +10,7 @@ Tutor::Application.routes.draw do
   resources :tries, :controller => 'tries'
 
   resources :word_relations, :only => [:create, :destroy]
+  resources :user_word_categories, :only => [:destroy]
   resources :user_words
   get "user_words/recent"
   resources :user_categories

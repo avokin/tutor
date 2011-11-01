@@ -1,0 +1,2 @@
+module UserWordCategoriesHelper
+end
