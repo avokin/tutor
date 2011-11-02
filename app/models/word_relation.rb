@@ -12,17 +12,31 @@ class WordRelation < ActiveRecord::Base
   validates :success_count, :presence => true
   validates :user, :presence => true
 
+  validates_uniqueness_of :relation_type, :scope => [:source_user_word_id, :related_user_word_id]
+
   def self.create_relation(user, user_word, translated_text, relation_type)
-    related_user_word = UserWord.get_for_user(user, translated_text, user_word.word.language_id == 1 ? 2 : 1)
-    if (related_user_word.invalid? || related_user_word.word.invalid?)
+    if relation_type == "1"
+      language_id = user_word.word.language_id == 1 ? 2 : 1
+    else
+      language_id = user_word.word.language_id
+    end
+    related_user_word = UserWord.get_for_user(user, translated_text, language_id)
+    if related_user_word.invalid? || related_user_word.word.invalid?
       return nil
     end
 
     case relation_type
       when "1"
+        if related_user_word.word.language_id == user_word.word.language_id
+          return nil
+        end
         word_relation = user_word.direct_translations.build(:status_id => 1, :success_count => 0)
         word_relation.relation_type = 1
       when "2"
+        if related_user_word.word.language_id != user_word.word.language_id || related_user_word == user_word
+          return nil
+        end
+
         word_relation = user_word.direct_synonyms.build(:status_id => 1, :success_count => 0)
         word_relation.relation_type = 2
       else
@@ -31,7 +45,7 @@ class WordRelation < ActiveRecord::Base
     if (!word_relation.nil?)
       word_relation.user = user
       word_relation.related_user_word = related_user_word
-      if (word_relation.valid?)
+      if (word_relation.valid? || word_relation.source_user_word_id.nil?)
         word_relation.save()
       else
         word_relation = nil

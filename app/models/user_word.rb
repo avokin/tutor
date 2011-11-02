@@ -64,7 +64,15 @@ class UserWord < ActiveRecord::Base
         if self.save
           logger.debug("UserWord saved correctly")
           new_translations.each do |translation|
-            WordRelation.create_relation(user, self, translation, "1")
+            if (user.language.id != self.word.language.id)
+              WordRelation.create_relation(user, self, translation, "1")
+            else
+              related_user_word = UserWord.get_for_user(user, translation, self.word.language_id == 1 ? 2 : 1)
+              if related_user_word.new_record?
+                related_user_word.save!
+              end
+              WordRelation.create_relation(user, related_user_word, self.word.text, "1")
+            end
           end
           logger.debug "translations saved correctly"
 
