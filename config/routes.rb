@@ -11,9 +11,13 @@ Tutor::Application.routes.draw do
 
   resources :word_relations, :only => [:create, :destroy]
   resources :user_word_categories, :only => [:destroy]
+
   resources :user_words
   get "user_words/recent"
+
   resources :user_categories
+  post "user_categories/update_defaults"
+
   post "users/init"
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]

@@ -11,6 +11,12 @@ class UserWordsController < ApplicationController
     @user_word.word.text = params[:word] unless params[:word].nil?
     @languages = Language.all
     @translations = get_translations(:en, @user_word.word.text, :ru)
+    @categories = []
+    current_user.user_categories.each do |category|
+      if category.is_default
+        @categories << category.name
+      end
+    end
   end
 
   def create_or_update(user_word)

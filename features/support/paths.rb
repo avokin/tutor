@@ -9,7 +9,7 @@ module NavigationHelpers
     case page_name
       when /^the home\s?page$/
         '/'
-      when /^login page$/
+      when /^the login page$/
         "/signin"
       when /^the word\'s page$/
         "/user_words/1"

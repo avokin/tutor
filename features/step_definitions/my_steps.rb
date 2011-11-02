@@ -7,12 +7,17 @@ When /^word "([^"]*)"$/ do |text|
   user_word.save_with_relations(first_user, text, [], [], [])
 end
 
+And /^I fill login information for the first user$/ do
+  user = first_user
+  fill_in("session_email", :with => user.email)
+  fill_in("session_password", :with => "password")
+end
 
 Given /^signed in user$/ do
   user = first_user
   visit("/signin")
   fill_in("session_email", :with => user.email)
-  fill_in("session_password", :with => user.password)
+  fill_in("session_password", :with => "password")
   click_button("Sign in")
 end
 
@@ -49,4 +54,7 @@ end
 Then /^the "([^"]*)" field should be "([^"]*)"$/ do |id, value|
   field = find("##{id}")
   field.value.should == value
+end
+When /^test step$/ do
+  a = 1
 end

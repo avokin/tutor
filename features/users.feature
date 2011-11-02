@@ -1,10 +1,8 @@
 Feature: Login
   Scenario: Login
     Given user
-    When I am on login page
-    And I fill in the following:
-      | session_email    | test1@gmail.com |
-      | session_password | password        |
+    When I am on the login page
+    And I fill login information for the first user
     And I press "Sign in"
     Then I should be on the user's page
     And should see "UserName UserSurname"
@@ -22,10 +20,6 @@ Feature: Login
   Scenario: Sign out
     Given signed in user
     And I am on the root page
-    When I press "Sign out"
-    Then I should be on the root page
-    And I should see "email"
-    And should see "password"
-
-
+    When I follow "Sign out"
+    Then I should be on the login page
 

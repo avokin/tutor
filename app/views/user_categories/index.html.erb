@@ -1,1 +1,9 @@
-<%= render @categories %>
+<%= form_tag :method => :post, :action => :update_defaults do
+    @categories.each() do |category|
+         %>
+    <%= check_box_tag("id#{category.id}", "", category.is_default) %>
+
+    <%= render category %>
+    <% end %>
+    <%=  submit_tag "Save" %>
+<% end %>

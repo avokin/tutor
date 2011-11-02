@@ -39,11 +39,11 @@ describe UserWordsController do
       get :recent
 
       (0..49).each do |i|
-        response.should have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].word.text)
+        response.should_not have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].word.text)
       end
 
       (50..99).each do |i|
-        response.should_not have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].word.text)
+        response.should have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].word.text)
       end
     end
 

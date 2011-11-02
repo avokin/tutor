@@ -41,7 +41,7 @@ describe UserCategoriesController do
 
     it "should redirect to root path" do
       delete :destroy, :id => @category.id
-      response.should redirect_to user_category_path
+      response.should redirect_to user_categories_path
     end
   end
 
@@ -90,6 +90,32 @@ describe UserCategoriesController do
     it "should display words that corresponds to the category" do
       get :show, :id => @category.id
       response.should have_selector('a', :content => @user_word.word.text)
+    end
+  end
+
+  describe "PUT 'update_defaults'" do
+    before(:each) do
+      @user_category1 = Factory(:user_category)
+      @user_category2 = Factory(:user_category)
+      Factory(:user_word_category)
+      user_word = @user_word_category.user_word
+      test_sign_in(user_word.user)
+    end
+
+    it "should update 'is_default' attribute to all selected categories" do
+      put :update_defaults, "id#{@user_category1.id}" => true, "id#{@user_category2.id}" => true
+
+      @user_category1.reload
+      @user_category1.is_default.should be_true
+      @user_category2.reload
+      @user_category2.is_default.should be_true
+
+      put :update_defaults, "id#{@user_category1.id}" => true
+
+      @user_category1.reload
+      @user_category1.is_default.should be_true
+      @user_category2.reload
+      @user_category2.is_default.should be_false
     end
   end
 end

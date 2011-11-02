@@ -32,6 +32,12 @@
 
     <div id="categories">
       <input type="button" value="Add category" onclick="addCategory();"/>
+      
+      <script type="text/javascript">
+          <% @categories.each do |category| %>
+          <%= "addCategory('#{category}')" %>
+          <% end %>
+      </script>
     </div>
 
     <%= f.submit %>
