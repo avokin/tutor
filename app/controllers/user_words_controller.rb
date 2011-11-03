@@ -24,7 +24,10 @@ class UserWordsController < ApplicationController
     i = 0
     new_translations = Array.new
     while !params["translation_#{i}"].nil? do
-      new_translations << params["translation_#{i}"]
+      s = params["translation_#{i}"]
+      if s.length > 0
+        new_translations << s
+      end
       i = i + 1
     end
 
@@ -38,14 +41,20 @@ class UserWordsController < ApplicationController
     i = 0
     new_synonyms = Array.new
     while !params["synonym_#{i}"].nil? do
-      new_synonyms << params["synonym_#{i}"]
+      s = params["synonym_#{i}"]
+      if s.length > 0
+        new_synonyms << s
+      end
       i = i + 1
     end
 
     i = 0
     new_categories = Array.new
     while !params["category_#{i}"].nil? do
-      new_categories << params["category_#{i}"]
+      s = params["category_#{i}"]
+      if s.length > 0
+        new_categories << s
+      end
       i = i + 1
     end
 

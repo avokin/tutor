@@ -269,17 +269,6 @@ describe UserWordsController do
         end.should_not change(WordRelation, :count)
       end
 
-      it "should not create duplicated translation" do
-        user_word2 = Factory(:user_word)
-        lambda do
-          put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
-        end.should change(WordRelation, :count).by(1)
-
-        lambda do
-          put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
-        end.should_not change(WordRelation, :count)
-      end
-
       it "still should create synonym of the same language of source word" do
         Factory(:user_word)
         user_word2 = Factory(:user_word)
@@ -294,6 +283,19 @@ describe UserWordsController do
           put :update, :id => user_word2.id, :synonym_0 => @native_word.word.text
         end.should_not change(WordRelation, :count)
       end
+    end
+
+    describe "duplication" do
+      it "should not create duplicated translation" do
+        user_word2 = Factory(:user_word)
+        lambda do
+          put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
+        end.should change(WordRelation, :count).by(1)
+
+        lambda do
+          put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
+        end.should_not change(WordRelation, :count)
+      end
 
       it "should not create duplicated synonym" do
         Factory(:user_word)
@@ -306,6 +308,28 @@ describe UserWordsController do
           put :update, :id => user_word2.id, :synonym_0 => @native_word.word.text
         end.should_not change(WordRelation, :count)
       end
+
+      it "should not create synonym equals to source word" do
+        lambda do
+          put :update, :id => @native_word.id, :synonym_0 => @native_word.word.text
+        end.should_not change(WordRelation, :count)
+        response.should redirect_to @native_word
+      end
+    end
+
+    it "should not fail if translation or synonym is empty string" do
+      lambda do
+        lambda do
+          put :update, :id => @native_word.id, :translation_0 => ""
+        end.should_not change(WordRelation, :count)
+      end.should_not change(UserWord, :count)
+
+      lambda do
+        lambda do
+          put :update, :id => @native_word.id, :synonym_0 => ""
+        end.should_not change(WordRelation, :count)
+      end.should_not change(UserWord, :count)
+
     end
   end
 end
