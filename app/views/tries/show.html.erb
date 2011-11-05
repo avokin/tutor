@@ -4,7 +4,7 @@
 
 <%= form_tag :action => :check do %>
     <%= hidden_field_tag :id, @word_relation.id %>
-    <%= text_field_tag 'answer' %>
+    <%= text_field_tag 'answer', "", :autocomplete => :off%>
     <%= hidden_field_tag 'expected', @word_relation.related_user_word.word.text %>
     <%= hidden_field_tag 'skipped', 0 %>
 

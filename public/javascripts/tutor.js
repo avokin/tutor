@@ -1,7 +1,8 @@
 function documentKeypress(e) {
   if (e.ctrlKey) {
+    // i
     if (e.keyCode == 9) {
-      var wordToSearch = document.getElementById("word_to_search");
+      var wordToSearch = document.getElementById("search_word");
       wordToSearch.focus();
     } else if (e.keyCode == 17) {
       if (onCtrlQ != null) {
@@ -15,6 +16,13 @@ function documentKeypress(e) {
       if (onCtrlB != null) {
         onCtrlB();
       }
+    }
+    // s or S
+  } else if (e.keyCode == 115 || e.keyCode == 83) {
+    if (e.srcElement.type != "text") {
+      var wordToSearch = document.getElementById("search_word");
+      wordToSearch.focus();
+      return false;
     }
   }
 }
