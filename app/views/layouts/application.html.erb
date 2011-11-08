@@ -2,15 +2,19 @@
 <html>
 <head>
   <title>Tutor - <%=@title%></title>
-  <%= stylesheet_link_tag 'application.css', 'jquery-ui-1.8.14.custom', 'tutor' %>
+  <%= stylesheet_link_tag 'application.css', 'jquery-ui-1.8.14.custom', 'tutor', 'jquery.fancybox-1.3.4' %>
 
 
   <%= javascript_include_tag :defaults %>
 
-  <%= javascript_include_tag 'jquery-1.5.1.min', 'jquery-ui-1.8.14.custom.min', 'autocomplete-rails', 'tutor' %>
+  <%= javascript_include_tag 'jquery-1.5.1.min', 'jquery-ui-1.8.14.custom.min', 'autocomplete-rails', 'tutor', 'jquery.fancybox-1.3.4.pack', 'jquery.mousewheel-3.0.4.pack' %>
 
   <script type="text/javascript">
       document.onkeypress = documentKeypress;
+
+      $(document).ready(function() {
+          $("a#shortkeys").fancybox();
+      })
   </script>
 
   <%= csrf_meta_tag %>

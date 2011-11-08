@@ -25,6 +25,7 @@ Tutor::Application.routes.draw do
   root :to => 'user_words#recent'
 
   match '/message', :to => 'pages#message'
+  match '/shortkeys', :to => 'pages#shortkeys'
 
   get 'search/autocomplete_word_text'
   get 'search/autocomplete_category_name'
