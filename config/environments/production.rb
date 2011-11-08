@@ -50,8 +50,9 @@ Tutor::Application.configure do
   # Compress JavaScript and CSS
   config.assets.compress = true
 
+  # TODO: revert
   # Don't fallback to assets pipeline
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
