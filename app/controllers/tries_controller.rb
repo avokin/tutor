@@ -28,15 +28,20 @@ class TriesController < ApplicationController
   def check
     @relation = WordRelation.find params[:id]
     answer = params[:answer]
-    result = @relation.check(answer)
-    case result
-      when :right_answer
-        flash[:error] = 'Success'
-        @relation = select_relation_to_learn
-      when :wrong_answer
-        flash[:error] = 'Wrong answer'
-      when :another_word
-        flash[:error] = "Another one"
+    skipped = params[:skipped]
+    if skipped != "1"
+      result = @relation.check(answer)
+      case result
+        when :right_answer
+          flash[:error] = 'Success'
+          @relation = select_relation_to_learn
+        when :wrong_answer
+          flash[:error] = 'Wrong answer'
+        when :another_word
+          flash[:error] = "Another one"
+      end
+    else
+      @relation = select_relation_to_learn
     end
 
     redirect_to try_path @relation
@@ -63,7 +68,6 @@ class TriesController < ApplicationController
     else
       pos = rand(count - 1)
       relations[pos]
-      #WordRelation.find_all_by_relation_type type, :offset => pos, :limit => 1
     end
   end
 end

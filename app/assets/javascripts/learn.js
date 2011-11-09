@@ -1,24 +1,29 @@
 var hintCount = 0;
 
 function showHint() {
-    len = expected.value.length;
-    if (hintCount == 0) {
-        if (len > 3) {
-            len = 3;
-        }
-    } else {
-        skipped.value = 1;
+  var expected = $("#expected").get(0);
+  var len = expected.value.length;
+  if (hintCount == 0) {
+    if (len > 3) {
+      len = 3;
     }
-    hintCount++;
-    answer.value = expected.value.substring(0, len)
+  } else {
+    var skipped = $("#skipped").get(0);
+    skipped.value = 1;
+  }
+  hintCount++;
+
+  var t = $("#hintContainer").get(0);
+  t.innerHTML = expected.value.substring(0, len)
 }
 
 function submitSkip() {
-    buttonCheck.click();
+  var buttonCheck = $("#buttonCheck").get(0);
+  buttonCheck.click();
 }
 
 function skipTry() {
-    answer.value = expected.value;
-    skipped.value = 1;
-    setTimeout('submitSkip()', 2000)
+  hintCount = 1;
+  showHint();
+  setTimeout('submitSkip()', 2000)
 }

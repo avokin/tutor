@@ -6,19 +6,17 @@ Feature: learning
     And I am on the root page
     And I follow "Learning"
     Then I should be on start learning page
-    And I fill in the following:
-      | tries_targeting | synonyms |
-      | tries_mode      | learning |
+    And I select "synonyms" from "tries_targeting"
+    And I select "learning" from "tries_mode"
     And I press "Start"
     Then I should be on learning page
     And I should see "house"
     And I follow "Learning"
     Then I should be on start learning page
-    And I fill in the following:
-      | tries_targeting | translations |
-      | tries_mode      | learning |
+    And I select "translations" from "tries_targeting"
+    And I select "learning" from "tries_mode"
     And I press "Start"
-    Then I should be on error page
+    Then I should see "error"
 
   Scenario: repetition
     Given signed in user
@@ -26,7 +24,6 @@ Feature: learning
     And I am on the root page
     And I follow "Learning"
     Then I should be on start learning page
-
 
   Scenario: learning, correct answer
     Given signed in user
@@ -73,7 +70,7 @@ Feature: learning
     And I should see "Wrong"
     And Success count should zero
 
-  Scenario: learning, hint
+  Scenario: learning, one "hint" button press
     Given signed in user
     Given word "house" with translation "zdanie", synonym "home", and category "everyday life"
     And I am on the root page
@@ -84,7 +81,36 @@ Feature: learning
     And I should not see "zda"
     And I press "Hint"
     Then I should be on learning page
-    Then the "answer" field should be "zda"
+    Then I should see "zda"
+    Then the "answer" field should be ""
+    And I fill in the following:
+      | answer | zdanie |
+    And I press "Check"
+    And I should see "Success"
+    And Success count should increase
+
+  Scenario: learning, two "hint" button press
+    Given signed in user
+    Given word "house" with translation "zdanie", synonym "home", and category "everyday life"
+    And I am on the root page
+    And I follow "Learning"
+    Then I should be on start learning page
+    And I press "Start"
+    Then I should be on learning page
+    And I should not see "zda"
+    And I press "Hint"
+    Then I should be on learning page
+    Then I should see "zda"
+    Then the "answer" field should be ""
+    And I press "Hint"
+    Then I should see "zdanie"
+    Then the "answer" field should be ""
+    And I fill in the following:
+      | answer | zdanie |
+    And I press "Check"
+    And I should not see "Success"
+    And I should not see "Wrong"
+    And Success count should zero
 
   Scenario: learning, skip
     Given signed in user
@@ -96,6 +122,10 @@ Feature: learning
     Then I should be on learning page
     And I should not see "zdanie"
     And I press "Skip"
-    Then the "answer" field should be "zdanie"
+    Then I should see "zdanie"
+    Then the "answer" field should be ""
+    And I wait for 2 seconds
     Then I should be on learning page
+    And I should not see "Success"
+    And I should not see "Wrong"
     And Success count should zero

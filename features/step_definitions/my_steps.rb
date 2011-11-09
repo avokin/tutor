@@ -55,6 +55,11 @@ Then /^the "([^"]*)" field should be "([^"]*)"$/ do |id, value|
   field = find("##{id}")
   field.value.should == value
 end
+
 When /^test step$/ do
   a = 1
+end
+
+When /^I wait for (\d+) seconds?$/ do |secs|
+  sleep secs.to_i
 end
