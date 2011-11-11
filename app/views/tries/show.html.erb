@@ -1,5 +1,3 @@
-<%= javascript_include_tag 'learn' %>
-
 <div><%= @word_relation.source_user_word.word.text %></div>
 
 <div id="hintContainer" style="height: 20px"></div>
@@ -10,8 +8,8 @@
     <%= hidden_field_tag 'expected', @word_relation.related_user_word.word.text %>
     <%= hidden_field_tag 'skipped', 0 %>
 
-    <input type="button" value="Hint" onclick="showHint()"/>
-    <input type="button" value="Skip" onclick="skipTry()"/>
+    <input id="hintButton" type="button" value="Hint"/>
+    <input id="skipButton" type="button" value="Skip"/>
 
     <%= submit_tag "Check", :id => "buttonCheck" %>
 <% end %>
