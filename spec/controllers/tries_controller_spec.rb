@@ -185,5 +185,96 @@ describe TriesController do
         response.should render_template("pages/message")
       end
     end
+
+    describe "scope" do
+      before(:each) do
+        @word_count = 20
+        @words_with_category = []
+        (0..@word_count * 2).each do
+          word_relation = Factory(:word_relation_translation)
+          word_relation.source_user_word.save_with_relations(word_relation.user, nil, [], [], ["test_category"])
+          @words_with_category << word_relation
+        end
+
+        @words_without_category = []
+        (0..@word_count * 2).each do
+          word_relation = Factory(:word_relation_translation)
+          @words_without_category << word_relation
+        end
+      end
+
+      describe "source: category" do
+        it "should support scope 'all'" do
+          post :start, :tries => {:targeting => "translations", :mode => "learning", :category => "test_category", :select => :all}
+          @words_without_category.each do |relation_without_category|
+            response.location.should_not =~ /#{try_path(relation_without_category)}$/
+          end
+
+          count = 0
+          @words_with_category.each do |relation_with_category|
+            if response.location =~ /#{try_path(relation_with_category)}$/
+              count += 1
+            end
+          end
+
+          count.should == 1
+        end
+
+        it "should support scope 'random'" do
+          post :start, :tries => {:targeting => "translations", :mode => "learning", :category => "test_category", :select => :random}
+          @words_without_category.each do |relation_without_category|
+            response.location.should_not =~ /#{try_path(relation_without_category)}$/
+          end
+
+          count = 0
+          @words_with_category.each do |relation_with_category|
+            if response.location =~ /#{try_path(relation_with_category)}$/
+              count += 1
+            end
+          end
+
+          count.should == 1
+        end
+
+        it "should support scope 'recent'" do
+          post :start, :tries => {:targeting => "translations", :mode => "learning", :category => "test_category", :select => :recent}
+          @words_without_category.each do |relation_without_category|
+            response.location.should_not =~ /#{try_path(relation_without_category)}$/
+          end
+
+          count = 0
+          (0..@words_with_category.length).each do |i|
+            relation_with_category = @words_with_category[i]
+            if @words_with_category.length - i >= @word_count
+              if response.location =~ /#{try_path(relation_with_category)}$/
+                fail()
+              else
+                if response.location =~ /#{try_path(relation_with_category)}$/
+                  count += 1
+                end
+              end
+            end
+
+            count.should == 1
+          end
+        end
+      end
+
+
+
+      describe "source: all dictionary" do
+        it "should support scope 'all'" do
+          pending
+        end
+
+        it "should support scope 'random 20'" do
+          pending
+        end
+
+        it "should support scope 'recent 20'" do
+          pending
+        end
+      end
+    end
   end
 end

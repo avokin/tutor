@@ -80,7 +80,11 @@ class WordRelation < ActiveRecord::Base
     WordRelation.where(:user_id => user.id).where(:relation_type => 1).joins(:source_user_word => :word).where(:words => {:text => text})
   end
 
-  def self.find_all_by_user_id_relation_type_status_id(user, relation_type, status_id)
-    WordRelation.where(:user_id => user.id, :relation_type => relation_type, :status_id => status_id)
+  def self.find_all_by_user_id_relation_type_status_id(user, relation_type, status_id, category)
+    if !category.nil?
+      WordRelation.where(:user_id => user.id, :relation_type => relation_type, :status_id => status_id).joins(:source_user_word => :user_categories).where(:user_categories => {:id => category})
+    else
+      WordRelation.where(:user_id => user.id, :relation_type => relation_type, :status_id => status_id)
+    end
   end
 end

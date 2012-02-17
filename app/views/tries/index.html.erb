@@ -1,5 +1,7 @@
 <%= form_tag :action => :start do %>
     <%= select :tries, :targeting, @targets %>
     <%= select :tries, :mode, @modes %>
+    <%= select :tries, :category, @categories.map { |l| [l.name, l.id] } %>
+    <%= select :tries, :select, @select %>
     <%= submit_tag "Start" %>
 <% end %>
