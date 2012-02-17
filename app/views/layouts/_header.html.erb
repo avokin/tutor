@@ -1,30 +1,56 @@
-<header>
-  <div class="nav">
-    <nav>
-      <ul>
-        <% if signed_in? %>
-            <li>
-              <div>
-                <%= form_for(:search, :url => search_path) do |f| %>
-                    <%= f.text_field :word, :autocomplete => search_autocomplete_word_text_path %>
-                    <%= f.submit("Search") %>
-                <% end %>
-              </div>
-            </li>
-            <li class="round"><%= link_to "Sign out", signout_path %> </li>
-            <li class="round"><%= link_to "Recent words", root_path %></li>
-            <li class="round"><%= link_to "Categories", user_categories_path %></li>
-            <li class="round"><%= link_to "Learning", tries_path %></li>
-        <% else %>
-            <li class="round"><%= link_to "Sign in", signin_path%> </li>
-        <% end %>
-        <li class="round"><a href="/shortkeys.html" id="shortkeys">Shortkey map</a></li>
-        <li class="round">About</li>
-      </ul>
-    </nav>
-  </div>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#">Project name</a>
 
-  <div class="round">
-    <%= link_to logo, root_path %>
+      <div class="nav-collapse">
+
+        <% if signed_in? %>
+            <ul class="nav">
+              <li>
+                <%= form_for(:search, :url => search_path, :html => {:class => "navbar-search pull-left"}) do |f| %>
+                    <%= f.text_field :word, :autocomplete => search_autocomplete_word_text_path, :class => "search-query", :placeholder => "Search" %>
+                <% end %>
+              </li>
+              <li class="active"><%= link_to "Recent words", root_path %></li>
+              <li><%= link_to "Categories", user_categories_path %></li>
+              <li><%= link_to "Learning", tries_path %></li>
+            </ul>
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Help
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#">
+                      ACTION
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      ACTION
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
+
+              <li><%= link_to "Sign out", signout_path %> </li>
+            </ul>
+        <% else %>
+            <ul class="nav pull-right">
+
+              <li><%= link_to "Sign in", signin_path %></li>
+            </ul>
+        <% end %>
+      </div>
+    </div>
   </div>
-</header>
+</div>
