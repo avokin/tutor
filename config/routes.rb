@@ -22,7 +22,7 @@ Tutor::Application.routes.draw do
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
 
-  root :to => 'user_words#recent'
+  root :to => 'user_words#index'
 
   match '/message', :to => 'pages#message'
   match '/shortkeys', :to => 'pages#shortkeys'

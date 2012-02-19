@@ -1,1 +1,12 @@
-<%= render @user_words %>
+<div class="tabbable tabs">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#lA" data-toggle="tab">Words</a></li>
+    <li class=""><%= link_to "Categories", user_categories_path, "data-tougle" => "tab" %></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="lA">
+      <%= render @user_words %>
+    </div>
+  </div>
+</div>
+

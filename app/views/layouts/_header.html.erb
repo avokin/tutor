@@ -17,11 +17,30 @@
                     <%= f.text_field :word, :autocomplete => search_autocomplete_word_text_path, :class => "search-query", :placeholder => "Search" %>
                 <% end %>
               </li>
-              <li class="active"><%= link_to "Recent words", root_path %></li>
-              <li><%= link_to "Categories", user_categories_path %></li>
-              <li><%= link_to "Learning", tries_path %></li>
+              <li class="active"><%= link_to "Dictionary", root_path %></li>
+              <li><%= link_to "Training", tries_path %></li>
             </ul>
             <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Settings
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="/shortkeys.html">
+                      Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Learning
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
+
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   Help
@@ -29,13 +48,14 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a href="#">
-                      ACTION
+                    <a href="/shortkeys.html">
+                      Shortkey Map
                     </a>
                   </li>
+                  <li class="divider"/>
                   <li>
                     <a href="#">
-                      ACTION
+                      Content
                     </a>
                   </li>
 
