@@ -3,3 +3,18 @@ body {
   padding-bottom: 40px;
 }
 
+#translations, #synonyms {
+
+  & div.progress {
+    width: 150px;
+    margin: auto;
+  }
+
+  & div.btn-group {
+    float: right;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}

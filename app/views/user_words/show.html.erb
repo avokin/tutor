@@ -9,43 +9,61 @@
         <%= render @user_word.user_word_categories %>
       </div>
 
-      <div class="title">
-        <%= @user_word.word.text %>
-        <%= link_to "Edit", edit_user_word_path(@user_word) %>
-      </div>
-
-      <hr/>
-
       <div>
+        <h1><%= @user_word.word.text %></h1>
+
+        <%= link_to "Edit", edit_user_word_path(@user_word) %>
         <div style="float:right">
           learned: <%= word_status(@user_word) * 100 %>%
         </div>
+      </div>
 
+
+      <div>
         <%= form_for(@user_word) do |f| %>
-            <div class="word-translations">
-              <%= render @user_word.translations %>
-              <div class="block" id="translations">
-                <div class="label">
-                  new translation
-                </div>
+            <div class="row">
 
-                <div class="block-inline">
-                  <%= text_field_tag :translation_0, '', :autocomplete => search_autocomplete_word_text_path %>
+              <div class="span6" id="translations">
+                <div class="tabbable tabs">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#lA" data-toggle="tab">Translations</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active">
+                      <table class="table table-striped">
+                        <tbody>
+                        <%= render @user_word.translations %>
+                        </tbody>
+                      </table>
+
+                      <div class="block-inline">
+                        <%= text_field_tag :translation_0, '', :autocomplete => search_autocomplete_word_text_path %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="span6" id="synonyms">
+                <div class="tabbable tabs">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#lA" data-toggle="tab">Synonims</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane active">
+                      <table class="table table-bordered">
+                        <tbody>
+                        <%= render @user_word.synonyms %>
+                        </tbody>
+                      </table>
+                      <div class="block-inline">
+                        <%= text_field_tag :synonym_0, '', :autocomplete => search_autocomplete_word_text_path %>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <hr/>
-
-            <%= render @user_word.synonyms %>
-            <div class="block" id="synonyms">
-              <div class="label">
-                new synonym
-              </div>
-              <div class="block-inline">
-                <%= text_field_tag :synonym_0, '', :autocomplete => search_autocomplete_word_text_path %>
-              </div>
-            </div>
-            <hr/>
 
             <div id="categories">
               <input type="button" value="Add category" onclick="addCategory();"/>
