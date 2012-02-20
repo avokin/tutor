@@ -1,1 +1,13 @@
-<%= link_to user_word.word.text, user_word %> <br/>
+<tr>
+  <td>
+    <%= link_to user_word.word.text, user_word %>
+  </td>
+  <td>
+    <% user_word.translations.each do |uw| %>
+        <%= link_to uw.source_user_word.word.text, uw.source_user_word %>
+    <% end %>
+  </td>
+  <td>
+
+  </td>
+</tr>

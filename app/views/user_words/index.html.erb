@@ -5,7 +5,24 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="lA">
-      <%= render @user_words %>
+      <table class="table table-striped">
+        <thead>
+            <tr>
+              <td>
+                Word
+              </td>
+              <td>
+                Translation
+              </td>
+              <td>
+                Status
+              </td>
+            </tr>
+        </thead>
+        <tbody>
+            <%= render @user_words %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
