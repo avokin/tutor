@@ -4,9 +4,8 @@ body {
 }
 
 #translations, #synonyms, #categories {
-
   & div.progress {
-    width: 150px;
+    width: 100px;
     margin: auto;
   }
 
@@ -16,5 +15,21 @@ body {
 
   td {
     vertical-align: middle;
+  }
+  h4 {
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+}
+
+#categories {
+  span.alert {
+    margin-right: 10px;
+    padding: 8px;
+    a.close {
+      float: none;
+      top: 1px;
+      right: -4px;
+    }
   }
 }

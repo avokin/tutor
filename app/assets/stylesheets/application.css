@@ -1,7 +1,7 @@
 /*
+*= require vendor
 *= require_self
 *= require_tree .
-*= require vendor
 */
 
 /* rest of file omitted */
