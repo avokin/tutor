@@ -3,8 +3,6 @@
 ###
 
 class SuperTest
-  etst
-
 
 hintCount = 0
 

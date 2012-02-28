@@ -4,14 +4,22 @@
   </div>
 
   <div class="span3 offset6" id="status">
-      <div class="progress">
-      <div class="bar" style="width: 60%;"></div>
-      </div>
-      <div class="div2">
-        <%= form_tag do %>
-            <%= submit_tag " Reset ", :class => "btn-danger" %>
-        <% end %>
-      </div>
+    <table>
+      <tbody>
+      <tr>
+        <td>
+          <div class="progress">
+            <div class="bar" style="width: 60%;"></div>
+          </div>
+        </td>
+        <td>
+          <%= form_tag do %>
+              <%= submit_tag " Reset ", :class => "btn-danger" %>
+          <% end %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 

@@ -18,22 +18,22 @@ h1 {
 
 
 #word_title {
-  .div1, .div2 {
-    float: left;
-    width: 100px;
-    vertical-align: middle;
-    form, input {
-      margin: 0
-    };
+  #status {margin-top: 3px;}
+
+
+  table {
+    padding: 0;
+    margin: 0;
+
+    div.progress {
+      width: 100px;
+    }
+
+    form {
+      margin: 0;
+      input {
+        margin: 0;
+      }
+    }
   }
-
-  div.progress {
-    float: left;
-    width: 100px;
-  }
-}
-
-
-#status {
-  height: 100%;
 }
