@@ -1,3 +1,11 @@
+###
+
+###
+
+class SuperTest
+  etst
+
+
 hintCount = 0
 
 showHint = ->

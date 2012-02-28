@@ -18,6 +18,7 @@
                 <% end %>
               </li>
               <li class="active"><%= link_to "Dictionary", root_path %></li>
+              <li><%= link_to "Categories", user_categories_path %></li>
               <li><%= link_to "Training", tries_path %></li>
             </ul>
             <ul class="nav pull-right">
@@ -29,12 +30,12 @@
                 <ul class="dropdown-menu">
                   <li>
                     <a href="/shortkeys.html">
-                      Profile
+                      <i class="icon-user"></i> Profile
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      Learning
+                      <i class="icon-cog"></i> Training preferences
                     </a>
                   </li>
 

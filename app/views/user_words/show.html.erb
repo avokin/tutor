@@ -1,34 +1,19 @@
-<div class="row">
+<div class="row" id="word_title">
   <div class="span3">
     <h1><%= @user_word.word.text %></h1>
   </div>
-  <div class="span3">
-    <div class="edit-button">
-      <div class="btn-group">
-        <%= link_to(edit_user_word_path(@user_word), :class => "btn") do %>
-            <i class="icon-edit"></i> Edit
-        <% end %>
 
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-          <li>
-            <%= link_to  "Rename the word", edit_user_word_path(@user_word) %>          </li>
-          <li>
-            <%= link_to  "Reset training status", edit_user_word_path(@user_word) %>
-          </li>
-        </ul>
+  <div class="span3 offset6" id="status">
+      <div class="progress">
+      <div class="bar" style="width: 60%;"></div>
       </div>
-    </div>
-  </div>
-
-
-  <div class="span3">
-    learned: <%= word_status(@user_word) * 100 %>%
+      <div class="div2">
+        <%= form_tag do %>
+            <%= submit_tag " Reset ", :class => "btn-danger" %>
+        <% end %>
+      </div>
   </div>
 </div>
-
 
 <%= form_for(@user_word) do |f| %>
     <div class="row">
@@ -44,7 +29,8 @@
         </table>
 
         <div class="block-inline">
-          <%= text_field_tag :translation_0, '', :autocomplete => search_autocomplete_word_text_path %>
+          <%= text_field_tag :translation_0, '', :autocomplete => search_autocomplete_word_text_path, :placeholder => "New translation" %>
+          <%= f.submit " Add ", :class => "btn-success" %>
         </div>
       </div>
 
@@ -58,20 +44,29 @@
           </tbody>
         </table>
         <div class="block-inline">
-          <%= text_field_tag :synonym_0, '', :autocomplete => search_autocomplete_word_text_path %>
+          <%= text_field_tag :synonym_0, '', :autocomplete => search_autocomplete_word_text_path, :placeholder => "New synonym" %>
+          <%= f.submit " Add ", :class => "btn-success" %>
         </div>
       </div>
     </div>
 
     <hr/>
     <div class="row">
-      <div class="span6" id="categories">
-
-        <h4>
-          Categories
-        </h4>
-        <%= render @user_word.user_word_categories %>
-        <input type="button" value="Add category" onclick="addCategory();"/>
+      <div class="span12" id="categories">
+        <div class="row">
+          <div class="span12">
+            <h4>
+              Categories
+            </h4>
+            <%= render @user_word.user_word_categories %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span6">
+            <%= text_field_tag :new_category, '', :autocomplete => search_autocomplete_word_text_path, :placeholder => "New category" %>
+            <%= f.submit " Add ", :class => "btn-success" %>
+          </div>
+        </div>
       </div>
     </div>
     <%= f.submit "Save", :class => "btn-primary" %>

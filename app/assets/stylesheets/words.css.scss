@@ -1,3 +1,39 @@
 h1 {
   color: #08C;
 }
+
+#word_title {
+  vertical-align: middle;
+
+  div.progress {
+    margin-right: 5px;
+    margin-bottom: 0;
+  }
+}
+
+#categories {
+
+}
+
+
+
+#word_title {
+  .div1, .div2 {
+    float: left;
+    width: 100px;
+    vertical-align: middle;
+    form, input {
+      margin: 0
+    };
+  }
+
+  div.progress {
+    float: left;
+    width: 100px;
+  }
+}
+
+
+#status {
+  height: 100%;
+}
