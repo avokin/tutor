@@ -48,17 +48,14 @@ class UserWordsController < ApplicationController
       i = i + 1
     end
 
-    i = 0
     new_categories = Array.new
-    while !params["category_#{i}"].nil? do
-      s = params["category_#{i}"]
-      if s.length > 0
-        new_categories << s
+    unless params["new_category"].nil?
+      if params["new_category"].length > 0
+        new_categories << params["new_category"]
       end
-      i = i + 1
     end
 
-    saved = user_word.save_with_relations(current_user, text, new_translations, new_synonyms, new_categories);
+    saved = user_word.save_with_relations(current_user, text, new_translations, new_synonyms, new_categories)
     if saved
       @user_word = user_word
       redirect_to user_word_path(@user_word)

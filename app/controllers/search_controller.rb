@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   before_filter :authenticate
 
   autocomplete :word, :text
-  autocomplete :category, :name
+  autocomplete :user_category, :name
 
   def create
     text = params[:search][:word]

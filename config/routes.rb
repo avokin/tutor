@@ -28,7 +28,7 @@ Tutor::Application.routes.draw do
   match '/shortkeys', :to => 'pages#shortkeys'
 
   get 'search/autocomplete_word_text'
-  get 'search/autocomplete_category_name'
+  get 'search/autocomplete_user_category_name'
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'

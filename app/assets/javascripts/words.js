@@ -19,18 +19,18 @@ function addInput(parentContainerId, name, autocomplete, value) {
 
 function addTranslation() {
   translationsCount++;
-  addInput("translations", "translation_" + (translationsCount - 1), "/search/autocomplete_word_word");
+  addInput("translations", "translation_" + (translationsCount - 1), "/search/autocomplete_word_text");
 }
 
 function addCategory(name) {
   categoriesCount++;
-  addInput("categories", "category_" + (categoriesCount - 1), "/search/autocomplete_category_name", name);
+  addInput("categories", "category_" + (categoriesCount - 1), "/search/autocomplete_user_category_name", name);
 }
 
 
 function addSynonym() {
   categoriesCount++;
-  addInput("synonyms", "synonym_" + (synonymsCount - 1), "/search/autocomplete_word_word");
+  addInput("synonyms", "synonym_" + (synonymsCount - 1), "/search/autocomplete_word_text");
 }
 
 

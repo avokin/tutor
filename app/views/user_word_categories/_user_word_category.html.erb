@@ -1,5 +1,7 @@
 <span class="alert alert-info">
     <%= link_to user_word_category.user_category.name, user_word_category.user_category %>
 
-    <a class="close">&times;</a>
+  <%= link_to user_word_category, :method => :delete, :confirm => 'You sure?', :title => 'Unlink word from category', :class => "close" do %>
+      &times;
+   <% end %>
 </span>
