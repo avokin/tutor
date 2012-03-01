@@ -44,4 +44,58 @@ describe SearchController do
       end
     end
   end
+
+  describe "GET 'autocomplete_word_text'" do
+    describe "unauthorized access" do
+      it "should redirect to signin page" do
+        get :autocomplete_word_text
+        response.should redirect_to signin_path
+      end
+    end
+
+    describe "authorized access" do
+      before(:each) do
+        @user = Factory(:user)
+        test_sign_in(@user)
+      end
+
+      describe "success" do
+        before(:each) do
+          @user_word1 = Factory(:user_word)
+        end
+
+        it "should return correspond words" do
+          get :autocomplete_word_text, :term => @user_word1.word.text
+          response.body.should =~ /.*#{@user_word1.word.text}.*/
+        end
+      end
+    end
+  end
+
+  describe "GET 'autocomplete_category name'" do
+    describe "unauthorized access" do
+      it "should redirect to signin page" do
+        get :autocomplete_user_category_name
+        response.should redirect_to signin_path
+      end
+    end
+
+    describe "authorized access" do
+      before(:each) do
+        @user = Factory(:user)
+        test_sign_in(@user)
+      end
+
+      describe "success" do
+        before(:each) do
+          @user_category = Factory(:user_category)
+        end
+
+        it "should return correspond words" do
+          get :autocomplete_user_category_name, :term => @user_category.name
+          response.body.should =~ /.*#{@user_category.name}.*/
+        end
+      end
+    end
+  end
 end
