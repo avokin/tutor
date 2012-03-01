@@ -27,7 +27,7 @@ Feature: categories
     Given word "home" with category "life"
     And I am on the word's page
     Then I should see "life"
-    And I follow "x"
+    And I follow "×"
     Then I should be on the word's page
     And I should not see "life"
     When I am on the root page
@@ -41,6 +41,6 @@ Feature: categories
     And I follow "Categories"
     Then I should be on the categories page
     And I should see "life"
-    And I check "life"
+    #And I check "life"
 
 

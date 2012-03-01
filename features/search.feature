@@ -6,7 +6,7 @@ Feature: Search
     When I am on the home page
     And I fill in the following:
       | search_word    | <word> |
-    And I press "Search"
+    And I submit the form
     Then I should be on the word's page
     And should see "<word>"
     And I fill in the following:
@@ -21,5 +21,5 @@ Feature: Search
     When I am on the home page
     And I fill in the following:
       | search_word    | new word1 |
-    And I press "Search"
+    And I submit the form
     Then I should be on the new word page

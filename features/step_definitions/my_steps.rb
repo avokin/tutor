@@ -63,3 +63,7 @@ end
 When /^I wait for (\d+) seconds?$/ do |secs|
   sleep secs.to_i
 end
+
+When /^I submit the form$/ do
+  page.evaluate_script("document.forms[0].submit()")
+end

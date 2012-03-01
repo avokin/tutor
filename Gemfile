@@ -30,4 +30,5 @@ group :test do
   gem 'webrat'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'rails3-jquery-autocomplete', '0.6.0'
 end
