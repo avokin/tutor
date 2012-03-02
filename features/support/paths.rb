@@ -13,6 +13,12 @@ module NavigationHelpers
         "/signin"
       when /^the word\'s page$/
         "/user_words/1"
+      when /^the "([^"]*)" word's page$/
+        user_word = UserWord.find_for_user(User.first, $1)
+        user_word_path user_word
+      when /^the "([^"]*)" category's page$/
+        user_category = UserCategory.find_by_user_and_name(User.first, $1)
+        user_category_path user_category
       when /^the new word page$/
         "/user_words/new"
       when /^the user\'s page$/

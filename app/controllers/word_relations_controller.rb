@@ -1,3 +1,5 @@
+include WordRelationsHelper
+
 class WordRelationsController < ApplicationController
   def create
     user_word_id = params[:word_relation][:user_word_id]

@@ -32,7 +32,7 @@ Given /^word "([^"]*)" with category "([^"]*)"$/ do |text, category|
 end
 
 
-Given /^word "([^"]*)" with translation "([^"]*)", synonym "([^"]*)", and category "([^"]*)"$/ do |text, translation, synonym, category|
+Given /^word "([^"]*)" with translation "([^"]*)", synonym "([^"]*)" and category "([^"]*)"$/ do |text, translation, synonym, category|
   @user_word = UserWord.new
   @user_word.save_with_relations(first_user, text, [translation], [synonym], [category])
 end
@@ -56,14 +56,18 @@ Then /^the "([^"]*)" field should be "([^"]*)"$/ do |id, value|
   field.value.should == value
 end
 
-When /^test step$/ do
-  a = 1
-end
-
 When /^I wait for (\d+) seconds?$/ do |secs|
   sleep secs.to_i
 end
 
 When /^I submit the form$/ do
   page.evaluate_script("document.forms[0].submit()")
+end
+
+When /^I confirm popup$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
+When /^I dismiss popup$/ do
+  page.driver.browser.switch_to.alert.dismiss
 end

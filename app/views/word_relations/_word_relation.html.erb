@@ -21,7 +21,7 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <%= link_to "Delete relation", word_relation ,:method => :delete, :confirm => 'You sure?', :title => 'title' %>
+          <%= link_to "Delete #{get_relation_name(word_relation)}", word_relation ,:method => :delete, :confirm => 'You sure?', :title => 'title' %>
         </li>
         <li>
           <%= link_to "Delete word \"#{word_relation.related_user_word.word.text}\"", word_relation ,:method => :delete, :confirm => 'You sure?', :title => 'title' %>

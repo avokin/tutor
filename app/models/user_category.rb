@@ -4,6 +4,6 @@ class UserCategory < ActiveRecord::Base
   belongs_to :user
 
   def self.find_by_user_and_name(user, name)
-    UserCategory.where(:user_id => user.id).where(:name => name)
+    UserCategory.where(:user_id => user.id).where(:name => name).first
   end
 end

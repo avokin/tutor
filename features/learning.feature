@@ -27,7 +27,7 @@ Feature: learning
 
   Scenario: learning, correct answer
     Given signed in user
-    Given word "house" with translation "dom", synonym "home", and category "everyday life"
+    Given word "house" with translation "dom", synonym "home" and category "everyday life"
     And I am on the root page
     And I follow "Learning"
     Then I should be on start learning page
@@ -57,7 +57,7 @@ Feature: learning
 
   Scenario: learning, wrong answer
     Given signed in user
-    Given word "house" with translation "dom", synonym "home", and category "everyday life"
+    Given word "house" with translation "dom", synonym "home" and category "everyday life"
     And I am on the root page
     And I follow "Learning"
     Then I should be on start learning page
@@ -72,7 +72,7 @@ Feature: learning
 
   Scenario: learning, one "hint" button press
     Given signed in user
-    Given word "house" with translation "zdanie", synonym "home", and category "everyday life"
+    Given word "house" with translation "zdanie", synonym "home" and category "everyday life"
     And I am on the root page
     And I follow "Learning"
     Then I should be on start learning page
@@ -91,7 +91,7 @@ Feature: learning
 
   Scenario: learning, two "hint" button press
     Given signed in user
-    Given word "house" with translation "zdanie", synonym "home", and category "everyday life"
+    Given word "house" with translation "zdanie", synonym "home" and category "everyday life"
     And I am on the root page
     And I follow "Learning"
     Then I should be on start learning page
@@ -114,7 +114,7 @@ Feature: learning
 
   Scenario: learning, skip
     Given signed in user
-    Given word "house" with translation "zdanie", synonym "home", and category "everyday life"
+    Given word "house" with translation "zdanie", synonym "home" and category "everyday life"
     And I am on the root page
     And I follow "Learning"
     Then I should be on start learning page
