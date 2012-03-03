@@ -38,7 +38,7 @@
 
         <div class="block-inline">
           <%= text_field_tag :translation_0, '', :autocomplete => search_autocomplete_word_text_path, :placeholder => "New translation" %>
-          <%= f.submit " Add ", :class => "btn-success" %>
+          <%= f.submit " Add ", :id => "add_translation", :class => "btn-success" %>
         </div>
       </div>
 
@@ -53,7 +53,7 @@
         </table>
         <div class="block-inline">
           <%= text_field_tag :synonym_0, '', :autocomplete => search_autocomplete_word_text_path, :placeholder => "New synonym" %>
-          <%= f.submit " Add ", :class => "btn-success" %>
+          <%= f.submit " Add ", :id => "add_synonym", :class => "btn-success" %>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@
         <div class="row">
           <div class="span6">
             <%= text_field_tag :new_category, '', :autocomplete => search_autocomplete_word_text_path, :placeholder => "New category" %>
-            <%= f.submit " Add ", :class => "btn-success" %>
+            <%= f.submit " Add ", :value => "add_category", :class => "btn-success" %>
           </div>
         </div>
       </div>
