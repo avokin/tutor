@@ -3,10 +3,32 @@ Factory.define :word do |word|
   word.sequence(:language_id) { |i| i % 2 + 1 }
 end
 
+Factory.define :english_word, :class => :word do |word|
+  word.sequence(:text) { |i| "english#{i}" }
+  word.language_id { 1 }
+end
+
+Factory.define :russian_word, :class => :word do |word|
+  word.sequence(:text) { |i| "russian#{i}" }
+  word.language_id { 2 }
+end
+
+
 Factory.define :user_word do |user_word|
   user_word.user { first_user }
   user_word.association :word
 end
+
+Factory.define :english_user_word, :class => :user_word do |user_word|
+  user_word.user { first_user }
+  user_word.association :word, :factory => :english_word
+end
+
+Factory.define :russian_user_word, :class => :user_word do |user_word|
+  user_word.user { first_user }
+  user_word.association :word, :factory => :russian_word
+end
+
 
 Factory.define :user_word_for_another_user, :class => :user_word do |user_word|
   user_word.user { second_user }

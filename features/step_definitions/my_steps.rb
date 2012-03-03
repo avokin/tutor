@@ -71,3 +71,26 @@ end
 When /^I dismiss popup$/ do
   page.driver.browser.switch_to.alert.dismiss
 end
+
+Given /^(\d+) English words$/ do |arg|
+  n = arg.to_i
+  (1..n).each do
+    Factory(:english_user_word)
+  end
+end
+
+Given /^(\d+) Russian words$/ do |arg|
+  n = arg.to_i
+  (1..n).each do
+    Factory(:russian_user_word)
+  end
+end
+
+Then /^I should see only english words$/ do
+  page.should have_content("english")
+  page.should_not have_content("russian")
+end
+
+When /^I should see paginator$/ do
+  page.should have_selector('div.pagination')
+end
