@@ -9,7 +9,11 @@ Tutor::Application.routes.draw do
   post "tries/check"
   resources :tries, :controller => 'tries'
 
-  resources :word_relations, :only => [:create, :destroy]
+  resources :word_relations, :only => [:create, :destroy] do
+    collection do
+      delete :destroy_with_related_word
+    end
+  end
   resources :user_word_categories, :only => [:destroy]
 
   resources :user_words
