@@ -1,20 +1,25 @@
-<%= will_paginate @user_words %>
 <table class="table table-striped">
   <thead>
-      <tr>
-        <td>
-          Word
-        </td>
-        <td>
-          Translation
-        </td>
-        <td>
-          Status
-        </td>
-      </tr>
+  <tr>
+    <td>
+      Word
+    </td>
+    <td>
+      Translation
+    </td>
+    <td>
+      Status
+    </td>
+  </tr>
   </thead>
+  <tfoot>
+  <tr>
+  <td colspan="3">
+    <%= will_paginate @user_words %>
+  </td>
+  </tr>
+  </tfoot>
   <tbody>
-      <%= render @user_words %>
+  <%= render @user_words %>
   </tbody>
 </table>
-<%= will_paginate @user_words %>

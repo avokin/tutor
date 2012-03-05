@@ -11,10 +11,6 @@ h1 {
   }
 }
 
-#categories {
-
-}
-
 #word_title {
   #status {
     margin-top: 3px;
@@ -35,4 +31,9 @@ h1 {
       }
     }
   }
+}
+
+.pagination {
+  //display: inline;
+  text-align: center;
 }
