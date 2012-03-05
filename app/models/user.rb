@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
     (user && user.salt == cookie_salt) ? user : nil
   end
 
+  def foreign_user_words
+    UserWord.joins(:word).where('user_id = ?', self.id).where('words.language_id != ?', self.language.id)
+  end
+
   private
 
   def encrypt_password

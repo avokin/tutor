@@ -5,6 +5,7 @@ gem 'rails', '3.2.0'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', '0.6.0'
 gem 'nifty-generators'
+gem 'will_paginate'
 
 group :assets do
   gem 'sass-rails'
