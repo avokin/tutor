@@ -1,6 +1,12 @@
 Tutor::Application.routes.draw do
 
 
+  get "training/check"
+
+  get "training/start"
+
+  get "training/show"
+
   get "user_word_categories/delete"
 
   resource :search, :controller => 'search'
