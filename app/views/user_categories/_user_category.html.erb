@@ -1,7 +1,8 @@
-<%= link_to user_category.name, user_category %>
-
-<div class="delete-button" >
-  <%= link_to "x", user_category, :method => :delete, :confirm => 'You sure?', :title => 'title' %>
-</div>
-
-<br/>
+<td>
+  <%= link_to user_category.name, user_category %>
+</td>
+<td>
+  <div class="delete-button">
+    <%= link_to "x", user_category, :method => :delete, :confirm => 'You sure?', :title => 'title' %>
+  </div>
+</td>

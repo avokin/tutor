@@ -1,19 +1,30 @@
-<div class="tabbable tabs">
-  <ul class="nav nav-tabs">
-    <li class=""><%= link_to "Words", user_words_path, "data-tougle" => "tab" %></li>
-    <li class="active"><a href="#lA" data-toggle="tab">Categories</a></li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="lA">
-      <%= form_tag :method => :post, :action => :update_defaults do
-          @categories.each() do |category|
-               %>
-          <%= check_box_tag("id#{category.id}", "", category.is_default) %>
-
-          <%= render category %>
-          <% end %>
-          <%=  submit_tag "Save" %>
-      <% end %>
-    </div>
+<div class="row" id="word_title">
+  <div class="span12">
+    <h1>Categories</h1>
   </div>
+</div>
+
+<div class="row">
+  <%= form_tag :method => :post, :action => :update_defaults do %>
+    <table class="table table-striped">
+      <tfoot>
+      <tr>
+        <td colspan="3">
+          <%= submit_tag "Save" %>
+        </td>
+      </tr>
+      </tfoot>
+      <tbody>
+
+      <% @categories.each() do |category| %>
+        <tr>
+          <td>
+            <%= check_box_tag("id#{category.id}", "", category.is_default) %>
+          </td>
+          <%= render category %>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>

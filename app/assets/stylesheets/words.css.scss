@@ -1,5 +1,8 @@
-h1 {
-  color: #08C;
+@import "constants.css.scss";
+
+h1.word {
+  text-align: left;
+  color: $user_data_color;
 }
 
 #word_title {
