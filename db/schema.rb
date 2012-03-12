@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111101112243) do
+ActiveRecord::Schema.define(:version => 20120311123410) do
 
   create_table "languages", :force => true do |t|
     t.string   "name",       :null => false
@@ -38,10 +39,11 @@ ActiveRecord::Schema.define(:version => 20111101112243) do
   end
 
   create_table "user_words", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.integer  "word_id",    :null => false
+    t.integer  "user_id",                                  :null => false
+    t.integer  "word_id",                                  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "translation_success_count", :default => 0, :null => false
   end
 
   add_index "user_words", ["user_id", "word_id"], :name => "IndexUserWordUnique", :unique => true

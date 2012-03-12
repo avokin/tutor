@@ -1,10 +1,11 @@
 require 'spec_helper'
 
-describe TrainingController do
+describe TrainingsController do
 
   describe "POST 'check'" do
     before(:each) do
-      @user_word = Factory(:user_word)
+      @translation = Factory(:word_relation_translation)
+      @user_word = @translation.source_user_word
     end
 
     describe "unauthorized access" do
@@ -30,23 +31,60 @@ describe TrainingController do
     end
 
     describe "authorized access" do
-      before(:each) do
-        test_sign_in @user_word.user
-      end
-
       describe "successful attempt" do
-        it "should immediately redirect to the next training page" do
-          post :check, :id => @user_word.id, :variant_0 => @user_word.translations[0].word.text
-          response.should redirect_to training_path(@next_user_word)
+        describe "one word translation" do
+          before(:each) do
+            test_sign_in @user_word.user
+          end
+
+          it "should immediately redirect to the next training page" do
+            post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text
+            response.location.should =~ /#{training_path(:id => nil)}\/\d$/
+          end
+
+          it "should increase successful attempt counter" do
+            post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text
+            @user_word.reload
+            @user_word.translation_success_count.should == 1
+          end
         end
 
-        it "should increase successful attempt counter" do
+        describe "two word translation" do
+          before(:each) do
+            @translation2 = Factory(:word_relation_translation, :source_user_word => @user_word)
+            test_sign_in @user_word.user
+          end
 
+          it "should immediately redirect to the next training page" do
+            post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text, :variant_1 => @translation2.related_user_word.word.text
+            response.location.should =~ /#{training_path(:id => nil)}\/\d$/
+          end
+
+          it "should increase successful attempt counter" do
+            post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text, :variant_1 => @translation2.related_user_word.word.text
+            @user_word.reload
+            @user_word.translation_success_count.should == 1
+          end
         end
       end
 
-      describe "unseucessful attempt" do
+      describe "unsuccessful attempt" do
+        before(:each) do
+          test_sign_in @user_word.user
+        end
 
+        it "should display correct answer" do
+          post :check, :id => @user_word.id, :variant_0 => ""
+          response.should render_template 'show'
+        end
+
+        it "should zero success attempt counter" do
+          @user_word.translation_success_count = 1
+          @user_word.save
+          post :check, :id => @user_word.id, :variant_0 => ""
+          @user_word.reload
+          @user_word.translation_success_count.should == 0
+        end
       end
     end
   end
@@ -77,7 +115,7 @@ describe TrainingController do
 
     describe "authorized access" do
       it "should set cookie for mode" do
-        post :start, :mode => :training
+        post :start, :mode => :trainings
         post :start, :mode => :repetition
       end
 

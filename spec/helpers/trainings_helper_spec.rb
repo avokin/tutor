@@ -10,6 +10,8 @@ require 'spec_helper'
 #     end
 #   end
 # end
-describe TrainingHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe TrainingsHelper do
+  describe "check" do
+
+  end
 end
