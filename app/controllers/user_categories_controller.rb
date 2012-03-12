@@ -8,15 +8,15 @@ class UserCategoriesController < ApplicationController
     @category = UserCategory.new params[:user_category]
     @category.user = current_user
 
-    count = UserCategory.find_by_user_and_name(current_user, @category.name).length
-    if count > 0
-      render 'pages/message'
-    else
+    existed_category = UserCategory.find_by_user_and_name(current_user, @category.name)
+    if existed_category.nil?
       if @category.save
         redirect_to user_categories_path
       else
         render 'pages/message'
       end
+    else
+      render 'pages/message'
     end
   end
 
