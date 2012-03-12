@@ -41,12 +41,6 @@ describe TrainingsController do
             post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text
             response.location.should =~ /#{training_path(:id => nil)}\/\d$/
           end
-
-          it "should increase successful attempt counter" do
-            post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text
-            @user_word.reload
-            @user_word.translation_success_count.should == 1
-          end
         end
 
         describe "two word translation" do
@@ -59,12 +53,6 @@ describe TrainingsController do
             post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text, :variant_1 => @translation2.related_user_word.word.text
             response.location.should =~ /#{training_path(:id => nil)}\/\d$/
           end
-
-          it "should increase successful attempt counter" do
-            post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text, :variant_1 => @translation2.related_user_word.word.text
-            @user_word.reload
-            @user_word.translation_success_count.should == 1
-          end
         end
       end
 
@@ -76,14 +64,6 @@ describe TrainingsController do
         it "should display correct answer" do
           post :check, :id => @user_word.id, :variant_0 => ""
           response.should render_template 'show'
-        end
-
-        it "should zero success attempt counter" do
-          @user_word.translation_success_count = 1
-          @user_word.save
-          post :check, :id => @user_word.id, :variant_0 => ""
-          @user_word.reload
-          @user_word.translation_success_count.should == 0
         end
       end
     end
