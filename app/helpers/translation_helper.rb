@@ -14,7 +14,7 @@ module TranslationHelper
 
     url = URI.parse('http://lingvopro.abbyyonline.com')
     res = Net::HTTP.start(url.host, url.port) {|http|
-      http.get("/ru/Search/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word}")
+      http.get("/ru/Translate/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word}")
     }
 
     i = 0
