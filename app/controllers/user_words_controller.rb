@@ -2,6 +2,7 @@ class UserWordsController < ApplicationController
   include UserWordsHelper
 
   before_filter :authenticate
+  before_filter :set_active_tab
 
   def new
     @title = "New word"
@@ -92,7 +93,7 @@ class UserWordsController < ApplicationController
   end
 
   def index
-    @user_words = current_user.foreign_user_words.paginate(:page => params[:page], :per_page => 3)
+    @user_words = current_user.foreign_user_words.paginate(:page => params[:page])
     @title = "Your words"
   end
 
@@ -116,5 +117,10 @@ class UserWordsController < ApplicationController
   def recent
     @user_words = UserWord.find_recent_for_user(current_user, 50)
     @title = 'Your recent words'
+  end
+
+  private
+  def set_active_tab
+    @active_tab = :dictionary
   end
 end

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe TrainingsController do
-
   describe "POST 'check'" do
     before(:each) do
       @translation = Factory(:word_relation_translation)

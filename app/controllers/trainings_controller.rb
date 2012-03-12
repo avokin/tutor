@@ -3,6 +3,7 @@ include TrainingsHelper
 class TrainingsController < ApplicationController
   before_filter :authenticate
   before_filter :correct_user, :only => [:check, :show]
+  before_filter :set_active_tab
 
   def check
     i = 0
@@ -53,5 +54,9 @@ class TrainingsController < ApplicationController
 
       redirect_to(root_path, :flash => {:error => "Error another user"}) unless current_user?(@user)
     end
+  end
+
+  def set_active_tab
+    @active_tab = :training
   end
 end

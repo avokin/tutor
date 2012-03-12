@@ -17,9 +17,9 @@
                     <%= f.text_field :word, :autocomplete => search_autocomplete_word_text_path, :class => "search-query", :placeholder => "Search" %>
                 <% end %>
               </li>
-              <li class="active"><%= link_to "Dictionary", root_path %></li>
-              <li><%= link_to "Categories", user_categories_path %></li>
-              <li><%= link_to "Training", trainings_path %></li>
+              <li <% if @active_tab == :dictionary %>class="active"<% end %> ><%= link_to "Dictionary", root_path %></li>
+              <li <% if @active_tab == :categories %>class="active"<% end %> ><%= link_to "Categories", user_categories_path %></li>
+              <li <% if @active_tab == :training %>class="active"<% end %> ><%= link_to "Training", trainings_path %></li>
             </ul>
             <ul class="nav pull-right">
               <li class="dropdown">
