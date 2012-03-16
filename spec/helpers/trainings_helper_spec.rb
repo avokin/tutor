@@ -62,6 +62,106 @@ describe TrainingsHelper do
   end
 
   describe "select_user_word" do
-    pending
+    before(:each) do
+      (1..10).each do |i|
+        Factory(:word_relation_translation)
+      end
+      (1..10).each do |i|
+        Factory(:word_relation_synonym)
+      end
+
+      @user = User.first
+    end
+
+    describe "type" do
+      describe "translation" do
+        describe "direction" do
+          it "should fetch foreign word" do
+            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :learning)
+            selected_user_word.word.language.should_not == @user.language
+            selected_user_word.translations.length.should > 0
+          end
+
+          it "should fetch native word" do
+            selected_user_word = select_user_word(@user, nil, :native_foreign, :translation, :learning)
+            selected_user_word.word.language.should == @user.language
+            selected_user_word.translations.length.should > 0
+          end
+        end
+      end
+
+      describe "synonym" do
+        it "should fetch native word" do
+          selected_user_word = select_user_word(@user, nil, :nil, :synonym, :learning)
+          selected_user_word.word.language.should_not == @user.language
+          selected_user_word.synonyms.length.should > 0
+        end
+      end
+    end
+
+    describe "mode" do
+      describe "learning" do
+        before(:each) do
+          @translations = WordRelation.where(:relation_type => 1)
+          @translations.each do |relation|
+            relation.source_user_word.translation_success_count = 10
+            relation.source_user_word.save!
+          end
+        end
+
+        describe "the only unlearned word" do
+          before(:each) do
+            @first_translation = @translations.first
+            @first_translation.source_user_word.translation_success_count = 0
+            @first_translation.source_user_word.save!
+          end
+
+          it "should select the only unlearned word" do
+            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :learning)
+            selected_user_word.should == @first_translation.source_user_word
+          end
+        end
+
+        describe "all words are learned" do
+          it "should not select any word" do
+            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :learning)
+            selected_user_word.should be_nil
+          end
+        end
+      end
+
+      describe "repetition" do
+        describe "the only learned word" do
+          before(:each) do
+            @translations = WordRelation.where(:relation_type => 1)
+            @first_translation = @translations.first
+            @first_translation.source_user_word.translation_success_count = 10
+            @first_translation.source_user_word.save!
+          end
+
+          it "should select the only learned word" do
+            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :repetition)
+            selected_user_word.should == @first_translation.source_user_word
+          end
+        end
+
+        describe "all words are unlearned" do
+          it "should not select any word" do
+            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :repetition)
+            selected_user_word.should be_nil
+          end
+        end
+      end
+    end
+
+    describe "scope" do
+      describe "nil" do
+
+      end
+
+      describe "category" do
+
+      end
+    end
   end
 end

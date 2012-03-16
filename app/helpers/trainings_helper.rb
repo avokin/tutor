@@ -17,12 +17,33 @@ module TrainingsHelper
     result
   end
 
-  def select_user_word(scope)
+  def select_user_word(user, scope, direction, type, mode)
     if scope.nil?
-      user_words = current_user.user_words
+      user_words = user.user_words
     else
-      user_category = UserCategory.find_by_user_and_name(current_user, scope)
-      user_words = user_category.user_words
+      user_category = UserCategory.find(scope)
+      if user_category.user == current_user
+        user_words = user_category.user_words
+      else
+        #log error
+        user_words = user.user_words
+      end
+    end
+
+    if type == :translation
+      if direction == :foreign_native
+        user_words = user_words.joins(:direct_translations)
+      else
+        user_words = user_words.joins(:backward_translations)
+      end
+    else
+      user_words = user_words.joins(:direct_synonyms)
+    end
+
+    if mode == :learning
+      user_words = user_words.where("translation_success_count < ?", 5)
+    else
+      user_words = user_words.where("translation_success_count >= ?", 5)
     end
 
     count = user_words.length

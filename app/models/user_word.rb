@@ -1,4 +1,6 @@
 class UserWord < ActiveRecord::Base
+  attr_accessible :translation_success_count
+
   belongs_to :word
   belongs_to :user
 

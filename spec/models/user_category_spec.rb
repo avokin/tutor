@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe UserCategory do
-  describe "create category" do
-
+  describe "find by user and name" do
+    pending
   end
 
   describe "delete category" do

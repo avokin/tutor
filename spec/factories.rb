@@ -37,8 +37,8 @@ end
 
 Factory.define :word_relation_translation, :class => :word_relation do |word_relation|
   word_relation.relation_type {1}
-  word_relation.association :source_user_word, :factory => :user_word
-  word_relation.association :related_user_word, :factory => :user_word
+  word_relation.association :source_user_word, :factory => :english_user_word
+  word_relation.association :related_user_word, :factory => :russian_user_word
   word_relation.user { first_user }
   word_relation.status_id {1}
   word_relation.success_count {0}
@@ -46,8 +46,8 @@ end
 
 Factory.define :word_relation_synonym, :class => :word_relation do |word_relation|
   word_relation.relation_type { 2 }
-  word_relation.association :source_user_word, :factory => :user_word
-  word_relation.association :related_user_word, :factory => :user_word
+  word_relation.association :source_user_word, :factory => :english_user_word
+  word_relation.association :related_user_word, :factory => :english_user_word
   word_relation.user { first_user }
   word_relation.status_id {1}
   word_relation.success_count {0}
