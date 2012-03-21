@@ -43,6 +43,7 @@ class UserCategoriesController < ApplicationController
 
   def show
     @category = UserCategory.find(params[:id])
+    @user_words = @category.user_words.paginate(:page => params[:page])
   end
 
   def destroy

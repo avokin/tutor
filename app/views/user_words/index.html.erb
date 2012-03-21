@@ -1,25 +1,11 @@
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <td>
-      Word
-    </td>
-    <td>
-      Translation
-    </td>
-    <td>
-      Status
-    </td>
-  </tr>
-  </thead>
-  <tfoot>
-  <tr>
-  <td colspan="3">
-    <%= will_paginate @user_words %>
-  </td>
-  </tr>
-  </tfoot>
-  <tbody>
-  <%= render @user_words %>
-  </tbody>
-</table>
+<div class="row" id="page_title">
+  <div class="span12">
+    <h1>Dictionary</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <%= render :template => 'user_words/_user_words' %>
+  </div>
+</div>
