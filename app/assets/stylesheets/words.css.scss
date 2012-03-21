@@ -1,7 +1,26 @@
-@import "tutor.css.scss";
+#categories {
+  span.alert {
+    margin-right: 10px;
+    padding: {
+      top: 2px;
+      bottom: 2px;
+      left: 8px;
+      right: 8px;
+    }
+    a.close {
+      float: none;
+      top: 1px;
+      right: -4px;
+    }
+  }
+}
 
-#word_title {
-  @extends #page_title;
+.new-word, .new-category {
+  text-align: left;
+}
+
+.category_list {
+  margin-bottom: 5px;
 }
 
 #status {
