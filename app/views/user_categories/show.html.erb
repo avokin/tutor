@@ -1,14 +1,12 @@
 <div class="row" id="page_title">
-  <div class="span12">
-    <h1>Category</h1>
+  <div class="span11">
+    <h1>Category: <span class="user_data"><%= @category.name %></span></h1>
+  </div>
+  <div class="span1">
+    <%= link_to "Edit", edit_user_category_path(@category) %>
   </div>
 </div>
 
 <div class="row">
-  <div class="span3">
-    <%= @category.name %>
-    <%= link_to "Edit", edit_user_category_path(@category) %>
-  </div>
-
   <%= render :template => 'user_words/_user_words' %>
 </div>

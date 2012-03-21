@@ -1,19 +1,17 @@
-@import "constants.css.scss";
 @import "tutor.css.scss";
-
-h1.word {
-  text-align: left;
-  color: $user_data_color;
-}
 
 #word_title {
   @extends #page_title;
 }
 
-#word_title {
-  #status {
-    margin-top: 3px;
+#status {
+  margin-top: 3px;
+  table {
+    float: right;
   }
+}
+
+#page_title {
 
   table {
     padding: 0;

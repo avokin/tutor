@@ -1,3 +1,9 @@
+@import "constants.css.scss";
+
+.user_data {
+  color: $user_data_color;
+}
+
 h1 {
   text-align: center;
   margin-bottom: 10px;
