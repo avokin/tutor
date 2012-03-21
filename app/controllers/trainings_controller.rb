@@ -22,7 +22,7 @@ class TrainingsController < ApplicationController
     end
 
     if ok
-      @user_word = select_user_word(current_user, nil, nil, :foreign_native, nil)
+      @user_word = select_user_word(current_user, nil, :foreign_native, :translation, :learning)
       redirect_to training_path(@user_word.id)
     else
       render :show
@@ -30,7 +30,7 @@ class TrainingsController < ApplicationController
   end
 
   def start
-    @user_word = select_user_word(current_user, nil, nil, :foreign_native, nil)
+    @user_word = select_user_word(current_user, nil, :foreign_native, :translation, :learning)
     redirect_to training_path(@user_word.id)
   end
 
@@ -40,8 +40,12 @@ class TrainingsController < ApplicationController
   end
 
   def index
-    @user_word = select_user_word(current_user, nil, :foreign_native, :translation, nil)
-    redirect_to training_path(@user_word.id)
+    @user_word = select_user_word(current_user, nil, :foreign_native, :translation, :learning)
+    if @user_word.nil?
+      render 'pages/message'
+    else
+      redirect_to training_path(@user_word.id)
+    end
   end
 
   private

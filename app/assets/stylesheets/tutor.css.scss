@@ -3,6 +3,11 @@ h1 {
   margin-bottom: 10px;
 }
 
+.biglink {
+  font-size: 30px;
+  font-weight: bold;
+}
+
 body {
   padding-top: 60px;
   padding-bottom: 40px;
@@ -36,5 +41,14 @@ body {
       top: 1px;
       right: -4px;
     }
+  }
+}
+
+#page_title {
+  vertical-align: middle;
+
+  div.progress {
+    margin-right: 5px;
+    margin-bottom: 0;
   }
 }

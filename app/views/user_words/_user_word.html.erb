@@ -4,7 +4,7 @@
   </td>
   <td>
     <% user_word.translations.each do |uw| %>
-        <%= link_to uw.source_user_word.word.text, uw.source_user_word %>
+        <%= link_to uw.related_user_word.word.text, uw.related_user_word %>
     <% end %>
   </td>
   <td>
