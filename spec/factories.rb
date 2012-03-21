@@ -73,7 +73,7 @@ Factory.define :user_category do |user_category|
 end
 
 Factory.define :user_word_category do |user_word_category|
-  user_word_category.association :user_word
+  user_word_category.association :user_word, :factory => :english_user_word
   user_word_category.association :user_category
 end
 

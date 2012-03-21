@@ -22,7 +22,7 @@ module TrainingsHelper
       user_words = user.user_words
     else
       user_category = UserCategory.find(scope)
-      if user_category.user == current_user
+      if user_category.user == user
         user_words = user_category.user_words
       else
         #log error

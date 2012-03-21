@@ -155,12 +155,34 @@ describe TrainingsHelper do
     end
 
     describe "scope" do
-      describe "nil" do
+      before(:each) do
+        @n = 10
+        @user_word_category = Array.new(@n)
+        (0..(@n-1)).each do |i|
+          @user_word_category[i] = Factory(:user_word_category)
+          user_word = @user_word_category[i].user_word
+          Factory(:word_relation_translation, :source_user_word => user_word)
+        end
+        @fake_category = Factory(:user_category)
+      end
 
+      describe "nil" do
+        it "should return any user word" do
+          selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :learning)
+          selected_user_word.should_not be_nil
+        end
       end
 
       describe "category" do
+        it "should select the only word of current category" do
+          selected_user_word = select_user_word(@user, @user_word_category[0].user_category.id, :foreign_native, :translation, :learning)
+          selected_user_word.should == @user_word_category[0].user_word
+        end
 
+        it "should select nil if there is no a word with specified category" do
+          selected_user_word = select_user_word(@user, @fake_category.id, :foreign_native, :translation, :repetition)
+          selected_user_word.should be_nil
+        end
       end
     end
   end
