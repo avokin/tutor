@@ -35,6 +35,7 @@ Feature: categories
     Then I should see "life"
 
   Scenario: default category
+    Given not implemented
     Given signed in user
     Given word "home" with category "life"
     And I am on the root page
