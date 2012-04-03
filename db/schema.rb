@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311123410) do
+ActiveRecord::Schema.define(:version => 20120403141326) do
 
   create_table "languages", :force => true do |t|
     t.string   "name",       :null => false
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(:version => 20120311123410) do
   end
 
   add_index "languages", ["name"], :name => "IndexLanguageNameUnique", :unique => true
+
+  create_table "trainings", :force => true do |t|
+    t.integer  "user_category_id"
+    t.integer  "direction_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "user_categories", :force => true do |t|
     t.string   "name",                          :null => false
