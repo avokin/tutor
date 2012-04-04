@@ -16,16 +16,19 @@ end
 
 Factory.define :user_word do |user_word|
   user_word.user { first_user }
+  user_word.time_to_check { DateTime.new(2001,2,3,4,5,6) }
   user_word.association :word
 end
 
 Factory.define :english_user_word, :class => :user_word do |user_word|
   user_word.user { first_user }
+  user_word.time_to_check { DateTime.new(2001,2,3,4,5,6) }
   user_word.association :word, :factory => :english_word
 end
 
 Factory.define :russian_user_word, :class => :user_word do |user_word|
   user_word.user { first_user }
+  user_word.time_to_check { DateTime.new(2001,2,3,4,5,6) }
   user_word.association :word, :factory => :russian_word
 end
 
@@ -41,7 +44,6 @@ Factory.define :word_relation_translation, :class => :word_relation do |word_rel
   word_relation.association :related_user_word, :factory => :russian_user_word
   word_relation.user { first_user }
   word_relation.status_id {1}
-  word_relation.success_count {0}
 end
 
 Factory.define :word_relation_synonym, :class => :word_relation do |word_relation|
@@ -50,7 +52,6 @@ Factory.define :word_relation_synonym, :class => :word_relation do |word_relatio
   word_relation.association :related_user_word, :factory => :english_user_word
   word_relation.user { first_user }
   word_relation.status_id {1}
-  word_relation.success_count {0}
 end
 
 Factory.define :user do |user|

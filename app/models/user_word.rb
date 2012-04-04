@@ -1,5 +1,5 @@
 class UserWord < ActiveRecord::Base
-  attr_accessible :translation_success_count, :word, :user
+  attr_accessible :translation_success_count, :word, :user, :time_to_check
 
   belongs_to :word
   belongs_to :user
@@ -15,6 +15,9 @@ class UserWord < ActiveRecord::Base
 
   validates :word, :presence => true
   validates :user, :presence => true
+  validates :time_to_check, :presence => true
+
+  after_initialize :set_time_to_check
 
   def translations
     direct_translations + backward_translations
@@ -102,4 +105,8 @@ class UserWord < ActiveRecord::Base
     UserWord.order('created_at desc').where(:user_id => user.id).limit(count)
   end
 
+  private
+  def set_time_to_check
+    self.time_to_check = Time.now
+  end
 end

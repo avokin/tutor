@@ -71,19 +71,22 @@ describe TrainingsHelper do
       end
 
       @user = User.first
+      @training = Training.new
     end
 
     describe "type" do
       describe "translation" do
         describe "direction" do
           it "should fetch foreign word" do
-            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :learning)
+            @training.direction = :direct
+            selected_user_word = select_user_word(@user, @training)
             selected_user_word.word.language.should_not == @user.language
             selected_user_word.translations.length.should > 0
           end
 
           it "should fetch native word" do
-            selected_user_word = select_user_word(@user, nil, :native_foreign, :translation, :learning)
+            @training.direction = :translation
+            selected_user_word = select_user_word(@user, @training)
             selected_user_word.word.language.should == @user.language
             selected_user_word.translations.length.should > 0
           end
@@ -92,65 +95,39 @@ describe TrainingsHelper do
 
       describe "synonym" do
         it "should fetch native word" do
-          selected_user_word = select_user_word(@user, nil, :nil, :synonym, :learning)
-          selected_user_word.word.language.should_not == @user.language
-          selected_user_word.synonyms.length.should > 0
+          # ToDo
+          #selected_user_word = select_user_word(@user, @training)
+          #selected_user_word.word.language.should_not == @user.language
+          #selected_user_word.synonyms.length.should > 0
+          pending
         end
       end
     end
 
-    describe "mode" do
-      describe "learning" do
-        before(:each) do
-          @translations = WordRelation.where(:relation_type => 1)
-          @translations.each do |relation|
-            relation.source_user_word.translation_success_count = 10
+    describe "fetching only ready words" do
+      before(:each) do
+        @translations = WordRelation.where(:relation_type => 1)
+        @translations.each do |relation|
+          if @translations.first != relation
+            relation.source_user_word.time_to_check = DateTime.new(2101, 2, 3, 4, 5, 6)
             relation.source_user_word.save!
-          end
-        end
-
-        describe "the only unlearned word" do
-          before(:each) do
-            @first_translation = @translations.first
-            @first_translation.source_user_word.translation_success_count = 0
-            @first_translation.source_user_word.save!
-          end
-
-          it "should select the only unlearned word" do
-            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :learning)
-            selected_user_word.should == @first_translation.source_user_word
-          end
-        end
-
-        describe "all words are learned" do
-          it "should not select any word" do
-            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :learning)
-            selected_user_word.should be_nil
           end
         end
       end
 
-      describe "repetition" do
-        describe "the only learned word" do
-          before(:each) do
-            @translations = WordRelation.where(:relation_type => 1)
-            @first_translation = @translations.first
-            @first_translation.source_user_word.translation_success_count = 10
-            @first_translation.source_user_word.save!
-          end
+      it "should fetch only ready word" do
+        @training.direction = :direct
+        selected_user_word = select_user_word(@user, @training)
+        selected_user_word.should == @translations.first.source_user_word
+      end
 
-          it "should select the only learned word" do
-            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :repetition)
-            selected_user_word.should == @first_translation.source_user_word
-          end
-        end
+      it "should fetch nothing if all words are not ready" do
+        @translations.first.source_user_word.time_to_check = DateTime.new(2101, 2, 3, 4, 5, 6)
+        @translations.first.source_user_word.save!
 
-        describe "all words are unlearned" do
-          it "should not select any word" do
-            selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :repetition)
-            selected_user_word.should be_nil
-          end
-        end
+        @training.direction = :direct
+        selected_user_word = select_user_word(@user, @training)
+        selected_user_word.should be_nil
       end
     end
 
@@ -168,19 +145,24 @@ describe TrainingsHelper do
 
       describe "nil" do
         it "should return any user word" do
-          selected_user_word = select_user_word(@user, nil, :foreign_native, :translation, :learning)
+          @training.direction = :direct
+          selected_user_word = select_user_word(@user, @training)
           selected_user_word.should_not be_nil
         end
       end
 
       describe "category" do
         it "should select the only word of current category" do
-          selected_user_word = select_user_word(@user, @user_word_category[0].user_category.id, :foreign_native, :translation, :learning)
+          @training.direction = :direct
+          @training.user_category = @user_word_category[0].user_category
+          selected_user_word = select_user_word(@user, @training)
           selected_user_word.should == @user_word_category[0].user_word
         end
 
         it "should select nil if there is no a word with specified category" do
-          selected_user_word = select_user_word(@user, @fake_category.id, :foreign_native, :translation, :repetition)
+          @training.direction = :direct
+          @training.user_category = @fake_category
+          selected_user_word = select_user_word(@user, @training)
           selected_user_word.should be_nil
         end
       end
