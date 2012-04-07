@@ -78,6 +78,12 @@ Factory.define :user_word_category do |user_word_category|
   user_word_category.association :user_category
 end
 
+Factory.define :training do |training|
+  training.association :user_category
+  training.direction {:direct}
+  training.user {first_user}
+end
+
 def second_language
   while Language.all.size < 2
     Factory(:language)
