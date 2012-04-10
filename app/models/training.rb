@@ -7,16 +7,25 @@ class Training < ActiveRecord::Base
   validates :user, :presence => true
 
   validate :user_category_must_belong_to_user
+  validates_uniqueness_of :user_category_id, :scope => :direction_id
 
   def direction
-    self.direction_id == 0 ? :direct : :translation
+    if self.direction_id == 0
+      :direct
+    elsif self.direction_id == 1
+      :translation
+    else
+      nil
+    end
   end
 
   def direction=(val)
     if val == :direct
       self.direction_id = 0
-    else
+    elsif val == :translation
       self.direction_id = 1
+    else
+      self.direction_id = -1
     end
   end
 

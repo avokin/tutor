@@ -214,4 +214,84 @@ describe TrainingsController do
       end
     end
   end
+
+  describe "POST 'create'" do
+    describe "unauthorized access" do
+      describe "not logged in user" do
+        it "should redirect to signin path" do
+          post :create
+          response.should redirect_to signin_path
+        end
+      end
+    end
+
+    describe "authorized access" do
+      before(:each) do
+        @user = Factory(:user)
+        test_sign_in @user
+      end
+
+      describe "success" do
+        before(:each) do
+          @user_category = Factory(:user_category)
+          @attr = {:user_category_id => @user_category.id, :direction => :direct}
+        end
+
+        it "should create a new Training and redirect to Training index" do
+          lambda do
+            post :create, :training => @attr
+          end.should change(Training, :count).by(1)
+          response.should redirect_to trainings_path
+        end
+      end
+
+      describe "failure" do
+        describe "training already exists" do
+          before(:each) do
+            @training = Factory(:training)
+            @attr = {:user_category_id => @training.user_category.id, :direction => :direct}
+          end
+
+          it "should not create a new Training and redirect to new page" do
+            lambda do
+              post :create, :training => @attr
+            end.should_not change(Training, :count)
+
+            response.should redirect_to new_training_path
+          end
+        end
+
+        describe "not provided direction" do
+          before(:each) do
+            @attr = {}
+          end
+
+          it "should not create a new Training and redirect to new page" do
+            lambda do
+              post :create, :training => @attr
+            end.should_not change(Training, :count)
+
+            response.should redirect_to new_training_path
+          end
+        end
+
+        describe "user_category belongs to another user" do
+          before(:each) do
+            another_user = Factory(:user)
+            another_user_category = Factory(:user_category, :user => another_user)
+            @attr = {:user_category_id => another_user_category.id, :direction => :direct}
+          end
+
+          it "should not create a new Training and redirect to new page" do
+            lambda do
+              post :create, :training => @attr
+            end.should_not change(Training, :count)
+
+            response.should redirect_to new_training_path
+          end
+        end
+
+      end
+    end
+  end
 end

@@ -51,6 +51,28 @@ class TrainingsController < ApplicationController
     @training.user = current_user
   end
 
+  def create
+    attrs = params[:training]
+    unless attrs.nil?
+      unless attrs[:user_category_id].nil?
+        @user_category = UserCategory.find(attrs[:user_category_id])
+      end
+
+      unless attrs[:direction].nil?
+        training = Training.new :direction => attrs[:direction].to_sym, :user_category => @user_category
+        training.user = current_user
+        if training.valid?
+          training.save!
+          redirect_to trainings_path
+          return
+        end
+      end
+    end
+    #ToDo splash
+    #ToDo: fill entered parameters
+    redirect_to new_training_path
+  end
+
   private
   def correct_user
     @user_word = UserWord.find(params[:id])

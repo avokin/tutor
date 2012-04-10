@@ -32,6 +32,16 @@ describe Training do
       training.user = @another_user
       training.should_not be_valid
     end
+
+    it "should validate uniqueness of user_category_id and direction" do
+      training1 = Training.new @attr.merge(:user_category => @user_category)
+      training1.user = @user
+      training1.save!
+
+      training2 = Training.new @attr.merge(:user_category => @user_category)
+      training2.user = @user
+      training2.should_not be_valid
+    end
   end
 
   describe "find_by_user method" do
