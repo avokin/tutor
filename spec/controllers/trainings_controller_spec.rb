@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe TrainingsController do
+  render_views
+
   describe "POST 'check'" do
     before(:each) do
       @translation = Factory(:word_relation_translation)
@@ -150,6 +152,65 @@ describe TrainingsController do
 
       it "should show word training page" do
         get :show, :id => @user_word.id
+      end
+    end
+  end
+
+  describe "GET 'index'" do
+    describe "unauthorized access" do
+      describe "not logged in user" do
+        it "should redirect to signin path" do
+          get :index
+          response.should redirect_to signin_path
+        end
+      end
+    end
+
+    describe "authorized access" do
+      before(:each) do
+        @training = Factory(:training)
+        @user = @training.user
+
+        @another_user = Factory(:user)
+        @user_category = Factory(:user_category, :user => @another_user)
+        @training_of_another_user = Factory(:training, :user_category => @user_category, :user => @another_user)
+
+        test_sign_in @user
+      end
+
+      it "should display all trainings of current user" do
+        get :index
+        response.should have_selector("td", :content => @training.user_category.name)
+        response.should_not have_selector("td", :content => @user_category.name)
+      end
+    end
+  end
+
+  describe "GET 'new'" do
+    describe "unauthorized access" do
+      describe "not logged in user" do
+        it "should redirect to signin path" do
+          get :new
+          response.should redirect_to signin_path
+        end
+      end
+    end
+
+    describe "authorized access" do
+      before(:each) do
+        @user = Factory(:user)
+        test_sign_in @user
+      end
+
+      it "should display all trainings of current user" do
+        get :new
+        response.should have_selector("title", :content => "New Training")
+
+        response.should have_selector('a', :content => "Training", :href => trainings_path)
+
+        response.should have_selector("li", :class => "active") do |li|
+          li.should have_selector('a', :content => "Training")
+        end
       end
     end
   end

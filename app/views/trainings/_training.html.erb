@@ -1,0 +1,15 @@
+<tr>
+  <td>
+    <%= training.user_category.nil? ? "" : training.user_category.name %>
+  </td>
+  <td>
+    <%= training.direction == :direct? ? "direct" : "translation" %>
+  </td>
+  <td>
+    0
+  </td>
+  <td>
+    <%= submit_tag "Start", :class => "btn-default" %>
+    <%= submit_tag "Delete", :class => "btn-danger" %>
+  </td>
+</tr>

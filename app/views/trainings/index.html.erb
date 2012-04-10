@@ -1,0 +1,34 @@
+<div class="row" id="page_title">
+  <div class="span12">
+    <h1>Trainings</h1>
+  </div>
+</div>
+
+<div class="row">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <td>
+        Scope
+      </td>
+      <td>
+        Direction
+      </td>
+      <td>
+        Ready words
+      </td>
+      <td>
+        Actions
+      </td>
+    </tr>
+    </thead>
+    <tfoot>
+        <tr>
+          <td colspan="4">
+            <%= submit_tag "Create new training", :class => "btn"%>
+          </td>
+        </tr>
+    </tfoot>
+    <%= render @trainings %>
+  </table>
+</div>

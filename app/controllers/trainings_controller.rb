@@ -40,12 +40,15 @@ class TrainingsController < ApplicationController
   end
 
   def index
-    @user_word = select_user_word(current_user, nil, :foreign_native, :translation, :learning)
-    if @user_word.nil?
-      render 'pages/message'
-    else
-      redirect_to training_path(@user_word.id)
-    end
+    @trainings = Training.find_all_by_user_id(current_user.id)
+  end
+
+  def new
+    @title = "New Training"
+    @active_tab = :training
+
+    @training = Training.new
+    @training.user = current_user
   end
 
   private

@@ -1,0 +1,44 @@
+<div class="row" id="page_title">
+  <div class="span12">
+    <h1>New Training</h1>
+  </div>
+</div>
+
+<div class="row">
+  <table class="table table-bordered">
+    <tfoot>
+    <tr>
+      <td colspan="4">
+        <%= submit_tag "Create new training", :class => "btn" %>
+      </td>
+    </tr>
+    </tfoot>
+    <tr>
+      <td>
+        <label for="scopeSelect">Scope:</label>
+      </td>
+      <td>
+        <select id="scopeSelect">
+          <% current_user.user_categories.each do |uc| %>
+              <option><%= uc.name %></option>
+          <% end %>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="directionSelect">Direction:</label>
+      </td>
+      <td>
+        <select id="directionSelect">
+          <option>
+            Direct
+          </option>
+          <option>
+            Translation
+          </option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</div>
