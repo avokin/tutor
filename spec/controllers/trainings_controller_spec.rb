@@ -32,36 +32,49 @@ describe TrainingsController do
     end
 
     describe "authorized access" do
+      before(:each) do
+        test_sign_in @user_word.user
+      end
+
       describe "successful attempt" do
-        describe "one word translation" do
+        before(:each) do
+          @training = Factory(:training)
+          test_start_training(@training)
+        end
+
+        describe "too many words to learn" do
           before(:each) do
-            test_sign_in @user_word.user
+            user_word_category = Factory(:user_word_category, :user_category => @training.user_category)
+            Factory(:word_relation_translation, :source_user_word => user_word_category.user_word)
           end
 
           it "should immediately redirect to the next training page" do
             post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text
             response.location.should =~ /#{training_path(:id => nil)}\/\d$/
           end
+
+          describe "two word translation" do
+            before(:each) do
+              @translation2 = Factory(:word_relation_translation, :source_user_word => @user_word)
+            end
+
+            it "should immediately redirect to the next training page" do
+              post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text, :variant_1 => @translation2.related_user_word.word.text
+              response.location.should =~ /#{training_path(:id => nil)}\/\d$/
+            end
+          end
         end
 
-        describe "two word translation" do
-          before(:each) do
-            @translation2 = Factory(:word_relation_translation, :source_user_word => @user_word)
-            test_sign_in @user_word.user
-          end
-
-          it "should immediately redirect to the next training page" do
-            post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text, :variant_1 => @translation2.related_user_word.word.text
-            response.location.should =~ /#{training_path(:id => nil)}\/\d$/
+        describe "the last word in training learned" do
+          it "should redirect to training list" do
+            post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text
+            response.should redirect_to trainings_path
+            flash[:success].should == "There is no ready words in the current training. Have a rest or choose another training."
           end
         end
       end
 
       describe "unsuccessful attempt" do
-        before(:each) do
-          test_sign_in @user_word.user
-        end
-
         it "should display correct answer" do
           post :check, :id => @user_word.id, :variant_0 => ""
           response.should render_template 'show'
@@ -152,6 +165,11 @@ describe TrainingsController do
 
       it "should show word training page" do
         get :show, :id => @user_word.id
+
+        response.should have_selector("title", :content => "Tutor - Training")
+        response.should have_selector("li", :class => "active") do |li|
+          li.should have_selector('a', :content => "Training")
+        end
       end
     end
   end
@@ -180,6 +198,12 @@ describe TrainingsController do
 
       it "should display all trainings of current user" do
         get :index
+
+        response.should have_selector("title", :content => "Tutor - Trainings")
+        response.should have_selector("li", :class => "active") do |li|
+          li.should have_selector('a', :content => "Training")
+        end
+
         response.should have_selector("td", :content => @training.user_category.name)
         response.should_not have_selector("td", :content => @user_category.name)
       end
@@ -205,12 +229,11 @@ describe TrainingsController do
       it "should display all trainings of current user" do
         get :new
         response.should have_selector("title", :content => "New Training")
-
-        response.should have_selector('a', :content => "Training", :href => trainings_path)
-
         response.should have_selector("li", :class => "active") do |li|
           li.should have_selector('a', :content => "Training")
         end
+
+        response.should have_selector('a', :content => "Training", :href => trainings_path)
       end
     end
   end

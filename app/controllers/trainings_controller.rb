@@ -22,9 +22,13 @@ class TrainingsController < ApplicationController
     end
 
     if ok
-      training = Training.find session[:training_id]
+      training = Training.find cookies.signed[:training_id]
       @user_word = select_user_word(training)
-      redirect_to training_path(@user_word.id)
+      if @user_word.nil?
+        redirect_to trainings_path, :flash => {:success => "There is no ready words in the current training. Have a rest or choose another training."}
+      else
+        redirect_to training_path(@user_word.id)
+      end
     else
       render :show
     end
@@ -35,7 +39,7 @@ class TrainingsController < ApplicationController
     unless id.nil?
       training = Training.find(params[:id])
       if training.user == current_user
-        session[:training_id] = training.id
+        cookies.permanent.signed[:training_id] = training.id
       else
         redirect_to root_path, :flash => {:error => "Error. You are trying to launch training that belongs to another user."}
         return
@@ -47,11 +51,15 @@ class TrainingsController < ApplicationController
   end
 
   def show
+    @title = "Training"
+    @active_tab = :training
+
     @variants = Array.new(@user_word.direct_translations.length)
     @answer_classes = Hash[nil => ""]
   end
 
   def index
+    @title = "Trainings"
     @trainings = Training.find_all_by_user_id(current_user.id)
   end
 

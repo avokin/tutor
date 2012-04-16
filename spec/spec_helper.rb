@@ -36,4 +36,8 @@ RSpec.configure do |config|
   def test_sign_in(user)
     controller.sign_in(user)
   end
+
+  def test_start_training(training)
+    cookies.permanent.signed[:training_id] = training.id
+  end
 end
