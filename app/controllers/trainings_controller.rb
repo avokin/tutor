@@ -41,7 +41,7 @@ class TrainingsController < ApplicationController
       if training.user == current_user
         cookies.permanent.signed[:training_id] = training.id
       else
-        redirect_to root_path, :flash => {:error => "Error. You are trying to launch training that belongs to another user."}
+        redirect_to root_path, :flash => {:error => ANOTHER_USER_ERROR_MESSAGE}
         return
       end
       @user_word = select_user_word(training)
@@ -100,7 +100,7 @@ class TrainingsController < ApplicationController
     else
       @user = @user_word.user
 
-      redirect_to(root_path, :flash => {:error => "Error another user"}) unless current_user?(@user)
+      redirect_to(root_path, :flash => {:error => ANOTHER_USER_ERROR_MESSAGE}) unless current_user?(@user)
     end
   end
 

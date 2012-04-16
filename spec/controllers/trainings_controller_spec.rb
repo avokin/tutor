@@ -14,6 +14,7 @@ describe TrainingsController do
         it "should redirect to signin path" do
           post :check, :id => @user_word.id
           response.should redirect_to signin_path
+          flash[:error].should == NOT_SIGNED_IN_USER_ERROR_MESSAGE
         end
       end
 
@@ -26,7 +27,7 @@ describe TrainingsController do
         it "should redirect to root path and display flash with error" do
           post :check, :id => @user_word.id
           response.should redirect_to root_path
-          flash[:error].should =~ /Error.*another user/
+          flash[:error].should == ANOTHER_USER_ERROR_MESSAGE
         end
       end
     end
@@ -60,6 +61,7 @@ describe TrainingsController do
 
             it "should immediately redirect to the next training page" do
               post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text, :variant_1 => @translation2.related_user_word.word.text
+              ## ToDo replare pattern
               response.location.should =~ /#{training_path(:id => nil)}\/\d$/
             end
           end
@@ -89,6 +91,7 @@ describe TrainingsController do
         it "should redirect to signin path" do
           post :start
           response.should redirect_to signin_path
+          flash[:error].should == NOT_SIGNED_IN_USER_ERROR_MESSAGE
         end
       end
 
@@ -102,7 +105,7 @@ describe TrainingsController do
         it "should redirect to root path and display flash with error" do
           post :start, :id => @training.id
           response.should redirect_to root_path
-          flash[:error].should =~ /Error.*another user/
+          flash[:error].should == ANOTHER_USER_ERROR_MESSAGE
         end
       end
     end
@@ -140,6 +143,7 @@ describe TrainingsController do
         it "should redirect to signin path" do
           get :show, :id => @user_word.id
           response.should redirect_to signin_path
+          flash[:error].should == NOT_SIGNED_IN_USER_ERROR_MESSAGE
         end
       end
 
@@ -152,7 +156,7 @@ describe TrainingsController do
         it "should redirect to root path and display flash with error" do
           get :show, :id => @user_word.id
           response.should redirect_to root_path
-          flash[:error].should =~ /Error.*another user/
+          flash[:error].should == ANOTHER_USER_ERROR_MESSAGE
         end
       end
     end
@@ -179,6 +183,7 @@ describe TrainingsController do
         it "should redirect to signin path" do
           get :index
           response.should redirect_to signin_path
+          flash[:error].should == NOT_SIGNED_IN_USER_ERROR_MESSAGE
         end
       end
     end
@@ -215,6 +220,7 @@ describe TrainingsController do
         it "should redirect to signin path" do
           get :new
           response.should redirect_to signin_path
+          flash[:error].should == NOT_SIGNED_IN_USER_ERROR_MESSAGE
         end
       end
     end
@@ -243,6 +249,7 @@ describe TrainingsController do
         it "should redirect to signin path" do
           post :create
           response.should redirect_to signin_path
+          flash[:error].should == NOT_SIGNED_IN_USER_ERROR_MESSAGE
         end
       end
     end

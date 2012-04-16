@@ -41,3 +41,6 @@ RSpec.configure do |config|
     cookies.permanent.signed[:training_id] = training.id
   end
 end
+
+NOT_SIGNED_IN_USER_ERROR_MESSAGE = "You must sign in!"
+ANOTHER_USER_ERROR_MESSAGE = "You are trying to access to object that created by another user"
