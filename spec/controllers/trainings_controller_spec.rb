@@ -108,24 +108,23 @@ describe TrainingsController do
     end
 
     describe "authorized access" do
-      it "should set cookie for mode" do
-        post :start, :mode => :trainings
-        post :start, :mode => :repetition
+      before(:each) do
+        @user = Factory(:user)
+        test_sign_in @user
+
+        @training = Factory(:training, :user => @user)
+        user_word_category = Factory(:user_word_category, :user_category => @training.user_category)
+        Factory(:word_relation_translation, :source_user_word => user_word_category.user_word)
       end
 
-      it "should set cookie for scope" do
-        post :start, :scope => @user_category.id
-        post :start, :scope => nil
+      it "should set cookie for the training" do
+        post :start, :id => @training.id
+        cookies.signed[:training_id].should == @training.id
       end
 
-      it "should set cookie for direction" do
-        post :start, :direction => :foreign_native
-        post :start, :direction => :native_foreign
-      end
-
-      it "should set cookie for type" do
-        post :start, :type => :translation
-        post :start, :type => :synonym
+      it "should redirect to word from training's category'" do
+        post :start, :id => @training.id
+        response.location.should =~ /#{training_path(:id => nil)}\/\d$/
       end
     end
   end
