@@ -81,13 +81,13 @@ describe TrainingsController do
 
       describe "not owner user" do
         before(:each) do
-          @user_category = Factory(:user_category)
+          @training = Factory(:training)
           user = Factory(:user)
           test_sign_in user
         end
 
         it "should redirect to root path and display flash with error" do
-          post :start, :scope => @user_category.id
+          post :start, :id => @training.id
           response.should redirect_to root_path
           flash[:error].should =~ /Error.*another user/
         end
@@ -243,6 +243,7 @@ describe TrainingsController do
           end.should change(Training, :count).by(1)
           Training.last.user_category.should == @user_category
           response.should redirect_to trainings_path
+          flash[:success].should == "Training created."
         end
       end
 

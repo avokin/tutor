@@ -37,7 +37,7 @@ class TrainingsController < ApplicationController
       if training.user == current_user
         session[:training_id] = training.id
       else
-        render "pages/message"
+        redirect_to root_path, :flash => {:error => "Error. You are trying to launch training that belongs to another user."}
         return
       end
       @user_word = select_user_word(training)
@@ -74,7 +74,7 @@ class TrainingsController < ApplicationController
         training.user = current_user
         if training.valid?
           training.save!
-          redirect_to trainings_path
+          redirect_to trainings_path, :flash => {:success => "Training created."}
           return
         end
       end
