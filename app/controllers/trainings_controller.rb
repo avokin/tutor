@@ -48,14 +48,13 @@ class TrainingsController < ApplicationController
     @active_tab = :training
 
     @training = Training.new
-    @training.user = current_user
   end
 
   def create
     attrs = params[:training]
     unless attrs.nil?
-      unless attrs[:user_category_id].nil?
-        @user_category = UserCategory.find(attrs[:user_category_id])
+      unless attrs[:user_category].nil?
+        @user_category = UserCategory.find(attrs[:user_category])
       end
 
       unless attrs[:direction].nil?

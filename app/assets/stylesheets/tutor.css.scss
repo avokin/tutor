@@ -46,3 +46,25 @@ body {
     margin-bottom: 0;
   }
 }
+
+table {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  td {
+    vertical-align: middle;
+
+    select {
+      margin: {
+        bottom: 0;
+      }
+    }
+
+    label {
+      margin: {
+        bottom: 0;
+      }
+      text-align: right;
+    }
+  }
+}

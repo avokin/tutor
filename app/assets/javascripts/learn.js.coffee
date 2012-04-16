@@ -1,11 +1,3 @@
-jQuery.on(a)
-jQuery.on
-###
-
-###
-
-class SuperTest
-
 hintCount = 0
 
 showHint = ->

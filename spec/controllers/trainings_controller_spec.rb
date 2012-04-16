@@ -290,7 +290,6 @@ describe TrainingsController do
             response.should redirect_to new_training_path
           end
         end
-
       end
     end
   end

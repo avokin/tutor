@@ -5,40 +5,34 @@
 </div>
 
 <div class="row">
-  <table class="table table-bordered">
-    <tfoot>
-    <tr>
-      <td colspan="4">
-        <%= submit_tag "Create new training", :class => "btn" %>
-      </td>
-    </tr>
-    </tfoot>
-    <tr>
-      <td>
-        <label for="scopeSelect">Scope:</label>
-      </td>
-      <td>
-        <select id="scopeSelect">
-          <% current_user.user_categories.each do |uc| %>
-              <option><%= uc.name %></option>
-          <% end %>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="directionSelect">Direction:</label>
-      </td>
-      <td>
-        <select id="directionSelect">
-          <option>
-            Direct
-          </option>
-          <option>
-            Translation
-          </option>
-        </select>
-      </td>
-    </tr>
-  </table>
+  <div id="properties" class="span12">
+    <%= form_for @training do |f| %>
+        <table>
+          <tfoot>
+          <tr>
+            <td colspan="4">
+              <%= f.submit "Create new training", :class => "btn" %>
+            </td>
+          </tr>
+          </tfoot>
+          <tr>
+            <td>
+              <label for="scopeSelect">Scope:</label>
+            </td>
+            <td>
+              <% category_array = current_user.user_categories.map { |uc| [uc.name, uc.id] } %>
+              <%= f.select(:user_category, options_for_select(category_array)) %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="directionSelect">Direction:</label>
+            </td>
+            <td>
+              <%= f.select(:direction, options_for_select([["Direct", :direct], ["Translation", :translation]])) %>
+            </td>
+          </tr>
+        </table>
+    <% end %>
+  </div>
 </div>
