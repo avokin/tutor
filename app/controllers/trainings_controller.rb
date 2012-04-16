@@ -22,7 +22,8 @@ class TrainingsController < ApplicationController
     end
 
     if ok
-      @user_word = select_user_word(nil, :foreign_native, :translation, :learning)
+      training = Training.find session[:training_id]
+      @user_word = select_user_word(training)
       redirect_to training_path(@user_word.id)
     else
       render :show
@@ -30,7 +31,18 @@ class TrainingsController < ApplicationController
   end
 
   def start
-    @user_word = select_user_word(nil, :foreign_native, :translation, :learning)
+    id = params[:id]
+    unless id.nil?
+      training = Training.find(params[:id])
+      if training.user == current_user
+        session[:training_id] = training.id
+      else
+        render "pages/message"
+        return
+      end
+      @user_word = select_user_word(training)
+    end
+
     redirect_to training_path(@user_word.id)
   end
 

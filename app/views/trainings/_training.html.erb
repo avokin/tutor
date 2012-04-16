@@ -9,7 +9,9 @@
     <%= TrainingsHelper.get_ready_words(training).count %>
   </td>
   <td>
-    <%= submit_tag "Start", :class => "btn btn-primary" %>
+    <%= form_for training, :url => start_training_path(training) do |f| %>
+        <%= f.submit "Start", :class=>"btn btn-primary" %>
+    <% end %>
     <%= submit_tag "Delete", :class => "btn btn-danger" %>
   </td>
 </tr>

@@ -6,6 +6,7 @@ Tutor::Application.routes.draw do
   resources :trainings do
     member do
       post :check
+      put :start
     end
   end
 
