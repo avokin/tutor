@@ -63,15 +63,16 @@ describe TrainingsHelper do
 
   describe "select_user_word" do
     before(:each) do
-      (1..10).each do |i|
+      (1..10).each do
         Factory(:word_relation_translation)
       end
-      (1..10).each do |i|
+      (1..10).each do
         Factory(:word_relation_synonym)
       end
 
       @user = User.first
       @training = Training.new
+      @training.user = @user
     end
 
     describe "type" do
@@ -79,14 +80,14 @@ describe TrainingsHelper do
         describe "direction" do
           it "should fetch foreign word" do
             @training.direction = :direct
-            selected_user_word = select_user_word(@user, @training)
+            selected_user_word = select_user_word(@training)
             selected_user_word.word.language.should_not == @user.language
             selected_user_word.translations.length.should > 0
           end
 
           it "should fetch native word" do
             @training.direction = :translation
-            selected_user_word = select_user_word(@user, @training)
+            selected_user_word = select_user_word(@training)
             selected_user_word.word.language.should == @user.language
             selected_user_word.translations.length.should > 0
           end
@@ -96,7 +97,7 @@ describe TrainingsHelper do
       describe "synonym" do
         it "should fetch native word" do
           # ToDo
-          #selected_user_word = select_user_word(@user, @training)
+          #selected_user_word = select_user_word(@training)
           #selected_user_word.word.language.should_not == @user.language
           #selected_user_word.synonyms.length.should > 0
           pending
@@ -117,7 +118,7 @@ describe TrainingsHelper do
 
       it "should fetch only ready word" do
         @training.direction = :direct
-        selected_user_word = select_user_word(@user, @training)
+        selected_user_word = select_user_word(@training)
         selected_user_word.should == @translations.first.source_user_word
       end
 
@@ -126,7 +127,7 @@ describe TrainingsHelper do
         @translations.first.source_user_word.save!
 
         @training.direction = :direct
-        selected_user_word = select_user_word(@user, @training)
+        selected_user_word = select_user_word(@training)
         selected_user_word.should be_nil
       end
     end
@@ -146,7 +147,7 @@ describe TrainingsHelper do
       describe "nil" do
         it "should return any user word" do
           @training.direction = :direct
-          selected_user_word = select_user_word(@user, @training)
+          selected_user_word = select_user_word(@training)
           selected_user_word.should_not be_nil
         end
       end
@@ -155,14 +156,14 @@ describe TrainingsHelper do
         it "should select the only word of current category" do
           @training.direction = :direct
           @training.user_category = @user_word_category[0].user_category
-          selected_user_word = select_user_word(@user, @training)
+          selected_user_word = select_user_word(@training)
           selected_user_word.should == @user_word_category[0].user_word
         end
 
         it "should select nil if there is no a word with specified category" do
           @training.direction = :direct
           @training.user_category = @fake_category
-          selected_user_word = select_user_word(@user, @training)
+          selected_user_word = select_user_word(@training)
           selected_user_word.should be_nil
         end
       end

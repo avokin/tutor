@@ -1,15 +1,15 @@
 <tr>
   <td>
-    <%= training.user_category.nil? ? "" : training.user_category.name %>
+    <%= training.user_category.nil? ? "" : link_to(training.user_category.name, training.user_category) %>
   </td>
   <td>
     <%= training.direction == :direct? ? "direct" : "translation" %>
   </td>
   <td>
-    0
+    <%= TrainingsHelper.get_ready_words(training).count %>
   </td>
   <td>
-    <%= submit_tag "Start", :class => "btn-default" %>
-    <%= submit_tag "Delete", :class => "btn-danger" %>
+    <%= submit_tag "Start", :class => "btn btn-primary" %>
+    <%= submit_tag "Delete", :class => "btn btn-danger" %>
   </td>
 </tr>

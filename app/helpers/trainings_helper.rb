@@ -17,21 +17,15 @@ module TrainingsHelper
     result
   end
 
-  def select_user_word(user, training)
-    # ToDo:
+  def get_ready_words(training)
+        # ToDo:
     type = :translation
 
     if training.user_category.nil?
-      user_words = user.user_words
+      user_words = training.user.user_words
     else
       user_category = training.user_category
-      if user_category.user == user
-        user_words = user_category.user_words
-      else
-        # ToDo
-        #log error
-        user_words = user.user_words
-      end
+      user_words = user_category.user_words
     end
 
     if type == :translation
@@ -45,8 +39,11 @@ module TrainingsHelper
     end
 
     now = DateTime.now
-    user_words = user_words.where("time_to_check <= ?", now)
+    user_words.where("time_to_check <= ?", now)
+  end
 
+  def select_user_word(training)
+    user_words = get_ready_words(training)
     count = user_words.length
     if count == 0
       nil

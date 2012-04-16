@@ -22,7 +22,7 @@ class TrainingsController < ApplicationController
     end
 
     if ok
-      @user_word = select_user_word(current_user, nil, :foreign_native, :translation, :learning)
+      @user_word = select_user_word(nil, :foreign_native, :translation, :learning)
       redirect_to training_path(@user_word.id)
     else
       render :show
@@ -30,7 +30,7 @@ class TrainingsController < ApplicationController
   end
 
   def start
-    @user_word = select_user_word(current_user, nil, :foreign_native, :translation, :learning)
+    @user_word = select_user_word(nil, :foreign_native, :translation, :learning)
     redirect_to training_path(@user_word.id)
   end
 
