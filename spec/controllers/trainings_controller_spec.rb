@@ -234,13 +234,14 @@ describe TrainingsController do
       describe "success" do
         before(:each) do
           @user_category = Factory(:user_category)
-          @attr = {:user_category_id => @user_category.id, :direction => :direct}
+          @attr = {:user_category => @user_category.id, :direction => :direct}
         end
 
         it "should create a new Training and redirect to Training index" do
           lambda do
             post :create, :training => @attr
           end.should change(Training, :count).by(1)
+          Training.last.user_category.should == @user_category
           response.should redirect_to trainings_path
         end
       end
@@ -249,7 +250,7 @@ describe TrainingsController do
         describe "training already exists" do
           before(:each) do
             @training = Factory(:training)
-            @attr = {:user_category_id => @training.user_category.id, :direction => :direct}
+            @attr = {:user_category => @training.user_category.id, :direction => :direct}
           end
 
           it "should not create a new Training and redirect to new page" do
@@ -279,7 +280,7 @@ describe TrainingsController do
           before(:each) do
             another_user = Factory(:user)
             another_user_category = Factory(:user_category, :user => another_user)
-            @attr = {:user_category_id => another_user_category.id, :direction => :direct}
+            @attr = {:user_category => another_user_category.id, :direction => :direct}
           end
 
           it "should not create a new Training and redirect to new page" do
