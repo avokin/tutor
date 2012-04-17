@@ -5,30 +5,32 @@
 </div>
 
 <div class="row">
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <td>
-        Scope
-      </td>
-      <td>
-        Direction
-      </td>
-      <td>
-        Ready words
-      </td>
-      <td>
-        Actions
-      </td>
-    </tr>
-    </thead>
-    <tfoot>
-        <tr>
-          <td colspan="4">
-            <%= submit_tag "Create new training", :class => "btn", :onclick => "document.location.href='#{new_training_path}'" %>
-          </td>
-        </tr>
-    </tfoot>
-    <%= render @trainings %>
-  </table>
+  <div class="span12">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <td>
+          Scope
+        </td>
+        <td>
+          Direction
+        </td>
+        <td>
+          Ready words
+        </td>
+        <td>
+          Actions
+        </td>
+      </tr>
+      </thead>
+      <tfoot>
+          <tr>
+            <td colspan="4">
+              <%= submit_tag "Create new training", :class => "btn", :onclick => "document.location.href='#{new_training_path}'" %>
+            </td>
+          </tr>
+      </tfoot>
+      <%= render @trainings %>
+    </table>
+  </div>
 </div>

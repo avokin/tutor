@@ -21,11 +21,16 @@
 
 <div class="container">
   <%= render 'layouts/header' %>
-  <section class="round">
-    <% flash.each do |key, value| %>
-        <div class="flash <%= key %>"><%= value %></div>
-    <% end %>
-  </section>
+  <div class="row">
+    <div class="span12">
+      <div class="alert-container">
+        <% flash.each do |key, value| %>
+          <span class="alert alert-<%= key %>"><%= value %></span>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
   <%= yield %>
   <%= render 'layouts/footer' %>
 </div>
