@@ -58,6 +58,12 @@ describe TrainingsHelper do
         @answer_statuses[@translation1.related_user_word.word.text].should be_true
         @answer_statuses[@translation1.related_user_word.word.text].should be_true
       end
+
+      it "should increase time to check" do
+        check_answers @user_word1, @answers, @answer_statuses
+        @user_word1.reload
+        @user_word1.time_to_check.should > DateTime.now
+      end
     end
   end
 
