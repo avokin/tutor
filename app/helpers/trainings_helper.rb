@@ -1,5 +1,5 @@
 module TrainingsHelper
-  TIME_LAPSES = [3600 * 6, 3600 * 24, 3600 * 24 * 3, 3600 * 24 * 7, 3600 * 24 * 30, 3600 * 24 * 60]
+  TIME_LAPSES = [0.5, 1, 3, 7, 30, 60]
 
   def check_answers(user_word, answers, answer_statuses)
     result = true
