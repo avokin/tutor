@@ -21,6 +21,11 @@ module TrainingsHelper
     result
   end
 
+  def skip(user_word)
+    user_word.time_to_check = DateTime.now + TIME_LAPSES[0]
+    user_word.save!
+  end
+
   def get_ready_words(training)
         # ToDo:
     type = :translation

@@ -67,6 +67,21 @@ describe TrainingsHelper do
     end
   end
 
+  describe "skip" do
+    before(:each) do
+      @translation1 = Factory(:word_relation_translation)
+      @user_word1 = @translation1.source_user_word
+      @user_word1.translation_success_count = 1
+      @user_word1.save!
+    end
+
+    it "should increase time to check" do
+      skip @user_word1
+      @user_word1.reload
+      @user_word1.time_to_check.should > DateTime.now
+    end
+  end
+
   describe "select_user_word" do
     before(:each) do
       (1..10).each do

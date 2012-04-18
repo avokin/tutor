@@ -6,19 +6,24 @@ class TrainingsController < ApplicationController
   before_filter :set_active_tab
 
   def check
-    i = 0
-    @variants = Array.new
-    until (s = params["variant_#{i}"]).nil? do
-      @variants << s
-      i = i + 1
-    end
+    unless params[:skip].nil?
+      skip(@user_word)
+      ok = true
+    else
+      i = 0
+      @variants = Array.new
+      until (s = params["variant_#{i}"]).nil? do
+        @variants << s
+        i = i + 1
+      end
 
-    @answer_statuses = Hash.new
-    ok = check_answers(@user_word, @variants, @answer_statuses)
+      @answer_statuses = Hash.new
+      ok = check_answers(@user_word, @variants, @answer_statuses)
 
-    @answer_classes = Hash.new
-    @variants.each do |v|
-      @answer_classes[v] = @answer_statuses[v] ? "control-group success" : "control-group error"
+      @answer_classes = Hash.new
+      @variants.each do |v|
+        @answer_classes[v] = @answer_statuses[v] ? "control-group success" : "control-group error"
+      end
     end
 
     if ok

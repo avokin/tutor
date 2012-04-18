@@ -61,7 +61,7 @@ describe TrainingsController do
 
             it "should immediately redirect to the next training page" do
               post :check, :id => @user_word.id, :variant_0 => @translation.related_user_word.word.text, :variant_1 => @translation2.related_user_word.word.text
-              ## ToDo replare pattern
+              ## ToDo replace pattern
               response.location.should =~ /#{training_path(:id => nil)}\/\d$/
             end
           end
@@ -80,6 +80,22 @@ describe TrainingsController do
         it "should display correct answer" do
           post :check, :id => @user_word.id, :variant_0 => ""
           response.should render_template 'show'
+          pending
+        end
+      end
+
+      describe "skipping" do
+        before(:each) do
+          @training = Factory(:training)
+          test_start_training(@training)
+          user_word_category = Factory(:user_word_category, :user_category => @training.user_category)
+          Factory(:word_relation_translation, :source_user_word => user_word_category.user_word)
+        end
+
+        it "should display another word" do
+          post :check, :id => @user_word.id, :skip => ""
+          response.location.should =~ /#{training_path(:id => nil)}\/\d$/
+          response.location.should_not =~ /#{training_path(@user_word.id)}$/
         end
       end
     end
