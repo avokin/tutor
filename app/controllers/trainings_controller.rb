@@ -6,7 +6,7 @@ class TrainingsController < ApplicationController
   before_filter :set_active_tab
 
   def check
-    unless params[:skip].nil?
+    if !params[:skip].nil?
       skip(@user_word)
       ok = true
     else
@@ -19,7 +19,9 @@ class TrainingsController < ApplicationController
 
       @answer_statuses = Hash.new
       ok = check_answers(@user_word, @variants, @answer_statuses)
-
+      unless params[:do_not_remember].nil?
+        fail_word(@user_word)
+      end
       @answer_classes = Hash.new
       @variants.each do |v|
         @answer_classes[v] = @answer_statuses[v] ? "control-group success" : "control-group error"
@@ -35,6 +37,10 @@ class TrainingsController < ApplicationController
         redirect_to training_path(@user_word.id)
       end
     else
+      @title = "Training"
+      @active_tab = :training
+      @show_answer = true
+
       render :show
     end
   end

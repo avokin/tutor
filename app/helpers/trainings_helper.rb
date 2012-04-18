@@ -1,6 +1,11 @@
 module TrainingsHelper
   TIME_LAPSES = [0.5, 1, 3, 7, 30, 60]
 
+  def fail_word(user_word)
+    user_word.translation_success_count = 0
+    user_word.time_to_check = DateTime.now + TIME_LAPSES[0]
+  end
+
   def check_answers(user_word, answers, answer_statuses)
     result = true
     user_word.direct_translations.each do |t|
@@ -15,7 +20,7 @@ module TrainingsHelper
       user_word.time_to_check = DateTime.now + TIME_LAPSES[k]
       user_word.translation_success_count += 1
     else
-      user_word.translation_success_count = 0
+      fail_word(user_word)
     end
     user_word.save!
     result

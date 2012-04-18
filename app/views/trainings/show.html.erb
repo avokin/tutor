@@ -9,6 +9,20 @@
     <%= link_to @user_word do %>
       <%= @user_word.word.text %>
     <% end %>
+
+    <% if @show_answer %>
+      <table>
+        <tbody>
+        <% @user_word.translations.each do |f| %>
+          <tr>
+            <td>
+              <%= f.related_user_word.word.text %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
   <div class="span4">
@@ -17,7 +31,7 @@
         <tfoot>
         <tr>
           <td>
-            <%= submit_tag "Check", :class => "btn", :name => "check" %>
+            <%= submit_tag "Check", :class => "btn btn-primary", :name => "check" %>
             <%= submit_tag "Don't remember", :class => "btn", :name => "do_not_remember" %>
             <%= submit_tag "Skip", :class => "btn", :name => "skip" %>
           </td>
@@ -28,7 +42,7 @@
           <tr>
             <td>
               <div class="<%= @answer_classes[@variants[i]] %>">
-                <%= text_field_tag "variant_#{i}", @variants[i] %>
+                <%= text_field_tag "variant_#{i}", @variants[i], :class => "without-bottom-margin" %>
               </div>
             </td>
           </tr>

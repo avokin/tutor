@@ -84,6 +84,25 @@ describe TrainingsController do
         end
       end
 
+      describe "do not remember" do
+        it "should display correct answer" do
+          post :check, :id => @user_word.id, :variant_0 => "", :do_not_remember => ""
+          response.should render_template 'show'
+
+          response.should have_selector("td", :content => @user_word.translations[0].related_user_word.word.text)
+        end
+
+        it "should zero success count" do
+          @user_word.translation_success_count = 6
+          @user_word.save!
+
+          post :check, :id => @user_word.id, :variant_0 => "", :do_not_remember => ""
+
+          @user_word.reload
+          @user_word.translation_success_count.should == 0
+        end
+      end
+
       describe "skipping" do
         before(:each) do
           @training = Factory(:training)

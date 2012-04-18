@@ -1,6 +1,19 @@
 require 'spec_helper'
 
 describe TrainingsHelper do
+  describe "fail_word" do
+    before(:each) do
+      @user_word = Factory(:english_user_word, )
+      @translation1 = Factory(:word_relation_translation, :source_user_word => @user_word)
+    end
+
+    it "should zero translation_success_count" do
+      fail_word @user_word
+      @user_word.reload
+      @user_word.translation_success_count.should == 0
+    end
+  end
+
   describe "check_answers" do
     before(:each) do
       @translation1 = Factory(:word_relation_translation)
