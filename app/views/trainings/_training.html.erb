@@ -3,7 +3,7 @@
     <%= training.user_category.nil? ? "" : link_to(training.user_category.name, training.user_category) %>
   </td>
   <td>
-    <%= training.direction == :direct? ? "direct" : "translation" %>
+    <%= training.direction == :direct? ? "foreign -> native" : "native -> foreign" %>
   </td>
   <td>
     <%= TrainingsHelper.get_ready_words(training).count %>
