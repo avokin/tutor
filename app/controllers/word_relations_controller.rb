@@ -10,10 +10,10 @@ class WordRelationsController < ApplicationController
     relation_type = params[:word_relation][:relation_type]
 
     relation = WordRelation.create_relation(current_user, UserWord.find(user_word_id), translated_text, relation_type)
-    if (relation.nil?)
+    if relation.nil?
       render 'pages/message'
     else
-      if (relation.save)
+      if relation.save
         redirect_to relation.source_user_word
       else
         render 'pages/message'
