@@ -2,7 +2,8 @@ include TrainingsHelper
 
 class TrainingsController < ApplicationController
   before_filter :authenticate
-  before_filter :correct_user, :only => [:check, :show]
+  before_filter :correct_user_for_user_word, :only => [:check, :show]
+  before_filter :correct_user_training, :only => [:destroy]
   before_filter :set_active_tab
 
   def check
@@ -103,8 +104,28 @@ class TrainingsController < ApplicationController
     redirect_to new_training_path
   end
 
+  def destroy
+    if @training.nil?
+      redirect_to(trainings_path, :flash => {:error => ANOTHER_USER_ERROR_MESSAGE}) unless current_user?(@user)
+    else
+      Training.destroy(@training);
+      redirect_to trainings_path
+    end
+  end
+
   private
-  def correct_user
+  def correct_user_training
+    @training = Training.find(params[:id])
+    if @training.nil?
+      redirect_to(root_path)
+    else
+      unless current_user == @training.user
+        redirect_to(root_path, :flash => {:error => ANOTHER_USER_ERROR_MESSAGE}) unless current_user?(@user)
+      end
+    end
+  end
+
+  def correct_user_for_user_word
     @user_word = UserWord.find(params[:id])
     if @user_word.nil?
       redirect_to(root_path)

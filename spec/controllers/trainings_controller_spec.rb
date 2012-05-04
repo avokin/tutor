@@ -359,4 +359,52 @@ describe TrainingsController do
       end
     end
   end
+
+  describe "DELETE 'destroy'" do
+    describe "unauthorized access" do
+      before(:each) do
+        @training = Factory(:training)
+      end
+
+      describe "not logged in user" do
+        it "should redirect to signin path" do
+          delete :destroy, :id => @training.id
+          response.should redirect_to signin_path
+          flash[:error].should == NOT_SIGNED_IN_USER_ERROR_MESSAGE
+        end
+      end
+
+      describe "not owner user" do
+        before(:each) do
+          user = Factory(:user)
+          test_sign_in user
+        end
+
+        it "should redirect to root path and display flash with error" do
+          delete :destroy, :id => @training.id
+          response.should redirect_to root_path
+          flash[:error].should == ANOTHER_USER_ERROR_MESSAGE
+        end
+      end
+    end
+
+    describe "authorized access" do
+      before(:each) do
+        @training = Factory(:training)
+        @user = @training.user
+        test_sign_in @user
+      end
+
+      it "should delete training" do
+        lambda do
+          delete :destroy, :id => @training.id
+        end.should change(Training, :count).by(-1)
+      end
+
+      it "should redirect to trainings path" do
+        delete :destroy, :id => @training.id
+        response.should redirect_to trainings_path
+      end
+    end
+  end
 end
