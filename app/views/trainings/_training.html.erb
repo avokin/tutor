@@ -6,10 +6,14 @@
     <%= training.direction == :direct? ? "foreign -> native" : "native -> foreign" %>
   </td>
   <td>
-    <%= TrainingsHelper.get_ready_words(training).count %>
+    <%= word_count = TrainingsHelper.get_ready_words(training).count %>
   </td>
   <td>
-    <%= button_to "Start", start_training_path(training), :form_class => "inline", :class => "btn btn-primary without-bottom-margin"%>
+    <% if word_count == 0 %>
+      <%= button_to "Start", start_training_path(training), :form_class => "inline", :class => "btn btn-primary without-bottom-margin .disabled", :disabled => "true" %>
+    <% else %>
+      <%= button_to "Start", start_training_path(training), :form_class => "inline", :class => "btn btn-primary without-bottom-margin"%>
+    <% end %>
     <%= button_to "Delete", training, :form_class => "inline", :class => "btn btn-danger without-bottom-margin", :method => :delete, :confirm => "You sure?", :title => "Delete training?" %>
   </td>
 </tr>
