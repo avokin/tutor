@@ -1,6 +1,5 @@
+.idea
 .bundle
 db/*.sqlite3
 log/*.log
 tmp/
-.idea/.generators
-.idea/.rakeTasks
