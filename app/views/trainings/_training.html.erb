@@ -9,9 +9,7 @@
     <%= TrainingsHelper.get_ready_words(training).count %>
   </td>
   <td>
-    <%= form_for training, :url => start_training_path(training), :html => {:class => "without_bottom_margin"} do |f| %>
-        <%= f.submit "Start", :class=>"btn btn-primary without_bottom_margin", :name => "start" %>
-        <%= f.submit "Delete", :class => "btn btn-danger without_bottom_margin", :name => "delete" %>
-    <% end %>
+    <%= button_to "Start", start_training_path(training), :form_class => "inline", :class => "btn btn-primary without-bottom-margin"%>
+    <%= button_to "Delete", training, :form_class => "inline", :class => "btn btn-danger without-bottom-margin", :method => :delete, :confirm => "You sure?", :title => "Delete training?" %>
   </td>
 </tr>
