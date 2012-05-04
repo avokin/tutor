@@ -87,6 +87,11 @@ describe UserCategoriesController do
   end
 
   describe "GET 'show'" do
+    it "should have right title" do
+      get :show, :id => @category.id
+      response.should have_selector('title', :content => "Tutor - #{@category.name}")
+    end
+
     it "should display words that corresponds to the category" do
       get :show, :id => @category.id
       response.should have_selector('a', :content => @user_word.word.text)
