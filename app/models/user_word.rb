@@ -107,6 +107,8 @@ class UserWord < ActiveRecord::Base
 
   private
   def set_time_to_check
-    self.time_to_check = Time.now
+    if self.time_to_check.nil?
+      self.time_to_check = Time.now
+    end
   end
 end
