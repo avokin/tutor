@@ -2,9 +2,13 @@ Given /^user$/ do
   first_user
 end
 
-When /^word "([^"]*)"$/ do |text|
+When /^I have word "([^"]*)"$/ do |text|
   user_word = UserWord.new
   user_word.save_with_relations(first_user, text, [], [], [])
+end
+
+Given /^I have category "([^"]*)"$/ do |name|
+  UserCategory.create! :name => name, :user => first_user
 end
 
 And /^I fill login information for the first user$/ do
