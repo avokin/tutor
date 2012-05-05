@@ -2,12 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$ ->
-  $("#variant_0").select()
-  $("#btnCheck").click()
-
 displayTraining = (data, status, xhr) ->
-  $("#userWordCell").html("<a href='user_words/" + userWordId+ "'>" + data.word + "</a>")
+  $("#userWordCell").html("<a href='user_words/" + data.id+ "'>" + data.word + "</a>")
 
   answerInput = ""
   i = 0
@@ -16,19 +12,28 @@ displayTraining = (data, status, xhr) ->
     i++
   $("tbody", "#attemptTable").html(answerInput)
 
+skip = ->
+  $.ajax({
+    url: "/trainings/training_data.json"
+    type: "POST"
+    success: displayTraining
+    error: ajax_error
+  })
+
 ajax_error = (xhr, status, error) ->
   alert(status["responseText"])
   alert("ajax:error" + error)
 
-userWordId = -1
-
-initTraining = (uwId) ->
-  userWordId = uwId
+initTraining = (userWordId) ->
   $.ajax({
-    url: "/trainings/#{userWordId}/training_data.json"
+    url: "/trainings/training_data.json?id=#{userWordId}"
     type: "POST"
     success: displayTraining
     error: ajax_error
   })
 
 `globalInitTraining = initTraining;`
+
+$ ->
+  $("#variant_0").select()
+  $("#btnSkip").click(skip)

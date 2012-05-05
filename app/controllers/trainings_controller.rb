@@ -2,7 +2,7 @@ include TrainingsHelper
 
 class TrainingsController < ApplicationController
   before_filter :authenticate
-  before_filter :correct_user_for_user_word, :only => [:check, :show, :training_data]
+  before_filter :correct_user_for_user_word, :only => [:check, :show]
   before_filter :correct_user_training, :only => [:destroy]
   before_filter :set_active_tab
 
@@ -71,7 +71,12 @@ class TrainingsController < ApplicationController
   end
 
   def training_data
-
+    if params[:id].nil?
+      training = Training.find cookies.signed[:training_id]
+      @user_word = select_user_word(training)
+    else
+      correct_user_for_user_word
+    end
   end
 
   def index

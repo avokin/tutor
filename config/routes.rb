@@ -7,7 +7,11 @@ Tutor::Application.routes.draw do
     member do
       post :check
       post :start
+    end
+
+    collection do
       post :training_data
+      get :training_data
     end
   end
 
