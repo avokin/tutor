@@ -2,7 +2,7 @@ include TrainingsHelper
 
 class TrainingsController < ApplicationController
   before_filter :authenticate
-  before_filter :correct_user_for_user_word, :only => [:check, :show]
+  before_filter :correct_user_for_user_word, :only => [:check, :show, :training_data]
   before_filter :correct_user_training, :only => [:destroy]
   before_filter :set_active_tab
 
@@ -68,6 +68,10 @@ class TrainingsController < ApplicationController
 
     @variants = Array.new(@user_word.direct_translations.length)
     @answer_classes = Hash[nil => ""]
+  end
+
+  def training_data
+
   end
 
   def index

@@ -1,3 +1,7 @@
+<script type="text/javascript">
+  var user_word_id = <%= @user_word.id %>;
+</script>
+
 <div class="row" id="page_title">
   <div class="span12">
     <h1>Training</h1>
@@ -5,50 +9,43 @@
 </div>
 
 <div class="row">
-  <div class="span3 biglink">
-    <%= link_to @user_word do %>
-      <%= @user_word.word.text %>
-    <% end %>
+  <div class="span6">
+    <table>
+      <tbody>
+      <tr>
+        <td></td>
+        <td id="userWordCell" class="biglink">
+          <%= link_to @user_word do %>
+            <%= @user_word.word.text %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td id="answerCell">
 
-    <% if @show_answer %>
-      <table>
-        <tbody>
-        <% @user_word.translations.each do |f| %>
-          <tr>
-            <td>
-              <%= f.related_user_word.word.text %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
+        </td>
+        <td>
+          <table id="attemptTable" class="table table-striped">
+            <tfoot>
+            <tr>
+              <td>
+                <input type="button" class="btn btn-primary" id="btnCheck" value="Check"/>
+                <input type="button" class="btn" id="btnHint" value="Hint"/>
+                <input type="button" class="btn" id="skip" value="Skip"/>
+              </td>
+            </tr>
+            </tfoot>
+            <tbody>
 
-  <div class="span4">
-    <%= form_tag check_training_path do %>
-      <table class="table table-striped">
-        <tfoot>
-        <tr>
-          <td>
-            <%= submit_tag "Check", :class => "btn btn-primary", :name => "check" %>
-            <%= submit_tag "Don't remember", :class => "btn", :name => "do_not_remember" %>
-            <%= submit_tag "Skip", :class => "btn", :name => "skip" %>
-          </td>
-        </tr>
-        </tfoot>
-        <tbody>
-        <% (0..@user_word.direct_translations.length - 1).each do |i| %>
-          <tr>
-            <td>
-              <div class="<%= @answer_classes[@variants[i]] %>">
-                <%= text_field_tag "variant_#{i}", @variants[i], :class => "without-bottom-margin" %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    <% end %>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
+
+<script type="text/javascript">
+  globalInitTraining(<%=@user_word.id %>)
+</script>

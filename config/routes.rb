@@ -7,6 +7,7 @@ Tutor::Application.routes.draw do
     member do
       post :check
       post :start
+      post :training_data
     end
   end
 

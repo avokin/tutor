@@ -1,0 +1,9 @@
+{
+  "word": "<%= @user_word.word.text %>",
+  <% (0..@user_word.direct_translations.length - 1).each do |i| %>
+    "answer<%= i %>": "<%= @user_word.direct_translations[i].related_user_word.word.text %>"
+    <% if i != @user_word.direct_translations.length - 1%>
+      ,
+    <% end %>
+  <% end %>
+}
