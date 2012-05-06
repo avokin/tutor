@@ -75,6 +75,14 @@ class TrainingsController < ApplicationController
       unless params[:previous_id].nil?
         @previous_word = UserWord.find(params[:previous_id])
         if correct_user_for_user_word @previous_word
+          result = params[:result]
+          if result == "true"
+            @previous_word.success_attempt
+          else
+            @previous_word.fail_attempt
+          end
+
+          @previous_word.save!
         end
       end
       training = Training.find cookies.signed[:training_id]

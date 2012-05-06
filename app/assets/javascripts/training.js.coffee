@@ -22,9 +22,12 @@ show = (data, status, xhr) ->
   currentWord.n = i
   $("tbody", "#attemptTable").html(answerInput)
 
-requstUserWord = (id) ->
+requstUserWord = (id, result) ->
   if id == null
-    request_url = TRAINING_URL
+    if result != undefined
+      request_url = TRAINING_URL + "?previous_id=#{currentWord.id}&result=#{result}"
+    else
+      request_url = TRAINING_URL
   else
     request_url = TRAINING_URL + "?id=#{id}"
   $.ajax({
@@ -35,10 +38,13 @@ requstUserWord = (id) ->
     })
 
 skip = ->
-  requstUserWord(null)
+  requstUserWord(null, null)
 
 initTraining = (userWordId) ->
-  requstUserWord(userWordId)
+  requstUserWord(userWordId, null)
+
+sendTrainingResult = (result) ->
+  requstUserWord(null, result)
 
 isCorrectVariant = (variant) ->
   for i in [0...currentWord.n]
@@ -62,13 +68,12 @@ check = ->
     inputField = $("#answer#{i}")
     variant = inputField.val()
     if isCorrectVariant(variant)
-      ok = false
       highlightCorrectAnswer(inputField)
     else
+      ok = false
       highlightWrongAnswer(inputField)
-  sendTrainingResult(ok)
-  requstUserWord(null)
-
+  if ok
+    sendTrainingResult(ok)
 
 `globalInitTraining = initTraining;`
 
