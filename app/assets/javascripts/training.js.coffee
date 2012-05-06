@@ -8,6 +8,10 @@ ajax_error = (xhr, status, error) ->
   alert(status["responseText"])
   alert("ajax:error" + error)
 
+keypress = (event) ->
+  if event.which == 13
+    btnCheck.click()
+
 currentWord = null
 
 show = (data, status, xhr) ->
@@ -17,10 +21,11 @@ show = (data, status, xhr) ->
   answerInput = ""
   i = 0
   while currentWord["answer#{i}"] != undefined
-    answerInput += "<tr><td><input id=\"answer#{i}\" class=\"answer#{i}\"/></td></tr>"
+    answerInput += "<tr><td><input id=\"answer#{i}\" class=\"variant\"/></td></tr>"
     i++
   currentWord.n = i
   $("tbody", "#attemptTable").html(answerInput)
+  $(".variant").keypress(keypress)
 
 requstUserWord = (id, result) ->
   if id == null
