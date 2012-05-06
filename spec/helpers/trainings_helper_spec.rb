@@ -8,7 +8,7 @@ describe TrainingsHelper do
     end
 
     it "should zero translation_success_count" do
-      fail_word @user_word
+      @user_word.fail_attempt
       @user_word.reload
       @user_word.translation_success_count.should == 0
     end
@@ -86,12 +86,6 @@ describe TrainingsHelper do
       @user_word1 = @translation1.source_user_word
       @user_word1.translation_success_count = 1
       @user_word1.save!
-    end
-
-    it "should increase time to check" do
-      skip @user_word1
-      @user_word1.reload
-      @user_word1.time_to_check.should > DateTime.now
     end
   end
 

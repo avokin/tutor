@@ -19,6 +19,8 @@ class UserWord < ActiveRecord::Base
 
   after_initialize :set_time_to_check
 
+  TIME_LAPSES = [4.hours, 8.hours, 3, 7, 30, 60]
+
   def translations
     direct_translations + backward_translations
   end
@@ -103,6 +105,26 @@ class UserWord < ActiveRecord::Base
 
   def self.find_recent_for_user(user, count)
     UserWord.order('created_at desc').where(:user_id => user.id).limit(count)
+  end
+
+  def fail_attempt
+    self.translation_success_count = 0
+    self.time_to_check = DateTime.now + TIME_LAPSES[0]
+  end
+
+  def success_attempt
+    k = [TIME_LAPSES.length - 1, self.translation_success_count].min
+    self.time_to_check = DateTime.now + TIME_LAPSES[k]
+    self.translation_success_count += 1
+  end
+
+  def save_attempt(ok)
+    if ok
+      success_attempt
+    else
+      fail_attempt
+    end
+    save!
   end
 
   private

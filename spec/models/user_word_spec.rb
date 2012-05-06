@@ -163,4 +163,42 @@ describe UserWord do
       @user_word.user_categories[0].should == @user_category
     end
   end
+
+  describe "save_attempt" do
+    before(:each) do
+      @user_word = Factory(:user_word, :translation_success_count => 1)
+    end
+
+    describe "failed attempt" do
+      before(:each) do
+        @user_word.save_attempt false
+        @user_word.reload
+      end
+
+      it "should zero translation_success_count" do
+        @user_word.translation_success_count.should == 0
+      end
+
+      it "should set time_to_check 4 hours after" do
+        @user_word.time_to_check.should > DateTime.now + 3.hours
+        @user_word.time_to_check.should < DateTime.now + 5.hours
+      end
+    end
+
+    describe "successful attempt" do
+      before(:each) do
+        @user_word.save_attempt true
+        @user_word.reload
+      end
+
+      it "should increase translation_success_count" do
+        @user_word.translation_success_count.should == 2
+      end
+
+      it "should set time_to_check 4 hours after" do
+        @user_word.time_to_check.should > DateTime.now + 7.hours
+        @user_word.time_to_check.should < DateTime.now + 9.hours
+      end
+    end
+  end
 end

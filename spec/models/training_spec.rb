@@ -44,7 +44,7 @@ describe Training do
     end
   end
 
-  describe "find_by_user method" do
+  describe "find_by_user" do
     before(:each) do
       @training = Factory(:training)
       @another_user = Factory(:user)

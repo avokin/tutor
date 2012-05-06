@@ -66,6 +66,8 @@ check = ->
       highlightCorrectAnswer(inputField)
     else
       highlightWrongAnswer(inputField)
+  sendTrainingResult(ok)
+  requstUserWord(null)
 
 
 `globalInitTraining = initTraining;`

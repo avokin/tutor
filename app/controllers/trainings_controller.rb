@@ -21,7 +21,7 @@ class TrainingsController < ApplicationController
       @answer_statuses = Hash.new
       ok = check_answers(@user_word, @variants, @answer_statuses)
       unless params[:do_not_remember].nil?
-        fail_word(@user_word)
+        @user_word.fail_attempt
       end
       @answer_classes = Hash.new
       @variants.each do |v|
@@ -72,6 +72,11 @@ class TrainingsController < ApplicationController
 
   def training_data
     if params[:id].nil?
+      unless params[:previous_id].nil?
+        @previous_word = UserWord.find(params[:previous_id])
+        if correct_user_for_user_word @previous_word
+        end
+      end
       training = Training.find cookies.signed[:training_id]
       @user_word = select_user_word(training)
     else
@@ -117,7 +122,7 @@ class TrainingsController < ApplicationController
     if @training.nil?
       redirect_to(trainings_path, :flash => {:error => ANOTHER_USER_ERROR_MESSAGE}) unless current_user?(@user)
     else
-      Training.destroy(@training);
+      Training.destroy(@training)
       redirect_to trainings_path
     end
   end
@@ -134,15 +139,22 @@ class TrainingsController < ApplicationController
     end
   end
 
-  def correct_user_for_user_word
-    @user_word = UserWord.find(params[:id])
+  def correct_user_for_user_word(user_word = nil)
+    if user_word.nil?
+      @user_word = UserWord.find(params[:id])
+    else
+      @user_word = user_word
+    end
+
     if @user_word.nil?
       redirect_to(root_path)
+      false
     else
       @user = @user_word.user
-
       redirect_to(root_path, :flash => {:error => ANOTHER_USER_ERROR_MESSAGE}) unless current_user?(@user)
+      false
     end
+    true
   end
 
   def set_active_tab

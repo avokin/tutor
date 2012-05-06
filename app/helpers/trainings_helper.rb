@@ -1,10 +1,4 @@
 module TrainingsHelper
-  TIME_LAPSES = [0.5, 1, 3, 7, 30, 60]
-
-  def fail_word(user_word)
-    user_word.translation_success_count = 0
-    user_word.time_to_check = DateTime.now + TIME_LAPSES[0]
-  end
 
   def check_answers(user_word, answers, answer_statuses)
     result = true
@@ -16,23 +10,19 @@ module TrainingsHelper
       end
     end
     if result
-      k = [TIME_LAPSES.length - 1, user_word.translation_success_count].min
-      user_word.time_to_check = DateTime.now + TIME_LAPSES[k]
-      user_word.translation_success_count += 1
+      user_word.success_attempt
     else
-      fail_word(user_word)
+      user_word.fail_attempt
     end
     user_word.save!
     result
   end
 
   def skip(user_word)
-    user_word.time_to_check = DateTime.now + TIME_LAPSES[0]
-    user_word.save!
   end
 
   def get_ready_words(training)
-        # ToDo:
+    # ToDo:
     type = :translation
 
     if training.user_category.nil?
