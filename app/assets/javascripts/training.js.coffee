@@ -28,8 +28,11 @@ show = (data, status, xhr) ->
   $(".variant").keypress(keypress)
 
 requstUserWord = (id, result) ->
+  onSuccess = show
   if id == null
     if result != undefined
+      if !result
+        onSuccess = null
       request_url = TRAINING_URL + "?previous_id=#{currentWord.id}&result=#{result}"
     else
       request_url = TRAINING_URL
@@ -38,7 +41,7 @@ requstUserWord = (id, result) ->
   $.ajax({
       url: request_url
       type: "POST"
-      success: show
+      success: onSuccess
       error: ajax_error
     })
 
@@ -79,6 +82,9 @@ check = ->
       highlightWrongAnswer(inputField)
   if ok
     sendTrainingResult(ok)
+  else
+    sendTrainingResult(ok)
+
 
 `globalInitTraining = initTraining;`
 
