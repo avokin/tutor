@@ -12,19 +12,23 @@ currentWord = null
 
 show = (data, status, xhr) ->
   currentWord = data
-  $("#userWordCell").html("<a href='user_words/" + currentWord.id+ "'>" + currentWord.word + "</a>")
+  $("#userWordCell").html("<a href='/user_words/" + currentWord.id+ "'>" + currentWord.word + "</a>")
 
   answerInput = ""
   i = 0
   while currentWord["answer#{i}"] != undefined
     answerInput += "<tr><td><input id=\"answer#{i}\" class=\"answer#{i}\"/></td></tr>"
     i++
-  currentWord.n = i - 1
+  currentWord.n = i
   $("tbody", "#attemptTable").html(answerInput)
 
 requstUserWord = (id) ->
+  if id == null
+    request_url = TRAINING_URL
+  else
+    request_url = TRAINING_URL + "?id=#{id}"
   $.ajax({
-      url: id == null ? TRAINING_URL : TRAINING_URL + "?id=#{userWordId}"
+      url: request_url
       type: "POST"
       success: show
       error: ajax_error
@@ -36,13 +40,32 @@ skip = ->
 initTraining = (userWordId) ->
   requstUserWord(userWordId)
 
-check = ->
+isCorrectVariant = (variant) ->
   for i in [0...currentWord.n]
+    if currentWord["answer#{i}"] == variant
+      return true
+  false
 
-  while currentWord["answer#{i}"] != undefined
-    $("answer#{i}").value()
-    answerInput += "<tr><td><input id=\"answer#{i}\" class=\"answer#{i}\"/></td></tr>"
-    i++
+highlightInputField = (field, className) ->
+  parent = field.parent()
+  parent.attr("class", className)
+
+highlightWrongAnswer = (field) ->
+  highlightInputField(field, "control-group error")
+
+highlightCorrectAnswer = (field) ->
+  highlightInputField(field, "control-group success")
+
+check = ->
+  ok = true
+  for i in [0...currentWord.n]
+    inputField = $("#answer#{i}")
+    variant = inputField.val()
+    if isCorrectVariant(variant)
+      ok = false
+      highlightCorrectAnswer(inputField)
+    else
+      highlightWrongAnswer(inputField)
 
 
 `globalInitTraining = initTraining;`
