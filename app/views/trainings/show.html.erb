@@ -13,7 +13,6 @@
     <table>
       <tbody>
       <tr>
-        <td></td>
         <td id="userWordCell" class="biglink">
           <%= link_to @user_word do %>
             <%= @user_word.word.text %>
@@ -21,9 +20,6 @@
         </td>
       </tr>
       <tr>
-        <td id="answerCell">
-
-        </td>
         <td>
           <table id="attemptTable" class="table table-striped">
             <tfoot>
@@ -33,6 +29,7 @@
                 <input type="button" class="btn" id="btnHint" value="Hint"/>
                 <input type="button" class="btn" id="btnSkip" value="Skip"/>
               </td>
+              <td></td>
             </tr>
             </tfoot>
             <tbody>

@@ -26,11 +26,12 @@ show = (data, status, xhr) ->
   answerInput = ""
   i = 0
   while currentWord["answer#{i}"] != undefined
-    answerInput += "<tr><td class=\"answer#{i}\"></td><td><input id=\"answer#{i}\" class=\"variant\"/></td></tr>"
+    answerInput += "<tr><td><input id=\"answer#{i}\" class=\"variant\"/></td><td class=\"answer#{i}\"></td></tr>"
     i++
   currentWord.n = i
   $("tbody", "#attemptTable").html(answerInput)
   $(".variant").keypress(keypress)
+  $("input#answer0").select()
 
 requstUserWord = (id, result) ->
   onSuccess = show
@@ -67,6 +68,7 @@ hint = ->
     showAnswers(true)
   else
     showAnswers(false)
+  $("input#answer0").select()
 
 
 initTraining = (userWordId) ->
@@ -110,7 +112,6 @@ check = ->
 `globalInitTraining = initTraining;`
 
 $ ->
-  $("#variant_0").select()
   $("#btnSkip").click(skip)
   $("#btnCheck").click(check)
   $("#btnHint").click(hint)
