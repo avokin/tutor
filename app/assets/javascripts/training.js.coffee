@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 TRAINING_URL = "/trainings/training_data.json"
+HINT_STATUS_NO_HINT = 0
+HINT_STATUS_HINT = 1
 
 ajax_error = (xhr, status, error) ->
   alert(status["responseText"])
@@ -13,15 +15,18 @@ keypress = (event) ->
     btnCheck.click()
 
 currentWord = null
+hintStatus = HINT_STATUS_NO_HINT
 
 show = (data, status, xhr) ->
+  hintStatus = HINT_STATUS_NO_HINT
+
   currentWord = data
   $("#userWordCell").html("<a href='/user_words/" + currentWord.id+ "'>" + currentWord.word + "</a>")
 
   answerInput = ""
   i = 0
   while currentWord["answer#{i}"] != undefined
-    answerInput += "<tr><td><input id=\"answer#{i}\" class=\"variant\"/></td></tr>"
+    answerInput += "<tr><td class=\"answer#{i}\"></td><td><input id=\"answer#{i}\" class=\"variant\"/></td></tr>"
     i++
   currentWord.n = i
   $("tbody", "#attemptTable").html(answerInput)
@@ -30,7 +35,7 @@ show = (data, status, xhr) ->
 requstUserWord = (id, result) ->
   onSuccess = show
   if id == null
-    if result != undefined
+    if result != null
       if !result
         onSuccess = null
       request_url = TRAINING_URL + "?previous_id=#{currentWord.id}&result=#{result}"
@@ -47,6 +52,22 @@ requstUserWord = (id, result) ->
 
 skip = ->
   requstUserWord(null, null)
+
+showAnswers = (firstLetter) ->
+  for i in [0...currentWord.n]
+    s = currentWord["answer#{i}"]
+    if firstLetter
+      s = s.charAt(0)
+    $(".answer#{i}").html(s)
+
+hint = ->
+  if hintStatus == HINT_STATUS_NO_HINT
+    sendTrainingResult(false)
+    hintStatus = HINT_STATUS_HINT
+    showAnswers(true)
+  else
+    showAnswers(false)
+
 
 initTraining = (userWordId) ->
   requstUserWord(userWordId, null)
@@ -92,3 +113,4 @@ $ ->
   $("#variant_0").select()
   $("#btnSkip").click(skip)
   $("#btnCheck").click(check)
+  $("#btnHint").click(hint)
