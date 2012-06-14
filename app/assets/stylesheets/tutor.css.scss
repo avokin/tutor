@@ -19,6 +19,10 @@ body {
   padding-bottom: 40px;
 }
 
+.table td {
+  vertical-align: middle;
+}
+
 #translations, #synonyms, #categories {
   & div.progress {
     width: 100px;
@@ -73,6 +77,10 @@ table {
   }
 }
 
+.dropdown-menu li {
+  text-align: left;
+}
+
 .alert-container {
   text-align: center;
   margin-bottom: 10px;
@@ -89,6 +97,18 @@ span.alert {
 
 .without-bottom-margin {
   margin-bottom: 0px;
+}
+
+@mixin small-padding {
+  padding: 2px;
+}
+
+tr.without-padding td {
+  @include small-padding;
+}
+
+.invisible {
+  display: none;
 }
 
 thead td {

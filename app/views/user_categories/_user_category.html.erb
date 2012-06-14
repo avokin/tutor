@@ -2,7 +2,12 @@
   <%= link_to user_category.name, user_category %>
 </td>
 <td>
-  <div class="delete-button">
-    <%= link_to "x", user_category, :method => :delete, :confirm => 'You sure?', :title => 'title' %>
-  </div>
+  <%= form_for(user_category, :remote => true) do |f| %>
+    <%= f.check_box :is_default, :onclick => "this.form.commit.click();" %>
+    <%= f.submit "submit", :class => "btn invisible" %>
+  <% end %>
+</td>
+<td>
+  <%= button_to "Edit", user_category, :form_class => "inline", :class => "btn without-bottom-margin" %>
+  <%= button_to "Delete", user_category, :form_class => "inline", :class => "btn btn-danger without-bottom-margin", :method => :delete, :confirm => "You sure?", :title => "Delete category?" %>
 </td>

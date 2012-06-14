@@ -5,26 +5,42 @@
 </div>
 
 <div class="row">
-  <%= form_tag :method => :post, :action => :update_defaults do %>
-    <table class="table table-striped">
-      <tfoot>
-      <tr>
-        <td colspan="3">
-          <%= submit_tag "Save" %>
-        </td>
-      </tr>
-      </tfoot>
-      <tbody>
+  <table class="table table-striped">
+    <thead>
+    <tr class="without-padding">
+      <td class="slim">
+        <%= form_tag( { :action => :update_defaults, :method => :post}, :class => "without-bottom-margin") do %>
+          <div class="btn-group">
+            <button class="btn dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Merge</a></li>
+              <li><a href="#">Delete</a></li>
+            </ul>
+          </div>
+        <% end %>
+      </td>
+      <td>
+        Name
+      </td>
+      <td>
+        Default
+      </td>
+      <td>
+        Actions
+      </td>
+    </tr>
+    </thead>
+    <tbody>
 
-      <% @categories.each() do |category| %>
-        <tr>
-          <td>
-            <%= check_box_tag("id#{category.id}", "", category.is_default) %>
-          </td>
-          <%= render category %>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  <% end %>
+    <% @categories.each() do |category| %>
+      <tr>
+        <td>
+          <%= check_box_tag("id#{category.id}", "", false) %>
+        </td>
+
+        <%= render category %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>

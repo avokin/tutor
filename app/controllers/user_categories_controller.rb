@@ -30,19 +30,19 @@ class UserCategoriesController < ApplicationController
   end
 
   def edit
-    session[:return_to] ||= request.referer
+    session[:return_to] = request.referer
     @title = "Edit category: #{@category.name}"
   end
 
   def update
-    if params[:btn_update].nil?
-      redirect_to session[:return_to] || user_category_path
-    else
+    if params[:btn_cancel].nil?
       if @category.update_attributes(params[:user_category])
         redirect_to session[:return_to] || user_category_path
       else
         render 'edit'
       end
+    else
+      redirect_to session[:return_to] || user_category_path
     end
   end
 
