@@ -265,4 +265,54 @@ describe UserCategoriesController do
       @user_category2.is_default.should be_false
     end
   end
+
+  describe "PUT 'merge'" do
+    before(:each) do
+      @user_word_category = Factory(:user_word_category)
+      @category2 = @user_word_category.user_category
+    end
+
+    describe "unauthorized access" do
+      describe "not logged in user" do
+        it "should redirect to signin path" do
+          put :merge, :ids => "#{@category.id}, #{@category2.id}"
+          response.should redirect_to signin_path
+        end
+      end
+
+      describe "not owner user" do
+        before(:each) do
+          user = Factory(:user)
+          test_sign_in user
+        end
+
+        it "should redirect to root path and display flash with error" do
+          put :merge, :ids => "#{@category.id}, #{@category2.id}"
+          response.should redirect_to root_path
+          flash[:error].should =~ /Error.*another user/
+        end
+      end
+    end
+
+    describe "authorized access" do
+      before(:each) do
+        test_sign_in @user
+      end
+
+      it "should move all words to the first category" do
+        words_to_move = @category2.user_words
+        put :merge, :ids => "#{@category.id}, #{@category2.id}"
+
+        words_to_move.each do |word|
+          word.reload
+          word.user_category.first.should == @category
+        end
+      end
+
+      it "should remove all categories except the first" do
+        put :merge, :ids => "#{@category.id}, #{@category2.id}"
+        UserCategory.find_by_id(@category2.id).should be_nil
+      end
+    end
+  end
 end

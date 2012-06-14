@@ -8,6 +8,12 @@
   <% end %>
 </td>
 <td>
-  <%= button_to "Edit", user_category, :form_class => "inline", :class => "btn without-bottom-margin" %>
+  <%= user_category.user_words.count %>
+</td>
+<td>
+  undefined
+</td>
+<td>
+  <%= button_to "Edit", edit_user_category_path(user_category), :method => :get, :form_class => "inline", :class => "btn without-bottom-margin" %>
   <%= button_to "Delete", user_category, :form_class => "inline", :class => "btn btn-danger without-bottom-margin", :method => :delete, :confirm => "You sure?", :title => "Delete category?" %>
 </td>

@@ -1,7 +1,7 @@
 class UserCategoriesController < ApplicationController
   before_filter :set_active_tab
   before_filter :authenticate
-  before_filter :correct_user, :except => [:new, :index, :create, :update_defaults]
+  before_filter :correct_user, :except => [:new, :index, :create, :update_defaults, :merge]
 
   def new
     @title = "New category"
@@ -56,6 +56,7 @@ class UserCategoriesController < ApplicationController
     redirect_to user_categories_path
   end
 
+  #ToDo remove
   def update_defaults
     current_user.user_categories.each do |user_category|
       default = params["id#{user_category.id}"]
@@ -69,6 +70,32 @@ class UserCategoriesController < ApplicationController
         user_category.is_default = default
         user_category.save!
       end
+    end
+
+    redirect_to user_categories_path
+  end
+
+  def merge
+    category_list = Array.new
+    first = nil
+    params[:ids].split.each do |s|
+      category = UserCategory.find(s.to_i)
+      if category.user == current_user
+        if first.nil?
+          first = category
+        else
+          category_list << category
+        end
+      else
+        #todo log hack attempt
+        redirect_to(root_path, :flash => {:error => "Error another user"}) unless current_user?(@user)
+        return
+      end
+    end
+
+    category_list.each do |category|
+      UserWordCategory.update_all( {:user_category_id => first.id}, {:user_category_id => category.id} )
+      category.destroy
     end
 
     redirect_to user_categories_path
