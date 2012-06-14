@@ -56,25 +56,6 @@ class UserCategoriesController < ApplicationController
     redirect_to user_categories_path
   end
 
-  #ToDo remove
-  def update_defaults
-    current_user.user_categories.each do |user_category|
-      default = params["id#{user_category.id}"]
-      if default.nil?
-        default = false
-      else
-        default = true
-      end
-
-      if user_category.is_default != default
-        user_category.is_default = default
-        user_category.save!
-      end
-    end
-
-    redirect_to user_categories_path
-  end
-
   def merge
     category_list = Array.new
     first = nil

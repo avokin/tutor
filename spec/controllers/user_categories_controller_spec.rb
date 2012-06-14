@@ -240,32 +240,6 @@ describe UserCategoriesController do
     end
   end
 
-  describe "PUT 'update_defaults'" do
-    before(:each) do
-      @user_category1 = Factory(:user_category)
-      @user_category2 = Factory(:user_category)
-      Factory(:user_word_category)
-      user_word = @user_word_category.user_word
-      test_sign_in(user_word.user)
-    end
-
-    it "should update 'is_default' attribute to all selected categories" do
-      put :update_defaults, "id#{@user_category1.id}" => true, "id#{@user_category2.id}" => true
-
-      @user_category1.reload
-      @user_category1.is_default.should be_true
-      @user_category2.reload
-      @user_category2.is_default.should be_true
-
-      put :update_defaults, "id#{@user_category1.id}" => true
-
-      @user_category1.reload
-      @user_category1.is_default.should be_true
-      @user_category2.reload
-      @user_category2.is_default.should be_false
-    end
-  end
-
   describe "PUT 'merge'" do
     before(:each) do
       @user_word_category = Factory(:user_word_category)
