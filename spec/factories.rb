@@ -63,7 +63,6 @@ Factory.define :user do |user|
   user.language {second_language}
 end
 
-
 Factory.define :language do |language|
   language.sequence(:name) {|i| "language #{i}"}
 end
@@ -71,6 +70,7 @@ end
 Factory.define :user_category do |user_category|
   user_category.user { first_user }
   user_category.sequence(:name) {|i| "category #{i}"}
+  user_category.is_default false
 end
 
 Factory.define :user_word_category do |user_word_category|

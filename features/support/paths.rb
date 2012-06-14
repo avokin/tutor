@@ -28,9 +28,11 @@ module NavigationHelpers
       when /^learning page$/
         "/tries/1"
       when /^the "([^"]*)" category page$/
-        "/user_categories/1"
+        user_category_path UserCategory.find_by_name($1)
+      when /^the edit "([^"]*)" category page$/
+        edit_user_category_path UserCategory.find_by_name($1)
       when /^the categories page$/
-        "/user_categories"
+        user_category_path
       else
         begin
           page_name =~ /^the (.*) page$/

@@ -35,6 +35,9 @@ Given /^word "([^"]*)" with category "([^"]*)"$/ do |text, category|
   @user_word.save_with_relations(first_user, text, [], [], [category])
 end
 
+Given /^the category "([^"]*)"$/ do |category|
+  @user_category = UserCategory.create! :user => first_user, :name => category
+end
 
 Given /^word "([^"]*)" with translation "([^"]*)", synonym "([^"]*)" and category "([^"]*)"$/ do |text, translation, synonym, category|
   @user_word = UserWord.new

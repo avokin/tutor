@@ -5,7 +5,7 @@ class UserWordCategory < ActiveRecord::Base
   def self.create_word_category(user_word, category_name)
     user_category = UserCategory.find_by_name(category_name)
     if (user_category.nil?)
-      user_category = UserCategory.new :name => category_name, :user_id => user_word.user_id
+      user_category = UserCategory.new :name => category_name, :user => user_word.user
       if !user_category.save
         raise ActiveRecord::Rollback
       end

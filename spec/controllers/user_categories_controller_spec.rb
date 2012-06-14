@@ -74,10 +74,11 @@ describe UserCategoriesController do
   end
 
   describe "PUT 'update'" do
-    it "should change name of the category" do
-      put :update, :id => @category.id, :user_category => {:name => "new category"}
+    it "should change name of the category and it's default state" do
+      put :update, :id => @category.id, :user_category => {:name => "new category", :is_default => true}
       @category.reload
       @category.name.should == "new category"
+      @category.is_default.should be_true
     end
 
     it "should redirect to category word list" do
@@ -92,9 +93,33 @@ describe UserCategoriesController do
       response.should have_selector('title', :content => "Tutor - #{@category.name}")
     end
 
-    it "should display words that corresponds to the category" do
+    it "should display words that correspond to the category" do
       get :show, :id => @category.id
       response.should have_selector('a', :content => @user_word.word.text)
+    end
+
+    it "should display the 'Edit' link" do
+
+    end
+  end
+
+  describe "GET 'new'" do
+    it "should have right title" do
+      get :new
+      response.should have_selector('title', :content => "Tutor - New category")
+      response.should have_selector("li", :class => "active") do |li|
+        li.should have_selector('a', :content => "Categories")
+      end
+    end
+  end
+
+  describe "GET 'edit'" do
+    it "should have right title" do
+      get :edit, :id => @category.id
+      response.should have_selector('title', :content => "Tutor - Edit category: #{@category.name}")
+      response.should have_selector("li", :class => "active") do |li|
+        li.should have_selector('a', :content => "Categories")
+      end
     end
   end
 

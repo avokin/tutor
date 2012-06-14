@@ -28,16 +28,21 @@ class UserCategoriesController < ApplicationController
   end
 
   def edit
+    session[:return_to] ||= request.referer
     @category = UserCategory.find(params[:id])
     @title = "Edit category: #{@category.name}"
   end
 
   def update
-    @category = UserCategory.find(params[:id])
-    if @category.update_attributes(params[:user_category])
-      redirect_to user_category_path
+    if params[:commit] == "Update"
+      @category = UserCategory.find(params[:id])
+      if @category.update_attributes(params[:user_category])
+        redirect_to user_category_path
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      redirect_to session[:return_to]
     end
   end
 

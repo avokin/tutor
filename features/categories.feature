@@ -34,6 +34,32 @@ Feature: categories
     And I follow "Categories"
     Then I should see "life"
 
+  Scenario: Updating the category
+    Given signed in user
+    Given the category "life"
+    And I am on the "life" category page
+    Then I should see "life"
+    And I follow "Edit"
+    Then I should be on the edit "life" category page
+    And I fill in "user_category_name" with "changed_life"
+    And I check "user_category_is_default"
+    And I press "Update"
+    And I should be on the "changed_life" category page
+    And I should see "(default)"
+
+  Scenario: Canceling edition of the category
+    Given signed in user
+    Given the category "life"
+    And I am on the "life" category page
+    Then I should see "life"
+    And I follow "Edit"
+    Then I should be on the edit "life" category page
+    And I fill in "user_category_name" with "changed_life"
+    And I check "user_category_is_default"
+    And I press "Cancel"
+    And I should be on the "life" category page
+    And I should not see "(default)"
+
   Scenario: default category
     Given not implemented
     Given signed in user
