@@ -1,5 +1,7 @@
 class UserCategoriesController < ApplicationController
   before_filter :set_active_tab
+  before_filter :authenticate
+  before_filter :correct_user, :except => [:new, :index, :create, :update_defaults]
 
   def new
     @title = "New category"
@@ -29,37 +31,28 @@ class UserCategoriesController < ApplicationController
 
   def edit
     session[:return_to] ||= request.referer
-    @category = UserCategory.find(params[:id])
     @title = "Edit category: #{@category.name}"
   end
 
   def update
-    if params[:commit] == "Update"
-      @category = UserCategory.find(params[:id])
+    if params[:btn_update].nil?
+      redirect_to session[:return_to] || user_category_path
+    else
       if @category.update_attributes(params[:user_category])
-        redirect_to user_category_path
+        redirect_to session[:return_to] || user_category_path
       else
         render 'edit'
       end
-    else
-      redirect_to session[:return_to]
     end
   end
 
   def show
-    @category = UserCategory.find(params[:id])
     @title = @category.name
     @user_words = @category.user_words.paginate(:page => params[:page])
   end
 
   def destroy
-    category = UserCategory.find(params[:id])
-    if category.user != current_user
-      render "pages/message"
-      return
-    end
-
-    category.destroy
+    @category.destroy
     redirect_to user_categories_path
   end
 
@@ -84,5 +77,16 @@ class UserCategoriesController < ApplicationController
   private
   def set_active_tab
     @active_tab = :categories
+  end
+
+  def correct_user
+    @category = UserCategory.find(params[:id])
+    if @category.nil?
+      redirect_to(root_path)
+    else
+      @user = @category.user
+
+      redirect_to(root_path, :flash => {:error => "Error another user"}) unless current_user?(@user)
+    end
   end
 end

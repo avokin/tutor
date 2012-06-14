@@ -7,11 +7,14 @@ describe UserCategoriesController do
     @user_word_category = Factory(:user_word_category)
     @category = @user_word_category.user_category
     @user_word = @user_word_category.user_word
-
-    test_sign_in(@user_word.user)
+    @user = @user_word.user
   end
 
   describe "GET 'index'" do
+    before(:each) do
+      test_sign_in(@user)
+    end
+
     it "should have right title" do
       get :index
       response.should have_selector('title', :content => "Tutor - Your categories")
@@ -24,28 +27,53 @@ describe UserCategoriesController do
   end
 
   describe "DELETE 'destroy'" do
-    it "should redirect to error page if unauthorized access" do
-      another_user = Factory(:user)
-      test_sign_in(another_user)
-      delete :destroy, :id => @category.id
-      response.should render_template "pages/message"
-    end
-
-    it "should remove UserCategory record and all depending records" do
-      lambda do
-        lambda do
+    describe "unauthorized access" do
+      describe "not logged in user" do
+        it "should redirect to signin path" do
           delete :destroy, :id => @category.id
-        end.should change(UserCategory, :count).by(-1)
-      end.should change(UserWordCategory, :count).by(-1)
+          response.should redirect_to signin_path
+        end
+      end
+
+      describe "not owner user" do
+        before(:each) do
+          user = Factory(:user)
+          test_sign_in user
+        end
+
+        it "should redirect to root path and display flash with error" do
+          delete :destroy, :id => @category.id
+          response.should redirect_to root_path
+          flash[:error].should =~ /Error.*another user/
+        end
+      end
     end
 
-    it "should redirect to root path" do
-      delete :destroy, :id => @category.id
-      response.should redirect_to user_categories_path
+    describe "authorized access" do
+      before(:each) do
+        test_sign_in @user
+      end
+
+      it "should remove UserCategory record and all depending records" do
+        lambda do
+          lambda do
+            delete :destroy, :id => @category.id
+          end.should change(UserCategory, :count).by(-1)
+        end.should change(UserWordCategory, :count).by(-1)
+      end
+
+      it "should redirect to root path" do
+        delete :destroy, :id => @category.id
+        response.should redirect_to user_categories_path
+      end
     end
   end
 
   describe "POST 'create'" do
+    before(:each) do
+      test_sign_in(@user_word.user)
+    end
+
     describe "creation a new Category" do
       it "should create new UserCategory record" do
         lambda do
@@ -74,36 +102,97 @@ describe UserCategoriesController do
   end
 
   describe "PUT 'update'" do
-    it "should change name of the category and it's default state" do
-      put :update, :id => @category.id, :user_category => {:name => "new category", :is_default => true}
-      @category.reload
-      @category.name.should == "new category"
-      @category.is_default.should be_true
+    describe "unauthorized access" do
+      describe "not logged in user" do
+        it "should redirect to signin path" do
+          put :update, :id => @category
+          response.should redirect_to signin_path
+        end
+      end
+
+      describe "not owner user" do
+        before(:each) do
+          user = Factory(:user)
+          test_sign_in user
+        end
+
+        it "should redirect to root path and display flash with error" do
+          put :update, :id => @category
+          response.should redirect_to root_path
+          flash[:error].should =~ /Error.*another user/
+        end
+      end
     end
 
-    it "should redirect to category word list" do
-      put :update, :id => @category.id, :user_category => {:name => "new category"}
-      response.should redirect_to user_category_path(@category)
+    describe "authorized access" do
+      before(:each) do
+        test_sign_in @user
+      end
+
+      it "should change name of the category and it's default state" do
+        put :update, :id => @category.id, :user_category => {:name => "new category", :is_default => true}, :btn_update => "true"
+        @category.reload
+        @category.name.should == "new category"
+        @category.is_default.should be_true
+      end
+
+      it "should redirect to category word list" do
+        put :update, :id => @category.id, :user_category => {:name => "new category"}, :btn_update => "true"
+        response.should redirect_to user_category_path(@category)
+      end
     end
   end
 
   describe "GET 'show'" do
-    it "should have right title" do
-      get :show, :id => @category.id
-      response.should have_selector('title', :content => "Tutor - #{@category.name}")
+    describe "unauthorized access" do
+      describe "not logged in user" do
+        it "should redirect to signin path" do
+          get :show, :id => @category.id
+          response.should redirect_to signin_path
+        end
+      end
+
+      describe "not owner user" do
+        before(:each) do
+          user = Factory(:user)
+          test_sign_in user
+        end
+
+        it "should redirect to root path and display flash with error" do
+          get :show, :id => @category.id
+          response.should redirect_to root_path
+          flash[:error].should =~ /Error.*another user/
+        end
+      end
     end
 
-    it "should display words that correspond to the category" do
-      get :show, :id => @category.id
-      response.should have_selector('a', :content => @user_word.word.text)
-    end
+    describe "authrorized access" do
+      before(:each) do
+        test_sign_in @user
+      end
 
-    it "should display the 'Edit' link" do
+      it "should have right title" do
+        get :show, :id => @category.id
+        response.should have_selector('title', :content => "Tutor - #{@category.name}")
+      end
 
+      it "should display words that correspond to the category" do
+        get :show, :id => @category.id
+        response.should have_selector('a', :content => @user_word.word.text)
+      end
+
+      it "should display the 'Edit' link" do
+        get :show, :id => @category.id
+        response.should have_selector('a', :content => "Edit")
+      end
     end
   end
 
   describe "GET 'new'" do
+    before(:each) do
+      test_sign_in @user
+    end
+
     it "should have right title" do
       get :new
       response.should have_selector('title', :content => "Tutor - New category")
@@ -114,11 +203,39 @@ describe UserCategoriesController do
   end
 
   describe "GET 'edit'" do
-    it "should have right title" do
-      get :edit, :id => @category.id
-      response.should have_selector('title', :content => "Tutor - Edit category: #{@category.name}")
-      response.should have_selector("li", :class => "active") do |li|
-        li.should have_selector('a', :content => "Categories")
+    describe "unauthorized access" do
+      describe "not logged in user" do
+        it "should redirect to signin path" do
+          get :edit, :id => @category.id
+          response.should redirect_to signin_path
+        end
+      end
+
+      describe "not owner user" do
+        before(:each) do
+          user = Factory(:user)
+          test_sign_in user
+        end
+
+        it "should redirect to root path and display flash with error" do
+          get :edit, :id => @category.id
+          response.should redirect_to root_path
+          flash[:error].should =~ /Error.*another user/
+        end
+      end
+    end
+
+    describe "authorized access" do
+      before(:each) do
+        test_sign_in @user
+      end
+
+      it "should have right title" do
+        get :edit, :id => @category.id
+        response.should have_selector('title', :content => "Tutor - Edit category: #{@category.name}")
+        response.should have_selector("li", :class => "active") do |li|
+          li.should have_selector('a', :content => "Categories")
+        end
       end
     end
   end
