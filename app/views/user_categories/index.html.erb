@@ -13,7 +13,7 @@
           <div class="btn-group">
             <button class="btn dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="#">Merge</a></li>
+              <li><a id="btnMerge" href="#">Merge</a></li>
               <li><a href="#">Delete</a></li>
             </ul>
           </div>
@@ -41,7 +41,7 @@
     <% @categories.each() do |category| %>
       <tr>
         <td>
-          <%= check_box_tag("id#{category.id}", "", false) %>
+          <%= check_box_tag("id#{category.id}", "", false, :class => "mass_checkbox") %>
         </td>
 
         <%= render category %>

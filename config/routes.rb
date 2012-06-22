@@ -32,7 +32,7 @@ Tutor::Application.routes.draw do
 
   resources :user_categories do
     collection do
-      post :update_defaults
+      put :merge
     end
   end
 

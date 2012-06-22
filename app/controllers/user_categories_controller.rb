@@ -1,7 +1,7 @@
 class UserCategoriesController < ApplicationController
   before_filter :set_active_tab
   before_filter :authenticate
-  before_filter :correct_user, :except => [:new, :index, :create, :update_defaults, :merge]
+  before_filter :correct_user, :except => [:new, :index, :create, :merge]
 
   def new
     @title = "New category"
@@ -79,7 +79,7 @@ class UserCategoriesController < ApplicationController
       category.destroy
     end
 
-    redirect_to user_categories_path
+    render :nothing => true
   end
 
   private
