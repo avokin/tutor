@@ -18,6 +18,9 @@ currentWord = null
 hintStatus = HINT_STATUS_NO_HINT
 
 show = (data, status, xhr) ->
+  if data.status == "finished"
+    $("#trainingContent").html("There are no ready words in the current training. <br/> Have a rest or choose another training.");
+    return
   hintStatus = HINT_STATUS_NO_HINT
 
   currentWord = data

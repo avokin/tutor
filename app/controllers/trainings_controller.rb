@@ -2,50 +2,9 @@ include TrainingsHelper
 
 class TrainingsController < ApplicationController
   before_filter :authenticate
-  before_filter :correct_user_for_user_word, :only => [:check, :show]
+  before_filter :correct_user_for_user_word, :only => [:show]
   before_filter :correct_user_training, :only => [:destroy]
   before_filter :set_active_tab
-
-  def check
-    if !params[:skip].nil?
-      skip(@user_word)
-      ok = true
-    else
-      i = 0
-      @variants = Array.new
-      until (s = params["variant_#{i}"]).nil? do
-        @variants << s
-        i = i + 1
-      end
-
-      @answer_statuses = Hash.new
-      ok = check_answers(@user_word, @variants, @answer_statuses)
-      unless params[:do_not_remember].nil?
-        @user_word.fail_attempt
-      end
-      @answer_classes = Hash.new
-      @variants.each do |v|
-        @answer_classes[v] = @answer_statuses[v] ? "control-group success" : "control-group error"
-      end
-    end
-
-    if ok
-      training = Training.find cookies.signed[:training_id]
-      page = cookies.signed[:page]
-      @user_word = select_user_word(training, page)
-      if @user_word.nil?
-        redirect_to trainings_path, :flash => {:success => "There is no ready words in the current training. Have a rest or choose another training."}
-      else
-        redirect_to training_path(@user_word.id)
-      end
-    else
-      @title = "Training"
-      @active_tab = :training
-      @show_answer = true
-
-      render :show
-    end
-  end
 
   def start
     id = params[:id]
@@ -91,6 +50,7 @@ class TrainingsController < ApplicationController
       training = Training.find cookies.signed[:training_id]
       page = cookies.signed[:page]
       @user_word = select_user_word(training, page)
+      render 'training_finished' if @user_word.nil?
     else
       correct_user_for_user_word
     end
