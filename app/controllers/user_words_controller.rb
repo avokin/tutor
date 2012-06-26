@@ -93,7 +93,7 @@ class UserWordsController < ApplicationController
   end
 
   def index
-    @user_words = current_user.foreign_user_words.paginate(:page => params[:page], :per_page => 3)
+    @user_words = current_user.foreign_user_words.paginate(:page => params[:page])
     @title = "Your words"
   end
 

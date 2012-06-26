@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   end
 
   def word_per_page
-    5
+    20
   end
 
   private
