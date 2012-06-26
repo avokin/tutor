@@ -8,6 +8,7 @@ class Training < ActiveRecord::Base
 
   validate :user_category_must_belong_to_user
   validates_uniqueness_of :user_category_id, :scope => :direction_id
+  validates_presence_of :user_category
 
   def direction
     if self.direction_id == 0
