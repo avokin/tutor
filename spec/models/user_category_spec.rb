@@ -25,11 +25,18 @@ describe UserCategory do
     before(:each) do
       @user_word_category = Factory(:user_word_category)
       @user_category = @user_word_category.user_category
+
+      @training = Factory(:training, :user_category => @user_category)
     end
 
     it "should delete relation to user words" do
       UserCategory.destroy(@user_category)
       UserWordCategory.find_by_id(@user_word_category.id).should be_nil
+    end
+
+    it "should delete relation to user words" do
+      UserCategory.destroy(@user_category)
+      Training.find_by_id(@training.id).should be_nil
     end
   end
 end
