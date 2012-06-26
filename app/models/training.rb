@@ -31,6 +31,16 @@ class Training < ActiveRecord::Base
   end
 
   def get_ready_user_words(page)
+    user_words = get_user_words(page)
+    result = Array.new
+    now = DateTime.now
+    (0..user_words.size - 1).each do |i|
+      result << user_words[i] if user_words[i].time_to_check <= now
+    end
+    result
+  end
+
+  def get_user_words(page)
     if self.user_category.nil?
       user_words = self.user.user_words
     else
@@ -38,16 +48,10 @@ class Training < ActiveRecord::Base
       user_words = user_category.user_words
     end
 
-    now = DateTime.now
-
     unless page.nil?
       user_words = user_words.paginate(:page => page, :per_page => self.user.word_per_page)
     end
-    result = Array.new
-    (0..user_words.size-1).each do |i|
-      result << user_words[i] if user_words[i].time_to_check <= now
-    end
-    result
+    user_words
   end
 
   private

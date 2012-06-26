@@ -7,14 +7,15 @@
     <%= training.direction == :direct? ? "foreign -> native" : "native -> foreign" %>
   </td>
   <td>
-    <%= words_count = training.get_ready_user_words(nil).size %>
+    <%= training.get_ready_user_words(nil).size %> /
+    <%= total_words_count = training.get_user_words(nil).size %>
   </td>
   <td>
     <%= button_to "Delete", training, :form_class => "inline", :class => "btn btn-danger without-bottom-margin", :method => :delete, :confirm => "You sure?", :title => "Delete training?" %>
   </td>
 </tr>
 
-<% (0..((words_count - 1)/training.user.word_per_page)).each do |i| %>
+<% (0..((total_words_count - 1)/training.user.word_per_page)).each do |i| %>
   <tr>
     <td>
     </td>
@@ -24,7 +25,8 @@
     <td>
     </td>
     <td>
-      <%= word_count = training.get_ready_user_words(i + 1).size %>
+      <%= word_count = training.get_ready_user_words(i + 1).size %> /
+      <%= training.get_user_words(i + 1).size %>
     </td>
     <td>
       <% if word_count == 0 %>
