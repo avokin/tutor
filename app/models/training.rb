@@ -32,7 +32,7 @@ class Training < ActiveRecord::Base
 
   def get_ready_user_words(page)
     if self.user_category.nil?
-      user_words = training.user.user_words
+      user_words = self.user.user_words
     else
       user_category = self.user_category
       user_words = user_category.user_words

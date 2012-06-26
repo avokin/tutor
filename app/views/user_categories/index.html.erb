@@ -9,15 +9,13 @@
     <thead>
     <tr class="without-padding">
       <td class="slim">
-        <%= form_tag( { :action => :update_defaults, :method => :post}, :class => "without-bottom-margin") do %>
-          <div class="btn-group">
-            <button class="btn dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a id="btnMerge" href="#">Merge</a></li>
-              <li><a href="#">Delete</a></li>
-            </ul>
-          </div>
-        <% end %>
+        <div class="btn-group">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a id="btnMerge" href="#">Merge</a></li>
+            <li><a href="#">Delete</a></li>
+          </ul>
+        </div>
       </td>
       <td>
         Name
