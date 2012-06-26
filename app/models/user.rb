@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     UserWord.joins(:word).where('user_id = ?', self.id).where('words.language_id != ?', self.language.id)
   end
 
+  def word_per_page
+    5
+  end
+
   private
 
   def encrypt_password

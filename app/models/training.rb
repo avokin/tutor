@@ -30,6 +30,26 @@ class Training < ActiveRecord::Base
     end
   end
 
+  def get_ready_user_words(page)
+    if self.user_category.nil?
+      user_words = training.user.user_words
+    else
+      user_category = self.user_category
+      user_words = user_category.user_words
+    end
+
+    now = DateTime.now
+
+    unless page.nil?
+      user_words = user_words.paginate(:page => page, :per_page => self.user.word_per_page)
+    end
+    result = Array.new
+    (0..user_words.size-1).each do |i|
+      result << user_words[i] if user_words[i].time_to_check <= now
+    end
+    result
+  end
+
   private
   def user_category_must_belong_to_user
     unless self.user_category.nil?
