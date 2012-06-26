@@ -28,9 +28,9 @@
     </td>
     <td>
       <% if word_count == 0 %>
-        <%= button_to "Start", start_training_path(training), :form_class => "inline", :class => "btn btn-primary without-bottom-margin .disabled", :disabled => "true" %>
+        <%= button_to "Start", start_training_path(training, :page => i + 1), :form_class => "inline", :class => "btn btn-primary without-bottom-margin .disabled", :disabled => "true" %>
       <% else %>
-        <%= button_to "Start", start_training_path(training), :form_class => "inline", :class => "btn btn-primary without-bottom-margin"%>
+        <%= button_to "Start", start_training_path(training, :page => i + 1), :form_class => "inline", :class => "btn btn-primary without-bottom-margin"%>
       <% end %>
     </td>
   </tr>

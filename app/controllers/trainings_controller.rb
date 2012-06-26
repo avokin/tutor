@@ -31,7 +31,8 @@ class TrainingsController < ApplicationController
 
     if ok
       training = Training.find cookies.signed[:training_id]
-      @user_word = select_user_word(training)
+      page = cookies.signed[:page]
+      @user_word = select_user_word(training, page)
       if @user_word.nil?
         redirect_to trainings_path, :flash => {:success => "There is no ready words in the current training. Have a rest or choose another training."}
       else
@@ -50,13 +51,15 @@ class TrainingsController < ApplicationController
     id = params[:id]
     unless id.nil?
       training = Training.find(params[:id])
+      page = params[:page]
       if training.user == current_user
         cookies.permanent.signed[:training_id] = training.id
+        cookies.permanent.signed[:page] = page
       else
         redirect_to root_path, :flash => {:error => ANOTHER_USER_ERROR_MESSAGE}
         return
       end
-      @user_word = select_user_word(training)
+      @user_word = select_user_word(training, page)
     end
 
     redirect_to training_path(@user_word.id)
@@ -86,7 +89,8 @@ class TrainingsController < ApplicationController
         end
       end
       training = Training.find cookies.signed[:training_id]
-      @user_word = select_user_word(training)
+      page = cookies.signed[:page]
+      @user_word = select_user_word(training, page)
     else
       correct_user_for_user_word
     end

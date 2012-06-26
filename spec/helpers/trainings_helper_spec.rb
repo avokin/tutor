@@ -108,14 +108,14 @@ describe TrainingsHelper do
         describe "direction" do
           it "should fetch foreign word" do
             @training.direction = :direct
-            selected_user_word = select_user_word(@training)
+            selected_user_word = select_user_word(@training, 1)
             selected_user_word.word.language.should_not == @user.language
             selected_user_word.translations.length.should > 0
           end
 
           it "should fetch native word" do
             @training.direction = :translation
-            selected_user_word = select_user_word(@training)
+            selected_user_word = select_user_word(@training, 1)
             selected_user_word.word.language.should == @user.language
             selected_user_word.translations.length.should > 0
           end
@@ -146,7 +146,7 @@ describe TrainingsHelper do
 
       it "should fetch only ready word" do
         @training.direction = :direct
-        selected_user_word = select_user_word(@training)
+        selected_user_word = select_user_word(@training, 1)
         selected_user_word.should == @translations.first.source_user_word
       end
 
@@ -155,7 +155,7 @@ describe TrainingsHelper do
         @translations.first.source_user_word.save!
 
         @training.direction = :direct
-        selected_user_word = select_user_word(@training)
+        selected_user_word = select_user_word(@training, 1)
         selected_user_word.should be_nil
       end
     end
