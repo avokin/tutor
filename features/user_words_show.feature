@@ -17,6 +17,10 @@ Feature: User word's page
     And I follow "life"
     Then I should be on the "life" category's page
 
+  Scenario: Progress bar of the user word
+    Then I should see "dom"
+    And the page should have tag "div" with attribute "style" with value "width: 0%"
+
   Scenario: Add translation
     And I fill in the following:
       | translation_0 | zdanie |

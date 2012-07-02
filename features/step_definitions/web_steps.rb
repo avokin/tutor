@@ -193,6 +193,10 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
   end
 end
 
+Then /^the page should have tag "([^"]+)" with attribute "([^"]+)" with value "([^"]+)"$/ do |tag, attribute, value|
+  page.should have_css("#{tag}[#{attribute}=\"#{value};\"]")
+end
+
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}

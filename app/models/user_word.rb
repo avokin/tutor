@@ -58,7 +58,7 @@ class UserWord < ActiveRecord::Base
 
   def save_with_relations(user, text, new_translations, new_synonyms, new_categories)
     UserWord.transaction do
-      if !text.nil?
+      unless text.nil?
         word = Word.find_by_text(text)
         if word.nil?
           word = Word.new(:text => text, :language_id => 1)
