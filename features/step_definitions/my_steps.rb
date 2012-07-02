@@ -101,3 +101,9 @@ end
 When /^I should see paginator$/ do
   page.should have_selector('div.pagination')
 end
+Given /^word "([^"]*)" with translation count "(\d*)"$/ do |word, translation_success_count|
+  user_word = UserWord.new
+  user_word.save_with_relations(first_user, word, [], [], [])
+  user_word.translation_success_count = translation_success_count
+  user_word.save!
+end
