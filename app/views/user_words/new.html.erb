@@ -9,6 +9,7 @@
 <%= form_for(@user_word) do |f| %>
     <div class="field">
       <%= fields_for @user_word.word do |word_fields| %>
+          <%= word_fields.hidden_field :text %>
           <%= word_fields.label :language_id %>
           <%= word_fields.select(:language_id, @languages.map { |l| [l.name, l.id] }) %>
       <% end %>

@@ -58,9 +58,9 @@ class UserWord < ActiveRecord::Base
 
   def save_with_relations(user, text, new_translations, new_synonyms, new_categories)
     UserWord.transaction do
-      if (!text.nil?)
+      if !text.nil?
         word = Word.find_by_text(text)
-        if (word.nil?)
+        if word.nil?
           word = Word.new(:text => text, :language_id => 1)
         end
         self.word = word
@@ -71,7 +71,7 @@ class UserWord < ActiveRecord::Base
         if self.save
           logger.debug("UserWord saved correctly")
           new_translations.each do |translation|
-            if (user.language.id != self.word.language.id)
+            if user.language.id != self.word.language.id
               WordRelation.create_relation(user, self, translation, "1")
             else
               related_user_word = UserWord.get_for_user(user, translation, self.word.language_id == 1 ? 2 : 1)
