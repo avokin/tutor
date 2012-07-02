@@ -17,10 +17,9 @@ Feature: categories
     And I follow "Categories"
     Then I should be on the categories page
     And I should see "life"
-    And I follow "x"
+    And I press "Delete"
     Then I should be on the categories page
-    Then I am on the root page
-    And I should see "home"
+    And I should not see "life"
 
   Scenario: unlinking of a category
     Given signed in user

@@ -2,7 +2,7 @@
 Feature: Search
   Scenario Outline: Searching a word that exist
     Given signed in user
-    Given word "<word>"
+    When I have word "<word>"
     When I am on the home page
     And I fill in the following:
       | search_word    | <word> |
