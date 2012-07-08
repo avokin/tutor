@@ -47,12 +47,12 @@ ActiveRecord::Schema.define(:version => 20120407073912) do
   end
 
   create_table "user_words", :force => true do |t|
-    t.integer  "user_id",                                  :null => false
-    t.integer  "word_id",                                  :null => false
+    t.integer  "user_id",                                                      :null => false
+    t.integer  "word_id",                                                      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "translation_success_count", :default => 0, :null => false
-    t.datetime "time_to_check",                            :null => false
+    t.integer  "translation_success_count", :default => 0,                     :null => false
+    t.datetime "time_to_check",             :default => '2012-07-06 18:48:44', :null => false
   end
 
   add_index "user_words", ["user_id", "word_id"], :name => "IndexUserWordUnique", :unique => true
@@ -91,5 +91,4 @@ ActiveRecord::Schema.define(:version => 20120407073912) do
   end
 
   add_index "words", ["text", "language_id"], :name => "IndexWordLanguageUnique", :unique => true
-
 end
