@@ -34,7 +34,7 @@ class Training < ActiveRecord::Base
     user_words = get_user_words(page)
     result = Array.new
     now = DateTime.now
-    (0..user_words.size - 1).each do |i|
+    (0..user_words.length - 1).each do |i|
       result << user_words[i] if user_words[i].time_to_check <= now
     end
     result
