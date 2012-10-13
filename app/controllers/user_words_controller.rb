@@ -11,7 +11,12 @@ class UserWordsController < ApplicationController
     @user_word.word = Word.new
     @user_word.word.text = params[:word] unless params[:word].nil?
     @languages = Language.all
-    @translations = get_translations(:en, @user_word.word.text, :ru)
+    source_language = case current_user.target_language.name
+                        when "Deutsch" then :de
+                        else :en
+    end
+
+    @translations = get_translations(source_language, @user_word.word.text, :ru)
     @categories = []
     current_user.user_categories.each do |category|
       if category.is_default

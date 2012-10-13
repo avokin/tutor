@@ -8,6 +8,7 @@ module TranslationHelper
   @@language_hash = Hash.new
   @@language_hash[:en] = "en"
   @@language_hash[:ru] = "ru"
+  @@language_hash[:de] = "de"
 
   def get_translations(source_language, word, dest_language)
     result = []
