@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="span12">
-    <%= form_for current_user do |f| %>
+    <%= form_for current_user, :url => {:controller => "users", :action => "update"} do |f| %>
         <table class="table table-striped">
           <thead>
           <tr>
