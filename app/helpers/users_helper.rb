@@ -4,18 +4,6 @@ module UsersHelper
   end
 
   def target_language_select
-    result = "<select name='user[target_language_id]'>"
-    Language.all.each do |l|
-      if l.id != current_user.language.id
-        if l.id == current_user.target_language.id
-          selected = "selected='selected'"
-        else
-          selected = ""
-        end
-        result << "<option #{selected} value='#{l.id}'>#{l.name}</option>"
-      end
-    end
-    result << "</select>"
-    result
+    options_from_collection_for_select(Language.all, 'id', 'name', current_user.target_language.id)
   end
 end
