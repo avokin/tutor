@@ -1,18 +1,42 @@
-<div>
-  <div>
-    <%= @user.name %>
-  </div>
-  <div>
-    Success count:
-    <%= @user.success_count %>
-  </div>
-  <div>
-    Native language: <%= !@user.language.nil? ? @user.language.name : "" %>
+<div class="row" id="page_title">
+  <div class="span12">
+    <h1><%= current_user.name %></h1>
   </div>
 </div>
 
-<% if @user.email == "andrey.vokin@gmail.com" %>
-    <%= form_tag :action => :init do %>
-        <%= submit_tag "init" %>
+<div class="row">
+  <div class="span12">
+    <%= form_for current_user do |f| %>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <td colspan="2">
+              <%= render 'shared/error_messages', :object => f.object %>
+            </td>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <td colspan="2">
+              <%= f.submit "Save", :class => "btn" %>
+            </td>
+          </tr>
+          </tfoot>
+          <tbody>
+          <tr>
+            <td>Success Count</td>
+            <td><%= current_user.success_count %></td>
+          </tr>
+          <tr>
+            <td>Native Language</td>
+            <td><%= !current_user.language.nil? ? current_user.language.name : "" %></td>
+          </tr>
+          <tr>
+            <td>Target Language</td>
+            <td><%= raw target_language_select %></td>
+          </tr>
+          </tbody>
+        </table>
     <% end %>
-<% end %>
+  </div>
+</div>

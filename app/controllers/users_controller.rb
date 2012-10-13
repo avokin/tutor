@@ -16,25 +16,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @title = "User #{@user.name}"
+    @title = "User #{current_user.name}"
   end
-
-  def init
-    unless current_user.nil?
-      init_languages
-      redirect_to current_user
-    else
-      redirect_to root_path
-    end
-  end
-
-  def edit
-    @title = "Edit user settings"
-  end
-
 
   def update
-    redirect_to root_path
+    current_user.update_attributes(params[:user])
+    current_user.save
+    render "show"
   end
 end
