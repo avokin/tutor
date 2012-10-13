@@ -44,4 +44,29 @@ describe User do
       end
     end
   end
+
+  describe "foreign_user_words" do
+    describe "should take only words of 'target_language_id' language" do
+      before(:each) do
+        Factory(:english_user_word)
+        Factory(:german_user_word)
+      end
+
+      it "should take only English words" do
+        user = User.first
+        user.foreign_user_words.length.should == 1
+        user.foreign_user_words[0].word.language_id.should == 2
+        user.foreign_user_words[0].word.text.should == "english1"
+      end
+
+      it "should take only German words" do
+        user = User.first
+        user.target_language = Language.last
+
+        user.foreign_user_words.length.should == 1
+        user.foreign_user_words[0].word.language_id.should == 3
+        user.foreign_user_words[0].word.text.should == "german2"
+      end
+    end
+  end
 end

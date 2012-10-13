@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :user_words
   belongs_to :language, :foreign_key => :native_language_id
+  belongs_to :target_language, :class_name => "Language", :foreign_key => :target_language_id
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -42,7 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def foreign_user_words
-    UserWord.joins(:word).where('user_id = ?', self.id).where('words.language_id != ?', self.language.id)
+    UserWord.joins(:word).where('user_id = ?', self.id).where('words.language_id = ?', self.target_language.id)
   end
 
   def word_per_page

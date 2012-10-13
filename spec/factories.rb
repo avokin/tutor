@@ -5,14 +5,18 @@ end
 
 Factory.define :english_word, :class => :word do |word|
   word.sequence(:text) { |i| "english#{i}" }
-  word.language_id { 1 }
+  word.language_id { 2 }
 end
 
 Factory.define :russian_word, :class => :word do |word|
   word.sequence(:text) { |i| "russian#{i}" }
-  word.language_id { 2 }
+  word.language_id { 1 }
 end
 
+Factory.define :german_word, :class => :word do |word|
+  word.sequence(:text) { |i| "german#{i}" }
+  word.language_id { 3 }
+end
 
 Factory.define :user_word do |user_word|
   user_word.user { first_user }
@@ -32,6 +36,11 @@ Factory.define :russian_user_word, :class => :user_word do |user_word|
   user_word.association :word, :factory => :russian_word
 end
 
+Factory.define :german_user_word, :class => :user_word do |user_word|
+  user_word.user { first_user }
+  user_word.time_to_check { DateTime.new(2001,2,3,4,5,6) }
+  user_word.association :word, :factory => :german_word
+end
 
 Factory.define :user_word_for_another_user, :class => :user_word do |user_word|
   user_word.user { second_user }
@@ -60,7 +69,7 @@ Factory.define :user do |user|
   user.password              "password"
   user.password_confirmation "password"
   user.success_count 5
-  user.language {second_language}
+  user.language {first_language}
 end
 
 Factory.define :language do |language|
@@ -84,11 +93,11 @@ Factory.define :training do |training|
   training.user {first_user}
 end
 
-def second_language
-  while Language.all.size < 2
+def first_language
+  while Language.all.size < 3
     Factory(:language)
   end
-  Language.all[1]
+  Language.first
 end
 
 def first_user
