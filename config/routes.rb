@@ -3,6 +3,8 @@ Tutor::Application.routes.draw do
   get 'search/autocomplete_word_text'
   get 'search/autocomplete_user_category_name'
 
+  resources :password_resets
+
   resources :trainings do
     member do
       post :start
@@ -39,6 +41,7 @@ Tutor::Application.routes.draw do
   resource :user, :only => [:show, :update]
 
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :password_resets
 
   root :to => 'user_words#index'
 
