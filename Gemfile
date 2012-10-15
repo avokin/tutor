@@ -7,6 +7,8 @@ gem 'rails3-jquery-autocomplete', '0.6.0'
 gem 'nifty-generators'
 gem 'will_paginate'
 
+gem "bcrypt-ruby", :require => "bcrypt"
+
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'

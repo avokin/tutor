@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121013074143) do
+ActiveRecord::Schema.define(:version => 20121015164219) do
 
   create_table "languages", :force => true do |t|
     t.string   "name",       :null => false
@@ -58,15 +58,18 @@ ActiveRecord::Schema.define(:version => 20121013074143) do
   add_index "user_words", ["user_id", "word_id"], :name => "IndexUserWordUnique", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "name",                              :null => false
-    t.string   "email",                             :null => false
-    t.string   "encrypted_password",                :null => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.string   "salt",                              :null => false
-    t.integer  "native_language_id", :default => 1, :null => false
-    t.integer  "success_count",      :default => 5, :null => false
-    t.integer  "target_language_id", :default => 2, :null => false
+    t.string   "name",                                  :null => false
+    t.string   "email",                                 :null => false
+    t.string   "encrypted_password",                    :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.string   "salt",                                  :null => false
+    t.integer  "native_language_id",     :default => 1, :null => false
+    t.integer  "success_count",          :default => 5, :null => false
+    t.integer  "target_language_id",     :default => 2, :null => false
+    t.string   "auth_token"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["email"], :name => "IndexUserEmailUnique", :unique => true
