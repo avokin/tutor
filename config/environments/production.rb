@@ -56,4 +56,6 @@ Tutor::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+
+  config.action_mailer.default_url_options = {:host => 'word-tutor.herokuapp.com'}
 end
