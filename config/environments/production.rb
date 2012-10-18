@@ -57,5 +57,14 @@ Tutor::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.action_mailer.default_url_options = {:host => 'word-tutor.herokuapp.com'}
+  config.action_mailer.default_url_options = { :host => "word-tutor.herokuapp.com" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'gmail.com',
+    :user_name            => ENV["EMAIL_KEY"],
+    :password             => ENV["PASSWORD_KEY"],
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
 end
