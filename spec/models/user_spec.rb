@@ -56,7 +56,7 @@ describe User do
         user = User.first
         user.foreign_user_words.length.should == 1
         user.foreign_user_words[0].word.language_id.should == 2
-        user.foreign_user_words[0].word.text.should == "english1"
+        user.foreign_user_words[0].word.text.should =~ /^english/
       end
 
       it "should take only German words" do
@@ -65,7 +65,7 @@ describe User do
 
         user.foreign_user_words.length.should == 1
         user.foreign_user_words[0].word.language_id.should == 3
-        user.foreign_user_words[0].word.text.should == "german2"
+        user.foreign_user_words[0].word.text.should =~ /^german/
       end
     end
   end

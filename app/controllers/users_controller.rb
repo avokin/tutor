@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def update
     current_user.update_attributes(params[:user])
+    current_user.language = Language.find(params[:user][:native_language_id])
     current_user.save
     render "show"
   end

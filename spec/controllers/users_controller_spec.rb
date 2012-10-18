@@ -35,7 +35,7 @@ describe UsersController do
   describe "GET 'edit'" do
     before(:each) do
       @user = Factory(:user)
-      @attributes = {:success_count => 10, :native_language_id => 3}
+      @attributes = {:native_language_id => 3, :success_count => 10}
       test_sign_in(@user)
     end
 
