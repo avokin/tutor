@@ -56,8 +56,14 @@ describe UserWordsController do
 
   describe "GET 'index'" do
     before(:each) do
+      # ToDo: simplify
       @user_word1 = Factory(:user_word)
+      @user_word1.word.language_id = @user_word1.user.target_language_id
+      @user_word1.word.save!
+
       @user_word2 = Factory(:user_word_for_another_user)
+      @user_word2.word.language_id = @user_word2.user.target_language_id
+      @user_word2.word.save!
     end
 
     it "should have the right title" do

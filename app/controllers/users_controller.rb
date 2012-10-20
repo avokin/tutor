@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
+  before_filter :authenticate, :except => [:new, :create]
+
   def new
     @title = "Sign up"
     @user = User.new
+  end
+
+  def edit
+    @title = "Edit Account"
   end
 
   def create

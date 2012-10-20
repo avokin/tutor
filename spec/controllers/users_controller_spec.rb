@@ -41,7 +41,7 @@ describe UsersController do
 
     it "should have right title" do
       get :edit, :id => @user.id
-      response.should have_selector('title', :content => "Tutor - Edit user settings")
+      response.should have_selector('title', :content => "Tutor - Edit Account")
     end
   end
 
@@ -67,7 +67,7 @@ describe UsersController do
     describe "Not authorized user can't edit settings" do
       it "should not change user's attributes" do
         put :update, :id => @user.id, :user => @attributes
-        response.should render_template "pages/message"
+        response.should redirect_to signin_path
 
         success_count = @user.success_count
         native_language_id = @user.native_language_id

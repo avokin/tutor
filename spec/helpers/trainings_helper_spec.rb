@@ -109,7 +109,7 @@ describe TrainingsHelper do
           it "should fetch foreign word" do
             @training.direction = :direct
             selected_user_word = select_user_word(@training, 1)
-            selected_user_word.word.language.should_not == @user.language
+            selected_user_word.word.language.should == @user.target_language
             selected_user_word.translations.length.should > 0
           end
 
