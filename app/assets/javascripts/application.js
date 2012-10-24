@@ -3,5 +3,6 @@
 //= require_self
 //= require_tree .
 //= require vendor
+//= require autocomplete-rails
 
 /* rest of file omitted */

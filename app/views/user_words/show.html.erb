@@ -64,14 +64,14 @@
   <div class="row">
     <div class="span6" class="translations">
       <div class="block-inline new-word">
-        <%= text_field_tag :translation_0, '', :autocomplete => search_autocomplete_word_text_path, :placeholder => "New translation" %>
+        <%= autocomplete_field_tag :translation_0, '', search_autocomplete_word_text_path, :placeholder => "New translation" %>
         <%= f.submit " Add ", :id => "add_translation", :class => "btn-success" %>
       </div>
     </div>
 
     <div class="span6" class="synonyms">
       <div class="block-inline new-word">
-        <%= text_field_tag :synonym_0, '', :autocomplete => search_autocomplete_word_text_path, :placeholder => "New synonym" %>
+        <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_word_text_path, :placeholder => "New synonym" %>
         <%= f.submit " Add ", :id => "add_synonym", :class => "btn-success" %>
       </div>
     </div>
@@ -93,7 +93,7 @@
       </div>
       <div class="row">
         <div class="span6 new-category">
-          <%= text_field_tag :category_0, '', :autocomplete => search_autocomplete_user_category_name_path, :placeholder => "New category" %>
+          <%= autocomplete_field_tag :category_0, '', search_autocomplete_user_category_name_path, :placeholder => "New category" %>
           <%= f.submit " Add ", :id => "add_category", :class => "btn-success" %>
         </div>
       </div>
