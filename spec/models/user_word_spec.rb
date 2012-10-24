@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe UserWord do
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   describe "should have related words" do
     before(:each) do
-      @user_word1 = Factory(:user_word)
-      @user_word2 = Factory(:user_word)
-      @user_word3 = Factory(:user_word)
+      @user_word1 = FactoryGirl.create(:user_word)
+      @user_word2 = FactoryGirl.create(:user_word)
+      @user_word3 = FactoryGirl.create(:user_word)
 
       @relation1 = @user_word1.direct_translations.create(:related_user_word_id => @user_word2.id, :relation_type => 1, :user_id => @user.id, :status_id => 1, :success_count => 0)
       @relation1.user = @user
@@ -53,7 +53,7 @@ describe UserWord do
       end
 
       it "should not create Word if it exists" do
-        word = Factory(:word)
+        word = FactoryGirl.create(:word)
         lambda do
           lambda do
             @user_word.save_with_relations(@user, word.text, @translations, @synonyms, [])
@@ -101,8 +101,8 @@ describe UserWord do
 
   describe 'rename UserWord' do
     before(:each) do
-      @word = Factory(:word)
-      @user_word = Factory(:user_word)
+      @word = FactoryGirl.create(:word)
+      @user_word = FactoryGirl.create(:user_word)
     end
 
     describe 'successful rename' do
@@ -138,8 +138,8 @@ describe UserWord do
 
   describe 'find_for_user' do
     before(:each) do
-      @user_word1 = Factory(:user_word)
-      @user2 = Factory(:user)
+      @user_word1 = FactoryGirl.create(:user_word)
+      @user2 = FactoryGirl.create(:user)
     end
 
     it 'should not find word of another user' do
@@ -153,7 +153,7 @@ describe UserWord do
 
   describe "relation with categories" do
     before(:each) do
-      @user_word_category = Factory(:user_word_category)
+      @user_word_category = FactoryGirl.create(:user_word_category)
       @user_word = @user_word_category.user_word
       @user_category = @user_word_category.user_category
     end
@@ -166,7 +166,7 @@ describe UserWord do
 
   describe "save_attempt" do
     before(:each) do
-      @user_word = Factory(:user_word, :translation_success_count => 1)
+      @user_word = FactoryGirl.create(:user_word, :translation_success_count => 1)
     end
 
     describe "failed attempt" do

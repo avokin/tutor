@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe TrainingsController do
-  render_views
+describe TrainingsController, :type => :controller do
+  #render_views
 
   pending
 end

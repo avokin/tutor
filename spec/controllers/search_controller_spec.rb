@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe SearchController do
-  render_views
+describe SearchController, :type => :controller do
+  #render_views
 
   describe "POST 'create'" do
     before(:each) do
       @new_word = 'new word'
-      Factory(:word)
-      Factory(:word)
-      @user_word = Factory(:user_word)
-      @another_user_word = Factory(:user_word_for_another_user)
+      FactoryGirl.create(:word)
+      FactoryGirl.create(:word)
+      @user_word = FactoryGirl.create(:user_word)
+      @another_user_word = FactoryGirl.create(:user_word_for_another_user)
 
       @user = @user_word.user
     end
@@ -55,13 +55,13 @@ describe SearchController do
 
     describe "authorized access" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         test_sign_in(@user)
       end
 
       describe "success" do
         before(:each) do
-          @user_word1 = Factory(:user_word)
+          @user_word1 = FactoryGirl.create(:user_word)
         end
 
         it "should return correspond words" do
@@ -82,13 +82,13 @@ describe SearchController do
 
     describe "authorized access" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         test_sign_in(@user)
       end
 
       describe "success" do
         before(:each) do
-          @user_category = Factory(:user_category)
+          @user_category = FactoryGirl.create(:user_category)
         end
 
         it "should return correspond words" do

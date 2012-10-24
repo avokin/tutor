@@ -3,10 +3,10 @@ require 'spec_helper'
 describe Training do
   describe "creation of Training object" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       @attr = {:direction => :direct}
-      @user_category = Factory(:user_category)
-      @another_user = Factory(:user)
+      @user_category = FactoryGirl.create(:user_category)
+      @another_user = FactoryGirl.create(:user)
     end
 
     it "should not create a new instance without user-category" do
@@ -46,10 +46,10 @@ describe Training do
 
   describe "find_by_user" do
     before(:each) do
-      @training = Factory(:training)
-      @another_user = Factory(:user)
-      @user_category = Factory(:user_category, :user => @another_user)
-      @training_of_another_user = Factory(:training, :user_category => @user_category, :user => @another_user)
+      @training = FactoryGirl.create(:training)
+      @another_user = FactoryGirl.create(:user)
+      @user_category = FactoryGirl.create(:user_category, :user => @another_user)
+      @training_of_another_user = FactoryGirl.create(:training, :user_category => @user_category, :user => @another_user)
     end
 
     it "should find all Training object for user" do
@@ -61,18 +61,18 @@ describe Training do
 
   describe "get_ready_user_words" do
     before(:each) do
-      @training = Factory(:training)
+      @training = FactoryGirl.create(:training)
       @english_words = Array.new
       (1..40).each do |i|
         if i % 2 == 0
-          english_word = Factory(:english_user_word, :time_to_check => DateTime.new(2021,2,3,4,5,6))
+          english_word = FactoryGirl.create(:english_user_word, :time_to_check => DateTime.new(2021,2,3,4,5,6))
         else
-          english_word = Factory(:english_user_word)
+          english_word = FactoryGirl.create(:english_user_word)
         end
 
-        Factory(:word_relation_translation, :source_user_word => english_word)
+        FactoryGirl.create(:word_relation_translation, :source_user_word => english_word)
         @english_words << english_word
-        Factory(:user_word_category, :user_word => english_word, :user_category => @training.user_category)
+        FactoryGirl.create(:user_word_category, :user_word => english_word, :user_category => @training.user_category)
       end
     end
 
@@ -103,18 +103,18 @@ describe Training do
 
   describe "get_ready_user_words" do
     before(:each) do
-      @training = Factory(:training)
+      @training = FactoryGirl.create(:training)
       @english_words = Array.new
       (1..40).each do |i|
         if i % 2 == 0
-          english_word = Factory(:english_user_word, :time_to_check => DateTime.new(2021,2,3,4,5,6))
+          english_word = FactoryGirl.create(:english_user_word, :time_to_check => DateTime.new(2021,2,3,4,5,6))
         else
-          english_word = Factory(:english_user_word)
+          english_word = FactoryGirl.create(:english_user_word)
         end
 
-        Factory(:word_relation_translation, :source_user_word => english_word)
+        FactoryGirl.create(:word_relation_translation, :source_user_word => english_word)
         @english_words << english_word
-        Factory(:user_word_category, :user_word => english_word, :user_category => @training.user_category)
+        FactoryGirl.create(:user_word_category, :user_word => english_word, :user_category => @training.user_category)
       end
     end
 

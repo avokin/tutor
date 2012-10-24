@@ -3,8 +3,8 @@ require 'spec_helper'
 describe WordRelation do
 
   before(:each) do
-    @user = Factory(:user)
-    @user_word = Factory(:user_word)
+    @user = FactoryGirl.create(:user)
+    @user_word = FactoryGirl.create(:user_word)
   end
 
   describe 'create_relation' do

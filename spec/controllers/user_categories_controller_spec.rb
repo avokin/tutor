@@ -1,10 +1,10 @@
 require "spec_helper"
 
-describe UserCategoriesController do
-  render_views
+describe UserCategoriesController, :type => :controller do
+  #render_views
 
   before(:each) do
-    @user_word_category = Factory(:user_word_category)
+    @user_word_category = FactoryGirl.create(:user_word_category)
     @category = @user_word_category.user_category
     @user_word = @user_word_category.user_word
     @user = @user_word.user
@@ -37,7 +37,7 @@ describe UserCategoriesController do
 
       describe "not owner user" do
         before(:each) do
-          user = Factory(:user)
+          user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
@@ -112,7 +112,7 @@ describe UserCategoriesController do
 
       describe "not owner user" do
         before(:each) do
-          user = Factory(:user)
+          user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
@@ -154,7 +154,7 @@ describe UserCategoriesController do
 
       describe "not owner user" do
         before(:each) do
-          user = Factory(:user)
+          user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
@@ -213,7 +213,7 @@ describe UserCategoriesController do
 
       describe "not owner user" do
         before(:each) do
-          user = Factory(:user)
+          user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
@@ -242,7 +242,7 @@ describe UserCategoriesController do
 
   describe "PUT 'merge'" do
     before(:each) do
-      @user_word_category = Factory(:user_word_category)
+      @user_word_category = FactoryGirl.create(:user_word_category)
       @category2 = @user_word_category.user_category
     end
 
@@ -256,7 +256,7 @@ describe UserCategoriesController do
 
       describe "not owner user" do
         before(:each) do
-          user = Factory(:user)
+          user = FactoryGirl.create(:user)
           test_sign_in user
         end
 

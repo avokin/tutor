@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe UserWordCategoriesController do
-
+describe UserWordCategoriesController, :type => :controller do
   describe "GET 'delete'" do
     it "returns http success" do
       pending

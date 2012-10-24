@@ -1,19 +1,19 @@
 require 'spec_helper'
 
-describe UserWordsController do
-  render_views
+describe UserWordsController, :type => :controller do
+  #render_views
 
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     test_sign_in(@user)
   end
 
   describe "GET 'show'" do
     before(:each) do
-      @user_word1 = Factory(:user_word)
+      @user_word1 = FactoryGirl.create(:user_word)
       test_sign_in(@user_word1.user)
 
-      @user_word2 = Factory(:user_word_for_another_user)
+      @user_word2 = FactoryGirl.create(:user_word_for_another_user)
     end
 
     it 'should redirect to error page if user asks word that does not belong to him' do
@@ -31,7 +31,7 @@ describe UserWordsController do
     before(:each) do
       @user_words = Array.new
       (0..99).each do |i|
-        @user_words[i] = Factory(:user_word)
+        @user_words[i] = FactoryGirl.create(:user_word)
       end
     end
 
@@ -57,11 +57,11 @@ describe UserWordsController do
   describe "GET 'index'" do
     before(:each) do
       # ToDo: simplify
-      @user_word1 = Factory(:user_word)
+      @user_word1 = FactoryGirl.create(:user_word)
       @user_word1.word.language_id = @user_word1.user.target_language_id
       @user_word1.word.save!
 
-      @user_word2 = Factory(:user_word_for_another_user)
+      @user_word2 = FactoryGirl.create(:user_word_for_another_user)
       @user_word2.word.language_id = @user_word2.user.target_language_id
       @user_word2.word.save!
     end
@@ -82,10 +82,10 @@ describe UserWordsController do
 
   describe "GET 'edit'" do
     before(:each) do
-      @user_word1 = Factory(:user_word)
+      @user_word1 = FactoryGirl.create(:user_word)
       test_sign_in(@user_word1.user)
 
-      @user_word2 = Factory(:user_word_for_another_user)
+      @user_word2 = FactoryGirl.create(:user_word_for_another_user)
     end
 
     it 'should redirect to error page if user asks word that does not belong to him' do
@@ -114,7 +114,7 @@ describe UserWordsController do
   describe "POST 'create'" do
     describe 'creation of word that already exists in common dictionary' do
       before(:each) do
-        @word = Factory(:word)
+        @word = FactoryGirl.create(:word)
         @attr = {:text => @word.text, :language_id => @word.language_id}
       end
 
@@ -175,9 +175,9 @@ describe UserWordsController do
 
   describe "DELETE 'destroy'" do
     before(:each) do
-      @relation = Factory(:word_relation_translation)
+      @relation = FactoryGirl.create(:word_relation_translation)
       test_sign_in(@relation.source_user_word.user)
-      @another_user = Factory(:user)
+      @another_user = FactoryGirl.create(:user)
     end
 
     it 'should not delete UserWord of another user' do
@@ -205,9 +205,9 @@ describe UserWordsController do
 
   describe "PUT 'update'" do
     before(:each) do
-      @native_word = Factory(:user_word)
+      @native_word = FactoryGirl.create(:user_word)
       if @native_word.word.language.id != @native_word.user.language.id
-        @native_word = Factory(:user_word)
+        @native_word = FactoryGirl.create(:user_word)
       end
       test_sign_in @native_word.user
     end
@@ -234,7 +234,7 @@ describe UserWordsController do
     end
 
     it 'should change only link if renamed word exist' do
-      word = Factory(:word)
+      word = FactoryGirl.create(:word)
 
       lambda do
         lambda do
@@ -247,7 +247,7 @@ describe UserWordsController do
     end
 
     it 'should create only relation if either source and related word exist' do
-      foreign_word = Factory(:user_word)
+      foreign_word = FactoryGirl.create(:user_word)
 
       lambda do
         lambda do
@@ -261,30 +261,30 @@ describe UserWordsController do
 
     describe "native and foreign languages" do
       it "should put foreign word to source_user_word" do
-        user_word2 = Factory(:user_word)
+        user_word2 = FactoryGirl.create(:user_word)
         put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
         WordRelation.first.source_user_word.should == user_word2
         WordRelation.first.related_user_word.should == @native_word
       end
 
       it "should not create translation of the same language of source word" do
-        Factory(:user_word)
-        user_word2 = Factory(:user_word)
+        FactoryGirl.create(:user_word)
+        user_word2 = FactoryGirl.create(:user_word)
         lambda do
           put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
         end.should_not change(WordRelation, :count)
       end
 
       it "still should create synonym of the same language of source word" do
-        Factory(:user_word)
-        user_word2 = Factory(:user_word)
+        FactoryGirl.create(:user_word)
+        user_word2 = FactoryGirl.create(:user_word)
         lambda do
           put :update, :id => user_word2.id, :synonym_0 => @native_word.word.text
         end.should change(WordRelation, :count).by(1)
       end
 
       it "should not create synonym of the another language of source word" do
-        user_word2 = Factory(:user_word)
+        user_word2 = FactoryGirl.create(:user_word)
         lambda do
           put :update, :id => user_word2.id, :synonym_0 => @native_word.word.text
         end.should_not change(WordRelation, :count)
@@ -293,7 +293,7 @@ describe UserWordsController do
 
     describe "duplication" do
       it "should not create duplicated translation" do
-        user_word2 = Factory(:user_word)
+        user_word2 = FactoryGirl.create(:user_word)
         lambda do
           put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
         end.should change(WordRelation, :count).by(1)
@@ -304,8 +304,8 @@ describe UserWordsController do
       end
 
       it "should not create duplicated synonym" do
-        Factory(:user_word)
-        user_word2 = Factory(:user_word)
+        FactoryGirl.create(:user_word)
+        user_word2 = FactoryGirl.create(:user_word)
         lambda do
           put :update, :id => user_word2.id, :synonym_0 => @native_word.word.text
         end.should change(WordRelation, :count).by(1)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe SessionsController do
-  render_views
+describe SessionsController, :type => :controller do
+  #render_views
 
   describe "GET 'new'" do
     it "should be successful" do
@@ -39,7 +39,7 @@ describe SessionsController do
 
     describe "correct sign in" do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         @attr = {:email => @user.email, :password => @user.password}
       end
 
@@ -58,7 +58,7 @@ describe SessionsController do
 
   describe "DELETE 'destroy'" do
     it 'should sign a user out' do
-      test_sign_in(Factory(:user))
+      test_sign_in(FactoryGirl.create(:user))
       delete :destroy
       controller.should_not be_signed_in
       response.should redirect_to(root_path)

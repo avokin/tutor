@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe UsersController do
-  render_views
+describe UsersController, :type => :controller do
+  #render_views
 
   describe "POST 'create'" do
     describe "failure" do
@@ -34,7 +34,7 @@ describe UsersController do
 
   describe "GET 'edit'" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       @attributes = {:native_language_id => 3, :success_count => 10}
       test_sign_in(@user)
     end
@@ -47,7 +47,7 @@ describe UsersController do
 
   describe "PUT 'update'" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       @attributes = {:success_count => 10, :native_language_id => 3}
     end
 

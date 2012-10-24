@@ -3,6 +3,7 @@ class UserMailer < ActionMailer::Base
 
   def password_reset(user)
     @user = user
+    @user.password_reset_token = "something"
     mail :to => user.email, :subject => "Password Reset"
   end
 end

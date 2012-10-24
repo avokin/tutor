@@ -3,9 +3,9 @@ require 'spec_helper'
 describe UserCategory do
   describe "find by user and name" do
     before(:each) do
-      @category = Factory(:user_category)
-      Factory(:user_category)
-      @another_user = Factory(:user)
+      @category = FactoryGirl.create(:user_category)
+      FactoryGirl.create(:user_category)
+      @another_user = FactoryGirl.create(:user)
     end
 
     it "should find category for the first user" do
@@ -23,10 +23,10 @@ describe UserCategory do
 
   describe "delete category" do
     before(:each) do
-      @user_word_category = Factory(:user_word_category)
+      @user_word_category = FactoryGirl.create(:user_word_category)
       @user_category = @user_word_category.user_category
 
-      @training = Factory(:training, :user_category => @user_category)
+      @training = FactoryGirl.create(:training, :user_category => @user_category)
     end
 
     it "should delete relation to user words" do

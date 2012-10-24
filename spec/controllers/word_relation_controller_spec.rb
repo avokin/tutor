@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe WordRelationsController do
-  render_views
+describe WordRelationsController, :type => :controller do
+  #render_views
 
   describe "POST 'create'" do
 
     before(:each) do
-      user = Factory(:user)
+      user = FactoryGirl.create(:user)
       test_sign_in(user)
-      @user_word = Factory(:user_word)
+      @user_word = FactoryGirl.create(:user_word)
     end
 
     describe "fail" do
@@ -55,7 +55,7 @@ describe WordRelationsController do
 
   describe "DELETE 'destroy'" do
     before(:each) do
-      @word_relation = Factory(:word_relation_translation)
+      @word_relation = FactoryGirl.create(:word_relation_translation)
     end
 
     describe "unauthorized access" do
@@ -68,7 +68,7 @@ describe WordRelationsController do
 
       describe "not owner user" do
         before(:each) do
-          user = Factory(:user)
+          user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
@@ -97,7 +97,7 @@ describe WordRelationsController do
 
   describe "DELETE 'destroy_with_related_word'" do
     before(:each) do
-      @word_relation = Factory(:word_relation_translation)
+      @word_relation = FactoryGirl.create(:word_relation_translation)
     end
 
     describe "unauthorized access" do
@@ -110,7 +110,7 @@ describe WordRelationsController do
 
       describe "not owner user" do
         before(:each) do
-          user = Factory(:user)
+          user = FactoryGirl.create(:user)
           test_sign_in user
         end
 

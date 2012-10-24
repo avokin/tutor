@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.0'
 
 gem 'jquery-rails'
-gem 'rails3-jquery-autocomplete', '0.6.0'
+gem 'rails3-jquery-autocomplete'
 gem 'nifty-generators'
 gem 'will_paginate'
 
@@ -31,5 +31,6 @@ group :test do
   gem 'webrat'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'rails3-jquery-autocomplete', '0.6.0'
+
+  gem 'email_spec'
 end

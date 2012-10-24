@@ -3,8 +3,8 @@ require 'spec_helper'
 describe TrainingsHelper do
   describe "fail_word" do
     before(:each) do
-      @user_word = Factory(:english_user_word, )
-      @translation1 = Factory(:word_relation_translation, :source_user_word => @user_word)
+      @user_word = FactoryGirl.create(:english_user_word, )
+      @translation1 = FactoryGirl.create(:word_relation_translation, :source_user_word => @user_word)
     end
 
     it "should zero translation_success_count" do
@@ -16,9 +16,9 @@ describe TrainingsHelper do
 
   describe "check_answers" do
     before(:each) do
-      @translation1 = Factory(:word_relation_translation)
+      @translation1 = FactoryGirl.create(:word_relation_translation)
       @user_word1 = @translation1.source_user_word
-      @translation2 = Factory(:word_relation_translation, :source_user_word => @user_word1)
+      @translation2 = FactoryGirl.create(:word_relation_translation, :source_user_word => @user_word1)
       @answer_statuses = Hash.new
       @answers = Array.new
     end
@@ -82,7 +82,7 @@ describe TrainingsHelper do
 
   describe "skip" do
     before(:each) do
-      @translation1 = Factory(:word_relation_translation)
+      @translation1 = FactoryGirl.create(:word_relation_translation)
       @user_word1 = @translation1.source_user_word
       @user_word1.translation_success_count = 1
       @user_word1.save!
@@ -92,10 +92,10 @@ describe TrainingsHelper do
   describe "select_user_word" do
     before(:each) do
       (1..10).each do
-        Factory(:word_relation_translation)
+        FactoryGirl.create(:word_relation_translation)
       end
       (1..10).each do
-        Factory(:word_relation_synonym)
+        FactoryGirl.create(:word_relation_synonym)
       end
 
       @user = User.first
@@ -165,11 +165,11 @@ describe TrainingsHelper do
         @n = 10
         @user_word_category = Array.new(@n)
         (0..(@n-1)).each do |i|
-          @user_word_category[i] = Factory(:user_word_category)
+          @user_word_category[i] = FactoryGirl.create(:user_word_category)
           user_word = @user_word_category[i].user_word
-          Factory(:word_relation_translation, :source_user_word => user_word)
+          FactoryGirl.create(:word_relation_translation, :source_user_word => user_word)
         end
-        @fake_category = Factory(:user_category)
+        @fake_category = FactoryGirl.create(:user_category)
       end
 
       describe "nil" do

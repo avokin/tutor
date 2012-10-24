@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe UserMailer do
   before(:each) do
-    Factory(:user)
+    FactoryGirl.create(:user)
   end
 
   describe "password_reset" do
