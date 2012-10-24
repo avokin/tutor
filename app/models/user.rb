@@ -64,6 +64,10 @@ class User < ActiveRecord::Base
     UserWord.joins(:word).where('user_id = ?', self.id).where('words.language_id = ?', self.target_language.id)
   end
 
+  def native_user_words
+    UserWord.joins(:word).where('user_id = ?', self.id).where('words.language_id = ?', self.language.id)
+  end
+
   def word_per_page
     20
   end

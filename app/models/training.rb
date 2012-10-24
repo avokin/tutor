@@ -41,16 +41,20 @@ class Training < ActiveRecord::Base
   end
 
   def get_user_words(page)
-    if self.user_category.nil?
-      user_words = self.user.user_words
-    else
-      user_category = self.user_category
-      user_words = user_category.user_words
+    user_words = Array.new
+    relations = WordRelation.find_all_by_user_id_relation_type_status_id(self.user, 1, 1, self.user_category)
+    unless page.nil?
+      relations = relations.paginate(:page => page, :per_page => self.user.word_per_page)
     end
 
-    unless page.nil?
-      user_words = user_words.paginate(:page => page, :per_page => self.user.word_per_page)
+    relations.each do |r|
+      if self.direction == :direct
+        user_words << r.source_user_word
+      else
+        user_words << r.related_user_word
+      end
     end
+
     user_words
   end
 
