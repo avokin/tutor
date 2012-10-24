@@ -175,7 +175,7 @@ describe TrainingsHelper do
       describe "nil" do
         it "should return any user word" do
           @training.direction = :direct
-          selected_user_word = select_user_word(@training)
+          selected_user_word = select_user_word(@training, nil)
           selected_user_word.should_not be_nil
         end
       end
@@ -184,14 +184,14 @@ describe TrainingsHelper do
         it "should select the only word of current category" do
           @training.direction = :direct
           @training.user_category = @user_word_category[0].user_category
-          selected_user_word = select_user_word(@training)
+          selected_user_word = select_user_word(@training, nil)
           selected_user_word.should == @user_word_category[0].user_word
         end
 
         it "should select nil if there is no a word with specified category" do
           @training.direction = :direct
           @training.user_category = @fake_category
-          selected_user_word = select_user_word(@training)
+          selected_user_word = select_user_word(@training, nil)
           selected_user_word.should be_nil
         end
       end

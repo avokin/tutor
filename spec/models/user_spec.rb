@@ -69,4 +69,14 @@ describe User do
       end
     end
   end
+
+  describe "send_password_reset" do
+    before(:each) do
+      @user = Factory(:user)
+    end
+
+    it "should send email with password recovery instructions" do
+      @user.send_password_reset
+    end
+  end
 end
