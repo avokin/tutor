@@ -37,8 +37,7 @@ Tutor::Application.routes.draw do
     end
   end
 
-  resources :users, :only => [:new, :create]
-  resource :user, :only => [:show, :update, :edit]
+  resources :users, :only => [:new, :create, :show, :update, :edit]
 
   resources :sessions, :only => [:new, :create, :destroy]
   resources :password_resets

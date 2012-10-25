@@ -32,7 +32,7 @@ module NavigationHelpers
       when /^the edit "([^"]*)" category page$/
         edit_user_category_path UserCategory.find_by_name($1)
       when /^the categories page$/
-        user_category_path
+        user_categories_path
       else
         begin
           page_name =~ /^the (.*) page$/
