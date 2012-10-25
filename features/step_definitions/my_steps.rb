@@ -82,14 +82,14 @@ end
 Given /^(\d+) English words$/ do |arg|
   n = arg.to_i
   (1..n).each do
-    Factory(:english_user_word)
+    FactoryGirl.create(:english_user_word)
   end
 end
 
 Given /^(\d+) Russian words$/ do |arg|
   n = arg.to_i
   (1..n).each do
-    Factory(:russian_user_word)
+    FactoryGirl.create(:russian_user_word)
   end
 end
 

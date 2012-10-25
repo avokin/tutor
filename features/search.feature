@@ -7,6 +7,7 @@ Feature: Search
     And I fill in the following:
       | search_word    | <word> |
     And I submit the form
+    And I wait for 1 second
     Then I should be on the word's page
     And should see "<word>"
     And I fill in the following:
@@ -22,4 +23,5 @@ Feature: Search
     And I fill in the following:
       | search_word    | new word1 |
     And I submit the form
+    And I wait for 1 second
     Then I should be on the new word page

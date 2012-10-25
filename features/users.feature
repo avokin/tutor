@@ -6,8 +6,8 @@ Feature: Login
     And I press "Sign in"
     Then I should be on the user's page
     And should see "UserName UserSurname"
-    And should see "Native language"
-    And should see "Success count"
+    And should see "Native Language"
+    And should see "Success Count"
 
   Scenario: Edit user info
     Given signed in user
