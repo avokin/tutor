@@ -61,7 +61,7 @@ class UserWord < ActiveRecord::Base
       unless text.nil?
         word = Word.find_by_text(text)
         if word.nil?
-          word = Word.new(:text => text, :language_id => 1)
+          word = Word.new(:text => text, :language_id => user.target_language.id)
         end
         self.word = word
       end
@@ -74,7 +74,7 @@ class UserWord < ActiveRecord::Base
             if user.language.id != self.word.language.id
               WordRelation.create_relation(user, self, translation, "1")
             else
-              related_user_word = UserWord.get_for_user(user, translation, self.word.language_id == 1 ? 2 : 1)
+              related_user_word = UserWord.get_for_user(user, translation, user.target_language.id)
               if related_user_word.new_record?
                 related_user_word.save!
               end
