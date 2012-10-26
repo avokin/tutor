@@ -37,6 +37,8 @@ module NavigationHelpers
         new_password_reset_path
       when /^the new password page$/
         edit_password_reset_path User.first.password_reset_token
+      when /^the user\'s profile page$/
+        user_path User.first
       else
         begin
           page_name =~ /^the (.*) page$/

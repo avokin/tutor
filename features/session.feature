@@ -1,5 +1,5 @@
 Feature: Session
-  Scenario: Login
+  Scenario: Sign in
     Given user
     When I am on the root page
     And I fill login information for the first user
