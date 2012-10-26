@@ -33,6 +33,8 @@ module NavigationHelpers
         edit_user_category_path UserCategory.find_by_name($1)
       when /^the categories page$/
         user_categories_path
+      when /^reset password page$/
+        new_password_reset_path
       else
         begin
           page_name =~ /^the (.*) page$/

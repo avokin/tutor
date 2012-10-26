@@ -107,3 +107,7 @@ Given /^word "([^"]*)" with translation count "(\d*)"$/ do |word, translation_su
   user_word.translation_success_count = translation_success_count
   user_word.save!
 end
+
+When /^I fill in "([^"]*)" with email of the first user$/ do |field|
+  fill_in(field, :with => User.first.email)
+end
