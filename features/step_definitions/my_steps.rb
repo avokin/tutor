@@ -115,3 +115,13 @@ end
 When /^The User should receive an email$/ do
   step "\"#{User.first.email}\" should receive an email"
 end
+
+When /^I check default checkbox for user category "([^"]*)"$/ do |category_name|
+  category = UserCategory.find_by_name category_name
+  step "I check \"chkDefault_#{category.id}\""
+end
+
+When /^Checkbox default for user category "([^"]*)" should be checked$/ do |category_name|
+  category = UserCategory.find_by_name category_name
+  find("#chkDefault_#{category.id}").should be_checked
+end

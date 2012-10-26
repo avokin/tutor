@@ -1,3 +1,4 @@
+@javascript
 Feature: categories
   Scenario: category list viewing
     Given signed in user
@@ -60,13 +61,17 @@ Feature: categories
     And I should not see "(default)"
 
   Scenario: default category
-    Given not implemented
     Given signed in user
-    Given word "home" with category "life"
+    Given the category "life"
     And I am on the root page
     And I follow "Categories"
+    And I wait for 1 second
     Then I should be on the categories page
     And I should see "life"
-    #And I check "life"
+    And I check default checkbox for user category "life"
+    Then I am on the root page
+    And I follow "Categories"
+    Then I should be on the categories page
+    And Checkbox default for user category "life" should be checked
 
 

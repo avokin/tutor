@@ -3,7 +3,7 @@
 </td>
 <td>
   <%= form_for(user_category, :remote => true) do |f| %>
-    <%= f.check_box :is_default, :onclick => "this.form.commit.click();" %>
+    <%= f.check_box :is_default, :onclick => "this.form.commit.click();", :id => "chkDefault_#{user_category.id}"%>
     <%= f.submit "submit", :class => "btn invisible" %>
   <% end %>
 </td>
