@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
     self.target_language = Language.find(val)
   end
 
+  def native_language_id=(val)
+    self.language = Language.find(val)
+  end
+
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
   end

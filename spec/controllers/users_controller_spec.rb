@@ -48,7 +48,7 @@ describe UsersController, :type => :controller do
   describe "PUT 'update'" do
     before(:each) do
       @user = FactoryGirl.create(:user)
-      @attributes = {:success_count => 10, :native_language_id => 3}
+      @attributes = {:success_count => 10, :native_language_id => 3, :target_language_id => 2}
     end
 
     describe "Authorized user can edit it's own settings" do
