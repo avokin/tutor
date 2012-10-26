@@ -7,7 +7,7 @@ Feature: New word page
     When I am on the home page
     And I fill in "search_word" with "parrot"
     And I submit the form
-    And I wait for 1 seconds
+    And I wait for 2 seconds
     Then I should be on the new word page
     And I should see "попугай"
     And I press "Add category"

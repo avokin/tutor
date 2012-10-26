@@ -92,7 +92,15 @@ FactoryGirl.define do
   end
 
   factory :language do |language|
-    language.sequence(:name) { |i| "language #{i}" }
+    language.sequence(:name) { |i| case i % 3
+                                     when 1
+                                       "English"
+                                     when 2
+                                       "Russian"
+                                     when 0
+                                       "Deutsch"
+      end
+    }
   end
 
   factory :user_category do |user_category|

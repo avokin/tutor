@@ -12,6 +12,7 @@ Feature: Main menu items
     When I am on the root page
     And I follow "Settings"
     And I follow "Profile"
+    And I wait for 1 second
     Then I should be on the user's profile page
     And I should see "Native Language"
     And I should see "Target Language"
