@@ -24,4 +24,5 @@ Feature: Session
     | the root page              |
     | the "house" word's page    |
     | the "life" category's page |
+    | the user's profile page    |
 
