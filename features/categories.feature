@@ -1,4 +1,3 @@
-@javascript
 Feature: categories
   Scenario: category list viewing
     Given signed in user
@@ -60,6 +59,7 @@ Feature: categories
     And I should be on the "life" category page
     And I should not see "(default)"
 
+  @javascript
   Scenario: default category
     Given signed in user
     Given the category "life"
