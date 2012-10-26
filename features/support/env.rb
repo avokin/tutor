@@ -8,6 +8,9 @@ require 'cucumber/rails'
 require 'cucumber/autocomplete'
 require 'factory_girl'
 
+require 'email_spec' # add this line if you use spork
+require 'email_spec/cucumber'
+
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your

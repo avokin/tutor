@@ -35,6 +35,8 @@ module NavigationHelpers
         user_categories_path
       when /^reset password page$/
         new_password_reset_path
+      when /^the new password page$/
+        edit_password_reset_path User.first.password_reset_token
       else
         begin
           page_name =~ /^the (.*) page$/

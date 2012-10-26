@@ -111,3 +111,7 @@ end
 When /^I fill in "([^"]*)" with email of the first user$/ do |field|
   fill_in(field, :with => User.first.email)
 end
+
+When /^The User should receive an email$/ do
+  step "\"#{User.first.email}\" should receive an email"
+end
