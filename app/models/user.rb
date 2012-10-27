@@ -77,6 +77,20 @@ class User < ActiveRecord::Base
     20
   end
 
+  def update_password(params)
+    result = false
+    User.transaction do
+      self.assign_attributes(params)
+      self.password_reset_token = nil
+      if !self.save
+        raise ActiveRecord::Rollback
+      else
+        result = true
+      end
+    end
+    result
+  end
+
   private
 
   def encrypt_password

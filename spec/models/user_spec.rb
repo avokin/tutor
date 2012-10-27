@@ -77,6 +77,37 @@ describe User do
 
     it "should send email with password recovery instructions" do
       @user.send_password_reset
+      #ToDo
+      pending
+    end
+  end
+
+  describe "update_password" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+    end
+
+    it "should update correct password" do
+      result = @user.update_password :password => "password1", :password_confirmation => "password1"
+      result.should be_true
+
+      User.authenticate(@user.email, "password1").should_not be_nil
+      @user.password_reset_token.should be_nil
+    end
+
+    it "should decline incorrect password" do
+      result = @user.update_password :password => "pass", :password_confirmation => "pass"
+      result.should be_false
+
+      User.authenticate(@user.email, "pass").should be_nil
+    end
+
+    it "should decline wrong confirmation" do
+      result = @user.update_password :password => "password1", :password_confirmation => "password2"
+      result.should be_false
+
+      User.authenticate(@user.email, "password1").should be_nil
+      User.authenticate(@user.email, "password2").should be_nil
     end
   end
 end
