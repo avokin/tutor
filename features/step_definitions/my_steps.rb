@@ -125,3 +125,8 @@ When /^Checkbox default for user category "([^"]*)" should be checked$/ do |cate
   category = UserCategory.find_by_name category_name
   find("#chkDefault_#{category.id}").should be_checked
 end
+When /^I simulate waiting for (\d+) hours$/ do |hourse|
+  user = User.first
+  user.password_reset_sent_at = 3.hours.ago
+  user.save!
+end
