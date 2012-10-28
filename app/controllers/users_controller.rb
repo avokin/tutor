@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.target_language_id = Language.all[1].id
     if @user.save()
       sign_in(@user)
       redirect_to @user

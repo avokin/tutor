@@ -135,3 +135,7 @@ When /^I fill wrong login information for the first user$/ do
   fill_in("session_email", :with => user.email)
   fill_in("session_password", :with => "password2")
 end
+
+Given /^initialized application$/ do
+  second_language
+end

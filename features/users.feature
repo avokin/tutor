@@ -1,4 +1,14 @@
 Feature: Users
+  Scenario: Successful signing up
+    Given initialized application
+    When I am on the signup page
+    And I fill in "user_name" with "Test User"
+    And I fill in "user_email" with "email@gmail.com"
+    And I fill in "user_password" with "super_password"
+    And I fill in "user_password_confirmation" with "super_password"
+    And I press "Sign up"
+    And I should be on the user's profile page
+
   Scenario: Edit user info
     Given signed in user
     When I am on the user's profile page

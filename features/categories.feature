@@ -1,4 +1,13 @@
 Feature: categories
+  Scenario: creation of UserCategory
+    Given signed in user
+    And I have word "test"
+    And I am on the "test" word's page
+    And I fill in "category_0" with "new_category"
+    And I press "add_category"
+    Then I should be on the "test" word's page
+    And I should see "new_category"
+
   Scenario: category list viewing
     Given signed in user
     Given word "home" with category "life"

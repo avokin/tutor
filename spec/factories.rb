@@ -5,6 +5,13 @@ def first_language
   Language.first
 end
 
+def second_language
+  while Language.all.size < 3
+    FactoryGirl.create(:language)
+  end
+  Language.all[1]
+end
+
 def first_user
   User.first || FactoryGirl.create(:user)
 end
@@ -89,6 +96,7 @@ FactoryGirl.define do
     user.password_confirmation "password"
     user.success_count 5
     user.language { first_language }
+    user.target_language { second_language }
   end
 
   factory :language do |language|
