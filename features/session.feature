@@ -9,6 +9,15 @@ Feature: Session
     And should see "Native Language"
     And should see "Success Count"
 
+  Scenario: Sign in with incorrect password
+    Given user
+    When I am on the root page
+    And I fill wrong login information for the first user
+    And I press "Sign in"
+    And I wait for 2 second
+    Then I should be on the login page
+    And should see "Invalid email/password"
+
   Scenario: Sign out
     Given signed in user
     And I am on the root page

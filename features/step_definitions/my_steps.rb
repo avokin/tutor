@@ -130,3 +130,8 @@ When /^I simulate waiting for (\d+) hours$/ do |hourse|
   user.password_reset_sent_at = 3.hours.ago
   user.save!
 end
+When /^I fill wrong login information for the first user$/ do
+  user = first_user
+  fill_in("session_email", :with => user.email)
+  fill_in("session_password", :with => "password2")
+end
