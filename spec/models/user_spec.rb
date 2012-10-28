@@ -76,9 +76,16 @@ describe User do
     end
 
     it "should send email with password recovery instructions" do
-      @user.send_password_reset
-      #ToDo
-      pending
+      @user.password_reset_token.should be_nil
+      @user.password_reset_sent_at.should be_nil
+
+      @email = @user.send_password_reset
+
+      @user.password_reset_token.should_not be_nil
+      @user.password_reset_sent_at.should_not be_nil
+
+      @email.should deliver_to(@user.email)
+      @email.should have_body_text(/.*#{@user.password_reset_token}.*/)
     end
   end
 

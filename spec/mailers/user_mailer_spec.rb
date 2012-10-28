@@ -2,7 +2,9 @@ require "spec_helper"
 
 describe UserMailer do
   before(:each) do
-    FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user)
+    @user.password_reset_token = "something"
+    @user.save!
   end
 
   describe "password_reset" do
@@ -18,5 +20,4 @@ describe UserMailer do
       mail.body.encoded.should =~ /^To reset your password, click/
     end
   end
-
 end
