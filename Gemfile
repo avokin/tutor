@@ -25,6 +25,8 @@ group :development, :test do
 end
 
 group :test do
+  gem "simplecov"
+
   gem 'cucumber'
   gem 'cucumber-rails'
 
