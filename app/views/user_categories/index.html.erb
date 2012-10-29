@@ -34,6 +34,13 @@
       </td>
     </tr>
     </thead>
+    <tfoot>
+    <tr>
+      <td colspan="6">
+        <%= button_to "Create Category", new_user_category_path, :method => :get, :form_class => "inline", :class => "btn without-bottom-margin" %>
+      </td>
+    </tr>
+    </tfoot>
     <tbody>
 
     <% @categories.each() do |category| %>

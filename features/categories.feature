@@ -1,5 +1,15 @@
 Feature: categories
-  Scenario: creation of UserCategory
+  Scenario: creation of UserCategory category list page
+    Given signed in user
+    Then I am on the categories page
+    And I press "Create Category"
+    Then I should be on the create category page
+    And I fill in "user_category_name" with "new_category"
+    And I press "Save"
+    Then I should be on the categories page
+    And I should see "new_category"
+
+  Scenario: creation of UserCategory from word's page
     Given signed in user
     And I have word "test"
     And I am on the "test" word's page
@@ -80,6 +90,7 @@ Feature: categories
     And I check default checkbox for user category "life"
     Then I am on the root page
     And I follow "Categories"
+    And I wait for 1 second
     Then I should be on the categories page
     And Checkbox default for user category "life" should be checked
 

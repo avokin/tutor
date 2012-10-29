@@ -23,12 +23,7 @@ describe SessionsController, :type => :controller do
 
       it "should re-render 'new' template" do
         post :create, :session => @attr
-        response.should render_template('new')
-      end
-
-      it "should have right title" do
-        post :create, :session => @attr
-        response.should have_selector("title", :content => "Sign in")
+        response.should redirect_to signin_path
       end
 
       it "should display flash with errors" do

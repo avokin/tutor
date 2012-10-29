@@ -4,6 +4,9 @@ describe UsersController, :type => :controller do
   #render_views
 
   describe "POST 'create'" do
+    before(:each) do
+      second_language
+    end
     describe "failure" do
       before(:each) do
         @attr = {:name => "", :email => "", :password => "", :password_confirmation => ""}
