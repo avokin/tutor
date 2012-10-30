@@ -1,6 +1,6 @@
 <%= form_for(@user_word) do |f| %>
     <div class="field">
-      <%= fields_for @user_word.word do |word_fields| %>
+      <%= fields_for @user_word do |word_fields| %>
           <%= render 'shared/error_messages', :object => word_fields.object %>
           <%= word_fields.label :word %>
           <%= word_fields.text_field :text %>

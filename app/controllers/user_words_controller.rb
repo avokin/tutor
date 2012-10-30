@@ -8,15 +8,14 @@ class UserWordsController < ApplicationController
     @title = "New word"
     @languages = Language.all
     @user_word = UserWord.new
-    @user_word.word = Word.new
-    @user_word.word.text = params[:word] unless params[:word].nil?
+    @user_word.text = params[:word] unless params[:word].nil?
     @languages = Language.all
     source_language = case current_user.target_language.name
                         when "Deutsch" then :de
                         else :en
     end
 
-    @translations = get_translations(source_language, @user_word.word.text, :ru)
+    @translations = get_translations(source_language, @user_word.text, :ru)
     @categories = []
     current_user.user_categories.each do |category|
       if category.is_default
@@ -26,7 +25,7 @@ class UserWordsController < ApplicationController
   end
 
   def create_or_update(user_word)
-    text = params[:word][:text] unless params[:word].nil?
+    text = params[:user_word][:text] unless params[:user_word].nil?
     i = 0
     new_translations = Array.new
     while !params["translation_#{i}"].nil? do
@@ -84,7 +83,7 @@ class UserWordsController < ApplicationController
     if (@user_word.user != current_user)
       render 'pages/message'
     else
-      @title = "Card for word: #{@user_word.word.text}"
+      @title = "Card for word: #{@user_word.text}"
     end
   end
 
@@ -93,7 +92,7 @@ class UserWordsController < ApplicationController
     if (@user_word.user != current_user)
       render 'pages/message'
     else
-      @title = "Edit word: #{@user_word.word.text}"
+      @title = "Edit word: #{@user_word.text}"
     end
   end
 

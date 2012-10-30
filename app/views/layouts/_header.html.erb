@@ -14,7 +14,7 @@
             <ul class="nav">
               <li>
                 <%= form_for(:search, :url => search_path, :html => {:class => "navbar-search pull-left"}) do |f| %>
-                    <%= f.autocomplete_field :word, search_autocomplete_word_text_path, :class => "search-query", :placeholder => "Search" %>
+                    <%= f.autocomplete_field :word, search_autocomplete_user_word_text_path, :class => "search-query", :placeholder => "Search" %>
                 <% end %>
               </li>
               <li <% if @active_tab == :dictionary %>class="active"<% end %> ><%= link_to "Dictionary", root_path %></li>

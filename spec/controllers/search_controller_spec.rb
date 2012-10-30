@@ -6,8 +6,6 @@ describe SearchController, :type => :controller do
   describe "POST 'create'" do
     before(:each) do
       @new_word = 'new word'
-      FactoryGirl.create(:word)
-      FactoryGirl.create(:word)
       @user_word = FactoryGirl.create(:user_word)
       @another_user_word = FactoryGirl.create(:user_word_for_another_user)
 
@@ -33,14 +31,14 @@ describe SearchController, :type => :controller do
       end
 
       it "should open word's card if current user contains the word" do
-        word = @user.user_words.first.word
+        word = @user.user_words.first
         post :create, :search => {:word => word.text}
         response.should redirect_to(user_word_path(@user.user_words.first))
       end
 
       it "should not find word that belongs to another user" do
-        post :create, :search => {:word => @another_user_word.word.text}
-        response.should redirect_to(new_user_word_path(:word => @another_user_word.word.text))
+        post :create, :search => {:word => @another_user_word.text}
+        response.should redirect_to(new_user_word_path(:word => @another_user_word.text))
       end
     end
   end
@@ -48,7 +46,7 @@ describe SearchController, :type => :controller do
   describe "GET 'autocomplete_word_text'" do
     describe "unauthorized access" do
       it "should redirect to signin page" do
-        get :autocomplete_word_text
+        get :autocomplete_user_word_text
         response.should redirect_to signin_path
       end
     end
@@ -65,8 +63,8 @@ describe SearchController, :type => :controller do
         end
 
         it "should return correspond words" do
-          get :autocomplete_word_text, :term => @user_word1.word.text
-          response.body.should =~ /.*#{@user_word1.word.text}.*/
+          get :autocomplete_user_word_text, :term => @user_word1.text
+          response.body.should =~ /.*#{@user_word1.text}.*/
         end
       end
     end

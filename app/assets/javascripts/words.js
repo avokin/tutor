@@ -19,7 +19,7 @@ function addInput(parentContainerId, name, autocomplete, value) {
 
 function addTranslation() {
   translationsCount++;
-  addInput("translations", "translation_" + (translationsCount - 1), "/search/autocomplete_word_text");
+  addInput("translations", "translation_" + (translationsCount - 1), "/search/autocomplete_user_word_text");
 }
 
 function addCategory(name) {
@@ -30,7 +30,7 @@ function addCategory(name) {
 
 function addSynonym() {
   categoriesCount++;
-  addInput("synonyms", "synonym_" + (synonymsCount - 1), "/search/autocomplete_word_text");
+  addInput("synonyms", "synonym_" + (synonymsCount - 1), "/search/autocomplete_user_word_text");
 }
 
 

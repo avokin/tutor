@@ -24,53 +24,38 @@ def second_user
 end
 
 FactoryGirl.define do
-  factory :word do |word|
-    word.sequence(:text) { |i| "word#{i}" }
-    word.sequence(:language_id) { |i| i % 2 + 1 }
-  end
-
-  factory :english_word, :class => :word do |word|
-    word.sequence(:text) { |i| "english#{i}" }
-    word.language_id { 2 }
-  end
-
-  factory :russian_word, :class => :word do |word|
-    word.sequence(:text) { |i| "russian#{i}" }
-    word.language_id { 1 }
-  end
-
-  factory :german_word, :class => :word do |word|
-    word.sequence(:text) { |i| "german#{i}" }
-    word.language_id { 3 }
-  end
-
   factory :user_word do |user_word|
     user_word.user { first_user }
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
-    user_word.association :word
+    user_word.sequence(:text) { |i| "english#{i}" }
+    user_word.language_id { 2 }
   end
 
   factory :english_user_word, :class => :user_word do |user_word|
     user_word.user { first_user }
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
-    user_word.association :word, :factory => :english_word
+    user_word.sequence(:text) { |i| "english#{i}" }
+    user_word.language_id { 2 }
   end
 
   factory :russian_user_word, :class => :user_word do |user_word|
     user_word.user { first_user }
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
-    user_word.association :word, :factory => :russian_word
+    user_word.sequence(:text) { |i| "russian#{i}" }
+    user_word.language_id { 1 }
   end
 
   factory :german_user_word, :class => :user_word do |user_word|
     user_word.user { first_user }
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
-    user_word.association :word, :factory => :german_word
+    user_word.sequence(:text) { |i| "german#{i}" }
+    user_word.language_id { 3 }
   end
 
   factory :user_word_for_another_user, :class => :user_word do |user_word|
     user_word.user { second_user }
-    user_word.association :word
+    user_word.sequence(:text) { |i| "german#{i}" }
+    user_word.language_id { 3 }
   end
 
   factory :word_relation_translation, :class => :word_relation do |word_relation|

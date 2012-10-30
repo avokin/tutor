@@ -46,18 +46,13 @@ describe UserWord do
 
       it "should create Word if needed" do
         lambda do
-          lambda do
-            @user_word.save_with_relations(@user, @text, @translations, [], [])
-          end.should change(Word, :count).by(3)
+          @user_word.save_with_relations(@user, @text, @translations, [], [])
         end.should change(UserWord, :count).by(3)
       end
 
       it "should not create Word if it exists" do
-        word = FactoryGirl.create(:word)
         lambda do
-          lambda do
-            @user_word.save_with_relations(@user, word.text, @translations, @synonyms, [])
-          end.should change(Word, :count).by(3)
+          @user_word.save_with_relations(@user, "test_word", @translations, @synonyms, [])
         end.should change(UserWord, :count).by(4)
       end
 
@@ -99,43 +94,6 @@ describe UserWord do
     end
   end
 
-  describe 'rename UserWord' do
-    before(:each) do
-      @word = FactoryGirl.create(:word)
-      @user_word = FactoryGirl.create(:user_word)
-    end
-
-    describe 'successful rename' do
-      before(:each) do
-        @new_word = 'new_word'
-      end
-
-      it 'should change reference to Word' do
-        lambda do
-          lambda do
-            @user_word.rename(@new_word)
-          end.should change(Word, :count).by(1)
-        end.should_not change(UserWord, :count)
-        @user_word.word.should == Word.last
-      end
-    end
-
-    describe 'unsuccessful rename' do
-      before(:each) do
-        @new_word = ''
-      end
-
-      it 'should not change anything' do
-        lambda do
-          lambda do
-            @user_word.rename(@new_word)
-          end.should_not change(Word, :count)
-        end.should_not change(UserWord, :count)
-        @user_word.word.should == Word.last
-      end
-    end
-  end
-
   describe 'find_for_user' do
     before(:each) do
       @user_word1 = FactoryGirl.create(:user_word)
@@ -143,11 +101,11 @@ describe UserWord do
     end
 
     it 'should not find word of another user' do
-      UserWord.find_for_user(@user2, @user_word1.word.text).should be_nil
+      UserWord.find_for_user(@user2, @user_word1.text).should be_nil
     end
 
     it 'should find word of current user' do
-      UserWord.find_for_user(@user_word1.user, @user_word1.word.text).should_not be_nil
+      UserWord.find_for_user(@user_word1.user, @user_word1.text).should_not be_nil
     end
   end
 

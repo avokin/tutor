@@ -2,7 +2,7 @@
 <tr>
   <td>
     <h3>
-      <%=link_to user_word.word.text, user_word%>
+      <%=link_to user_word.text, user_word%>
     </h3>
   </td>
   <td>
@@ -19,7 +19,7 @@
           <%= link_to "Delete #{get_relation_name(word_relation)}", word_relation ,:method => :delete, :confirm => 'You sure?', :title => 'title' %>
         </li>
         <li>
-          <%= link_to "Delete word '#{word_relation.related_user_word.word.text}'", {:controller => :word_relations ,:action => :destroy_with_related_word, :id => word_relation.id}, {:method => :delete, :confirm => 'You sure?', :title => 'title'} %>
+          <%= link_to "Delete word '#{word_relation.related_user_word.text}'", {:controller => :word_relations ,:action => :destroy_with_related_word, :id => word_relation.id}, {:method => :delete, :confirm => 'You sure?', :title => 'title'} %>
         </li>
       </ul>
     </div>

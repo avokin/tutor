@@ -15,24 +15,24 @@ class WordRelation < ActiveRecord::Base
 
   def self.create_relation(user, user_word, translated_text, relation_type)
     if relation_type == "1"
-      language_id = user_word.word.language_id == 1 ? 2 : 1
+      language_id = user_word.language_id == 1 ? 2 : 1
     else
-      language_id = user_word.word.language_id
+      language_id = user_word.language_id
     end
     related_user_word = UserWord.get_for_user(user, translated_text, language_id)
-    if related_user_word.invalid? || related_user_word.word.invalid?
+    if related_user_word.invalid? || related_user_word.invalid?
       return nil
     end
 
     case relation_type
       when "1"
-        if related_user_word.word.language_id == user_word.word.language_id
+        if related_user_word.language_id == user_word.language_id
           return nil
         end
         word_relation = user_word.direct_translations.build(:status_id => 1)
         word_relation.relation_type = 1
       when "2"
-        if related_user_word.word.language_id != user_word.word.language_id || related_user_word == user_word
+        if related_user_word.language_id != user_word.language_id || related_user_word == user_word
           return nil
         end
 

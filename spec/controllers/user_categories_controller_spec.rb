@@ -178,7 +178,7 @@ describe UserCategoriesController, :type => :controller do
 
       it "should display words that correspond to the category" do
         get :show, :id => @category.id
-        response.should have_selector('a', :content => @user_word.word.text)
+        response.should have_selector('a', :content => @user_word.text)
       end
 
       it "should display the 'Edit' link" do

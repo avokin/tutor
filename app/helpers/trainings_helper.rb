@@ -3,8 +3,8 @@ module TrainingsHelper
   def check_answers(user_word, answers, answer_statuses)
     result = true
     user_word.direct_translations.each do |t|
-      if answers.include?(t.related_user_word.word.text)
-        answer_statuses[t.related_user_word.word.text] = true
+      if answers.include?(t.related_user_word.text)
+        answer_statuses[t.related_user_word.text] = true
       else
         result = false
       end

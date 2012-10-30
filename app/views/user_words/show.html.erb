@@ -1,6 +1,6 @@
 <div class="row" id="page_title">
   <div class="span4 offset4">
-    <h1 class="word">Word: <span class="user_data"><%= @user_word.word.text %></span></h1>
+    <h1 class="word">Word: <span class="user_data"><%= @user_word.text %></span></h1>
   </div>
 
   <div class="span4" id="status">
@@ -64,14 +64,14 @@
   <div class="row">
     <div class="span6" class="translations">
       <div class="block-inline new-word">
-        <%= autocomplete_field_tag :translation_0, '', search_autocomplete_word_text_path, :placeholder => "New translation" %>
+        <%= autocomplete_field_tag :translation_0, '', search_autocomplete_user_word_text_path, :placeholder => "New translation" %>
         <%= f.submit " Add ", :id => "add_translation", :class => "btn-success" %>
       </div>
     </div>
 
     <div class="span6" class="synonyms">
       <div class="block-inline new-word">
-        <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_word_text_path, :placeholder => "New synonym" %>
+        <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_user_word_text_path, :placeholder => "New synonym" %>
         <%= f.submit " Add ", :id => "add_synonym", :class => "btn-success" %>
       </div>
     </div>

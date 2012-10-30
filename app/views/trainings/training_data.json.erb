@@ -1,8 +1,8 @@
 {
   "status": "continued",
-  "word": "<%= @user_word.word.text %>",
+  "word": "<%= @user_word.text %>",
   <% (0..@user_word.direct_translations.length - 1).each do |i| %>
-    "answer<%= i %>": "<%= @user_word.direct_translations[i].related_user_word.word.text %>",
+    "answer<%= i %>": "<%= @user_word.direct_translations[i].related_user_word.text %>",
   <% end %>
   "id": "<%= @user_word.id %>"
 }

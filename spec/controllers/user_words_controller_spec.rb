@@ -23,7 +23,7 @@ describe UserWordsController, :type => :controller do
 
     it "should have the right title" do
       get :show, :id => @user_word1.id
-      response.should have_selector('title', :content => "Tutor - Card for word: #{@user_word1.word.text}")
+      response.should have_selector('title', :content => "Tutor - Card for word: #{@user_word1.text}")
     end
   end
 
@@ -39,11 +39,11 @@ describe UserWordsController, :type => :controller do
       get :recent
 
       (0..49).each do |i|
-        response.should_not have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].word.text)
+        response.should_not have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].text)
       end
 
       (50..99).each do |i|
-        response.should have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].word.text)
+        response.should have_selector('a', :href => user_word_path(@user_words[i]), :content => @user_words[i].text)
       end
     end
 
@@ -58,12 +58,12 @@ describe UserWordsController, :type => :controller do
     before(:each) do
       # ToDo: simplify
       @user_word1 = FactoryGirl.create(:user_word)
-      @user_word1.word.language_id = @user_word1.user.target_language_id
-      @user_word1.word.save!
+      @user_word1.language_id = @user_word1.user.target_language_id
+      @user_word1.save!
 
       @user_word2 = FactoryGirl.create(:user_word_for_another_user)
-      @user_word2.word.language_id = @user_word2.user.target_language_id
-      @user_word2.word.save!
+      @user_word2.language_id = @user_word2.user.target_language_id
+      @user_word2.save!
     end
 
     it "should have the right title" do
@@ -75,8 +75,8 @@ describe UserWordsController, :type => :controller do
     it 'should not display words of other users' do
       test_sign_in(@user_word1.user)
       get :index
-      response.should have_selector('a', :href => user_word_path(@user_word1), :content => @user_word1.word.text)
-      response.should_not have_selector('a', :href => user_word_path(@user_word2), :content => @user_word2.word.text)
+      response.should have_selector('a', :href => user_word_path(@user_word1), :content => @user_word1.text)
+      response.should_not have_selector('a', :href => user_word_path(@user_word2), :content => @user_word2.text)
     end
   end
 
@@ -95,7 +95,7 @@ describe UserWordsController, :type => :controller do
 
     it "should have the right title" do
       get :edit, :id => @user_word1.id
-      response.should have_selector('title', :content => "Tutor - Edit word: #{@user_word1.word.text}")
+      response.should have_selector('title', :content => "Tutor - Edit word: #{@user_word1.text}")
     end
   end
 
@@ -112,40 +112,9 @@ describe UserWordsController, :type => :controller do
   end
 
   describe "POST 'create'" do
-    describe 'creation of word that already exists in common dictionary' do
-      before(:each) do
-        @word = FactoryGirl.create(:word)
-        @attr = {:text => @word.text, :language_id => @word.language_id}
-      end
-
-      it 'should not create a new common Word' do
-        lambda do
-          post :create, :word => @attr
-        end.should_not change(Word, :count)
-      end
-
-      it 'should create new UserWord entity' do
-        lambda do
-          post :create, :word => @attr
-        end.should change(UserWord, :count).by(1)
-      end
-
-      it "should redirect to word's card if successful" do
-        post :create, :word => @attr
-        response.code.should == "302"
-        response.should redirect_to(user_word_path(1))
-      end
-    end
-
-    describe 'creation a new Word in common dictionary' do
+    describe 'creation a new Word' do
       before(:each) do
         @attr = {:text => 'test', :language_id => 1}
-      end
-
-      it 'should create a new common Word' do
-        lambda do
-          post :create, :word => @attr
-        end.should change(Word, :count).by(1)
       end
 
       it 'should create new UserWord entity' do
@@ -182,31 +151,27 @@ describe UserWordsController, :type => :controller do
 
     it 'should not delete UserWord of another user' do
       test_sign_in(@another_user)
-      lambda do
         lambda do
           lambda do
             delete :destroy, :id => @relation.source_user_word.id
           end.should_not change(UserWord, :count)
         end.should_not change(WordRelation, :count)
-      end.should_not change(Word, :count)
       response.should render_template 'pages/message'
     end
 
     it 'should delete UserWord, WordRelations and do not delete Word' do
-      lambda do
         lambda do
           lambda do
             delete :destroy, :id => @relation.source_user_word.id
           end.should change(UserWord, :count).by(-1)
         end.should change(WordRelation, :count).by(-1)
-      end.should_not change(Word, :count)
     end
   end
 
   describe "PUT 'update'" do
     before(:each) do
       @native_word = FactoryGirl.create(:user_word)
-      if @native_word.word.language.id != @native_word.user.language.id
+      if @native_word.language.id != @native_word.user.language.id
         @native_word = FactoryGirl.create(:user_word)
       end
       test_sign_in @native_word.user
@@ -214,23 +179,19 @@ describe UserWordsController, :type => :controller do
 
     it 'should add translation, synonym' do
       lambda do
-        lambda do
           lambda do
             put :update, :id => @native_word.id, :translation_0 => 'new translation', :synonym_0 => 'new synonym'
           end.should change(UserWord, :count).by(2)
-        end.should change(Word, :count).by(2)
       end.should change(WordRelation, :count).by(2)
     end
 
     it 'should change word and not to delete old word' do
-      lambda do
         lambda do
           put :update, :id => @native_word.id, :word => {:text => 'new word'}
         end.should_not change(UserWord, :count)
-      end.should change(Word, :count).by(1)
 
       @native_word = UserWord.find(@native_word.id)
-      @native_word.word.text.should == 'new word'
+      @native_word.text.should == 'new word'
     end
 
     it 'should change only link if renamed word exist' do
@@ -252,7 +213,7 @@ describe UserWordsController, :type => :controller do
       lambda do
         lambda do
           lambda do
-            put :update, :id => @native_word.id, :translation_0 => foreign_word.word.text
+            put :update, :id => @native_word.id, :translation_0 => foreign_word.text
           end.should change(WordRelation, :count).by(1)
         end.should_not change(Word, :count)
       end.should_not change(UserWord, :count)
@@ -262,7 +223,7 @@ describe UserWordsController, :type => :controller do
     describe "native and foreign languages" do
       it "should put foreign word to source_user_word" do
         user_word2 = FactoryGirl.create(:user_word)
-        put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
+        put :update, :id => user_word2.id, :translation_0 => @native_word.text
         WordRelation.first.source_user_word.should == user_word2
         WordRelation.first.related_user_word.should == @native_word
       end
@@ -271,7 +232,7 @@ describe UserWordsController, :type => :controller do
         FactoryGirl.create(:user_word)
         user_word2 = FactoryGirl.create(:user_word)
         lambda do
-          put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
+          put :update, :id => user_word2.id, :translation_0 => @native_word.text
         end.should_not change(WordRelation, :count)
       end
 
@@ -279,14 +240,14 @@ describe UserWordsController, :type => :controller do
         FactoryGirl.create(:user_word)
         user_word2 = FactoryGirl.create(:user_word)
         lambda do
-          put :update, :id => user_word2.id, :synonym_0 => @native_word.word.text
+          put :update, :id => user_word2.id, :synonym_0 => @native_word.text
         end.should change(WordRelation, :count).by(1)
       end
 
       it "should not create synonym of the another language of source word" do
         user_word2 = FactoryGirl.create(:user_word)
         lambda do
-          put :update, :id => user_word2.id, :synonym_0 => @native_word.word.text
+          put :update, :id => user_word2.id, :synonym_0 => @native_word.text
         end.should_not change(WordRelation, :count)
       end
     end
@@ -295,11 +256,11 @@ describe UserWordsController, :type => :controller do
       it "should not create duplicated translation" do
         user_word2 = FactoryGirl.create(:user_word)
         lambda do
-          put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
+          put :update, :id => user_word2.id, :translation_0 => @native_word.text
         end.should change(WordRelation, :count).by(1)
 
         lambda do
-          put :update, :id => user_word2.id, :translation_0 => @native_word.word.text
+          put :update, :id => user_word2.id, :translation_0 => @native_word.text
         end.should_not change(WordRelation, :count)
       end
 
@@ -307,17 +268,17 @@ describe UserWordsController, :type => :controller do
         FactoryGirl.create(:user_word)
         user_word2 = FactoryGirl.create(:user_word)
         lambda do
-          put :update, :id => user_word2.id, :synonym_0 => @native_word.word.text
+          put :update, :id => user_word2.id, :synonym_0 => @native_word.text
         end.should change(WordRelation, :count).by(1)
 
         lambda do
-          put :update, :id => user_word2.id, :synonym_0 => @native_word.word.text
+          put :update, :id => user_word2.id, :synonym_0 => @native_word.text
         end.should_not change(WordRelation, :count)
       end
 
       it "should not create synonym equals to source word" do
         lambda do
-          put :update, :id => @native_word.id, :synonym_0 => @native_word.word.text
+          put :update, :id => @native_word.id, :synonym_0 => @native_word.text
         end.should_not change(WordRelation, :count)
         response.should redirect_to @native_word
       end

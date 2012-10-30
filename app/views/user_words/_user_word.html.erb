@@ -1,10 +1,10 @@
 <tr>
   <td>
-    <%= link_to user_word.word.text, user_word %>
+    <%= link_to user_word.text, user_word %>
   </td>
   <td>
     <% user_word.translations.each do |uw| %>
-        <%= link_to uw.related_user_word.word.text, uw.related_user_word %>
+        <%= link_to uw.related_user_word.text, uw.related_user_word %>
     <% end %>
   </td>
   <td>

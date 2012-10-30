@@ -2,13 +2,13 @@
 
 <div class="row" id="page_title">
   <div class="span4 offset4">
-    <h1 class="word">Word: <span class="user_data"><%= @user_word.word.text %></span></h1>
+    <h1 class="word">Word: <span class="user_data"><%= @user_word.text %></span></h1>
   </div>
 </div>
 
 <%= form_for(@user_word) do |f| %>
     <div class="field">
-      <%= fields_for @user_word.word do |word_fields| %>
+      <%= fields_for @user_word do |word_fields| %>
           <%= word_fields.hidden_field :text %>
           <%= word_fields.label :language_id %>
           <%= word_fields.select(:language_id, target_language_select) %>
@@ -19,7 +19,7 @@
 
     <div id="translations">
       <input type="button" value="Add translation" class="btn" onclick="addTranslation();"/>
-      <input data-autocomplete="/search/autocomplete_word_text" id="translation_0" name="translation_0" type="text" value=""/>
+      <input data-autocomplete="/search/autocomplete_user_word_text" id="translation_0" name="translation_0" type="text" value=""/>
     </div>
 
     <br/>

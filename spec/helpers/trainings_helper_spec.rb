@@ -25,7 +25,7 @@ describe TrainingsHelper do
 
     describe "failure" do
       before(:each) do
-        @answers << @translation1.related_user_word.word.text
+        @answers << @translation1.related_user_word.text
         @answers << ""
       end
 
@@ -44,15 +44,15 @@ describe TrainingsHelper do
 
       it "should mark incorrect answers" do
         check_answers @user_word1, @answers, @answer_statuses
-        @answer_statuses[@translation1.related_user_word.word.text].should be_true
+        @answer_statuses[@translation1.related_user_word.text].should be_true
         @answer_statuses[""].should be_false
       end
     end
 
     describe "success" do
       before(:each) do
-        @answers << @translation1.related_user_word.word.text
-        @answers << @translation2.related_user_word.word.text
+        @answers << @translation1.related_user_word.text
+        @answers << @translation2.related_user_word.text
       end
 
       it "should return true" do
@@ -68,8 +68,8 @@ describe TrainingsHelper do
 
       it "should not mark any error" do
         check_answers @user_word1, @answers, @answer_statuses
-        @answer_statuses[@translation1.related_user_word.word.text].should be_true
-        @answer_statuses[@translation1.related_user_word.word.text].should be_true
+        @answer_statuses[@translation1.related_user_word.text].should be_true
+        @answer_statuses[@translation1.related_user_word.text].should be_true
       end
 
       it "should increase time to check" do
@@ -109,14 +109,14 @@ describe TrainingsHelper do
           it "should fetch foreign word" do
             @training.direction = :direct
             selected_user_word = select_user_word(@training, 1)
-            selected_user_word.word.language.should == @user.target_language
+            selected_user_word.language.should == @user.target_language
             selected_user_word.translations.length.should > 0
           end
 
           it "should fetch native word" do
             @training.direction = :translation
             selected_user_word = select_user_word(@training, 1)
-            selected_user_word.word.language.should == @user.language
+            selected_user_word.language.should == @user.language
             selected_user_word.translations.length.should > 0
           end
         end
@@ -126,7 +126,7 @@ describe TrainingsHelper do
         it "should fetch native word" do
           # ToDo
           #selected_user_word = select_user_word(@training)
-          #selected_user_word.word.language.should_not == @user.language
+          #selected_user_word.language.should_not == @user.language
           #selected_user_word.synonyms.length.should > 0
           pending
         end
