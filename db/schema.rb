@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030135404) do
+ActiveRecord::Schema.define(:version => 20121030142243) do
 
   create_table "languages", :force => true do |t|
     t.string   "name",       :null => false
@@ -48,16 +48,15 @@ ActiveRecord::Schema.define(:version => 20121030135404) do
 
   create_table "user_words", :force => true do |t|
     t.integer  "user_id",                                                      :null => false
-    t.integer  "word_id"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
     t.integer  "translation_success_count", :default => 0,                     :null => false
     t.datetime "time_to_check",             :default => '2012-10-13 07:31:39', :null => false
-    t.string   "text"
-    t.integer  "language_id"
+    t.string   "text",                                                         :null => false
+    t.integer  "language_id",                                                  :null => false
   end
 
-  add_index "user_words", ["user_id", "word_id"], :name => "IndexUserWordUnique", :unique => true
+  add_index "user_words", ["user_id", "text", "language_id"], :name => "IndexUserWordUnique", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name",                                  :null => false
@@ -88,14 +87,5 @@ ActiveRecord::Schema.define(:version => 20121030135404) do
   end
 
   add_index "word_relations", ["source_user_word_id", "related_user_word_id", "relation_type", "user_id"], :name => "IndexWordRelationUnique", :unique => true
-
-  create_table "words", :force => true do |t|
-    t.string   "text",        :null => false
-    t.integer  "language_id", :null => false
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "words", ["text", "language_id"], :name => "IndexWordLanguageUnique", :unique => true
 
 end

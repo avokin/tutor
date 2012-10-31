@@ -85,10 +85,8 @@ describe UserWord do
 
       it 'should not create a Word' do
         lambda do
-          lambda do
-            @result = @user_word.save_with_relations(@user, @text, @translations, [], [])
-          end.should_not change(UserWord, :count)
-        end.should_not change(Word, :count)
+          @result = @user_word.save_with_relations(@user, @text, @translations, [], [])
+        end.should_not change(UserWord, :count)
         @user_word.should be_true
       end
     end
