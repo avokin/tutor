@@ -213,3 +213,16 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+Then /^"([^"]*)" should( not)? be an option for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, negate, field, selector|
+  with_scope(selector) do
+    expectation = negate ? :should_not : :should
+    field_labeled(field).first(:xpath, ".//option[text() = '#{value}']").send(expectation, be_present)
+  end
+end
+
+Then /^"([^"]*)" should be selected for "([^"]*)"(?: within "([^\"]*)")?$/ do |value, field, selector|
+  with_scope(selector) do
+    field_labeled(field).find(:xpath, ".//option[@selected = 'selected'][text() = '#{value}']").should be_present
+  end
+end

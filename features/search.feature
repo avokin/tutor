@@ -1,7 +1,9 @@
 @javascript
 Feature: Search
-  Scenario Outline: Searching a word that exist
+  Background:
     Given signed in user
+
+  Scenario Outline: Searching a word that exist
     When I have word "<word>"
     When I am on the home page
     And I fill in the following:
@@ -18,10 +20,24 @@ Feature: Search
     | existed word |
 
   Scenario: Searching a word that doesn't exist
-    Given signed in user
     When I am on the home page
     And I fill in the following:
       | search_word    | new word1 |
     And I submit the form
     And I wait for 1 second
     Then I should be on the new word page
+
+   Scenario: Searching a German Noun
+     When My target language is "German"
+     When I am on the home page
+     And I fill in the following:
+       | search_word    | Kind |
+     And I submit the form
+     And I wait for 1 second
+
+     Then I should be on the new word page
+     And I should see "Kind"
+
+     And "noun" should be selected for "german_type_of_speech"
+     And "das" should be selected for "german_noun_gender"
+     And I should see "-er (Kinder)"

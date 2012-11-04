@@ -101,6 +101,7 @@ end
 When /^I should see paginator$/ do
   page.should have_selector('div.pagination')
 end
+
 Given /^word "([^"]*)" with translation count "(\d*)"$/ do |word, translation_success_count|
   user_word = UserWord.new
   user_word.save_with_relations(first_user, word, [], [], [])
@@ -125,11 +126,13 @@ When /^Checkbox default for user category "([^"]*)" should be checked$/ do |cate
   category = UserCategory.find_by_name category_name
   find("#chkDefault_#{category.id}").should be_checked
 end
+
 When /^I simulate waiting for (\d+) hours$/ do |hourse|
   user = User.first
   user.password_reset_sent_at = 3.hours.ago
   user.save!
 end
+
 When /^I fill wrong login information for the first user$/ do
   user = first_user
   fill_in("session_email", :with => user.email)
@@ -138,4 +141,14 @@ end
 
 Given /^initialized application$/ do
   second_language
+end
+
+Given /^German Noun "([^"]*)"$/ do |text|
+  FactoryGirl.create(:user_word, :text => text)
+end
+
+When /^My target language is "([^"]*)"$/ do |language_name|
+  user = User.first
+  language = Language.find_by_name(language_name)
+  user.update_attributes(:language => language)
 end
