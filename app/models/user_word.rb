@@ -1,5 +1,5 @@
 class UserWord < ActiveRecord::Base
-  attr_accessible :translation_success_count, :text, :user, :time_to_check, :language_id
+  attr_accessible :translation_success_count, :text, :user, :time_to_check, :language_id, :type_id, :custom_string_field1, :custom_string_field2, :custom_int_field1
   belongs_to :user
   belongs_to :language
 
@@ -40,42 +40,30 @@ class UserWord < ActiveRecord::Base
     result
   end
 
-  def save_with_relations(user, text, new_translations, new_synonyms, new_categories)
+  def save_with_relations(new_translations, new_synonyms, new_categories)
+    user = self.user
     UserWord.transaction do
-      unless text.nil?
-        self.text = text
-      end
-
-      self.user = user
-      self.language = user.target_language
-
-      if self.valid? && self.valid?
-        if self.save
-          logger.debug("UserWord saved correctly")
-          new_translations.each do |translation|
-            if user.language.id != self.language.id
-              WordRelation.create_relation(user, self, translation, "1")
-            else
-              related_user_word = UserWord.get_for_user(user, translation, user.target_language.id)
-              if related_user_word.new_record?
-                related_user_word.save!
-              end
-              WordRelation.create_relation(user, related_user_word, self.text, "1")
+      if self.valid? && self.save
+        new_translations.each do |translation|
+          if user.language.id != self.language.id
+            WordRelation.create_relation(user, self, translation, "1")
+          else
+            related_user_word = UserWord.get_for_user(user, translation, user.target_language.id)
+            if related_user_word.new_record?
+              related_user_word.save!
             end
+            WordRelation.create_relation(user, related_user_word, self.text, "1")
           end
-          logger.debug "translations saved correctly"
-
-          new_synonyms.each do |synonym|
-            WordRelation.create_relation(user, self, synonym, "2")
-          end
-          logger.debug "synonyms saved correctly"
-
-          new_categories.each do |category|
-            UserWordCategory.create_word_category(self, category)
-          end
-          logger.debug "user_categories saved correctly"
-          return true
         end
+
+        new_synonyms.each do |synonym|
+          WordRelation.create_relation(user, self, synonym, "2")
+        end
+
+        new_categories.each do |category|
+          UserWordCategory.create_word_category(self, category)
+        end
+        return true
       end
     end
     false

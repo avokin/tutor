@@ -112,4 +112,15 @@ FactoryGirl.define do
     training.direction { :direct }
     training.user { first_user }
   end
+
+  factory :german_noun, :class => :user_word do |german_noun|
+    german_noun.user { first_user }
+    german_noun.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
+    german_noun.sequence(:text) { |i| "Oma#{i}" }
+    german_noun.language_id { 3 }
+
+    german_noun.type_id { 1 }
+    german_noun.custom_string_field1 { "die" }
+    german_noun.custom_string_field2 { "Omas" }
+  end
 end

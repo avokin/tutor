@@ -1,0 +1,12 @@
+<div class="span1">
+  <%= f.select(:type_id, german_part_of_speech, {}, {:class => "dropdown_small"}) %>
+</div>
+
+<div class="span1"><%= f.select(:custom_int_field1, german_noun_gender_options, {}, {:class => "dropdown_small"}) %></div>
+<div class="span2">
+  <h1 class="word"><span class="user_data"><%= @user_word.text %></span></h1>
+</div>
+<div class="span2">
+  <%= f.text_field(:custom_string_field1, :placeholder => "Plural form") %>
+</div>
+

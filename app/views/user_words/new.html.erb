@@ -1,49 +1,51 @@
-<%= javascript_include_tag 'words.js' %>
-
-<div class="row" id="page_title">
-  <div class="span4 offset4">
-    <h1 class="word">Word: <span class="user_data"><%= @user_word.text %></span></h1>
-  </div>
-</div>
-
 <%= form_for(@user_word) do |f| %>
-    <div class="field">
-      <%= fields_for @user_word do |word_fields| %>
-          <%= word_fields.hidden_field :text %>
-          <%= word_fields.label :language_id %>
-          <%= word_fields.select(:language_id, target_language_select) %>
-      <% end %>
+    <div class="row">
+      <div class="span2">
+        <%= f.hidden_field :text %>
+        <%= f.select(:language_id, target_language_select, {}, {:class => "dropdown_middle"}) %>
+      </div>
+      <%= edit_word_customization(f) %>
     </div>
 
-    <br/>
+    <div class="row with-bottom-margin">
+      <div class="span12 box translations-box">
+        <div id="translations">
+          <input type="button" value="Add translation" class="btn" onclick="addTranslation();"/>
+          <input data-autocomplete="/search/autocomplete_user_word_text" id="translation_0" name="translation_0" type="text" value=""/>
+        </div>
 
-    <div id="translations">
-      <input type="button" value="Add translation" class="btn" onclick="addTranslation();"/>
-      <input data-autocomplete="/search/autocomplete_user_word_text" id="translation_0" name="translation_0" type="text" value=""/>
-    </div>
-
-    <br/>
-    <div>
-      <% l = [3, @translations.length - 1].min; (0..l).each do |i|%>
-          <%= check_box_tag("suggested_translation_#{i}", @translations[i], i == 0) %>
-          <%= @translations[i] %>
-      <% end %>
-    </div>
-
-    <div id="synonyms">
-      <input type="button" value="Add synonym" class="btn"  onclick="addSynonym();"/>
-    </div>
-
-    <div id="categories">
-      <input type="button" value="Add category" class="btn"  onclick="addCategory();"/>
-      
-      <script type="text/javascript">
-          <% @categories.each do |category| %>
-          <%= "addCategory('#{category}')" %>
+        <div>
+          <% l = [3, @translations.length - 1].min; (0..l).each do |i| %>
+              <%= check_box_tag("suggested_translation_#{i}", @translations[i], i == 0) %>
+              <%= @translations[i] %>
           <% end %>
-      </script>
+        </div>
+      </div>
     </div>
 
-    <%= f.submit :class => "btn btn-primary" %>
+    <div class="row with-bottom-margin">
+      <div id="synonyms" class="span12 box synonyms-box">
+        <input type="button" value="Add synonym" class="btn" onclick="addSynonym();"/>
+      </div>
+    </div>
+
+    <div class="row with-bottom-margin">
+      <div id="categories" class="span12 box categories-box">
+        <input type="button" value="Add category" class="btn" onclick="addCategory();"/>
+
+        <script type="text/javascript">
+            <% @categories.each do |category| %>
+            <%= "addCategory('#{category}')" %>
+            <% end %>
+        </script>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span1 offset5">
+        <%= f.submit :class => "btn btn-primary" %>
+      </div>
+    </div>
+
 <% end %>
-<%=set_focus_to_id('translation_0')%>
+<%= set_focus_to_id('translation_0') %>

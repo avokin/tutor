@@ -41,37 +41,37 @@ describe UserWord do
     describe 'successful creation of UserWord' do
       before(:each) do
         @text = 'test_word'
-        @user_word = UserWord.new :user_id => @user.id
+        @user_word = UserWord.new :user => @user, :text => @text, :language_id => @user.target_language.id
       end
 
       it "should create Word if needed" do
         lambda do
-          @user_word.save_with_relations(@user, @text, @translations, [], [])
+          @user_word.save_with_relations(@translations, [], [])
         end.should change(UserWord, :count).by(3)
       end
 
       it "should not create Word if it exists" do
         lambda do
-          @user_word.save_with_relations(@user, "test_word", @translations, @synonyms, [])
+          @user_word.save_with_relations(@translations, @synonyms, [])
         end.should change(UserWord, :count).by(4)
       end
 
       it "should create translations" do
         lambda do
-          @user_word.save_with_relations(@user, @text, @translations, [], [])
+          @user_word.save_with_relations(@translations, [], [])
         end.should change(UserWord, :count).by(3)
       end
 
       it "should create synonyms" do
         lambda do
-          @user_word.save_with_relations(@user, @text, [], @synonyms, [])
+          @user_word.save_with_relations([], @synonyms, [])
         end.should change(UserWord, :count).by(2)
       end
 
       it "should create category" do
         lambda do
           lambda do
-            @user_word.save_with_relations(@user, @text, [], @synonyms, @categories)
+            @user_word.save_with_relations([], @synonyms, @categories)
           end.should change(UserWordCategory, :count).by(1)
         end.should change(UserCategory, :count).by(1)
       end
@@ -85,7 +85,7 @@ describe UserWord do
 
       it 'should not create a Word' do
         lambda do
-          @result = @user_word.save_with_relations(@user, @text, @translations, [], [])
+          @result = @user_word.save_with_relations(@translations, [], [])
         end.should_not change(UserWord, :count)
         @user_word.should be_true
       end

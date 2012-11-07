@@ -125,3 +125,42 @@ thead td {
     display: inline;
   }
 }
+
+.dropdown_small {
+  width: $dropdown_width_small;
+}
+
+.dropdown_middle {
+  width: $dropdown_width_middle;
+}
+
+.box {
+  position: relative;
+
+  border: 1px solid #DDD;
+  -webkit-border-radius: $border_radius_middle;
+  -moz-border-radius: $border_radius_middle;
+  border-radius: $border_radius_middle;
+
+  padding: 39px 19px 14px;
+}
+
+.box::after {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: whiteSmoke;
+  border: 1px solid #DDD;
+  color: #9DA0A4;
+  -webkit-border-radius: $border_radius_middle 0 $border_radius_middle 0;
+  -moz-border-radius: $border_radius_middle 0 $border_radius_middle 0;
+  border-radius: $border_radius_middle 0 $border_radius_middle 0;
+}
+
+.with-bottom-margin {
+  margin-bottom: $margin-bottom-middle;
+}
+

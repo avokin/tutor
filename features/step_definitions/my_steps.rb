@@ -3,8 +3,7 @@ Given /^user$/ do
 end
 
 When /^I have word "([^"]*)"$/ do |text|
-  user_word = UserWord.new
-  user_word.save_with_relations(first_user, text, [], [], [])
+  user_word = UserWord.create :user => first_user, :text => text
 end
 
 Given /^I have category "([^"]*)"$/ do |name|
@@ -26,13 +25,13 @@ Given /^signed in user$/ do
 end
 
 Given /^word "([^"]*)" with synonym "([^"]*)"$/ do |text, synonym|
-  @user_word = UserWord.new
-  @user_word.save_with_relations(first_user, text, [], [synonym], [])
+  @user_word = UserWord.new :user => first_user, :text => text
+  @user_word.save_with_relations([], [synonym], [])
 end
 
 Given /^word "([^"]*)" with category "([^"]*)"$/ do |text, category|
-  @user_word = UserWord.new
-  @user_word.save_with_relations(first_user, text, [], [], [category])
+  @user_word = UserWord.new  :user => first_user, :text => text
+  @user_word.save_with_relations([], [], [category])
 end
 
 Given /^the category "([^"]*)"$/ do |category|
@@ -40,13 +39,13 @@ Given /^the category "([^"]*)"$/ do |category|
 end
 
 Given /^word "([^"]*)" with translation "([^"]*)", synonym "([^"]*)" and category "([^"]*)"$/ do |text, translation, synonym, category|
-  @user_word = UserWord.new
-  @user_word.save_with_relations(first_user, text, [translation], [synonym], [category])
+  @user_word = UserWord.new  :user => first_user, :text => text
+  @user_word.save_with_relations([translation], [synonym], [category])
 end
 
 Given /^word "([^"]*)" with translations "([^"]*)", "([^"]*)"$/ do |text, translation1, translation2|
-  @user_word = UserWord.new
-  @user_word.save_with_relations(first_user, text, [translation1, translation2], [], [])
+  @user_word = UserWord.new :user => first_user, :text => text
+  @user_word.save_with_relations([translation1, translation2], [], [])
 end
 
 
@@ -103,8 +102,8 @@ When /^I should see paginator$/ do
 end
 
 Given /^word "([^"]*)" with translation count "(\d*)"$/ do |word, translation_success_count|
-  user_word = UserWord.new
-  user_word.save_with_relations(first_user, word, [], [], [])
+  user_word = UserWord.new  :user => first_user, :text => text
+  user_word.save_with_relations([], [], [])
   user_word.translation_success_count = translation_success_count
   user_word.save!
 end

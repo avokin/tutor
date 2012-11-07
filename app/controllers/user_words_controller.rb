@@ -9,10 +9,15 @@ class UserWordsController < ApplicationController
     @languages = Language.all
     @user_word = UserWord.new
     @user_word.text = params[:word] unless params[:word].nil?
+    @user_word.language = current_user.target_language
     @languages = Language.all
     source_language = case current_user.target_language.name
                         when "Deutsch" then :de
                         else :en
+                      end
+
+    if params[:type_id]
+      @user_word.type_id = Integer(params[:type_id])
     end
 
     @translations = get_translations(source_language, @user_word.text, :ru)
@@ -64,7 +69,9 @@ class UserWordsController < ApplicationController
       i = i + 1
     end
 
-    saved = user_word.save_with_relations(current_user, text, new_translations, new_synonyms, new_categories)
+    user_word.user = current_user
+    user_word.assign_attributes(params[:user_word])
+    saved = user_word.save_with_relations(new_translations, new_synonyms, new_categories)
     if saved
       @user_word = user_word
       redirect_to user_word_path(@user_word)

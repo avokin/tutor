@@ -53,3 +53,15 @@
   //display: inline;
   text-align: center;
 }
+
+.translations-box::after {
+  content: "Translations";
+}
+
+.synonyms-box::after {
+  content: "Synonyms";
+}
+
+.categories-box::after {
+  content: "Categories";
+}
