@@ -4,48 +4,68 @@
         <%= f.hidden_field :text %>
         <%= f.select(:language_id, target_language_select, {}, {:class => "dropdown_middle"}) %>
       </div>
-      <%= edit_word_customization(f) %>
+      <div class="span2 offset3">
+        <h1 class="without-bottom-margin"><span class="user_data"><%= @user_word.text %></span></h1>
+      </div>
     </div>
 
-    <div class="row with-bottom-margin">
-      <div class="span12 box translations-box">
-        <div id="translations">
-          <input type="button" value="Add translation" class="btn" onclick="addTranslation();"/>
-          <input data-autocomplete="/search/autocomplete_user_word_text" id="translation_0" name="translation_0" type="text" value=""/>
-        </div>
+    <%= edit_word_customization(f) %>
 
-        <div>
-          <% l = [3, @translations.length - 1].min; (0..l).each do |i| %>
-              <%= check_box_tag("suggested_translation_#{i}", @translations[i], i == 0) %>
-              <%= @translations[i] %>
-          <% end %>
+    <div class="row with-bottom-margin">
+      <div class="span12">
+        <div class="box translations-box form-horizontal">
+          <div class="control-group with-small-bottom-margin">
+            <label class="control-label" for="suggested_translation_0">Suggested translations:</label>
+
+            <div class="controls">
+              <% l = [3, @translations.length - 1].min; (0..l).each do |i| %>
+                  <%= check_box_tag("suggested_translation_#{i}", @translations[i], i == 0) %>
+                  <%= @translations[i] %>
+              <% end %>
+            </div>
+          </div>
+
+          <div id="translations" class="without-bottom-margin control-group">
+            <label class="control-label" for="translation_0">Your translations:</label>
+
+            <div class="controls">
+              <input data-autocomplete="/search/autocomplete_user_word_text" id="translation_0" name="translation_0" type="text" value=""/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="row with-bottom-margin">
-      <div id="synonyms" class="span12 box synonyms-box">
-        <input type="button" value="Add synonym" class="btn" onclick="addSynonym();"/>
+      <div id="synonyms" class="span6">
+        <div class="box synonyms-box form-horizontal">
+          <div class="control-group with-small-bottom-margin">
+            <label class="control-label" for="synonym_0">Synonyms:</label>
+
+            <div class="controls">
+              <input data-autocomplete="/search/autocomplete_user_word_text" id="synonym_0" name="synonym_0" type="text" value=""/>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="row with-bottom-margin">
-      <div id="categories" class="span12 box categories-box">
-        <input type="button" value="Add category" class="btn" onclick="addCategory();"/>
+      <div id="categories" class="span6">
+        <div class="box categories-box form-horizontal">
+          <div class="control-group with-small-bottom-margin">
+            <label class="control-label" for="category_0">Categories:</label>
 
-        <script type="text/javascript">
-            <% @categories.each do |category| %>
-            <%= "addCategory('#{category}')" %>
-            <% end %>
-        </script>
+            <div class="controls">
+              <input data-autocomplete="/search/autocomplete_user_category_name" id="category_0" name="category_0" type="text" value=""/>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="span1 offset5">
-        <%= f.submit :class => "btn btn-primary" %>
+      <div class="span2 offset5 center">
+        <%= f.submit :class => "btn btn-primary", :value => "Save word" %>
       </div>
     </div>
-
 <% end %>
 <%= set_focus_to_id('translation_0') %>

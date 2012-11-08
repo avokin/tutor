@@ -164,3 +164,11 @@ thead td {
   margin-bottom: $margin-bottom-middle;
 }
 
+.with-small-bottom-margin {
+  margin-bottom: $margin-bottom-small;
+}
+
+
+.form-horizontal .without-bottom-margin {
+  margin-bottom: 0;
+}
