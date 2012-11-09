@@ -20,7 +20,7 @@ class UserWordsController < ApplicationController
       @user_word.type_id = Integer(params[:type_id])
     end
 
-    @translations = get_translations(source_language, @user_word.text, :ru)
+    request_lingvo(source_language, @user_word, :ru)
     @categories = []
     current_user.user_categories.each do |category|
       if category.is_default
@@ -96,10 +96,16 @@ class UserWordsController < ApplicationController
 
   def edit
     @user_word = UserWord.find(params[:id])
-    if (@user_word.user != current_user)
+    if !params[:type_id].nil?
+      @user_word.type_id = Integer params[:type_id]
+    end
+
+    if @user_word.user != current_user
       render 'pages/message'
     else
       @title = "Edit word: #{@user_word.text}"
+
+      render "new"
     end
   end
 

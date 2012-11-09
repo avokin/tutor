@@ -26,14 +26,22 @@ module UserWordsHelper
 
   def get_german_gender(number)
     unless number.nil?
-      "" + @@german_genders[number - 1][0] + ")"
+      @@german_genders[number - 1][0]
+    else
+      ""
+    end
+  end
+
+  def get_german_plural_form(word)
+    unless word.custom_string_field1.nil? || word.custom_string_field1.length == 0
+      "(" + word.custom_string_field1 + ")"
     else
       ""
     end
   end
 
   def german_noun_gender_options
-    options_for_select(@@german_genders, @user_word.custom_string_field1)
+    options_for_select(@@german_genders, @user_word.custom_int_field1)
   end
 
   def german_part_of_speech
@@ -57,7 +65,7 @@ module UserWordsHelper
       if @user_word.type_id == 2
         render "user_words/show_german_noun"
       else
-        render "user_words/show_german_noun"
+        render "user_words/show_default"
       end
     else
       render "user_words/show_default"

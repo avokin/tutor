@@ -15,7 +15,7 @@
     </span>
     <span class="user_data big-text"><%= @user_word.text %></span>
     <span class="linguistics">
-      <%= @user_word.custom_string_field1 %>
+      <%= get_german_plural_form(@user_word) %>
     </span>
   </div>
 

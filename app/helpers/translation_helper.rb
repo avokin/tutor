@@ -10,17 +10,17 @@ module TranslationHelper
   @@language_hash[:ru] = "ru"
   @@language_hash[:de] = "de"
 
-  def get_translations(source_language, word, dest_language)
+  def request_lingvo(source_language, word, dest_language)
     result = []
 
     url = URI.parse('http://lingvopro.abbyyonline.com')
     res = Net::HTTP.start(url.host, url.port) {|http|
-      http.get("/ru/Translate/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word}")
+      http.get("/ru/Translate/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word.text}")
     }
 
     i = 0
     s = res.body
-    while true do
+    while word.direct_translations.length < 4 do
       i = s.index(START_MARKET, i)
       if !i.nil?
         k = s.index(END_MARKET, i)
@@ -29,6 +29,7 @@ module TranslationHelper
         if translation == '' || translation == ';' || translation == ',' || translation[0] == '<'
         else
           if !result.include?(translation)
+            word.direct_translations << WordRelation.new({:related_user_word => UserWord.new(:text => translation)})
             result << translation
           end
         end
@@ -37,6 +38,5 @@ module TranslationHelper
       end
       i = k + END_MARKET.length
     end
-    result
   end
 end
