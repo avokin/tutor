@@ -25,7 +25,11 @@ module UserWordsHelper
   end
 
   def get_german_gender(number)
-    @@german_genders[number - 1][0]
+    unless number.nil?
+      "" + @@german_genders[number - 1][0] + ")"
+    else
+      ""
+    end
   end
 
   def german_noun_gender_options
@@ -53,7 +57,7 @@ module UserWordsHelper
       if @user_word.type_id == 2
         render "user_words/show_german_noun"
       else
-        render "user_words/show_german_default"
+        render "user_words/show_german_noun"
       end
     else
       render "user_words/show_default"

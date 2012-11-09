@@ -1,9 +1,5 @@
 @import "constants.css.scss";
 
-.center {
-  text-align: center;
-}
-
 .user_data {
   color: $user_data_color;
 }
@@ -171,4 +167,33 @@ thead td {
 
 .form-horizontal .without-bottom-margin {
   margin-bottom: 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.right-aligned {
+  text-align: right;
+}
+
+.center-aligned {
+  text-align: center;
+  display: inline-block;
+}
+
+input.btn-add-inside-table {
+  width: 102px;
+  float: right;
+}
+
+.big-text {
+  font-size: 30pt;
+  font-weight: bold;
+}
+
+.linguistics {
+  color: green;
+  font-size: 12pt;
+  font-weight: bold;
 }

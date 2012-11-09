@@ -1,101 +1,69 @@
-<div class="row" id="page_title">
-  <%= show_word_customization %>
-
-  <div class="span4" id="status">
-    <table>
-      <tbody>
-      <tr>
-        <td>
-          <div class="progress">
-            <div class="bar" style="width: <%= get_training_status(@user_word) %>%;"></div>
-          </div>
-        </td>
-        <td>
-          <%= form_tag do %>
-            <%= submit_tag " Reset ", :class => "btn-danger" %>
-          <% end %>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<%= show_word_customization %>
 
 <%= form_for(@user_word) do |f| %>
-  <div class="row">
-    <div class="span6" id="translations">
-      <h4>
-        Translations
-      </h4>
 
-      <table class="table table-striped">
-        <tbody>
-        <% if @user_word.translations.length > 0 %>
-          <%= render @user_word.translations %>
-        <% else %>
-          <tr>
-            <td colspan="3">Empty</td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
+    <div class="row with-bottom-margin">
+      <div class="span6" id="translations">
+        <div class="box translations-box form-horizontal">
 
-    <div class="span6" id="synonyms">
-      <h4>
-        Synonyms
-      </h4>
-      <table class="table table-striped">
-        <tbody>
-        <% if @user_word.synonyms.length > 0 %>
-          <%= render @user_word.synonyms %>
-        <% else %>
-          <tr>
-            <td colspan="3">Empty</td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span6" class="translations">
-      <div class="block-inline new-word">
-        <%= autocomplete_field_tag :translation_0, '', search_autocomplete_user_word_text_path, :placeholder => "New translation" %>
-        <%= f.submit " Add ", :id => "add_translation", :class => "btn-success" %>
-      </div>
-    </div>
-
-    <div class="span6" class="synonyms">
-      <div class="block-inline new-word">
-        <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_user_word_text_path, :placeholder => "New synonym" %>
-        <%= f.submit " Add ", :id => "add_synonym", :class => "btn-success" %>
-      </div>
-    </div>
-  </div>
-
-  <hr/>
-  <div class="row">
-    <div class="span12" id="categories">
-      <div class="row">
-        <div class="span12">
-          <h4>
-            Categories
-          </h4>
-
-          <div class="category_list">
-            <%= render @user_word.user_word_categories %>
-          </div>
+          <table class="table table-striped without-bottom-margin">
+            <tbody>
+            <% if @user_word.translations.length > 0 %>
+                <%= render @user_word.translations %>
+            <% else %>
+                <tr>
+                  <td colspan="3">Empty</td>
+                </tr>
+            <% end %>
+            <tr>
+              <td>
+                <%= autocomplete_field_tag :translation_0, '', search_autocomplete_user_word_text_path, :placeholder => "You could add translations here" %>
+              </td>
+              <td>
+                <%= f.submit "Add", :id => "add_translation", :class => "btn btn-add-inside-table"%>
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="row">
-        <div class="span6 new-category">
-          <%= autocomplete_field_tag :category_0, '', search_autocomplete_user_category_name_path, :placeholder => "New category" %>
-          <%= f.submit " Add ", :id => "add_category", :class => "btn-success" %>
+      <div class="span6" id="synonyms">
+        <div class="box synonyms-box form-horizontal">
+          <table class="table table-striped without-bottom-margin">
+            <tbody>
+            <% if @user_word.synonyms.length > 0 %>
+                <%= render @user_word.synonyms %>
+            <% else %>
+                <tr>
+                  <td colspan="3">Empty</td>
+                </tr>
+            <% end %>
+            <tr>
+              <td>
+                <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_user_word_text_path, :placeholder => "You could add synonyms here" %>
+              </td>
+              <td>
+                <%= f.submit "Add", :id => "add_synonym", :class => "btn btn-add-inside-table"%>
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="row with-bottom-margin">
+      <div class="span12" id="categories">
+        <div class="category_list">
+          <%= render @user_word.user_word_categories %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span4 new-category">
+        <%= autocomplete_field_tag :category_0, '', search_autocomplete_user_category_name_path, :placeholder => "You could add categories here" %>
+        <%= f.submit " Add ", :id => "add_category", :class => "btn" %>
+      </div>
+    </div>
 <% end %>
-
