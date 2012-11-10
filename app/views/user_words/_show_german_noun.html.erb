@@ -25,3 +25,37 @@
   </div>
 </div>
 
+<div class="row with-bottom-margin">
+  <div class="span12">
+    <div class="box forms-box form-horizontal">
+      <div class="control-group">
+        <label class="control-label">Part of speech:</label>
+
+        <div class="controls">
+          <span class="linguistics">
+            Noun
+          </span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Gender:</label>
+
+        <div class="controls">
+          <%= get_german_gender(@user_word.custom_int_field1) %>
+          <%= @user_word.text %>
+        </div>
+      </div>
+
+      <div class="without-bottom-margin control-group">
+        <label class="control-label">Plural:</label>
+
+        <div class="controls">
+          <%= get_german_plural_form(@user_word) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,7 +1,13 @@
-<div class="span1">
-  <%= f.select(:type_id, german_part_of_speech, {}, {:class => "dropdown_small"}) %>
-</div>
+<div class="row with-bottom-margin">
+  <div class="span12">
+    <div class="box forms-box form-horizontal">
+      <div class="control-group">
+        <label class="control-label">Part of speech:</label>
 
-<div class="span4 offset4">
-  <h1 class="word"><%= %><span class="user_data"><%= @user_word.text %></span></h1>
+        <div class="controls">
+          <%= f.select(:type_id, german_part_of_speech, {}, {:class => "dropdown_small"}) %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

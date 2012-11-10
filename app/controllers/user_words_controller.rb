@@ -27,6 +27,8 @@ class UserWordsController < ApplicationController
         @categories << category.name
       end
     end
+
+    render "edit"
   end
 
   def create_or_update(user_word)
@@ -104,8 +106,6 @@ class UserWordsController < ApplicationController
       render 'pages/message'
     else
       @title = "Edit word: #{@user_word.text}"
-
-      render "new"
     end
   end
 
