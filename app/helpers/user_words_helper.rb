@@ -1,5 +1,5 @@
 module UserWordsHelper
-  @@german_genders = [["", 1], ["der", 2], ["die", 3], ["das", 4]]
+  @@german_genders = [["?", 1], ["der", 2], ["die", 3], ["das", 4]]
 
   def word_status(user_word)
     learned_count = 0
@@ -24,12 +24,21 @@ module UserWordsHelper
     end
   end
 
-  def get_german_gender(number)
+  def get_german_gender_by_number(number)
     unless number.nil?
       @@german_genders[number - 1][0]
     else
       ""
     end
+  end
+
+  def get_german_gender_by_artikel(artikel)
+    @@german_genders.each do |gender|
+      if gender[0] == artikel
+        return gender[1]
+      end
+    end
+    1
   end
 
   def get_german_plural_form(word)
@@ -45,7 +54,7 @@ module UserWordsHelper
   end
 
   def german_part_of_speech
-    options_for_select([["", 1], ["noun", 2], ["verb", 3]], @user_word.type_id)
+    options_for_select([["other", 1], ["noun", 2], ["verb", 3]], @user_word.type_id)
   end
 
   def edit_word_customization(form)
@@ -71,5 +80,4 @@ module UserWordsHelper
       render "user_words/show_default"
     end
   end
-
 end

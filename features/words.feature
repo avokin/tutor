@@ -3,7 +3,7 @@ Feature: UserWord's page
   Scenario Outline: Autocompletion in the category field
     Given signed in user
     When I have word "<word>"
-    When I have category "<category>"
+    Given the category "<category>"
     And I go to the "<word>" word's page
     And I fill in "category_0" with "an"
     And I choose "<category>" in the autocomplete list

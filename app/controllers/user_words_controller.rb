@@ -16,11 +16,9 @@ class UserWordsController < ApplicationController
                         else :en
                       end
 
-    if params[:type_id]
-      @user_word.type_id = Integer(params[:type_id])
-    end
+    @user_word.assign_attributes params
 
-    request_lingvo(source_language, @user_word, :ru)
+    request_lingvo(current_user, source_language, @user_word, :ru)
     @categories = []
     current_user.user_categories.each do |category|
       if category.is_default
@@ -32,7 +30,6 @@ class UserWordsController < ApplicationController
   end
 
   def create_or_update(user_word)
-    text = params[:user_word][:text] unless params[:user_word].nil?
     i = 0
     new_translations = Array.new
     while !params["translation_#{i}"].nil? do

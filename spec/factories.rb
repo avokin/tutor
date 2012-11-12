@@ -1,8 +1,19 @@
-def first_language
+def init_db
   while Language.all.size < 3
     FactoryGirl.create(:language)
   end
-  Language.first
+end
+
+def russian_language
+  Language.find_by_name("Russian")
+end
+
+def german_language
+  Language.find_by_name("Deutsch")
+end
+
+def english_language
+  Language.find_by_name("English")
 end
 
 def second_language
@@ -23,33 +34,47 @@ def second_user
   User.all[1]
 end
 
+
 FactoryGirl.define do
+  factory :language do |language|
+    language.sequence(:name) do |i| case i % 3
+                                     when 1
+                                       "English"
+                                     when 2
+                                       "Russian"
+                                     when 0
+                                       "Deutsch"
+      end
+    end
+  end
+
+  # ToDo: replace by :english_user_word
   factory :user_word do |user_word|
     user_word.user { first_user }
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
     user_word.sequence(:text) { |i| "english#{i}" }
-    user_word.language_id { 2 }
+    user_word.language { english_language }
   end
 
   factory :english_user_word, :class => :user_word do |user_word|
     user_word.user { first_user }
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
     user_word.sequence(:text) { |i| "english#{i}" }
-    user_word.language_id { 2 }
+    user_word.language { english_language }
   end
 
   factory :russian_user_word, :class => :user_word do |user_word|
     user_word.user { first_user }
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
     user_word.sequence(:text) { |i| "russian#{i}" }
-    user_word.language_id { 1 }
+    user_word.language { russian_language }
   end
 
   factory :german_user_word, :class => :user_word do |user_word|
     user_word.user { first_user }
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
     user_word.sequence(:text) { |i| "german#{i}" }
-    user_word.language_id { 3 }
+    user_word.language { german_language }
   end
 
   factory :user_word_for_another_user, :class => :user_word do |user_word|
@@ -80,20 +105,10 @@ FactoryGirl.define do
     user.password "password"
     user.password_confirmation "password"
     user.success_count 5
-    user.language { first_language }
-    user.target_language { second_language }
-  end
-
-  factory :language do |language|
-    language.sequence(:name) { |i| case i % 3
-                                     when 1
-                                       "English"
-                                     when 2
-                                       "Russian"
-                                     when 0
-                                       "Deutsch"
-      end
-    }
+    user.language do
+      Language.find_by_name("Russian")
+    end
+    user.target_language { Language.find_by_name("English") }
   end
 
   factory :user_category do |user_category|

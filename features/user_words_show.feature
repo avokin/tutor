@@ -17,12 +17,6 @@ Feature: User word's page
     And I follow "life"
     Then I should be on the "life" category's page
 
-  Scenario: Progress bar of the user word
-    Given word "lynx" with translation count "2"
-    And I am on the "lynx" word's page
-    Then I should see "lynx"
-    And the page should have tag "div" with attribute "style" with value "width: 40%"
-
   Scenario: Add translation
     And I fill in the following:
       | translation_0 | zdanie |
@@ -68,8 +62,4 @@ Feature: User word's page
     When I follow "×"
     Then I should be on the "house" word's page
     And I should not see "life"
-
-  Scenario: Reset learn status
-    When I press "Reset"
-    Then I should be on the "house" word's page
 

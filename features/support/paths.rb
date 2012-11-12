@@ -21,6 +21,8 @@ module NavigationHelpers
         user_category_path user_category
       when /^the new word page$/
         "/user_words/new"
+      when /^the new german noun "([^"]*)" page$/
+        "/user_words/new?text=#{$1}&type_id=2"
       when /^the user\'s page$/
         "/users/1"
       when /^start learning page$/

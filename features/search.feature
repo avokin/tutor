@@ -28,7 +28,7 @@ Feature: Search
     Then I should be on the new word page
 
    Scenario: Searching a German Noun
-     When My target language is "German"
+     When My target language is "Deutsch"
      When I am on the home page
      And I fill in the following:
        | search_word    | Kind |
@@ -38,6 +38,6 @@ Feature: Search
      Then I should be on the new word page
      And I should see "Kind"
 
-     And "noun" should be selected for "german_type_of_speech"
-     And "das" should be selected for "german_noun_gender"
+     And "Noun" should be selected for "user_word_type_id"
+     And "Das" should be selected for "user_word_custom_int_field1"
      And I should see "-er (Kinder)"

@@ -1,6 +1,5 @@
 Feature: Users
   Scenario: Successful signing up
-    Given initialized application
     When I am on the signup page
     And I fill in "user_name" with "Test User"
     And I fill in "user_email" with "email@gmail.com"
