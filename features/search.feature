@@ -38,6 +38,6 @@ Feature: Search
      Then I should be on the new word page
      And I should see "Kind"
 
-     And "Noun" should be selected for "user_word_type_id"
-     And "Das" should be selected for "user_word_custom_int_field1"
+     And "noun" should be selected for "user_word_type_id"
+     And "das" should be selected for "user_word_custom_int_field1"
      And I should see "-er (Kinder)"

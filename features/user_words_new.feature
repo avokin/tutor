@@ -9,9 +9,8 @@ Feature: New word page
     And I submit the form
     And I wait for 2 seconds
     Then I should be on the new word page
-    And I should see "попугай"
-    And I press "Add category"
+    And I should see "popugay"
     And I fill in "category_0" with "animals"
-    And I press "Create User word"
+    And I press "Save word"
     Then I should be on the "parrot" word's page
 

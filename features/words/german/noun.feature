@@ -10,26 +10,25 @@ Feature: German nouns
     And I should see "Noun"
 
   Scenario: Edit page of German noun
-    Given German Noun "Oma" with artikel "" and plural form ""
+    Given German Noun "Oma" with artikel "die" and plural form "Omas"
     And I am on the edit word "Oma" page
     And I should see "noun"
 
-    Then "der" should be an option for "german_noun_gender"
-    And "die" should be an option for "german_noun_gender"
-    And "das" should be an option for "german_noun_gender"
-    And "die" should be selected for "german_noun_gender"
+    Then "der" should be an option for "user_word_custom_int_field1"
+    And "die" should be an option for "user_word_custom_int_field1"
+    And "das" should be an option for "user_word_custom_int_field1"
+    And "die" should be selected for "user_word_custom_int_field1"
 
-    And I should see "Omas"
+    Then the "user_word_custom_string_field1" field should contain "Omas"
 
-    Then I fill in "german_noun_gender" with "das"
-    And I fill in "user_word_text" with "Kind"
-    And I fill in "german_noun_plural" with "Kinder"
+    Then I select "das" from "user_word_custom_int_field1"
+    And I fill in "user_word_custom_string_field1" with "Kinder"
     And I press "Save word"
 
-    Then I should be on the page of word "Kind"
-    And I should see "noun"
+    Then I should be on the "Oma" word's page
+    And I should see "Noun"
     And I should see "das"
-    And I should see "-er (Kinder)"
+    And I should see "Kinder"
 
   Scenario: Creation of German noun
     When I am on the new german noun "Oma" page

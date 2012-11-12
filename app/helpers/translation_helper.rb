@@ -13,15 +13,24 @@ module TranslationHelper
   def request_lingvo(user, source_language, word, dest_language)
     result = []
 
-    url = URI.parse('http://lingvopro.abbyyonline.com')
-    #res = Net::HTTP.start(url.host, url.port) {|http|
-    #  http.get("/ru/Translate/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word.text}")
-    #}
+    if ENV['RAILS_ENV'] == "test"
+      if word.text == "parrot"
+        translation = "popugay"
+      else
+        translation = "test"
+      end
+      s = START_MARKER + translation + END_MARKER
+    else
+      url = URI.parse('http://lingvopro.abbyyonline.com')
 
+      res = Net::HTTP.start(url.host, url.port) {|http|
+        http.get("/ru/Translate/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word.text}")
+      }
+      s = res.body
+    end
     i = 0
-    #s = res.body
 
-    s = START_MARKER + "test" + END_MARKER
+
     while word.direct_translations.length < 4 do
       i = s.index(START_MARKER, i)
       if !i.nil?
