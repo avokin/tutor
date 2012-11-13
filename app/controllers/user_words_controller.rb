@@ -30,20 +30,20 @@ class UserWordsController < ApplicationController
   end
 
   def create_or_update(user_word)
-    i = 0
     new_translations = Array.new
-    while !params["translation_#{i}"].nil? do
-      s = params["translation_#{i}"]
-      if s.length > 0
-        new_translations << s
+    params["translation_0"].split(";").each do |s|
+      if !s.nil?
+        translation = s.strip
+        if translation.length > 0
+          new_translations << translation
+        end
       end
-      i = i + 1
     end
 
-    i = 0
-    (0..3).each do |i|
-      if !params["suggested_translation_#{i}"].nil?
-        new_translations << params["suggested_translation_#{i}"]
+    (1..[4, user_word.translations.length].max).each do |i|
+      s = params["translation_#{i}"]
+      if !s.nil? && s.length > 0
+        new_translations << s
       end
     end
 

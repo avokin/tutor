@@ -15,11 +15,10 @@ module TranslationHelper
 
     if ENV['RAILS_ENV'] == "test"
       if word.text == "parrot"
-        translation = "popugay"
+        s = START_MARKER + "popugay" + END_MARKER + ", " + START_MARKER + "kakadu" + END_MARKER
       else
-        translation = "test"
+        s = START_MARKER + "test" + END_MARKER
       end
-      s = START_MARKER + translation + END_MARKER
     else
       url = URI.parse('http://lingvopro.abbyyonline.com')
 

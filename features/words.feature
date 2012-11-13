@@ -1,5 +1,24 @@
 @javascript
 Feature: UserWord's page
+  Scenario: Creation of a new word
+    Given signed in user
+    When I am on the home page
+    And I fill in the following:
+      | search_word    | parrot |
+    And I submit the form
+    And I wait for 1 second
+    Then I should be on the new word page
+    And I should see "popugay"
+    And I should see "kakadu"
+    Then I uncheck "translation_1"
+    And check "translation_2"
+    And I fill in "translation_0" with "ptica"
+    And I press "Save word"
+    Then I should be on the "parrot" word's page
+    And I should see "kakadu"
+    And I should see "ptica"
+    And I should not see "popugay"
+
   Scenario Outline: Autocompletion in the category field
     Given signed in user
     When I have word "<word>"

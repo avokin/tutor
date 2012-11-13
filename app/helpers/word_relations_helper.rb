@@ -6,4 +6,13 @@ module WordRelationsHelper
       "synonym"
     end
   end
+
+  def get_number
+    @item_index += 1
+    @prefix + @item_index.to_s
+  end
+
+  def selected
+    @item_index == 1
+  end
 end

@@ -1,0 +1,11 @@
+<% user_word = @user_word.nil? ? edit_word_relation.related_user_word : (@user_word.id == edit_word_relation.source_user_word.id) ? edit_word_relation.related_user_word : edit_word_relation.source_user_word  %>
+<tr>
+  <td>
+    <h3>
+      <%=link_to user_word.text, user_word%>
+    </h3>
+  </td>
+  <td>
+    <%= check_box_tag get_number(), user_word.text,  selected() %>
+  </td>
+</tr>

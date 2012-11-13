@@ -16,8 +16,9 @@
         <div id="translations" class="box translations-box form-horizontal">
           <table class="table table-striped without-bottom-margin">
             <tbody>
-            <% if @user_word.translations.length > 0 %>
-                <%= render @user_word.translations %>
+            <% @prefix = "translation_"; @item_index = 0
+               if @user_word.translations.length > 0 %>
+                <%= render :partial => "word_relations/edit_word_relation", :collection => @user_word.translations %>
             <% else %>
                 <tr>
                   <td colspan="3">Empty</td>
@@ -25,11 +26,9 @@
             <% end %>
             <tr>
               <td>
-                <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_user_word_text_path, :placeholder => "You could add translations here" %>
+                <%= autocomplete_field_tag :translation_0, '', search_autocomplete_user_word_text_path, :placeholder => "You could add translations here" %>
               </td>
-              <td>
-                <%= f.submit "Add", :id => "add_translation", :class => "btn btn-add-inside-table" %>
-              </td>
+              <td></td>
             </tr>
             </tbody>
           </table>
@@ -41,7 +40,7 @@
           <table class="table table-striped without-bottom-margin">
             <tbody>
             <% if @user_word.synonyms.length > 0 %>
-                <%= render @user_word.synonyms %>
+                <%= render :partial => "word_relations/edit_word_relation", :collection => @user_word.synonyms %>
             <% else %>
                 <tr>
                   <td colspan="3">Empty</td>
@@ -51,9 +50,7 @@
               <td>
                 <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_user_word_text_path, :placeholder => "You could add synonyms here" %>
               </td>
-              <td>
-                <%= f.submit "Add", :id => "add_synonyms", :class => "btn btn-add-inside-table" %>
-              </td>
+              <td></td>
             </tr>
             </tbody>
           </table>
