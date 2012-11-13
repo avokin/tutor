@@ -71,11 +71,12 @@ class UserWordsController < ApplicationController
     user_word.user = current_user
     user_word.assign_attributes(params[:user_word])
     saved = user_word.save_with_relations(new_translations, new_synonyms, new_categories)
+    @user_word = user_word
     if saved
-      @user_word = user_word
-      redirect_to user_word_path(@user_word)
+      redirect_to user_word_path(@user_word), :flash => {:success => "Word saved"}
     else
-      render 'pages/message'
+      flash.now[:error] = "error"
+      render "edit"
     end
   end
 
@@ -85,25 +86,18 @@ class UserWordsController < ApplicationController
   end
 
   def show
-    @user_word = UserWord.find(params[:id])
-    if (@user_word.user != current_user)
-      render 'pages/message'
-    else
-      @title = "Card for word: #{@user_word.text}"
-    end
+    return unless check_user
+
+    @title = "Card for word: #{@user_word.text}"
   end
 
   def edit
-    @user_word = UserWord.find(params[:id])
+    return unless check_user
     if !params[:type_id].nil?
       @user_word.type_id = Integer params[:type_id]
     end
 
-    if @user_word.user != current_user
-      render 'pages/message'
-    else
-      @title = "Edit word: #{@user_word.text}"
-    end
+    @title = "Edit word: #{@user_word.text}"
   end
 
   def index
@@ -117,15 +111,9 @@ class UserWordsController < ApplicationController
   end
 
   def destroy
-    @user_word = UserWord.find(params[:id])
-    if (!@user_word.nil?)
-      if (@user_word.user != current_user)
-        render 'pages/message'
-        return
-      end
-      UserWord.destroy(@user_word)
-      redirect_to root_path
-    end
+    return unless check_user
+    UserWord.destroy(@user_word)
+    redirect_to root_path
   end
 
   def recent
@@ -134,6 +122,17 @@ class UserWordsController < ApplicationController
   end
 
   private
+  def check_user
+    @user_word = UserWord.find(params[:id])
+    if !@user_word.nil?
+      if @user_word.user != current_user
+        render 'pages/message'
+        return false
+      end
+    end
+    true
+  end
+
   def set_active_tab
     @active_tab = :dictionary
   end

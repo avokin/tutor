@@ -16,6 +16,8 @@ class UserWord < ActiveRecord::Base
   validates :user, :presence => true
   validates :time_to_check, :presence => true
 
+  validates_uniqueness_of :text, :scope => [:user_id, :language_id]
+
   after_initialize :set_time_to_check
 
   TIME_LAPSES = [4.hours, 8.hours, 3, 7, 30, 60]
