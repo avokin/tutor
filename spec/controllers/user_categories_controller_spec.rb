@@ -4,6 +4,10 @@ describe UserCategoriesController, :type => :controller do
   #render_views
 
   before(:each) do
+    init_db
+  end
+
+  before(:each) do
     @user_word_category = FactoryGirl.create(:user_word_category)
     @category = @user_word_category.user_category
     @user_word = @user_word_category.user_word

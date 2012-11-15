@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe UserWord do
   before(:each) do
+    init_db
+  end
+
+  before(:each) do
     @user = FactoryGirl.create(:user)
   end
 

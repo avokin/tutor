@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Training do
+  before(:each) do
+    init_db
+  end
+
   describe "creation of Training object" do
     before(:each) do
       @user = FactoryGirl.create(:user)

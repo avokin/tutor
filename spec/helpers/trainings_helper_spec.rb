@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe TrainingsHelper do
+  before(:each) do
+    init_db
+  end
+
   describe "fail_word" do
     before(:each) do
       @user_word = FactoryGirl.create(:english_user_word, )

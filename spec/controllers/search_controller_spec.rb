@@ -3,6 +3,10 @@ require 'spec_helper'
 describe SearchController, :type => :controller do
   #render_views
 
+  before(:each) do
+    init_db
+  end
+
   describe "POST 'create'" do
     before(:each) do
       @new_word = 'new word'
@@ -25,20 +29,20 @@ describe SearchController, :type => :controller do
       end
 
       it "should create a new word if current user does not contain the word" do
-        post :create, :search => {:word => @new_word}
+        post :create, :search => {:text => @new_word}
         response.code.should == "302"
-        response.should redirect_to(new_user_word_path(:word => @new_word))
+        response.should redirect_to(new_user_word_path(:text => @new_word))
       end
 
       it "should open word's card if current user contains the word" do
         word = @user.user_words.first
-        post :create, :search => {:word => word.text}
+        post :create, :search => {:text => word.text}
         response.should redirect_to(user_word_path(@user.user_words.first))
       end
 
       it "should not find word that belongs to another user" do
-        post :create, :search => {:word => @another_user_word.text}
-        response.should redirect_to(new_user_word_path(:word => @another_user_word.text))
+        post :create, :search => {:text => @another_user_word.text}
+        response.should redirect_to(new_user_word_path(:text => @another_user_word.text))
       end
     end
   end

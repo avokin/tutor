@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe User do
   before(:each) do
+    init_db
     @attr = {:name => 'test', :email => 'test@test.com', :password => 'password'}
   end
 
@@ -55,7 +56,7 @@ describe User do
       it "should take only English words" do
         user = User.first
         user.foreign_user_words.length.should == 1
-        user.foreign_user_words[0].language_id.should == 2
+        user.foreign_user_words[0].language.name.should == "English"
         user.foreign_user_words[0].text.should =~ /^english/
       end
 

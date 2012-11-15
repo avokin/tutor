@@ -3,6 +3,7 @@ require 'spec_helper'
 describe WordRelation do
 
   before(:each) do
+    init_db
     @user = FactoryGirl.create(:user)
     @user_word = FactoryGirl.create(:user_word)
   end

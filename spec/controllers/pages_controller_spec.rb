@@ -4,6 +4,7 @@ describe PagesController, :type => :controller do
   #render_views
 
   before(:each) do
+    init_db
     @base_title = "Tutor"
   end
 

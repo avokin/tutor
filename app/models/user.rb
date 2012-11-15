@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
             :length       => { :within => 6..40 },
             :if           => :password
 
+  validates :language, :presence => true
+  validates :target_language, :presence => true
+
   before_save :encrypt_password
 
   before_create { generate_token(:auth_token) }

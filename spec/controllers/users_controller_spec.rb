@@ -3,6 +3,10 @@ require 'spec_helper'
 describe UsersController, :type => :controller do
   #render_views
 
+  before(:each) do
+    init_db
+  end
+
   describe "POST 'create'" do
     before(:each) do
       init_db

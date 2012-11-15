@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe UserCategory do
+  before(:each) do
+    init_db
+  end
+
   describe "find by user and name" do
     before(:each) do
       @category = FactoryGirl.create(:user_category)

@@ -3,6 +3,10 @@ require 'spec_helper'
 describe SessionsController, :type => :controller do
   #render_views
 
+  before(:each) do
+    init_db
+  end
+
   describe "GET 'new'" do
     it "should be successful" do
       get :new
