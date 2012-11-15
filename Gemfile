@@ -6,6 +6,7 @@ gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete'
 gem 'nifty-generators'
 gem 'will_paginate'
+gem "nokogiri"
 
 gem "bcrypt-ruby", :require => "bcrypt"
 
