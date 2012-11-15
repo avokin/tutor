@@ -1,24 +1,23 @@
 class UserWordsController < ApplicationController
+
   include UserWordsHelper
+  include Translation::Lingvo
 
   before_filter :authenticate
   before_filter :set_active_tab
+  before_filter :check_user, :except => [:new, :create, :index]
 
   def new
     @title = "New word"
     @languages = Language.all
     @user_word = UserWord.new
-    @user_word.text = params[:word] unless params[:word].nil?
     @user_word.language = current_user.target_language
     @languages = Language.all
-    source_language = case current_user.target_language.name
-                        when "Deutsch" then :de
-                        else :en
-                      end
 
     @user_word.assign_attributes params
+    @user_word.user = current_user
 
-    request_lingvo(current_user, source_language, @user_word, :ru)
+    request_lingvo(current_user.target_language.name, @user_word, :ru)
     @categories = []
     current_user.user_categories.each do |category|
       if category.is_default
@@ -29,6 +28,48 @@ class UserWordsController < ApplicationController
     render "edit"
   end
 
+  def create
+    user_word = UserWord.new :user_id => current_user.id
+    create_or_update(user_word)
+  end
+
+  def show
+    return unless check_user
+
+    @title = "Card for word: #{@user_word.text}"
+  end
+
+  def edit
+    return unless check_user
+    if !params[:type_id].nil?
+      @user_word.type_id = Integer params[:type_id]
+    end
+
+    @title = "Edit word: #{@user_word.text}"
+  end
+
+  def index
+    @user_words = current_user.foreign_user_words.paginate(:page => params[:page])
+    @title = "Your words"
+  end
+
+  def update
+    user_word = UserWord.find params[:id]
+    create_or_update(user_word)
+  end
+
+  def destroy
+    return unless check_user
+    UserWord.destroy(@user_word)
+    redirect_to root_path
+  end
+
+  def recent
+    @user_words = UserWord.find_recent_for_user(current_user, 50)
+    @title = 'Your recent words'
+  end
+
+  private
   def create_or_update(user_word)
     new_translations = Array.new
     params["translation_0"].split(";").each do |s|
@@ -80,48 +121,6 @@ class UserWordsController < ApplicationController
     end
   end
 
-  def create
-    user_word = UserWord.new :user_id => current_user.id
-    create_or_update(user_word)
-  end
-
-  def show
-    return unless check_user
-
-    @title = "Card for word: #{@user_word.text}"
-  end
-
-  def edit
-    return unless check_user
-    if !params[:type_id].nil?
-      @user_word.type_id = Integer params[:type_id]
-    end
-
-    @title = "Edit word: #{@user_word.text}"
-  end
-
-  def index
-    @user_words = current_user.foreign_user_words.paginate(:page => params[:page])
-    @title = "Your words"
-  end
-
-  def update
-    user_word = UserWord.find params[:id]
-    create_or_update(user_word)
-  end
-
-  def destroy
-    return unless check_user
-    UserWord.destroy(@user_word)
-    redirect_to root_path
-  end
-
-  def recent
-    @user_words = UserWord.find_recent_for_user(current_user, 50)
-    @title = 'Your recent words'
-  end
-
-  private
   def check_user
     @user_word = UserWord.find(params[:id])
     if !@user_word.nil?

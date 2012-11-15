@@ -5,6 +5,6 @@ Feature: Autocompletion
     When I have word "alpha"
     When I have word "betta"
     And I go to the home page
-    And I fill in "search_word" with "al"
+    And I fill in "search_text" with "al"
     And I choose "alpha" in the autocomplete list
-    Then the "search_word" field should contain "alpha"
+    Then the "search_text" field should contain "alpha"

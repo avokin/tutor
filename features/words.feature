@@ -4,7 +4,7 @@ Feature: UserWord's page
     Given signed in user
     When I am on the home page
     And I fill in the following:
-      | search_word    | parrot |
+      | search_text    | parrot |
     And I submit the form
     And I wait for 1 second
     Then I should be on the new word page

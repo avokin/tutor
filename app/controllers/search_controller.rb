@@ -5,12 +5,12 @@ class SearchController < ApplicationController
   autocomplete :user_category, :name
 
   def create
-    text = params[:search][:word]
+    text = params[:search][:text]
     @user_word = UserWord.find_for_user(current_user, text)
     if !@user_word.nil?
       redirect_to @user_word
     else
-      redirect_to new_user_word_path(:word => text)
+      redirect_to new_user_word_path(:text => text)
     end
   end
 end

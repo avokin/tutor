@@ -1,28 +1,5 @@
 module UserWordsHelper
-  @@german_genders = [["?", 1], ["der", 2], ["die", 3], ["das", 4]]
-
-  def word_status(user_word)
-    learned_count = 0
-    user_word.translations.each do |translation|
-      if translation.status_id == 2
-        learned_count += 1
-      end
-    end
-
-    if user_word.translations.length > 0
-      learned_count / user_word.translations.length
-    else
-      0
-    end
-  end
-
-  def get_training_status(user_word)
-    if user_word.translation_success_count < UserWord::TIME_LAPSES.length - 1
-      100 * user_word.translation_success_count / (UserWord::TIME_LAPSES.length - 1)
-    else
-      100
-    end
-  end
+  include Translation::GermanLanguage
 
   def get_german_gender_by_number(number)
     unless number.nil?
@@ -35,7 +12,7 @@ module UserWordsHelper
   def get_german_gender_by_artikel(artikel)
     @@german_genders.each do |gender|
       if gender[0] == artikel
-        return gender[1]
+        return gender[2]
       end
     end
     1
@@ -54,7 +31,7 @@ module UserWordsHelper
   end
 
   def german_part_of_speech
-    options_for_select([["other", 1], ["noun", 2], ["verb", 3]], @user_word.type_id)
+    options_for_select(@@german_parts_of_speech, @user_word.type_id)
   end
 
   def edit_word_customization(form)
