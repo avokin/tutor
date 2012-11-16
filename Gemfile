@@ -11,7 +11,6 @@ gem "nokogiri"
 gem "bcrypt-ruby", :require => "bcrypt"
 
 group :assets do
-  gem 'twitter-bootstrap-rails'
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'

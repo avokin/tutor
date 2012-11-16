@@ -182,9 +182,27 @@ thead td {
   display: inline-block;
 }
 
+.with-bottom-aligned-children {
+  position: relative;
+}
+
+.bottom-aligned {
+  position: absolute;
+  bottom: 0;
+}
+
+.forms-box {
+  padding: 39px 10px 10px;
+}
+
 input.btn-add-inside-table {
   width: 102px;
   float: right;
+}
+
+.middle-text {
+  font-size: 22pt;
+  font-weight: bold;
 }
 
 .big-text {
@@ -196,4 +214,24 @@ input.btn-add-inside-table {
   color: green;
   font-size: 12pt;
   font-weight: bold;
+}
+
+.table.without-border {
+  border-width: 0;
+  td {
+    border-width: 0;
+  }
+}
+
+table.key-value tr {
+  td:first-child {
+    text-align: right;
+  }
+  td:last-child {
+    text-align: left;
+  }
+}
+
+input[type="text"] {
+  margin-bottom: 0;
 }

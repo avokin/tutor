@@ -1,21 +1,17 @@
-<div class="row with-bottom-margin" id="page_title">
-  <div class="span1">
-    <span class="linguistics">
+<div class="row with-bottom-margin with-bottom-aligned-children" id="page_title">
+  <div class="span2">
+    <span class="linguistics bottom-aligned">
       <%= @user_word.language.name %>
     </span>
   </div>
 
-  <div class="span1">
-    <span class="linguistics">Noun</span>
-  </div>
-
   <div class="span4 offset2 center-aligned">
     <span class="linguistics">
-      <%= get_german_gender_by_number(@user_word.custom_int_field1) %>
+      <%= get_german_artikel_by_number(@user_word.custom_int_field1) %>
     </span>
     <span class="user_data big-text"><%= @user_word.text %></span>
     <span class="linguistics">
-      <%= get_german_plural_form(@user_word) %>
+      <%= get_german_short_plural_form(@user_word) %>
     </span>
   </div>
 
@@ -27,31 +23,31 @@
 
 <div class="row with-bottom-margin">
   <div class="span12">
-    <div class="box forms-box form-horizontal">
-      <div class="control-group">
-        <label class="control-label">Part of speech:</label>
-
-        <div class="controls">
-          <span class="linguistics">
-            Noun
-          </span>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label">Gender:</label>
-
-        <div class="controls">
-          <%= get_german_gender_by_number(@user_word.custom_int_field1) %>
-          <%= @user_word.text %>
-        </div>
-      </div>
-
-      <div class="without-bottom-margin control-group">
-        <label class="control-label">Plural:</label>
-
-        <div class="controls">
-          <%= get_german_plural_form(@user_word) %>
+    <div class="box forms-box">
+      <div class="row-fluid">
+        <div class="span4">
+          <table class="table without-bottom-margin without-border key-value">
+            <tbody>
+            <tr>
+              <td class="right-aligned">
+                Part of speech:
+              </td>
+              <td class="right-aligned">
+                <span class="linguistics">Nomen</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="right-aligned">Gender:</td>
+              <td>
+                <span class="linguistics"><%= get_german_gender_by_number(@user_word.custom_int_field1) %></span>
+              </td>
+            </tr>
+            <tr>
+              <td>Plural form:</td>
+              <td><span class="linguistics"><%= get_german_plural_form(@user_word) %></span></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

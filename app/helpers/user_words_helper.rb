@@ -3,6 +3,14 @@ module UserWordsHelper
 
   def get_german_gender_by_number(number)
     unless number.nil?
+      @@german_genders[number - 1][1]
+    else
+      ""
+    end
+  end
+
+  def get_german_artikel_by_number(number)
+    unless number.nil?
       @@german_genders[number - 1][0]
     else
       ""
@@ -12,13 +20,21 @@ module UserWordsHelper
   def get_german_gender_by_artikel(artikel)
     @@german_genders.each do |gender|
       if gender[0] == artikel
-        return gender[2]
+        return gender[gender.length - 1]
       end
     end
     1
   end
 
   def get_german_plural_form(word)
+    unless word.custom_string_field1.nil? || word.custom_string_field1.length == 0
+      word.custom_string_field1
+    else
+      ""
+    end
+  end
+
+  def get_german_short_plural_form(word)
     unless word.custom_string_field1.nil? || word.custom_string_field1.length == 0
       "(" + word.custom_string_field1 + ")"
     else
