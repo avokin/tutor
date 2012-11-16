@@ -17,10 +17,13 @@ class GermanLingvoParser < DefaultLingvoParser
 
     unless gender.nil?
       gender_id = nil
-      @@german_genders.each do |gender_instance|
-        if gender_instance[1] == gender
-          gender_id = gender_instance[2]
+      i = 0
+      while i < @@german_genders.length do
+        gender_instance = @@german_genders[i]
+        if gender_instance[2] == gender
+          gender_id = gender_instance[gender_instance.length - 1]
         end
+        i += 1
       end
 
       last = last.split(",").last.strip

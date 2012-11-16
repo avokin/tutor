@@ -7,7 +7,7 @@ Feature: German nouns
     And I am on the "Oma" word's page
     Then I should see "die"
     And I should see "Omas"
-    And I should see "Noun"
+    And I should see "Nomen"
 
   Scenario: Edit page of German noun
     Given German Noun "Oma" with artikel "die" and plural form "Omas"
@@ -26,7 +26,7 @@ Feature: German nouns
     And I press "Save word"
 
     Then I should be on the "Oma" word's page
-    And I should see "Noun"
+    And I should see "Nomen"
     And I should see "das"
     And I should see "Kinder"
 
@@ -43,7 +43,7 @@ Feature: German nouns
     And "der" should be an option for "user_word_custom_int_field1"
     And "das" should be an option for "user_word_custom_int_field1"
     And "die" should be an option for "user_word_custom_int_field1"
-    And "?" should be an option for "user_word_custom_int_field1"
+    And "andere" should be an option for "user_word_custom_int_field1"
 
     Then I select "die" from "user_word_custom_int_field1"
     And I fill in "user_word_custom_string_field1" with "Omas"
@@ -51,7 +51,7 @@ Feature: German nouns
     Then I should be on the "Oma" word's page
     Then I should see "die"
     And I should see "Omas"
-    And I should see "Noun"
+    And I should see "Nomen"
 
 
 

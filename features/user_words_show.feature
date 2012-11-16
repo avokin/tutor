@@ -29,11 +29,6 @@ Feature: User word's page
     Then I should be on the "house" word's page
     And I should not see "dom"
 
-  Scenario: Delete translation word
-    When I follow "Delete word 'dom'"
-    Then I should be on the "house" word's page
-    And I should not see "dom"
-
   Scenario: Add synonym
     And I fill in the following:
       | translation_0 | appartment |
@@ -43,11 +38,6 @@ Feature: User word's page
 
   Scenario: Delete synonym
     When I follow "Delete synonym"
-    Then I should be on the "house" word's page
-    And I should not see "building"
-
-  Scenario: Delete synonym word
-    When I follow "Delete word 'building'"
     Then I should be on the "house" word's page
     And I should not see "building"
 

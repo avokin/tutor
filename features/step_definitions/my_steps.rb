@@ -1,5 +1,9 @@
 include UserWordsHelper
 
+Before do
+  init_db
+end
+
 Given /^user$/ do
   first_user
 end
@@ -147,6 +151,10 @@ Given /^signed in user with target_language "([^"]*)"$/ do |language|
   click_button("Sign in")
 end
 
-Before do
-  init_db
+When /^I have training for category (.*)$/ do |category|
+  FactoryGirl.create(:training, :user_category => UserCategory.find_by_name(category))
+end
+
+Then /^I should see first letter of (.*)$/ do |word|
+  step "I should see \"#{word[0, 1]}\""
 end
