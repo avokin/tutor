@@ -1,0 +1,62 @@
+$width: 300px;
+$height: 200px;
+
+$transition: all 0.3s ease-in-out;
+
+@mixin transition {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -ms-transition: $transition;
+  transition: $transition;
+}
+
+@mixin translateX($x) {
+  -webkit-transform: translateX($x);
+  -moz-transform: translateX($x);
+  -o-transform: translateX($x);
+  -ms-transform: translateX($x);
+  transform: translateX($x);
+}
+
+.view {
+  width: $width;
+  height: $height;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+.view .mask, .view .content {
+  width: $width;
+  height: $height;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+
+.view img {
+  display: block;
+  position: relative;
+}
+
+.view-fifth img {
+  @include transition;
+}
+
+.view-fifth .mask {
+  @include translateX(-$width);
+  -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity = 100);
+  opacity: 1;
+  @include transition;
+}
+
+.view-fifth:hover .mask {
+  @include translateX(-0px);
+}
+
+.view-fifth:hover img {
+  @include translateX($width);
+}

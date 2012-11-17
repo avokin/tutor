@@ -26,11 +26,16 @@ show = (data, status, xhr) ->
   currentWord = data
   $("#userWordCell").html("<a href='/user_words/" + currentWord.id+ "'>" + currentWord.word + "</a>")
 
+  hintBlockContent = "<ul>"
   answerInput = ""
   i = 0
   while currentWord["answer#{i}"] != undefined
     answerInput += "<tr><td><input id=\"answer#{i}\" class=\"variant\"/></td><td class=\"answer#{i}\"></td></tr>"
+    hintBlockContent += "<li>#{currentWord["answer#{i}"]}</li>"
     i++
+  hintBlockContent += "</ul>"
+  $("#hintBlock").html(hintBlockContent)
+
   currentWord.n = i
   $("tbody", "#attemptTable").html(answerInput)
   $(".variant").keypress(keypress)
