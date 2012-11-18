@@ -43,7 +43,7 @@ Feature: Training
     And the "answer0" field should contain ""
     And I press "Hint"
     Then I should see first letter of <translation>
-    Then I should not see "<translation>"
+    Then I should not see "<translation>" within "div#trainingContent"
     And I press "Hint"
     Then I should see "<translation>"
   Examples:
