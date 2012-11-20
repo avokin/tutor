@@ -57,27 +57,7 @@ class UserCategoriesController < ApplicationController
   end
 
   def merge
-    category_list = Array.new
-    first = nil
-    params[:ids].split.each do |s|
-      category = UserCategory.find(s.to_i)
-      if category.user == current_user
-        if first.nil?
-          first = category
-        else
-          category_list << category
-        end
-      else
-        #todo log hack attempt
-        redirect_to(root_path, :flash => {:error => "Error another user"}) unless current_user?(@user)
-        return
-      end
-    end
-
-    category_list.each do |category|
-      UserWordCategory.update_all( {:user_category_id => first.id}, {:user_category_id => category.id} )
-      category.destroy
-    end
+    first.merge(current_user, params[:ids].split.map(&:to_i))
 
     render :nothing => true
   end

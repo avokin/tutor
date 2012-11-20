@@ -43,4 +43,59 @@ describe UserCategory do
       Training.find_by_id(@training.id).should be_nil
     end
   end
+
+  describe "merge" do
+    describe "authorized access" do
+      before(:each) do
+        @merging_categories = Array.new
+        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
+        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
+        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
+
+        @word_count = @merging_categories.length
+      end
+
+      it "should delete merging categories" do
+        first = @merging_categories[0]
+        UserCategory.merge(first_user, @merging_categories).should be_true
+
+        @merging_categories.each do |merging_category_id|
+          UserCategory.exists?(merging_category_id).should == (first == merging_category_id)
+        end
+      end
+
+      it "should move all words from merging categoreis to the main one" do
+        UserCategory.merge(first_user, @merging_categories).should be_true
+
+        main_category = UserCategory.find(@merging_categories[0])
+        main_category.user_words.length.should == @word_count
+      end
+    end
+
+    describe "unauthorized access" do
+      before(:each) do
+        @merging_categories = Array.new
+        @merging_categories << FactoryGirl.create(:user_category, :user => second_user).id
+        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
+        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
+
+        @word_count = @merging_categories.length
+      end
+
+      it "should return false in cause of categories of another user" do
+        UserCategory.merge(first_user, @merging_categories).should be_false
+      end
+
+      it "should return false in cause of categories of another user" do
+        UserCategory.merge(second_user, @merging_categories).should be_false
+      end
+
+      it "should not merge categories" do
+        @merging_categories.each do |merging_category_id|
+          UserCategory.exists?(merging_category_id).should be_true
+          UserCategory.find(merging_category_id).user_words.length.should == (merging_category_id == @merging_categories[0] ? 0 : 1)
+        end
+      end
+    end
+  end
 end
