@@ -1,0 +1,6 @@
+<span class="alert alert-info">
+  <%= link_to edit_user_word_category.user_category.name, edit_user_word_category.user_category %>
+
+  <input type="hidden" name="category_<%= edit_user_word_category_counter + 1 %>" value="<%= edit_user_word_category.user_category.name %>"/>
+  <a class="close" onclick="$(this).parent().remove()">&times;</a>
+</span>

@@ -26,6 +26,8 @@ module NavigationHelpers
         "/user_words/new"
       when /^the new german noun "([^"]*)" page$/
         "/user_words/new?text=#{$1}&type_id=2"
+      when /^the new word "([^"]*)" page$/
+        new_user_word_path :text => $1
       when /^the user\'s page$/
         "/users/1"
       when /^start learning page$/

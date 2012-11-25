@@ -61,7 +61,7 @@
     <div class="row with-bottom-margin">
       <div class="span12" id="categories">
         <div class="category_list">
-          <%= render @user_word.user_word_categories %>
+          <%= render :partial => "user_word_categories/edit_user_word_category", :collection => @user_word.user_word_categories %>
         </div>
       </div>
     </div>

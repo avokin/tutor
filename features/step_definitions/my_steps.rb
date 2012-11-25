@@ -158,3 +158,7 @@ end
 Then /^I should see first letter of (.*)$/ do |word|
   step "I should see \"#{word[0, 1]}\""
 end
+
+Given /^(default )?category "([^"]*)"$/ do |is_default, category_name|
+  FactoryGirl.create(:user_category, :name => category_name, :is_default => !is_default.nil?)
+end

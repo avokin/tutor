@@ -18,12 +18,10 @@ class UserWordsController < ApplicationController
     @user_word.user = current_user
 
     request_lingvo(current_user.target_language.name, @user_word, :ru)
-    @categories = []
-    current_user.user_categories.each do |category|
-      if category.is_default
-        @categories << category.name
-      end
-    end
+
+    @categories = current_user.user_categories.find_all_by_is_default(true)
+    @user_word_categories = @categories.map {|category| UserWordCategory.new :user_word => @user_word, :user_category => category}
+    @user_word.user_word_categories = @user_word_categories
 
     render "edit"
   end
@@ -98,8 +96,7 @@ class UserWordsController < ApplicationController
       i = i + 1
     end
 
-    i = 0
-
+    i = 1
     new_categories = Array.new
     while !params["category_#{i}"].nil? do
       s = params["category_#{i}"]
