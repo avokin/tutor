@@ -35,7 +35,7 @@ describe UserWord do
     end
   end
 
-  describe 'create UserWord with relations' do
+  describe 'creation UserWord with relations' do
     before(:each) do
       @translations = ['translation1', 'translation2']
       @synonyms = ['synonym1']
@@ -92,6 +92,30 @@ describe UserWord do
           @result = @user_word.save_with_relations(@translations, [], [])
         end.should_not change(UserWord, :count)
         @user_word.should be_true
+      end
+    end
+  end
+
+  describe "updating Word with relations" do
+    describe "categories" do
+      before(:each) do
+        word_category = FactoryGirl.create(:user_word_category)
+        @word = word_category.user_word
+        @category = word_category.user_category
+        @new_cagegory_name = "new_category"
+      end
+
+      it "should add new categories from the list" do
+        @word.save_with_relations([], [], [@category.name, @new_cagegory_name])
+        @word.user_categories.length.should == 2
+        @word.user_categories[0].name.should == @category.name
+        @word.user_categories[1].name.should == @new_cagegory_name
+      end
+
+      it "should remove categories missed in the list" do
+        @word.save_with_relations([], [], [@new_cagegory_name])
+        @word.user_categories.length.should == 1
+        @word.user_categories[0].name.should == @new_cagegory_name
       end
     end
   end

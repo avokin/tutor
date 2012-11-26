@@ -15,3 +15,21 @@ Feature: Creation of a word
     Then I should see "animals"
     Then I should not see "plants"
     Then I should see "biology"
+
+  Scenario: Adding two categories
+    When I am on the new word "parrot" page
+    And I fill in "category_0" with "biology, zoo"
+    And I press "Save word"
+    Then I should be on the "parrot" word's page
+    Then I should see "biology"
+    Then I should see "zoo"
+
+  @javascript
+  Scenario: Removing a category
+    Given default category "animals"
+    When I am on the new word "parrot" page
+    Then I should see "animals"
+    And I click element "span a.close"
+    And I press "Save word"
+    Then I should be on the "parrot" word's page
+    Then I should not see "animals"

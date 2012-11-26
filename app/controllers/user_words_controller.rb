@@ -100,10 +100,17 @@ class UserWordsController < ApplicationController
     new_categories = Array.new
     while !params["category_#{i}"].nil? do
       s = params["category_#{i}"]
-      if s.length > 0
+      if s.length > 0 && !new_categories.include?(s)
         new_categories << s
       end
       i = i + 1
+    end
+
+    params["category_0"].split(",").each do |s|
+      s.strip!
+      if !s.nil? && s.length > 0 && !new_categories.include?(s)
+        new_categories << s
+      end
     end
 
     user_word.user = current_user

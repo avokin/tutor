@@ -62,6 +62,14 @@ class UserWord < ActiveRecord::Base
           WordRelation.create_relation(user, self, synonym, "2")
         end
 
+        self.user_word_categories.each do |word_category|
+          if !new_categories.include?(word_category.user_category.name)
+            self.user_word_categories.delete(word_category)
+          else
+            new_categories.delete word_category.user_category.name
+          end
+        end
+
         new_categories.each do |category|
           UserWordCategory.create_word_category(self, category)
         end
