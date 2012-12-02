@@ -1,7 +1,7 @@
 Feature: Updating of a word
   Background:
     Given signed in user
-    And word "parrot" with category "animals"
+    And word "parrot" with translation "popugay", synonym "bird" and category "animals"
     And I am on the edit word "parrot" page
 
   @javascript
@@ -21,3 +21,17 @@ Feature: Updating of a word
     And I press "Save word"
     Then I should be on the "parrot" word's page
     And I should see "biology"
+
+  Scenario: Removing translation
+    Then I should see "popugay"
+    Then I uncheck "translation_1"
+    And I press "Save word"
+    Then I should be on the "parrot" word's page
+    And I should not see "popugay"
+
+  Scenario: Removing synonym
+    Then I should see "bird"
+    Then I uncheck "synonym_1"
+    And I press "Save word"
+    Then I should be on the "parrot" word's page
+    And I should not see "bird"

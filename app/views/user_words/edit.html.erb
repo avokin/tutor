@@ -16,8 +16,7 @@
         <div id="translations" class="box translations-box form-horizontal">
           <table class="table table-striped without-bottom-margin">
             <tbody>
-            <% @prefix = "translation_"; @item_index = 0
-               if @user_word.translations.length > 0 %>
+            <% if @user_word.translations.length > 0 %>
                 <%= render :partial => "word_relations/edit_word_relation", :collection => @user_word.translations %>
             <% else %>
                 <tr>

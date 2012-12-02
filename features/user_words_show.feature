@@ -24,22 +24,12 @@ Feature: User word's page
     Then I should be on the "house" word's page
     And I should see "zdanie"
 
-  Scenario: Delete translation
-    When I follow "Delete translation"
-    Then I should be on the "house" word's page
-    And I should not see "dom"
-
   Scenario: Add synonym
     And I fill in the following:
       | translation_0 | appartment |
     And I press "add_synonym"
     Then I should be on the "house" word's page
     And I should see "appartment"
-
-  Scenario: Delete synonym
-    When I follow "Delete synonym"
-    Then I should be on the "house" word's page
-    And I should not see "building"
 
   Scenario: Add category
       And I fill in the following:

@@ -46,6 +46,14 @@ class UserWord < ActiveRecord::Base
     user = self.user
     UserWord.transaction do
       if self.valid? && self.save
+        self.direct_translations.each do |translation|
+          if !new_translations.include?(translation.related_user_word.text)
+            self.direct_translations.delete(translation)
+          else
+            new_translations.delete translation.related_user_word.text
+          end
+        end
+
         new_translations.each do |translation|
           if user.language.id != self.language.id
             WordRelation.create_relation(user, self, translation, "1")
@@ -55,6 +63,15 @@ class UserWord < ActiveRecord::Base
               related_user_word.save!
             end
             WordRelation.create_relation(user, related_user_word, self.text, "1")
+          end
+        end
+
+        self.synonyms.each do |synonym|
+          if !new_synonyms.include?(synonym.related_user_word.text) && !new_synonyms.include?(synonym.source_user_word.text)
+            self.direct_synonyms.delete(synonym)
+            self.backward_synonyms.delete(synonym)
+          else
+            new_synonyms.delete synonym.related_user_word.text
           end
         end
 

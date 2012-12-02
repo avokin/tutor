@@ -1,18 +1,10 @@
 module WordRelationsHelper
-  def get_relation_name(relation)
+  def get_relation_name(relation, number)
+    number += 1
     if relation.relation_type == 1
-      "translation"
+      "translation_#{number}"
     else
-      "synonym"
+      "synonym_#{number}"
     end
-  end
-
-  def get_number
-    @item_index += 1
-    @prefix + @item_index.to_s
-  end
-
-  def selected
-    @item_index == 1
   end
 end
