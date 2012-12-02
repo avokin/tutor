@@ -30,6 +30,7 @@ Feature: German nouns
     And I should see "das"
     And I should see "Kinder"
 
+  @javascript
   Scenario: Creation of German noun
     When I am on the new german noun "Oma" page
 

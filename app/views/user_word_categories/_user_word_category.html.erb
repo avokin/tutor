@@ -1,5 +1,6 @@
 <span class="alert alert-info">
     <%= link_to user_word_category.user_category.name, user_word_category.user_category %>
 
+  <%= hidden_field_tag  "category_#{user_word_category_counter + 1}", user_word_category.user_category.name %>
   <%= link_to user_word_category, :method => :delete, :confirm => 'You sure?', :title => 'Unlink word from category', :class => "close" do %>&times;<% end %>
 </span>

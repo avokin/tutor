@@ -1,10 +1,10 @@
-@javascript
 Feature: Updating of a word
   Background:
     Given signed in user
     And word "parrot" with category "animals"
     And I am on the edit word "parrot" page
 
+  @javascript
   Scenario: Removing a category and adding two
     Then I should see "animals"
     And I click element "span a.close"
