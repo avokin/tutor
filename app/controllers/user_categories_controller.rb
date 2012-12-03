@@ -57,7 +57,13 @@ class UserCategoriesController < ApplicationController
   end
 
   def merge
-    first.merge(current_user, params[:ids].split.map(&:to_i))
+    result = UserCategory.merge(current_user, params[:ids].split.map(&:to_i))
+
+    if !result
+      #todo log hack attempt
+      redirect_to(root_path, :flash => {:error => "Error another user"}) unless current_user?(@user)
+      return
+    end
 
     render :nothing => true
   end
