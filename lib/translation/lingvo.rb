@@ -21,6 +21,8 @@ module Translation::Lingvo
     if ENV['RAILS_ENV'] == "test"
       if word.text == "Kind"
         doc = Nokogiri::HTML(IO.read("lib/translation/german_kind.html"))
+      elsif word.text == "Oma"
+        doc = Nokogiri::HTML(IO.read("lib/translation/german_oma.html"))
       else
         doc = Nokogiri::HTML(IO.read("lib/translation/english_parrot.html"))
       end
