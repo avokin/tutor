@@ -21,7 +21,9 @@ class GermanLingvoParser < DefaultLingvoParser
     end
 
 
-    word.assign_attributes :type_id => type_id
+    if word.type_id.nil?
+      word.assign_attributes :type_id => type_id
+    end
     unless gender.nil?
       gender_id = nil
       i = 0
