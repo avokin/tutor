@@ -12,7 +12,7 @@ describe WordRelationsController, :type => :controller do
     before(:each) do
       user = FactoryGirl.create(:user)
       test_sign_in(user)
-      @user_word = FactoryGirl.create(:user_word)
+      @user_word = FactoryGirl.create(:english_user_word)
     end
 
     describe "fail" do

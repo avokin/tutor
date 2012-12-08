@@ -5,7 +5,7 @@ describe WordRelation do
   before(:each) do
     init_db
     @user = FactoryGirl.create(:user)
-    @user_word = FactoryGirl.create(:user_word)
+    @user_word = FactoryGirl.create(:english_user_word)
   end
 
   describe 'create_relation' do

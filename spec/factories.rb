@@ -48,14 +48,6 @@ FactoryGirl.define do
     end
   end
 
-  # ToDo: replace by :english_user_word
-  factory :user_word do |user_word|
-    user_word.user { first_user }
-    user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
-    user_word.sequence(:text) { |i| "english#{i}" }
-    user_word.language { english_language }
-  end
-
   factory :english_user_word, :class => :user_word do |user_word|
     user_word.user { first_user }
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }

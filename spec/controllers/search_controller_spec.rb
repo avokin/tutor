@@ -10,7 +10,7 @@ describe SearchController, :type => :controller do
   describe "POST 'create'" do
     before(:each) do
       @new_word = 'new word'
-      @user_word = FactoryGirl.create(:user_word)
+      @user_word = FactoryGirl.create(:english_user_word)
       @another_user_word = FactoryGirl.create(:user_word_for_another_user)
 
       @user = @user_word.user
@@ -44,6 +44,18 @@ describe SearchController, :type => :controller do
         post :create, :search => {:text => @another_user_word.text}
         response.should redirect_to(new_user_word_path(:text => @another_user_word.text))
       end
+
+      describe "searching with several foreign languages" do
+        before(:each) do
+          @english_word = FactoryGirl.create(:english_user_word)
+          @german_word = FactoryGirl.create(:german_user_word)
+        end
+
+        it "should not find word of another language" do
+          post :create, :search => {:text => @german_word.text}
+          response.should redirect_to(new_user_word_path(:text => @german_word.text))
+        end
+      end
     end
   end
 
@@ -63,7 +75,7 @@ describe SearchController, :type => :controller do
 
       describe "success" do
         before(:each) do
-          @user_word1 = FactoryGirl.create(:user_word)
+          @user_word1 = FactoryGirl.create(:english_user_word)
         end
 
         it "should return correspond words" do

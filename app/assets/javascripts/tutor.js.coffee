@@ -10,7 +10,7 @@ documentKeypress = (e) ->
     else if e.keyCode == 25
       synonym_0 = document.getElementById("synonym_0");
       synonym_0.focus()
-    else if e.keyCode == 2
+    #else if e.keyCode == 2
       #ctrl + B
   else if e.keyCode == 115 || e.keyCode == 83
     # s or S

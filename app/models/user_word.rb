@@ -97,7 +97,7 @@ class UserWord < ActiveRecord::Base
   end
 
   def self.find_for_user(user, text)
-    where(:user_id => user.id).where(:text => text).first
+    where(:user_id => user.id).where(:text => text, :language_id => user.target_language.id).first
   end
 
   def self.find_recent_for_user(user, count)
