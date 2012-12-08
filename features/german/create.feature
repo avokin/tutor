@@ -16,5 +16,7 @@ Feature: German word creation
     And "other" should be selected for "user_word_type_id"
     And I should not see "Gender"
 
-
+  Scenario: Replacing encoded umlauts
+    When I am on the new german noun "Getraenk" page
+    And I should see "Getränk"
 
