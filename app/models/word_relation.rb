@@ -15,11 +15,11 @@ class WordRelation < ActiveRecord::Base
 
   def self.create_relation(user, user_word, translated_text, relation_type)
     if relation_type == "1"
-      language_id = user_word.language_id == 1 ? 2 : 1
+      language = user.language
     else
-      language_id = user_word.language_id
+      language = user_word.language
     end
-    related_user_word = UserWord.get_for_user(user, translated_text, language_id)
+    related_user_word = UserWord.get_for_user(user, translated_text, language)
     if related_user_word.invalid? || related_user_word.invalid?
       return nil
     end

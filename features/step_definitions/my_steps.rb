@@ -9,7 +9,7 @@ Given /^user$/ do
 end
 
 When /^I have word "([^"]*)"$/ do |text|
-  FactoryGirl.create(:user_word, :text => text)
+  FactoryGirl.create(:english_user_word, :text => text)
 end
 
 And /^I fill login information for the first user$/ do
@@ -32,7 +32,7 @@ Given /^word "([^"]*)" with synonym "([^"]*)"$/ do |text, synonym|
 end
 
 Given /^word "([^"]*)" with category "([^"]*)"$/ do |text, category|
-  @user_word = FactoryGirl.create(:user_word, :text => text)
+  @user_word = FactoryGirl.create(:english_user_word, :text => text)
   @user_word.save_with_relations([], [], [category])
 end
 
@@ -41,12 +41,17 @@ Given /^the category "([^"]*)"$/ do |name|
 end
 
 Given /^word "([^"]*)" with translation "([^"]*)", synonym "([^"]*)" and category "([^"]*)"$/ do |text, translation, synonym, category|
-  @user_word = FactoryGirl.create(:user_word, :text => text)
+  @user_word = FactoryGirl.create(:english_user_word, :text => text)
   @user_word.save_with_relations([translation], [synonym], [category])
 end
 
+Given /^word "([^"]*)" with translation "([^"]*)"$/ do |text, translation|
+  @user_word = FactoryGirl.create(:english_user_word, :text => text)
+  @user_word.save_with_relations([translation], [], [])
+end
+
 Given /^word "([^"]*)" with translations "([^"]*)", "([^"]*)"$/ do |text, translation1, translation2|
-  @user_word = FactoryGirl.create(:user_word, :text => text)
+  @user_word = FactoryGirl.create(:english_user_word, :text => text)
   @user_word.save_with_relations([translation1, translation2], [], [])
 end
 

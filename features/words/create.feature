@@ -33,3 +33,10 @@ Feature: Creation of a word
     And I press "Save word"
     Then I should be on the "parrot" word's page
     Then I should not see "animals"
+
+  Scenario: Creating word when its translation already exists in the db
+    Given word "pop" with translation "popugay"
+    When I am on the new word "parrot" page
+    And I press "Save word"
+    Then I should be on the "parrot" word's page
+    Then I should see "popugay"

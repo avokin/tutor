@@ -34,10 +34,10 @@ class UserWord < ActiveRecord::Base
     self.update_attributes(:text => new_name)
   end
 
-  def self.get_for_user(user, text, language_id)
-    result = find_for_user(user, text)
+  def self.get_for_user(user, text, language)
+    result = find_for_user_and_language(user, text, language)
     if result.nil?
-      result = UserWord.new(:user => user, :text => text, :language_id => language_id)
+      result = UserWord.new(:user => user, :text => text, :language_id => language.id)
     end
     result
   end
@@ -58,7 +58,7 @@ class UserWord < ActiveRecord::Base
           if user.language.id != self.language.id
             WordRelation.create_relation(user, self, translation, "1")
           else
-            related_user_word = UserWord.get_for_user(user, translation, user.target_language.id)
+            related_user_word = UserWord.get_for_user(user, translation, user.target_language)
             if related_user_word.new_record?
               related_user_word.save!
             end
@@ -97,7 +97,11 @@ class UserWord < ActiveRecord::Base
   end
 
   def self.find_for_user(user, text)
-    where(:user_id => user.id).where(:text => text, :language_id => user.target_language.id).first
+    find_for_user_and_language(user, text, user.target_language)
+  end
+
+  def self.find_for_user_and_language(user, text, language)
+    where(:user_id => user.id).where(:text => text, :language_id => language.id).first
   end
 
   def self.find_recent_for_user(user, count)
