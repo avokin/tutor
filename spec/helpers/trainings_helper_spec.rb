@@ -169,7 +169,7 @@ describe TrainingsHelper do
         @n = 10
         @user_word_category = Array.new(@n)
         (0..(@n-1)).each do |i|
-          @user_word_category[i] = FactoryGirl.create(:user_word_category)
+          @user_word_category[i] = FactoryGirl.create(:english_user_word_category)
           user_word = @user_word_category[i].user_word
           FactoryGirl.create(:word_relation_translation, :source_user_word => user_word)
         end

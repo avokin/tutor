@@ -99,7 +99,7 @@ describe UserWord do
   describe "updating Word with relations" do
     describe "categories" do
       before(:each) do
-        word_category = FactoryGirl.create(:user_word_category)
+        word_category = FactoryGirl.create(:english_user_word_category)
         @word = word_category.user_word
         @category = word_category.user_category
         @new_cagegory_name = "new_category"
@@ -137,7 +137,7 @@ describe UserWord do
 
   describe "relation with categories" do
     before(:each) do
-      @user_word_category = FactoryGirl.create(:user_word_category)
+      @user_word_category = FactoryGirl.create(:english_user_word_category)
       @user_word = @user_word_category.user_word
       @user_category = @user_word_category.user_category
     end

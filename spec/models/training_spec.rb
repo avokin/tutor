@@ -76,7 +76,7 @@ describe Training do
 
         FactoryGirl.create(:word_relation_translation, :source_user_word => english_word)
         @english_words << english_word
-        FactoryGirl.create(:user_word_category, :user_word => english_word, :user_category => @training.user_category)
+        FactoryGirl.create(:english_user_word_category, :user_word => english_word, :user_category => @training.user_category)
       end
     end
 
@@ -118,7 +118,7 @@ describe Training do
 
         FactoryGirl.create(:word_relation_translation, :source_user_word => english_word)
         @english_words << english_word
-        FactoryGirl.create(:user_word_category, :user_word => english_word, :user_category => @training.user_category)
+        FactoryGirl.create(:english_user_word_category, :user_word => english_word, :user_category => @training.user_category)
       end
     end
 

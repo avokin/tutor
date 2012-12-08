@@ -11,7 +11,7 @@ describe SearchController, :type => :controller do
     before(:each) do
       @new_word = 'new word'
       @user_word = FactoryGirl.create(:english_user_word)
-      @another_user_word = FactoryGirl.create(:user_word_for_another_user)
+      @another_user_word = FactoryGirl.create(:english_user_word_for_another_user)
 
       @user = @user_word.user
     end

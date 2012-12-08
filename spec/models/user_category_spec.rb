@@ -27,7 +27,7 @@ describe UserCategory do
 
   describe "delete category" do
     before(:each) do
-      @user_word_category = FactoryGirl.create(:user_word_category)
+      @user_word_category = FactoryGirl.create(:english_user_word_category)
       @user_category = @user_word_category.user_category
 
       @training = FactoryGirl.create(:training, :user_category => @user_category)
@@ -48,9 +48,9 @@ describe UserCategory do
     describe "authorized access" do
       before(:each) do
         @merging_categories = Array.new
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
+        @merging_categories << FactoryGirl.create(:english_user_word_category).user_category.id
+        @merging_categories << FactoryGirl.create(:english_user_word_category).user_category.id
+        @merging_categories << FactoryGirl.create(:english_user_word_category).user_category.id
 
         @word_count = @merging_categories.length
       end
@@ -76,8 +76,8 @@ describe UserCategory do
       before(:each) do
         @merging_categories = Array.new
         @merging_categories << FactoryGirl.create(:user_category, :user => second_user).id
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
+        @merging_categories << FactoryGirl.create(:english_user_word_category).user_category.id
+        @merging_categories << FactoryGirl.create(:english_user_word_category).user_category.id
 
         @word_count = @merging_categories.length
       end

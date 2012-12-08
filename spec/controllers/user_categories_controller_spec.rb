@@ -8,7 +8,7 @@ describe UserCategoriesController, :type => :controller do
   end
 
   before(:each) do
-    @user_word_category = FactoryGirl.create(:user_word_category)
+    @user_word_category = FactoryGirl.create(:english_user_word_category)
     @category = @user_word_category.user_category
     @user_word = @user_word_category.user_word
     @user = @user_word.user
@@ -246,7 +246,7 @@ describe UserCategoriesController, :type => :controller do
 
   describe "PUT 'merge'" do
     before(:each) do
-      @user_word_category = FactoryGirl.create(:user_word_category)
+      @user_word_category = FactoryGirl.create(:english_user_word_category)
       @category2 = @user_word_category.user_category
     end
 
