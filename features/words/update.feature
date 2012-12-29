@@ -35,3 +35,16 @@ Feature: Updating of a word
     And I press "Save word"
     Then I should be on the "parrot" word's page
     And I should not see "bird"
+
+  Scenario: Adding translation through edit page
+    Then I fill in "translation_0" with "popka"
+    And I press "Save word"
+    Then I should see "popka"
+    Then I should see "popugay"
+
+  Scenario: Adding synonym through edit page
+    Then I fill in "synonym_0" with "small bird"
+    And I press "Save word"
+    Then I should see "small bird"
+    Then I should see "bird"
+

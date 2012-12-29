@@ -2,6 +2,18 @@
 
 <%= form_for(@user_word) do |f| %>
 
+    <% (0..@user_word.direct_translations.length - 1).each do |i| %>
+        <input type="hidden" name="translation_<%= (i + 1) %>" value="<%= @user_word.direct_translations[i].related_user_word.text%>"/>
+    <% end %>
+
+    <% (0..@user_word.direct_synonyms.length - 1).each do |i| %>
+        <input type="hidden" name="synonym_<%= (i + 1) %>" value="<%= @user_word.direct_synonyms[i].related_user_word.text%>"/>
+    <% end %>
+    <% (0..@user_word.backward_synonyms.length - 1).each do |i| %>
+        <input type="hidden" name="synonym_<%= (@user_word.direct_synonyms.length + i + 1) %>" value="<%= @user_word.backward_synonyms[i].source_user_word.text%>"/>
+    <% end %>
+
+
     <div class="row with-bottom-margin">
       <div class="span6" id="translations">
         <div class="box translations-box form-horizontal">
