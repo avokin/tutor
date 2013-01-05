@@ -34,6 +34,8 @@
       <% else %>
         <%= button_to "Start", start_training_path(training, :page => i + 1), :form_class => "inline", :class => "btn btn-primary without-bottom-margin"%>
       <% end %>
+
+      <%= button_to "Learn", learn_training_path(training, :page => i + 1), :form_class => "inline", :class => "btn without-bottom-margin"%>
     </td>
   </tr>
 <% end %>

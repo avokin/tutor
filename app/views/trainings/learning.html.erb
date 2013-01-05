@@ -1,0 +1,27 @@
+<div class="row" id="page_title">
+  <div class="span12">
+    <h1><%= @title %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span8 offset2">
+    <!--<div class="view view-fifth">-->
+    <!--<img src="/assets/Help.gif"/>-->
+
+    <!--<div id="hintBlock" class="mask">-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div class="hint-container">
+      <div id="hint" class="hint">
+        <div class="card">
+          Training
+          Page
+        </div>
+
+        <%= render :partial => "trainings/user_word", :collection => @user_words %>
+      </div>
+    </div>
+  </div>
+</div>

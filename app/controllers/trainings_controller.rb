@@ -3,23 +3,15 @@ include TrainingsHelper
 class TrainingsController < ApplicationController
   before_filter :authenticate
   before_filter :correct_user_for_user_word, :only => [:show]
-  before_filter :correct_user_training, :only => [:destroy]
+  before_filter :correct_user_training, :only => [:destroy, :start, :learn]
   before_filter :set_active_tab
 
   def start
-    id = params[:id]
-    unless id.nil?
-      training = Training.find(params[:id])
-      page = params[:page]
-      if training.user == current_user
-        cookies.permanent.signed[:training_id] = training.id
-        cookies.permanent.signed[:page] = page
-      else
-        redirect_to root_path, :flash => {:error => ANOTHER_USER_ERROR_MESSAGE}
-        return
-      end
-      @user_word = select_user_word(training, page)
-    end
+    cookies.permanent.signed[:training_id] = params[:id]
+    cookies.permanent.signed[:page] = params[:page]
+
+    training = Training.find(params[:id])
+    @user_word = select_user_word(training, page)
 
     redirect_to training_path(@user_word.id)
   end
@@ -30,6 +22,28 @@ class TrainingsController < ApplicationController
 
     @variants = Array.new(@user_word.direct_translations.length)
     @answer_classes = Hash[nil => ""]
+  end
+
+  def learn
+    cookies.permanent.signed[:training_id] = params[:id]
+    cookies.permanent.signed[:page] = params[:page]
+
+    @title = "Learning"
+    @active_tab = :training
+
+    @page = params[:page]
+
+    redirect_to learning_training_path
+  end
+
+  def learning
+    @title = "Learning"
+    @active_tab = :training
+
+    @page = cookies.signed[:page]
+    training_id = cookies.signed[:training_id]
+
+    @user_words = Training.find(training_id).get_user_words(@page)
   end
 
   def training_data

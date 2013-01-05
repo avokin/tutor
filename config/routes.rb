@@ -8,6 +8,8 @@ Tutor::Application.routes.draw do
   resources :trainings do
     member do
       post :start
+      post :learn
+      get :learning
     end
 
     collection do

@@ -36,6 +36,8 @@ module NavigationHelpers
         trainings_path
       when /^the training page$/
         training_path Training.first.user_category.user_words.first
+      when /^the learning page$/
+        learning_training_path Training.first
       when /^learning page$/
         "/tries/1"
       when /^the "([^"]*)" category page$/

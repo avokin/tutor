@@ -235,3 +235,10 @@ table.key-value tr {
 input[type="text"] {
   margin-bottom: 0;
 }
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+          border-radius: $radius;
+
+}
