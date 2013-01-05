@@ -123,7 +123,6 @@ $ ->
   $("#btnSkip").click(skip)
   $("#btnCheck").click(check)
   $("#btnHint").click(hint)
-  $("#flipButton").click(flipAction)
   $('#hint').turn(
     display: 'double',
     acceleration: true,
