@@ -76,7 +76,7 @@ describe Training do
 
         FactoryGirl.create(:word_relation_translation, :source_user_word => english_word)
         @english_words << english_word
-        FactoryGirl.create(:english_user_word_category, :user_word => english_word, :user_category => @training.user_category)
+        FactoryGirl.create(:user_word_category, :user_word => english_word, :user_category => @training.user_category)
       end
     end
 
@@ -105,45 +105,21 @@ describe Training do
     end
   end
 
-  describe "get_ready_user_words" do
+  describe "get_user_words" do
     before(:each) do
       @training = FactoryGirl.create(:training)
-      @english_words = Array.new
-      (1..40).each do |i|
-        if i % 2 == 0
-          english_word = FactoryGirl.create(:english_user_word, :time_to_check => DateTime.new(2021,2,3,4,5,6))
-        else
-          english_word = FactoryGirl.create(:english_user_word)
-        end
+      @user_word = FactoryGirl.create(:english_user_word, :time_to_check => DateTime.new(2021,2,3,4,5,6))
+      FactoryGirl.create(:user_word_category, :user_word => @user_word, :user_category => @training.user_category)
 
-        FactoryGirl.create(:word_relation_translation, :source_user_word => english_word)
-        @english_words << english_word
-        FactoryGirl.create(:english_user_word_category, :user_word => english_word, :user_category => @training.user_category)
-      end
+      FactoryGirl.create(:word_relation_translation, :source_user_word => @user_word)
+      FactoryGirl.create(:word_relation_translation, :source_user_word => @user_word)
     end
 
-    it "should return only ready words for the page" do
+    it "should return corresponding words only once" do
       @words_on_page_1 = @training.get_user_words(1)
-      @words_on_page_1.size.should == 20
+      @words_on_page_1.size.should == 1
 
-      @words_on_page_1.should include(@english_words[0])
-      @words_on_page_1.should include(@english_words[1])
-      @words_on_page_1.should include(@english_words[2])
-      @words_on_page_1.should include(@english_words[3])
-      @words_on_page_1.should include(@english_words[4])
-
-      @words_on_page_2 = @training.get_user_words(2)
-      @words_on_page_2.size.should == 20
-      @words_on_page_2.should include(@english_words[20])
-      @words_on_page_2.should include(@english_words[21])
-      @words_on_page_2.should include(@english_words[22])
-      @words_on_page_2.should include(@english_words[23])
-      @words_on_page_2.should include(@english_words[24])
-    end
-
-    it "should return only ready words for the entire training" do
-      @words_on_page_2 = @training.get_user_words(nil)
-      @words_on_page_2.size.should == 40
+      @words_on_page_1.should include(@user_word)
     end
   end
 end

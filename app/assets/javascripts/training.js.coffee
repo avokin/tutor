@@ -129,7 +129,6 @@ $ ->
     gradients: !$.isTouch,
     duration: 1000,
     elevation:50,
-    page: 4
     when: {turned: (e, page) ->}
   )
 

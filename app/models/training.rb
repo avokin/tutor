@@ -49,9 +49,9 @@ class Training < ActiveRecord::Base
 
     relations.each do |r|
       if self.direction == :direct
-        user_words << r.source_user_word
+        user_words << r.source_user_word if !user_words.include?(r.source_user_word)
       else
-        user_words << r.related_user_word
+        user_words << r.related_user_word if !user_words.include?(r.related_user_word)
       end
     end
 

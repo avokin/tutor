@@ -41,9 +41,10 @@ class TrainingsController < ApplicationController
     @active_tab = :training
 
     @page = cookies.signed[:page]
-    training_id = cookies.signed[:training_id]
 
-    @user_words = Training.find(training_id).get_user_words(@page)
+    training_id = cookies.signed[:training_id]
+    @training = Training.find(training_id)
+    @user_words = @training.get_user_words(@page)
   end
 
   def training_data

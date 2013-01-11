@@ -6,20 +6,31 @@
 
 <div class="row">
   <div class="span8 offset2">
-    <!--<div class="view view-fifth">-->
-    <!--<img src="/assets/Help.gif"/>-->
-
-    <!--<div id="hintBlock" class="mask">-->
-    <!--</div>-->
-    <!--</div>-->
-
     <div class="hint-container">
       <div id="hint" class="hint">
         <div class="card">
-          Training
-          Page
-        </div>
+          <table>
+            <tbody>
+            <tr>
+              <td>
+                 Category:
+              </td>
+              <td>
+                <%= @training.user_category.name %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                 Page:
+              </td>
+              <td>
+                <%= @page %>
+              </td>
+            </tr>
 
+            </tbody>
+          </table>
+        </div>
         <%= render :partial => "trainings/user_word", :collection => @user_words %>
       </div>
     </div>
