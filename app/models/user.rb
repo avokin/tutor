@@ -86,11 +86,13 @@ class User < ActiveRecord::Base
     result = false
     User.transaction do
       self.assign_attributes(params)
-      self.password_reset_token = nil
-      if !self.save
-        raise ActiveRecord::Rollback
-      else
-        result = true
+      if self.valid?
+        self.password_reset_token = nil
+        if !self.save
+          raise ActiveRecord::Rollback
+        else
+          result = true
+        end
       end
     end
     result

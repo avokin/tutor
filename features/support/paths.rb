@@ -14,10 +14,10 @@ module NavigationHelpers
       when /^the word\'s page$/
         "/user_words/1"
       when /^the "([^"]*)" word's page$/
-        user_word = UserWord.find_for_user(User.first, $1)
+        user_word = UserWord.find_by_text($1)
         user_word_path user_word
       when /^the edit word "([^"]*)" page$/
-        user_word = UserWord.find_for_user(User.first, $1)
+        user_word = UserWord.find_by_text($1)
         edit_user_word_path user_word
       when /^the "([^"]*)" category's page$/
         user_category = UserCategory.find_by_user_and_name(User.first, $1)
