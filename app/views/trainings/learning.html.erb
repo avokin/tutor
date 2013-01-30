@@ -6,33 +6,8 @@
 
 <div class="row">
   <div class="span8 offset2">
-    <div class="hint-container">
-      <div id="hint" class="hint">
-        <div class="card">
-          <table>
-            <tbody>
-            <tr>
-              <td>
-                 Category:
-              </td>
-              <td>
-                <%= @training.user_category.name %>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                 Page:
-              </td>
-              <td>
-                <%= @page %>
-              </td>
-            </tr>
-
-            </tbody>
-          </table>
-        </div>
-        <%= render :partial => "trainings/user_word", :collection => @user_words %>
-      </div>
+    <div>
+      <%= render :partial => "trainings/user_word", :collection => @user_words %>
     </div>
   </div>
 </div>

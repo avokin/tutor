@@ -1,12 +1,4 @@
 <div class="card">
-  <div class="card-even">
-    <span class="user_data middle-text">
-    <%= link_to user_word.text, user_word %>
-    </span>
-  </div>
-
-</div>
-
-<div class="card">
+  <%= link_to user_word.text, user_word %>
   <%= render user_word.direct_translations %>
 </div>

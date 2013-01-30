@@ -123,19 +123,3 @@ $ ->
   $("#btnSkip").click(skip)
   $("#btnCheck").click(check)
   $("#btnHint").click(hint)
-  $('#hint').turn(
-    display: 'double',
-    acceleration: true,
-    gradients: !$.isTouch,
-    duration: 1000,
-    elevation:50,
-    when: {turned: (e, page) ->}
-  )
-
-  $(window).bind('keydown', (e) ->
-      if (e.keyCode==37)
-        $('#hint').turn('previous');
-      else if (e.keyCode==39)
-        $('#hint').turn('next');
-
-  )
