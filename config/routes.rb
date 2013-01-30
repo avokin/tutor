@@ -39,7 +39,19 @@ Tutor::Application.routes.draw do
     end
   end
 
-  resources :users, :only => [:new, :create, :show, :update, :edit]
+  resources :users do
+    collection do
+      get :new
+      put :create
+      get :set_target_language
+    end
+
+    member do
+      get :show
+      post :update
+      get :edit
+    end
+  end
 
   resources :sessions, :only => [:new, :create, :destroy]
   resources :password_resets

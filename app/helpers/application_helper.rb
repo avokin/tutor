@@ -11,12 +11,18 @@ module ApplicationHelper
     javascript_tag("$('##{id}').focus()");
   end
 
-  def init_languages
-    if Language.all.count == 0
-      english = Language.new :name => "English"
-      english.save!
-      russian = Language.new :name => "Russian"
-      russian.save!
+  def target_language
+    current_user.target_language.name
+  end
+
+  def not_target_language
+    target_lang = current_user.target_language
+    native_lang = current_user.language
+    other_languages = Language.all.find_all{|language| language.id != target_lang.id && language.id != native_lang.id};
+    content_tag :ul, :class => "dropdown-menu" do
+      other_languages.collect do |language|
+        concat(content_tag(:li, link_to(language.name, "/users/set_target_language?id=#{language.id}")))
+      end
     end
   end
 

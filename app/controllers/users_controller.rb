@@ -32,4 +32,11 @@ class UsersController < ApplicationController
     current_user.save
     render "show"
   end
+
+  def set_target_language
+    current_user.target_language = Language.find(params[:id])
+    current_user.save
+
+    redirect_to root_path
+  end
 end
