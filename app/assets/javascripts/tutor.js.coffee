@@ -18,11 +18,3 @@ documentKeypress = (e) ->
       wordToSearch = $("#search_text").get(0)
       wordToSearch.focus()
       false
-
-$(
-  ->
-    $(document).ready(->
-      $("a#shortkeys").fancybox()
-      document.onkeypress = documentKeypress
-    )
-)
