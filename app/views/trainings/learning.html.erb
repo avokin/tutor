@@ -6,8 +6,15 @@
 
 <div class="row">
   <div class="span8 offset2">
-    <div>
-      <%= render :partial => "trainings/user_word", :collection => @user_words %>
+
+    <div id="learningCarousel" class="carousel slide" data-interval="false">
+      <!-- Carousel items -->
+      <div class="carousel-inner">
+        <%= render :partial => "trainings/user_word", :collection => @user_words %>
+      </div>
+      <!-- Carousel nav -->
+      <a class="carousel-control left" href="#learningCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#learningCarousel" data-slide="next">&rsaquo;</a>
     </div>
   </div>
 </div>

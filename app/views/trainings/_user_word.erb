@@ -1,4 +1,16 @@
-<div class="card">
-  <%= link_to user_word.text, user_word %>
-  <%= render user_word.direct_translations %>
+<div class="item">
+  <div class="row-fluid">
+    <div class="span4 offset2">
+      <span class="user_data middle-text">
+        <%= link_to user_word.text, user_word %>
+      </span>
+    </div>
+    <div class="span4">
+      <table>
+        <tbody>
+        <%= render user_word.direct_translations %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
