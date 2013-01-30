@@ -22,7 +22,7 @@ $(document).ready(function(){
 {
 	var self = null;
 	jQuery.fn.railsAutocomplete = function() {
-		return this.live('focus',function() {
+		return this.on('focus',function() {
 			if (!this.railsAutoCompleter) {
 				this.railsAutoCompleter = new jQuery.railsAutocomplete(this);
 			}
