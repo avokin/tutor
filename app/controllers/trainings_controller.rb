@@ -11,6 +11,7 @@ class TrainingsController < ApplicationController
     cookies.permanent.signed[:page] = params[:page]
 
     training = Training.find(params[:id])
+    page = cookies.signed[:page]
     @user_word = select_user_word(training, page)
 
     redirect_to training_path(@user_word.id)
