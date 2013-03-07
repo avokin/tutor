@@ -1,9 +1,24 @@
 <div class="item">
   <div class="row-fluid">
     <div class="span4 offset2">
-      <span class="user_data middle-text">
-        <%= link_to user_word.text, user_word %>
-      </span>
+      <table>
+        <tbody>
+        <tr>
+          <td>
+          <span class="user_data middle-text">
+            <%= link_to user_word.text, user_word %>
+          </span>
+          </td>
+        </tr>
+        <% if user_word.transcription %>
+            <tr>
+              <td>
+                <span class="linguistics">[ <%= user_word.transcription %> ]</span>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
     <div class="span4">
       <table>
