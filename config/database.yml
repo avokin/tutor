@@ -33,7 +33,7 @@ cucumber:
 dictionary_database:
    adapter: postgresql
    encoding: unicode
-   database: avokin_development
+   database: HEROKU_POSTGRESQL_VIOLET
    pool: 5
    username: avokin
    password:
