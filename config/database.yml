@@ -30,11 +30,11 @@ cucumber:
 #   pool: 5
 #   timeout: 5000
 
-dictionary_database:
-   adapter: postgresql
-   encoding: unicode
-   database: HEROKU_POSTGRESQL_VIOLET
-   pool: 5
+#dictionary_database:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: HEROKU_POSTGRESQL_VIOLET
+#   pool: 5
    #username: avokin
    #password:
    #host: localhost

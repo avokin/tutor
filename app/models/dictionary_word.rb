@@ -1,3 +1,3 @@
 class DictionaryWord < ActiveRecord::Base
-  establish_connection :dictionary_database
+  establish_connection ENV['HEROKU_POSTGRESQL_VIOLET']
 end
