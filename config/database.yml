@@ -35,6 +35,6 @@ dictionary_database:
    encoding: unicode
    database: HEROKU_POSTGRESQL_VIOLET
    pool: 5
-   username: avokin
-   password:
-   host: localhost
+   #username: avokin
+   #password:
+   #host: localhost
