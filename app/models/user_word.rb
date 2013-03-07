@@ -1,5 +1,7 @@
 class UserWord < ActiveRecord::Base
-  attr_accessible :translation_success_count, :text, :user, :time_to_check, :language_id, :type_id, :custom_string_field1, :custom_string_field2, :custom_int_field1
+  attr_accessible :translation_success_count, :text, :user, :time_to_check, :language_id, :type_id,
+                  :custom_string_field1, :custom_string_field2, :custom_int_field1, :transcription
+
   belongs_to :user
   belongs_to :language
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121104052110) do
+ActiveRecord::Schema.define(:version => 20130203152512) do
 
   create_table "languages", :force => true do |t|
     t.string   "name",       :null => false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20121104052110) do
     t.integer  "type_id"
     t.integer  "custom_int_field1"
     t.string   "custom_string_field1"
+    t.string   "transcription"
   end
 
   add_index "user_words", ["user_id", "text", "language_id"], :name => "IndexUserWordUnique", :unique => true
