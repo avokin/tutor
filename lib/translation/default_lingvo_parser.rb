@@ -9,5 +9,10 @@ class DefaultLingvoParser < BaseParser
       process_translation translation, word, processed
       i += 1
     end
+
+    dictionary_word = DictionaryWord.find_by_word(word.text)
+    if dictionary_word
+      word.transcription = dictionary_word.transcription
+    end
   end
 end

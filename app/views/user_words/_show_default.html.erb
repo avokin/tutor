@@ -17,3 +17,29 @@
     <%= button_to "Delete", @user_word, :form_class => "inline", :class => "btn btn-danger without-bottom-margin", :method => :delete, :confirm => "You sure?", :title => "Delete word?" %>
   </div>
 </div>
+
+<div class="row with-bottom-margin">
+  <div class="span12">
+    <div class="box forms-box">
+      <div class="row-fluid">
+        <div class="span4">
+          <table class="table without-bottom-margin without-border key-value">
+            <tbody>
+            <% if @user_word.transcription %>
+            <tr>
+              <td class="right-aligned">
+                Transcription:
+              </td>
+              <td class="right-aligned">
+                <span class="linguistics">[ <%= @user_word.transcription %> ]</span>
+              </td>
+            </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

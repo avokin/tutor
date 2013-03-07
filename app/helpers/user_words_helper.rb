@@ -58,7 +58,7 @@ module UserWordsHelper
         render "user_words/edit_german_default", :f => form
       end
     else
-      render "user_words/edit_default"
+      render "user_words/edit_default", :f => form
     end
   end
 
