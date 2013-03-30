@@ -24,17 +24,8 @@ production:
 cucumber:
   <<: *test
 
-#dictionary_database:
-#   adapter: sqlite3
-#   database: db/dictionary.sqlite3
-#   pool: 5
-#   timeout: 5000
-
-#dictionary_database:
-#   adapter: postgresql
-#   encoding: unicode
-#   database: HEROKU_POSTGRESQL_VIOLET
-#   pool: 5
-   #username: avokin
-   #password:
-   #host: localhost
+dictionary_database:
+   adapter: sqlite3
+   database: db/dictionary.sqlite3
+   pool: 5
+   timeout: 5000
