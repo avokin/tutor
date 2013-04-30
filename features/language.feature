@@ -11,6 +11,7 @@ Feature: Current language
     Then I should see "Deutsch"
     Then I follow "Settings"
     And I follow "Profile"
+    And I wait for 1 seconds
     Then I should be on the user's profile page
     And "Deutsch" should be selected for "user_target_language_id"
 
