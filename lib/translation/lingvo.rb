@@ -36,7 +36,7 @@ module Translation::Lingvo
         doc = Nokogiri::HTML(IO.read("lib/translation/english_parrot.html"))
       end
     else
-      encoded_url = URI::encode("http://lingvopro.abbyyonline.com/ru/Translate/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word.text}")
+      encoded_url = URI::encode("http://www.lingvo-online.ru/ru/Translate/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word.text}")
       doc = Nokogiri::HTML(open(encoded_url))
     end
 
