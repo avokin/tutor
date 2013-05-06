@@ -1,3 +1,4 @@
+<%= render "user_words/lingvo_reference" %>
 <%= form_for(@user_word) do |f| %>
     <div class="row">
       <div class="span2">
@@ -6,6 +7,10 @@
       </div>
       <div class="span2 offset3">
         <h1 class="without-bottom-margin"><span class="user_data"><%= link_to @user_word.text, @user_word %></span></h1>
+      </div>
+
+      <div class="offset4 right-aligned">
+        <a href="#myModal" role="button" class="btn" data-toggle="modal">Lingvo</a>
       </div>
     </div>
 
