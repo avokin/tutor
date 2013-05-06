@@ -11,6 +11,7 @@ class UserCategoriesController < ApplicationController
   def create
     @category = UserCategory.new params[:user_category]
     @category.user = current_user
+    @category.language = current_user.target_language
 
     existed_category = UserCategory.find_by_user_and_name(current_user, @category.name)
     if existed_category.nil?
@@ -26,7 +27,7 @@ class UserCategoriesController < ApplicationController
 
   def index
     @title = "Your categories"
-    @categories = UserCategory.all
+    @categories = UserCategory.where(:user_id => current_user.id, :language_id => current_user.target_language.id)
   end
 
   def edit

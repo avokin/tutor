@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506203552) do
+ActiveRecord::Schema.define(:version => 20130506215413) do
 
   create_table "languages", :force => true do |t|
     t.string   "name",       :null => false
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20130506203552) do
     t.integer  "language_id"
   end
 
-  add_index "user_categories", ["name"], :name => "IndexCategoryNameUnique", :unique => true
+  add_index "user_categories", ["name", "language_id", "user_id"], :name => "IndexCategoryNameUnique", :unique => true
 
   create_table "user_word_categories", :force => true do |t|
     t.datetime "created_at",       :null => false

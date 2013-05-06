@@ -8,7 +8,7 @@ class UserCategory < ActiveRecord::Base
   belongs_to :language
 
   def self.find_by_user_and_name(user, name)
-    UserCategory.where(:user_id => user.id).where(:name => name).first
+    UserCategory.where(:user_id => user.id).where(:name => name).where(:language_id => user.target_language.id).first
   end
 
   def self.find_all_by_is_default(user)

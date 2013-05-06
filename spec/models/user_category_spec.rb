@@ -9,19 +9,25 @@ describe UserCategory do
     before(:each) do
       @category = FactoryGirl.create(:user_category)
       FactoryGirl.create(:user_category)
-      @another_user = FactoryGirl.create(:user)
     end
 
     it "should find category for the first user" do
-      UserCategory.find_by_user_and_name(User.first, @category.name).should == @category
+      UserCategory.find_by_user_and_name(first_user, @category.name).should == @category
     end
 
     it "shouldn't find category by the wrong name" do
-      UserCategory.find_by_user_and_name(User.first, "wrong category name").should be_nil
+      UserCategory.find_by_user_and_name(first_user, "wrong category name").should be_nil
+    end
+
+    it "shouldn't find category of the another language" do
+      user = first_user
+      user.target_language = german_language
+      user.save!
+      UserCategory.find_by_user_and_name(first_user, @category.name).should be_nil
     end
 
     it "shouldn't find category for another user" do
-      UserCategory.find_by_user_and_name(@another_user, @category.name).should be_nil
+      UserCategory.find_by_user_and_name(second_user, @category.name).should be_nil
     end
   end
 

@@ -11,6 +11,7 @@ describe UserCategoriesController, :type => :controller do
     @user_word_category = FactoryGirl.create(:user_word_category)
     @category = @user_word_category.user_category
     @user_word = @user_word_category.user_word
+    @category_german = FactoryGirl.create(:user_category, :language => german_language)
     @user = @user_word.user
   end
 
@@ -24,9 +25,10 @@ describe UserCategoriesController, :type => :controller do
       response.should have_selector('title', :content => "Tutor - Your categories")
     end
 
-    it "should display user_categories" do
+    it "should display only categories for current language" do
       get :index
       response.should have_selector('a', :content => "#{@category.name}")
+      response.should_not have_selector('a', :content => "#{@category_german.name}")
     end
   end
 
@@ -75,7 +77,7 @@ describe UserCategoriesController, :type => :controller do
 
   describe "POST 'create'" do
     before(:each) do
-      test_sign_in(@user_word.user)
+      test_sign_in(@user)
     end
 
     describe "creation a new Category" do
@@ -83,6 +85,7 @@ describe UserCategoriesController, :type => :controller do
         lambda do
           post :create, :user_category => {:name => "new category"}
         end.should change(UserCategory, :count).by(1)
+        UserCategory.last.language.should == @user.target_language
       end
 
       it "should redirect to word list" do
@@ -91,7 +94,7 @@ describe UserCategoriesController, :type => :controller do
       end
     end
 
-    describe "creation a new Category with already used name" do
+    describe "creation a new Category with already used name and language" do
       it "shouldn't create new Category" do
         lambda do
           post :create, :user_category => {:name => @category.name}
@@ -101,6 +104,24 @@ describe UserCategoriesController, :type => :controller do
       it "should redirect to error page" do
         post :create, :user_category => {:name => @category.name}
         response.should render_template("pages/message")
+      end
+    end
+
+    describe "creation a new Category with already used name but not language" do
+      before :each do
+        @user.target_language = german_language
+        @user.save!
+      end
+
+      it "shouldn't create new Category" do
+        lambda do
+          post :create, :user_category => {:name => @category.name}
+        end.should change(UserCategory, :count).by(1)
+      end
+
+      it "should redirect to word list" do
+        post :create, :user_category => {:name => @category.name}
+        response.should redirect_to user_categories_path
       end
     end
   end
