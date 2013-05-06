@@ -70,6 +70,22 @@ describe UserCategory do
         main_category = UserCategory.find(@merging_categories[0])
         main_category.user_words.length.should == @word_count
       end
+
+      it "should skip categories from another languages" do
+        last = FactoryGirl.create(:user_category, :language => german_language)
+        word = FactoryGirl.create(:german_user_word)
+        FactoryGirl.create(:user_word_category, :user_word => word, :user_category => last)
+        @merging_categories << last.id
+
+        first = @merging_categories[0]
+        UserCategory.merge(first_user, @merging_categories).should be_false
+
+        @merging_categories.each do |merging_category_id|
+          UserCategory.exists?(merging_category_id).should == true
+        end
+
+        last.user_words.length.should == 1
+      end
     end
 
     describe "unauthorized access" do
@@ -96,6 +112,20 @@ describe UserCategory do
           UserCategory.find(merging_category_id).user_words.length.should == (merging_category_id == @merging_categories[0] ? 0 : 1)
         end
       end
+    end
+  end
+
+  describe "find_by_is_default" do
+    before :each do
+      @default_category = FactoryGirl.create(:user_category, :is_default => true)
+      FactoryGirl.create(:user_category)
+      FactoryGirl.create(:user_category, :is_default => true, :language => german_language)
+    end
+
+    it "should find only default category of current language" do
+      categories = UserCategory.find_all_by_is_default first_user
+      categories.length.should == 1
+      categories[0].id.should == @default_category.id
     end
   end
 end

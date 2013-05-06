@@ -19,7 +19,7 @@ class UserWordsController < ApplicationController
 
     request_lingvo(@user_word, :ru)
 
-    @categories = current_user.user_categories.find_all_by_is_default(true)
+    @categories = UserCategory.find_all_by_is_default(current_user)
     @user_word_categories = @categories.map {|category| UserWordCategory.new :user_word => @user_word, :user_category => category}
     @user_word.user_word_categories = @user_word_categories
 

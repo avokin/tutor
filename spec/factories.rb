@@ -105,6 +105,7 @@ FactoryGirl.define do
 
   factory :user_category do |user_category|
     user_category.user { first_user }
+    user_category.language {first_user.target_language}
     user_category.sequence(:name) { |i| "category #{i}" }
     user_category.is_default false
   end
