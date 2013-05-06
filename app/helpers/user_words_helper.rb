@@ -1,5 +1,6 @@
 module UserWordsHelper
   include Translation::GermanLanguage
+  include Translation::Lingvo
 
   def get_german_gender_by_number(number)
     unless number.nil?

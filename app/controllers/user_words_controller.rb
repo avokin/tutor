@@ -17,7 +17,7 @@ class UserWordsController < ApplicationController
     @user_word.assign_attributes params
     @user_word.user = current_user
 
-    request_lingvo(current_user.target_language.name, @user_word, :ru)
+    request_lingvo(@user_word, :ru)
 
     @categories = current_user.user_categories.find_all_by_is_default(true)
     @user_word_categories = @categories.map {|category| UserWordCategory.new :user_word => @user_word, :user_category => category}
