@@ -79,11 +79,12 @@
   margin-top: 0;
 
   .modal-body {
+    height: 90%;
     max-height: 100%;
   }
 
   iframe {
-    width: 100%;
+    width: 99%;
     height: 100%;
   }
 }
