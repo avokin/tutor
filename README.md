@@ -1,0 +1,1 @@
+[![Build Status](https://api.travis-ci.org/avokin/tutor.png)](http://travis-ci.org/avokin/tutor)
