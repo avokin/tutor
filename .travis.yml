@@ -1,7 +1,5 @@
 language: ruby
 rvm:
-  - "1.9.3"
-# uncomment this line if your project needs to run something other than `rake`:
-# script: bundle exec rspec spec
+  - 1.9.3
 before_script:
-  - "rake db:test:prepare"
+  - "rake db:migrate RAILS_ENV=test"
