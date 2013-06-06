@@ -12,5 +12,6 @@ Feature: New word page
     And I should see "popugay"
     And I fill in "category_0" with "animals"
     And I press "Save word"
+    And I wait for 1 second
     Then I should be on the "parrot" word's page
 

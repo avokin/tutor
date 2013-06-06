@@ -23,4 +23,17 @@ describe UserWordsController, :type => :controller do
       response.should_not contain("excluded")
     end
   end
+
+  describe 'POST "update"' do
+    before :each do
+      @word = FactoryGirl.create(:word_relation_translation).source_user_word
+      FactoryGirl.create(:word_relation_translation, :source_user_word => @word)
+    end
+
+    it 'should save checked translations' do
+      lambda do
+        post :update, :id => @word.id
+      end.should_not change(WordRelation, :count)
+    end
+  end
 end

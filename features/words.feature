@@ -14,6 +14,7 @@ Feature: UserWord's page
     And check "translation_2"
     And I fill in "translation_0" with "ptica"
     And I press "Save word"
+    And I wait for 1 second
     Then I should be on the "parrot" word's page
     And I should see "kakadu"
     And I should see "ptica"

@@ -10,6 +10,7 @@ Feature: Updating of a word
     And I click element "span a.close"
     And I fill in "category_0" with "biology,zoo"
     And I press "Save word"
+    And I wait for 1 second
     Then I should be on the "parrot" word's page
     And I should not see "animals"
     And I should see "biology"
@@ -36,11 +37,18 @@ Feature: Updating of a word
     Then I should be on the "parrot" word's page
     And I should not see "bird"
 
-  Scenario: Adding translation through edit page
+  Scenario: Adding and removing translation through edit page
     Then I fill in "translation_0" with "popka"
     And I press "Save word"
     Then I should see "popka"
-    Then I should see "popugay"
+    And I should see "popugay"
+    And I am on the edit word "parrot" page
+    Then I uncheck "translation_1"
+    And I press "Save word"
+    Then I should be on the "parrot" word's page
+    And I should not see "popugay"
+    And I should see "popka"
+
 
   Scenario: Adding synonym through edit page
     Then I fill in "synonym_0" with "small bird"

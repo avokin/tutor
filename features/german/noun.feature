@@ -49,6 +49,7 @@ Feature: German nouns
     Then I select "die" from "user_word_custom_int_field1"
     And I fill in "user_word_custom_string_field1" with "Omas"
     And I press "Save word"
+    And I wait for 1 second
     Then I should be on the "Oma" word's page
     Then I should see "die"
     And I should see "Omas"

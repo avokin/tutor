@@ -31,6 +31,7 @@ Feature: Creation of a word
     Then I should see "animals"
     And I click element "span a.close"
     And I press "Save word"
+    And I wait for 1 second
     Then I should be on the "parrot" word's page
     Then I should not see "animals"
 

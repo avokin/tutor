@@ -48,12 +48,17 @@ class UserWord < ActiveRecord::Base
     user = self.user
     UserWord.transaction do
       if self.valid? && self.save
+        translations_to_delete = Array.new
         self.direct_translations.each do |translation|
           if !new_translations.include?(translation.related_user_word.text)
-            self.direct_translations.delete(translation)
+            translations_to_delete << translation
           else
             new_translations.delete translation.related_user_word.text
           end
+        end
+
+        translations_to_delete.each do |translation|
+          self.direct_translations.delete(translation)
         end
 
         new_translations.each do |translation|
