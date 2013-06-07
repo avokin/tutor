@@ -42,17 +42,9 @@ class Training < ActiveRecord::Base
 
   def get_user_words(page)
     user_words = Array.new
-    relations = WordRelation.find_all_by_user_id_relation_type_status_id(self.user, 1, 1, self.user_category)
+    user_words = self.user_category.user_words
     unless page.nil?
-      relations = relations.paginate(:page => page, :per_page => self.user.word_per_page)
-    end
-
-    relations.each do |r|
-      if self.direction == :direct
-        user_words << r.source_user_word if !user_words.include?(r.source_user_word)
-      else
-        user_words << r.related_user_word if !user_words.include?(r.related_user_word)
-      end
+      user_words = user_words.paginate(:page => page, :per_page => self.user.word_per_page)
     end
 
     user_words

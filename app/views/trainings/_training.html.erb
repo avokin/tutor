@@ -25,8 +25,7 @@
     <td>
     </td>
     <td>
-      <%= word_count = training.get_ready_user_words(i + 1).size %> /
-      <%= training.get_user_words(i + 1).size %>
+      <%= word_count = training.get_ready_user_words(i + 1).size %> / <%= training.get_user_words(i + 1).length %>
     </td>
     <td>
       <% if word_count == 0 %>

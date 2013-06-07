@@ -111,13 +111,16 @@ describe Training do
       @user_word = FactoryGirl.create(:english_user_word, :time_to_check => DateTime.new(2021,2,3,4,5,6))
       FactoryGirl.create(:user_word_category, :user_word => @user_word, :user_category => @training.user_category)
 
+
+      FactoryGirl.create(:user_word_category, :user_category => @training.user_category)
+
       FactoryGirl.create(:word_relation_translation, :source_user_word => @user_word)
       FactoryGirl.create(:word_relation_translation, :source_user_word => @user_word)
     end
 
     it "should return corresponding words only once" do
       @words_on_page_1 = @training.get_user_words(1)
-      @words_on_page_1.size.should == 1
+      @words_on_page_1.length.should == 2
 
       @words_on_page_1.should include(@user_word)
     end
