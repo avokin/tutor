@@ -9,6 +9,7 @@ gem 'will_paginate'
 gem "nokogiri"
 
 gem "bcrypt-ruby", :require => "bcrypt"
+gem 'slim-rails'
 
 group :assets do
   gem 'sass-rails'

@@ -1,0 +1,1 @@
+Slim::Engine.set_default_options :shortcut => {'#' => {:attr => 'id'}, '.' => {:attr => 'class'} }
