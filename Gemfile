@@ -10,6 +10,7 @@ gem "nokogiri"
 
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'slim-rails'
+gem 'haml-rails'
 
 group :assets do
   gem 'sass-rails'
