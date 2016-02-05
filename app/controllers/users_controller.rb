@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     @user.target_language_id = Language.all[1].id
     if @user.save()
       sign_in(@user)
@@ -27,8 +27,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.update_attributes(params[:user])
-    current_user.target_language = Language.find(params[:user][:target_language_id])
+    current_user.update_attributes(user_params)
+    current_user.target_language = Language.find(user_params[:target_language_id])
     current_user.save
     render "show"
   end

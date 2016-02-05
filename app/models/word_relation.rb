@@ -1,6 +1,4 @@
 class WordRelation < ActiveRecord::Base
-  attr_accessible :status_id, :related_user_word_id, :relation_type, :related_user_word, :user, :source_user_word
-
   belongs_to :source_user_word, :class_name => 'UserWord', :foreign_key => :source_user_word_id
   belongs_to :related_user_word,  :class_name => 'UserWord', :foreign_key => :related_user_word_id
   belongs_to :user

@@ -1,15 +1,12 @@
 class UserWord < ActiveRecord::Base
-  attr_accessible :translation_success_count, :text, :user, :time_to_check, :language_id, :type_id,
-                  :custom_string_field1, :custom_string_field2, :custom_int_field1, :transcription
-
   belongs_to :user
   belongs_to :language
 
-  has_many :direct_translations, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :conditions => 'relation_type = 1', :dependent => :delete_all
-  has_many :backward_translations, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :conditions => 'relation_type = 1', :dependent => :delete_all
+  has_many :direct_translations, -> { where relation_type = 1 }, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :dependent => :delete_all
+  has_many :backward_translations, -> { where relation_type = 1 }, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :dependent => :delete_all
 
-  has_many :direct_synonyms, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :conditions => 'relation_type = 2', :dependent => :delete_all
-  has_many :backward_synonyms, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :conditions => 'relation_type = 2', :dependent => :delete_all
+  has_many :direct_synonyms, -> { where relation_type = 2 }, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :dependent => :delete_all
+  has_many :backward_synonyms, -> { where relation_type = 3 }, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :dependent => :delete_all
 
   has_many :user_word_categories
   has_many :user_categories, :through => :user_word_categories

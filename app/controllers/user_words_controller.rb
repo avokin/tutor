@@ -10,11 +10,10 @@ class UserWordsController < ApplicationController
   def new
     @title = "New word"
     @languages = Language.all
-    @user_word = UserWord.new
+    @user_word = UserWord.new word_params
     @user_word.language = current_user.target_language
     @languages = Language.all
 
-    @user_word.assign_attributes params
     @user_word.user = current_user
 
     request_lingvo(@user_word, :ru)
@@ -138,5 +137,10 @@ class UserWordsController < ApplicationController
 
   def set_active_tab
     @active_tab = :dictionary
+  end
+
+  private
+  def word_params
+    params.permit(:text)
   end
 end

@@ -1,6 +1,4 @@
 class UserCategory < ActiveRecord::Base
-  attr_accessible :is_default, :name, :user, :language
-
   has_many :user_word_categories, :dependent => :delete_all
   has_many :user_words, :through => :user_word_categories
   has_many :trainings, :dependent => :delete_all

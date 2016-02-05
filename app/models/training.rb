@@ -1,5 +1,4 @@
 class Training < ActiveRecord::Base
-  attr_accessible :user_category, :direction
   belongs_to :user_category
   belongs_to :user
 
