@@ -39,4 +39,9 @@ class UsersController < ApplicationController
 
     redirect_to root_path
   end
+
+  private
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :target_language_id, :success_count, :native_language_id)
+  end
 end
