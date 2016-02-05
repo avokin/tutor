@@ -58,10 +58,10 @@ Tutor::Application.routes.draw do
 
   root :to => 'user_words#index'
 
-  match '/message', :to => 'pages#message'
-  match '/shortkeys', :to => 'pages#shortkeys'
+  match '/message', :to => 'pages#message', via: :get
+  match '/shortkeys', :to => 'pages#shortkeys', via: :get
 
-  match '/signup',  :to => 'users#new'
-  match '/signin',  :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
+  match '/signup',  :to => 'users#new', via: :get
+  match '/signin',  :to => 'sessions#new', via: :get
+  match '/signout', :to => 'sessions#destroy', via: :get
 end
