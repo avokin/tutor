@@ -130,6 +130,7 @@ describe WordRelationsController, :type => :controller do
       before(:each) do
         test_sign_in @word_relation.user
       end
+
       it "should delete related UserWord and WordRelation itself" do
         lambda do
           lambda do
@@ -137,7 +138,7 @@ describe WordRelationsController, :type => :controller do
           end.should change(UserWord, :count).by(-1)
         end.should change(WordRelation, :count).by(-1)
 
-        UserWord.find_all_by_id(@word_relation.related_user_word.id).should be_empty
+        UserWord.find_by(id: @word_relation.related_user_word.id).should be_nil
       end
     end
   end

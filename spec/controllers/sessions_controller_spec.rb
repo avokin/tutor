@@ -13,9 +13,9 @@ describe SessionsController, :type => :controller do
       response.should be_success
     end
 
-    it "should have right title" do
+    it 'should have right title' do
       get :new
-      response.should have_selector("title", :content => "Sign in")
+      expect(response.body).to have_title('Tutor - Sign in')
     end
   end
 

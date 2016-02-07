@@ -12,15 +12,15 @@ describe UserWordsController, :type => :controller do
       FactoryGirl.create(:user_category, :name => "excluded", :is_default => true, :language => german_language)
     end
 
-    it "should have right title" do
-      get :new, :text => "parrot"
-      response.should have_selector('title', :content => "Tutor - New word")
+    it 'should have right title' do
+      get :new, :text => 'parrot'
+      expect(response.body).to have_title('Tutor - New word')
     end
 
-    it "should have default category of target languages" do
-      get :new, :text => "parrot"
-      response.should contain("included")
-      response.should_not contain("excluded")
+    it 'should have default category of target languages' do
+      get :new, :text => 'parrot'
+      expect(response.body).to have_content('included')
+      expect(response.body).not_to have_content('excluded')
     end
   end
 

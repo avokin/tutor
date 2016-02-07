@@ -67,4 +67,6 @@ Tutor::Application.configure do
     :password             => ENV["PASSWORD_KEY"],
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
+
+  config.eager_load = true
 end

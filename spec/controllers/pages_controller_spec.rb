@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe PagesController, :type => :controller do
-  #render_views
-
   before(:each) do
     init_db
     @base_title = "Tutor"
@@ -11,7 +9,7 @@ describe PagesController, :type => :controller do
   describe "GET 'message'" do
     it "should have right title" do
       get :message
-      response.should have_selector("title", :content => "#{@base_title} - Error")
+      expect(response.body).to have_title("#{@base_title} - Error")
     end
   end
 end

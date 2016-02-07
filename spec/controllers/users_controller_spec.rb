@@ -47,9 +47,9 @@ describe UsersController, :type => :controller do
       test_sign_in(@user)
     end
 
-    it "should have right title" do
+    it 'should have right title' do
       get :edit, :id => @user.id
-      response.should have_selector('title', :content => "Tutor - Edit Account")
+      expect(response.body).to have_title('Tutor - Edit Account')
     end
   end
 
