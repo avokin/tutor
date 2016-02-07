@@ -48,7 +48,7 @@ module UserWordsHelper
   end
 
   def german_part_of_speech
-    options_for_select(@@german_parts_of_speech, @user_word.type_id)
+    options_for_select(Translation::GermanLanguage::GERMAN_PART_OF_SPEECH, @user_word.type_id)
   end
 
   def edit_word_customization(form)

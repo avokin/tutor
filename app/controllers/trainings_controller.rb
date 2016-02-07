@@ -73,8 +73,8 @@ class TrainingsController < ApplicationController
   end
 
   def index
-    @title = "Trainings"
-    @trainings = Training.find_all_by_user_id(current_user.id)
+    @title = 'Trainings'
+    @trainings = Training.where(user_id: current_user.id)
   end
 
   def new

@@ -1,15 +1,17 @@
 <%= render "user_words/lingvo_reference" %>
 <%= form_for(@user_word) do |f| %>
     <div class="row">
-      <div class="span2">
-        <%= f.hidden_field :text %>
-        <%= f.select(:language_id, target_language_select, {}, {:class => "dropdown_middle"}) %>
+      <div class="col-md-2">
+        <div class="form-group">
+          <%= f.hidden_field :text %>
+          <%= f.select(:language_id, target_language_select, {}, {:class => 'form-control'}) %>
+        </div>
       </div>
-      <div class="span2 offset3">
+      <div class="col-md-2 col-md-offset-3">
         <h1 class="without-bottom-margin"><span class="user_data"><%= link_to @user_word.text, @user_word %></span></h1>
       </div>
 
-      <div class="offset4 right-aligned">
+      <div class="col-md-1 col-md-offset-4 right-aligned">
         <a href="#myModal" role="button" class="btn" data-toggle="modal">Lingvo</a>
       </div>
     </div>
@@ -17,7 +19,7 @@
     <%= edit_word_customization(f) %>
 
     <div class="row with-bottom-margin">
-      <div class="span6">
+      <div class="col-md-6">
         <div id="translations" class="box translations-box form-horizontal">
           <table class="table table-striped without-bottom-margin">
             <tbody>
@@ -39,7 +41,7 @@
         </div>
       </div>
 
-      <div id="synonyms" class="span6">
+      <div id="synonyms" class="col-md-6">
         <div id="synonyms" class="box synonyms-box form-horizontal">
           <table class="table table-striped without-bottom-margin">
             <tbody>
@@ -63,7 +65,7 @@
     </div>
 
     <div class="row with-bottom-margin">
-      <div class="span12" id="categories">
+      <div class="col-md-12" id="categories">
         <div class="category_list">
           <%= render :partial => "user_word_categories/edit_user_word_category", :collection => @user_word.user_word_categories %>
         </div>
