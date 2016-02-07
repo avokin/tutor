@@ -17,11 +17,11 @@ describe User do
 
     describe 'has_password? method' do
       it 'should accept valid password' do
-        @user.has_password?(@attr[:password]).should be_true
+        @user.has_password?(@attr[:password]).should be true
       end
 
       it 'should decline invalid password' do
-        @user.has_password?('invalid').should be_false
+        @user.has_password?('invalid').should be false
       end
     end
 
@@ -97,7 +97,7 @@ describe User do
 
     it "should update correct password" do
       result = @user.update_password :password => "password1", :password_confirmation => "password1"
-      result.should be_true
+      expect(result).to be true
 
       User.authenticate(@user.email, "password1").should_not be_nil
       @user.password_reset_token.should be_nil
@@ -105,14 +105,14 @@ describe User do
 
     it "should decline incorrect password" do
       result = @user.update_password :password => "pass", :password_confirmation => "pass"
-      result.should be_false
+      result.should be false
 
       User.authenticate(@user.email, "pass").should be_nil
     end
 
     it "should decline wrong confirmation" do
       result = @user.update_password :password => "password1", :password_confirmation => "password2"
-      result.should be_false
+      result.should be false
 
       User.authenticate(@user.email, "password1").should be_nil
       User.authenticate(@user.email, "password2").should be_nil

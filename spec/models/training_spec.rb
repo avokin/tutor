@@ -16,7 +16,7 @@ describe Training do
     it "should not create a new instance without user-category" do
       training = Training.new @attr
       training.user = @user
-      training.valid?.should be_false
+      training.valid?.should be false
     end
 
     it "should create a new instance with user-category" do
@@ -24,11 +24,6 @@ describe Training do
       training.user = @user
       training.save!
       training.user_category.should == @user_category
-    end
-
-    it "should not get user from parameter" do
-      training = Training.new @attr.merge(:user_category => @user_category, :user => @user)
-      training.should_not be_valid
     end
 
     it "should not bind category of another user" do
@@ -57,7 +52,7 @@ describe Training do
     end
 
     it "should find all Training object for user" do
-      @trainings = Training.find_all_by_user_id @training.user.id
+      @trainings = Training.where user_id: @training.user.id
       @trainings.length.should == 1
       @trainings.first.should == @training
     end

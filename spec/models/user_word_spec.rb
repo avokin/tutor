@@ -91,7 +91,6 @@ describe UserWord do
         lambda do
           @result = @user_word.save_with_relations(@translations, [], [])
         end.should_not change(UserWord, :count)
-        @user_word.should be_true
       end
     end
   end

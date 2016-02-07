@@ -35,7 +35,7 @@ describe TrainingsHelper do
 
       it "should return false" do
         ok = check_answers @user_word1, @answers, @answer_statuses
-        ok.should be_false
+        ok.should be false
       end
 
       it "should zero success counter" do
@@ -48,8 +48,8 @@ describe TrainingsHelper do
 
       it "should mark incorrect answers" do
         check_answers @user_word1, @answers, @answer_statuses
-        @answer_statuses[@translation1.related_user_word.text].should be_true
-        @answer_statuses[""].should be_false
+        @answer_statuses[@translation1.related_user_word.text].should be true
+        @answer_statuses[''].should be false
       end
     end
 
@@ -59,9 +59,9 @@ describe TrainingsHelper do
         @answers << @translation2.related_user_word.text
       end
 
-      it "should return true" do
+      it 'should return true' do
         ok = check_answers @user_word1, @answers, @answer_statuses
-        ok.should be_true
+        ok.should be true
       end
 
       it "should increase success count" do
@@ -70,10 +70,10 @@ describe TrainingsHelper do
         @user_word1.translation_success_count.should == 1
       end
 
-      it "should not mark any error" do
+      it 'should not mark any error' do
         check_answers @user_word1, @answers, @answer_statuses
-        @answer_statuses[@translation1.related_user_word.text].should be_true
-        @answer_statuses[@translation1.related_user_word.text].should be_true
+        @answer_statuses[@translation1.related_user_word.text].should be true
+        @answer_statuses[@translation1.related_user_word.text].should be true
       end
 
       it "should increase time to check" do

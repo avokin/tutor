@@ -63,15 +63,15 @@ describe UserCategory do
 
       it "should delete merging categories" do
         first = @merging_categories[0]
-        UserCategory.merge(first_user, @merging_categories).should be_true
+        UserCategory.merge(first_user, @merging_categories).should be true
 
         @merging_categories.each do |merging_category_id|
           UserCategory.exists?(merging_category_id).should == (first == merging_category_id)
         end
       end
 
-      it "should move all words from merging categoreis to the main one" do
-        UserCategory.merge(first_user, @merging_categories).should be_true
+      it 'should move all words from merging categoreis to the main one' do
+        UserCategory.merge(first_user, @merging_categories).should be true
 
         main_category = UserCategory.find(@merging_categories[0])
         main_category.user_words.length.should == @word_count
@@ -84,7 +84,7 @@ describe UserCategory do
         @merging_categories << last.id
 
         first = @merging_categories[0]
-        UserCategory.merge(first_user, @merging_categories).should be_false
+        UserCategory.merge(first_user, @merging_categories).should be false
 
         @merging_categories.each do |merging_category_id|
           UserCategory.exists?(merging_category_id).should == true
@@ -105,16 +105,16 @@ describe UserCategory do
       end
 
       it "should return false in cause of categories of another user" do
-        UserCategory.merge(first_user, @merging_categories).should be_false
+        UserCategory.merge(first_user, @merging_categories).should be false
       end
 
       it "should return false in cause of categories of another user" do
-        UserCategory.merge(second_user, @merging_categories).should be_false
+        UserCategory.merge(second_user, @merging_categories).should be false
       end
 
       it "should not merge categories" do
         @merging_categories.each do |merging_category_id|
-          UserCategory.exists?(merging_category_id).should be_true
+          UserCategory.exists?(merging_category_id).should be true
           UserCategory.find(merging_category_id).user_words.length.should == (merging_category_id == @merging_categories[0] ? 0 : 1)
         end
       end

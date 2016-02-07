@@ -21,8 +21,8 @@ class UserCategory < ActiveRecord::Base
         category = UserCategory.find id
 
         if category.user == user && first.language_id == category.language_id
-          UserWordCategory.update_all({:user_category_id => merging_category_ids[0]}, {:user_category_id => id})
-          if id != merging_category_ids[0]
+          UserWordCategory.where(:user_category_id => id).update_all(:user_category_id => first.id)
+          if id != first.id
             category.destroy
           end
         else

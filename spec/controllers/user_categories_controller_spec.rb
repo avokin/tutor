@@ -155,14 +155,14 @@ describe UserCategoriesController, :type => :controller do
       end
 
       it "should change name of the category and it's default state" do
-        put :update, :id => @category.id, :user_category => {:name => "new category", :is_default => true}, :btn_update => "true"
+        put :update, :id => @category.id, :user_category => {:name => 'new category', :is_default => true}, :btn_update => 'true'
         @category.reload
-        @category.name.should == "new category"
-        @category.is_default.should be_true
+        @category.name.should == 'new category'
+        @category.is_default.should be true
       end
 
       it "should redirect to category word list" do
-        put :update, :id => @category.id, :user_category => {:name => "new category"}, :btn_update => "true"
+        put :update, :id => @category.id, :user_category => {:name => 'new category'}, :btn_update => 'true'
         response.should redirect_to user_category_path(@category)
       end
     end
