@@ -25,10 +25,10 @@ describe UserCategoriesController, :type => :controller do
       expect(response.body).to have_title("Tutor - Your categories")
     end
 
-    it "should display only categories for current language" do
+    it 'should display only categories for current language' do
       get :index
-      response.should have_selector('a', :text => "#{@category.name}")
-      response.should_not have_selector('a', :text => "#{@category_german.name}")
+      expect(response.body).to have_selector('a', :text => "#{@category.name}")
+      expect(response.body).not_to have_selector('a', :text => "#{@category_german.name}")
     end
   end
 
@@ -203,12 +203,12 @@ describe UserCategoriesController, :type => :controller do
 
       it 'should display words that correspond to the category' do
         get :show, :id => @category.id
-        response.should have_selector('a', :text => @user_word.text)
+        expect(response.body).to have_selector('a', :text => @user_word.text)
       end
 
       it "should display the 'Edit' link" do
         get :show, :id => @category.id
-        response.should have_selector('a', :text => "Edit")
+        expect(response.body).to have_selector('a', :text => "Edit")
       end
     end
   end

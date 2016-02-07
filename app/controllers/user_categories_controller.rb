@@ -4,12 +4,12 @@ class UserCategoriesController < ApplicationController
   before_filter :correct_user, :except => [:new, :index, :create, :merge]
 
   def new
-    @title = "New category"
+    @title = 'New category'
     @category = UserCategory.new
   end
 
   def create
-    @category = UserCategory.new params[:user_category]
+    @category = UserCategory.new user_category_params
     @category.user = current_user
     @category.language = current_user.target_language
 
@@ -26,7 +26,7 @@ class UserCategoriesController < ApplicationController
   end
 
   def index
-    @title = "Your categories"
+    @title = 'Your categories'
     @categories = UserCategory.where(:user_id => current_user.id, :language_id => current_user.target_language.id)
   end
 
@@ -37,7 +37,7 @@ class UserCategoriesController < ApplicationController
 
   def update
     if params[:btn_cancel].nil?
-      if @category.update_attributes(params[:user_category])
+      if @category.update_attributes(user_category_params)
         redirect_to session[:return_to] || user_category_path
       else
         render 'edit'
@@ -60,9 +60,9 @@ class UserCategoriesController < ApplicationController
   def merge
     result = UserCategory.merge(current_user, params[:ids].split.map(&:to_i))
 
-    if !result
+    unless result
       #todo log hack attempt
-      redirect_to(root_path, :flash => {:error => "Error another user"}) unless current_user?(@user)
+      redirect_to(root_path, :flash => {:error => 'Error another user'}) unless current_user?(@user)
       return
     end
 
@@ -81,7 +81,11 @@ class UserCategoriesController < ApplicationController
     else
       @user = @category.user
 
-      redirect_to(root_path, :flash => {:error => "Error another user"}) unless current_user?(@user)
+      redirect_to(root_path, :flash => {:error => 'Error another user'}) unless current_user?(@user)
     end
+  end
+
+  def user_category_params
+    params.require(:user_category).permit(:name, :is_default)
   end
 end
