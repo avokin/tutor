@@ -2,11 +2,11 @@ class UserWord < ActiveRecord::Base
   belongs_to :user
   belongs_to :language
 
-  has_many :direct_translations, -> { where relation_type = 1 }, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :dependent => :delete_all
-  has_many :backward_translations, -> { where relation_type = 1 }, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :dependent => :delete_all
+  has_many :direct_translations, -> { where 'relation_type = 1' }, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :dependent => :delete_all
+  has_many :backward_translations, -> { where 'relation_type = 1' }, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :dependent => :delete_all
 
-  has_many :direct_synonyms, -> { where relation_type = 2 }, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :dependent => :delete_all
-  has_many :backward_synonyms, -> { where relation_type = 3 }, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :dependent => :delete_all
+  has_many :direct_synonyms, -> { where 'relation_type = 2' }, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :dependent => :delete_all
+  has_many :backward_synonyms, -> { where 'relation_type = 2' }, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :dependent => :delete_all
 
   has_many :user_word_categories
   has_many :user_categories, :through => :user_word_categories

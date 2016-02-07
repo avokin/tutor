@@ -9,21 +9,21 @@ describe UserWord do
     @user = FactoryGirl.create(:user)
   end
 
-  describe "should have related words" do
+  describe 'should have related words' do
     before(:each) do
       @user_word1 = FactoryGirl.create(:english_user_word)
       @user_word2 = FactoryGirl.create(:english_user_word)
       @user_word3 = FactoryGirl.create(:english_user_word)
 
-      @relation1 = @user_word1.direct_translations.create(:related_user_word_id => @user_word2.id, :relation_type => 1, :user_id => @user.id, :status_id => 1, :success_count => 0)
+      @relation1 = @user_word1.direct_translations.create(:related_user_word_id => @user_word2.id, :relation_type => 1, :user_id => @user.id, :status_id => 1)
       @relation1.user = @user
-      @relation1.save!()
-      @relation2 = @user_word2.direct_synonyms.create(:related_user_word_id => @user_word3.id, :relation_type => 2, :user => @user, :status_id => 1, :success_count => 0)
+      @relation1.save!
+      @relation2 = @user_word2.direct_synonyms.create(:related_user_word_id => @user_word3.id, :relation_type => 2, :user => @user, :status_id => 1)
       @relation2.user = @user
-      @relation2.save!()
+      @relation2.save!
     end
 
-    it "should have related word" do
+    it 'should have related word' do
       @user_word1.translations.count.should == 1
       @user_word1.synonyms.count.should == 0
 
