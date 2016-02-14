@@ -58,5 +58,3 @@ group :test do
 
   gem 'email_spec'
 end
-
-ruby '2.2.3'
