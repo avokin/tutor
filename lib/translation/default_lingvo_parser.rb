@@ -10,7 +10,7 @@ class DefaultLingvoParser < BaseParser
       i += 1
     end
 
-    dictionary_word = DictionaryWord.find_by_word(word.text)
+    dictionary_word = false#DictionaryWord.find_by_word(word.text)
     if dictionary_word
       word.transcription = dictionary_word.transcription
     end
