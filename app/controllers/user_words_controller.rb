@@ -8,7 +8,7 @@ class UserWordsController < ApplicationController
   before_filter :check_user, :except => [:new, :create, :index]
 
   def new
-    @title = "New word"
+    @title = 'New word'
     @languages = Language.all
     @user_word = UserWord.new
     @user_word.language = current_user.target_language
@@ -23,7 +23,7 @@ class UserWordsController < ApplicationController
     @user_word_categories = @categories.map {|category| UserWordCategory.new :user_word => @user_word, :user_category => category}
     @user_word.user_word_categories = @user_word_categories
 
-    render "edit"
+    render 'edit'
   end
 
   def create
@@ -39,7 +39,7 @@ class UserWordsController < ApplicationController
 
   def edit
     return unless check_user
-    if !params[:type_id].nil?
+    unless params[:type_id].nil?
       @user_word.type_id = Integer params[:type_id]
     end
 
@@ -48,7 +48,7 @@ class UserWordsController < ApplicationController
 
   def index
     @user_words = current_user.foreign_user_words.paginate(:page => params[:page])
-    @title = "Your words"
+    @title = 'Your words'
   end
 
   def update
@@ -70,8 +70,8 @@ class UserWordsController < ApplicationController
   private
   def create_or_update(user_word)
     new_translations = Array.new
-    word_params["translation_0"].split(";").each do |s|
-      if !s.nil?
+    word_params['translation_0'].split(';').each do |s|
+      unless s.nil?
         translation = s.strip
         if translation.length > 0
           new_translations << translation
@@ -88,7 +88,7 @@ class UserWordsController < ApplicationController
 
     i = 0
     new_synonyms = Array.new
-    while !word_params["synonym_#{i}"].nil? do
+    until word_params["synonym_#{i}"].nil? do
       s = word_params["synonym_#{i}"]
       if s.length > 0
         new_synonyms << s
@@ -98,7 +98,7 @@ class UserWordsController < ApplicationController
 
     i = 1
     new_categories = Array.new
-    while !word_params["category_#{i}"].nil? do
+    until word_params["category_#{i}"].nil? do
       s = word_params["category_#{i}"]
       if s.length > 0 && !new_categories.include?(s)
         new_categories << s
@@ -106,7 +106,7 @@ class UserWordsController < ApplicationController
       i = i + 1
     end
 
-    word_params["category_0"].split(",").each do |s|
+    word_params['category_0'].split(',').each do |s|
       s.strip!
       if !s.nil? && s.length > 0 && !new_categories.include?(s)
         new_categories << s
@@ -118,16 +118,16 @@ class UserWordsController < ApplicationController
     saved = user_word.save_with_relations(new_translations, new_synonyms, new_categories)
     @user_word = user_word
     if saved
-      redirect_to user_word_path(@user_word), :flash => {:success => "Word saved"}
+      redirect_to user_word_path(@user_word), :flash => {:success => 'Word saved'}
     else
-      flash.now[:error] = "error"
-      render "edit"
+      flash.now[:error] = 'error'
+      render 'edit'
     end
   end
 
   def check_user
     @user_word = UserWord.find(params[:id])
-    if !@user_word.nil?
+    unless @user_word.nil?
       if @user_word.user != current_user
         render 'pages/message'
         return false
