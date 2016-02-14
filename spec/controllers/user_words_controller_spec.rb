@@ -36,4 +36,22 @@ describe UserWordsController, :type => :controller do
       end.should_not change(WordRelation, :count)
     end
   end
+
+  describe "Put 'create'" do
+    before(:each) do
+      test_sign_in(first_user)
+    end
+
+    it 'should create word with correct attributes' do
+      lambda do
+        put :create, {user: first_user, translation_0: 'tran0', translation_1: 'tran1', synonym_0: 'syn0', category_0: 'cat0',
+                      user_word: {language_id: first_user.target_language.id, text: 'new_word', type_id: 1}}
+      end.should change(UserWord, :count)
+
+      word = UserWord.find_by text: 'new_word'
+      expect(word.translations.count).to eq(2)
+      expect(word.synonyms.count).to eq(1)
+      expect(word.user_word_categories.count).to eq(1)
+    end
+  end
 end

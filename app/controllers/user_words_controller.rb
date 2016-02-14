@@ -10,10 +10,11 @@ class UserWordsController < ApplicationController
   def new
     @title = "New word"
     @languages = Language.all
-    @user_word = UserWord.new word_params
+    @user_word = UserWord.new
     @user_word.language = current_user.target_language
     @languages = Language.all
 
+    @user_word.assign_attributes word_params
     @user_word.user = current_user
 
     request_lingvo(@user_word, :ru)
@@ -69,7 +70,7 @@ class UserWordsController < ApplicationController
   private
   def create_or_update(user_word)
     new_translations = Array.new
-    params["translation_0"].split(";").each do |s|
+    word_params["translation_0"].split(";").each do |s|
       if !s.nil?
         translation = s.strip
         if translation.length > 0
@@ -79,7 +80,7 @@ class UserWordsController < ApplicationController
     end
 
     (1..[4, user_word.translations.length].max).each do |i|
-      s = params["translation_#{i}"]
+      s = word_params["translation_#{i}"]
       if !s.nil? && s.length > 0
         new_translations << s
       end
@@ -87,8 +88,8 @@ class UserWordsController < ApplicationController
 
     i = 0
     new_synonyms = Array.new
-    while !params["synonym_#{i}"].nil? do
-      s = params["synonym_#{i}"]
+    while !word_params["synonym_#{i}"].nil? do
+      s = word_params["synonym_#{i}"]
       if s.length > 0
         new_synonyms << s
       end
@@ -97,15 +98,15 @@ class UserWordsController < ApplicationController
 
     i = 1
     new_categories = Array.new
-    while !params["category_#{i}"].nil? do
-      s = params["category_#{i}"]
+    while !word_params["category_#{i}"].nil? do
+      s = word_params["category_#{i}"]
       if s.length > 0 && !new_categories.include?(s)
         new_categories << s
       end
       i = i + 1
     end
 
-    params["category_0"].split(",").each do |s|
+    word_params["category_0"].split(",").each do |s|
       s.strip!
       if !s.nil? && s.length > 0 && !new_categories.include?(s)
         new_categories << s
@@ -113,7 +114,7 @@ class UserWordsController < ApplicationController
     end
 
     user_word.user = current_user
-    user_word.assign_attributes(params[:user_word])
+    user_word.assign_attributes(word_params[:user_word])
     saved = user_word.save_with_relations(new_translations, new_synonyms, new_categories)
     @user_word = user_word
     if saved
@@ -141,6 +142,6 @@ class UserWordsController < ApplicationController
 
   private
   def word_params
-    params.permit(:text)
+    params.permit(:text, :translation_0, :translation_1, :translation_2, :translation_3, :synonym_0, :synonym_1, :synonym_2, :synonym_3, :category_0, :language_id, :user_word => [:language_id, :type_id, :text])
   end
 end
