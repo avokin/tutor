@@ -1,13 +1,13 @@
 <%= render "user_words/lingvo_reference" %>
 
 <div class="row with-bottom-margin with-bottom-aligned-children" id="page_title">
-  <div class="span2">
+  <div class="col-md-2">
     <span class="linguistics bottom-aligned">
       <%= @user_word.language.name %>
     </span>
   </div>
 
-  <div class="span4 offset2 center-aligned">
+  <div class="col-md-4 col-md-2 center-aligned">
     <span class="linguistics">
       <%= get_german_artikel_by_number(@user_word.custom_int_field1) %>
     </span>
@@ -17,7 +17,7 @@
     </span>
   </div>
 
-  <div class="span4 right-aligned">
+  <div class="col-md-4 right-aligned">
     <a href="#myModal" role="button" class="btn" data-toggle="modal">Lingvo</a>
 
     <%= button_to "Edit", edit_user_word_path(@user_word), :method => :get, :form_class => "inline", :class => "btn without-bottom-margin" %>
@@ -26,10 +26,10 @@
 </div>
 
 <div class="row with-bottom-margin">
-  <div class="span12">
+  <div class="col-md-12">
     <div class="box forms-box">
       <div class="row-fluid">
-        <div class="span4">
+        <div class="col-md-4">
           <table class="table without-bottom-margin without-border key-value">
             <tbody>
             <tr>
