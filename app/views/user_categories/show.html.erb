@@ -1,8 +1,8 @@
 <div class="row" id="page_title">
-  <div class="span11">
+  <div class="col-md-11">
     <h1>Category: <span class="user_data"><%= @category.name %></span> <% if @category.is_default %> (default) <% end %></h1>
   </div>
-  <div class="span1">
+  <div class="col-md-1">
     <%= link_to "Edit", edit_user_category_path(@category) %>
   </div>
 </div>
