@@ -5,7 +5,7 @@
         <label class="control-label">Part of speech:</label>
 
         <div class="controls">
-          <%= f.select(:type_id, german_part_of_speech, {}, {:class => "dropdown_small"}) %>
+          <%= f.select(:type_id, german_part_of_speech, {}, {:class => 'form-control'}) %>
         </div>
       </div>
 
@@ -13,7 +13,7 @@
         <label class="control-label">Gender:</label>
 
         <div class="controls">
-          <%= f.select(:custom_int_field1, german_noun_gender_options, {}, {:class => "dropdown_small"}) %>
+          <%= f.select(:custom_int_field1, german_noun_gender_options, {}, {:class => 'form-control'}) %>
           <%= @user_word.text %>
         </div>
       </div>
@@ -22,7 +22,7 @@
         <label class="control-label">Plural:</label>
 
         <div class="controls">
-          <%= f.text_field(:custom_string_field1, :placeholder => "Plural form") %>
+          <%= f.text_field(:custom_string_field1, :class => 'form-control', :placeholder => 'Plural form') %>
         </div>
       </div>
     </div>

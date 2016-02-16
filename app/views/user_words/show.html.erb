@@ -29,10 +29,10 @@
             <% end %>
             <tr>
               <td>
-                <%= autocomplete_field_tag :translation_0, '', search_autocomplete_user_word_text_path, :placeholder => "You could add translations here" %>
+                <%= autocomplete_field_tag :translation_0, '', search_autocomplete_user_word_text_path, class: 'form-control', :placeholder => "You could add translations here" %>
               </td>
               <td>
-                <%= f.submit "Add", :id => "add_translation", :class => "btn btn-default btn-add-inside-table"%>
+                <%= f.submit 'Add', :id => 'add_translation', :class => 'btn btn-default btn-add-inside-table'%>
               </td>
             </tr>
             </tbody>
@@ -52,7 +52,8 @@
             <% end %>
             <tr>
               <td>
-                <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_user_word_text_path, :placeholder => "You could add synonyms here" %>
+                <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_user_word_text_path,
+                                           class: 'form-control', :placeholder => 'You could add synonyms here' %>
               </td>
               <td>
                 <%= f.submit "Add", :id => "add_synonym", :class => "btn btn-default btn-add-inside-table"%>
@@ -74,7 +75,8 @@
 
     <div class="row">
       <div class="col-md-4 new-category">
-        <%= autocomplete_field_tag :category_0, '', search_autocomplete_user_category_name_path, :placeholder => 'You could add categories here' %>
+        <%= autocomplete_field_tag :category_0, '', search_autocomplete_user_category_name_path, class: 'form-control',
+                                   :placeholder => 'You could add categories here' %>
         <%= f.submit ' Add ', :id => 'add_category', :class => 'btn btn-default' %>
       </div>
     </div>
