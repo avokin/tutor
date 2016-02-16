@@ -39,8 +39,8 @@ class UserWordsController < ApplicationController
 
   def edit
     return unless check_user
-    unless params[:type_id].nil?
-      @user_word.type_id = Integer params[:type_id]
+    unless word_params[:type_id].nil?
+      @user_word.type_id = Integer word_params[:type_id]
     end
 
     @title = "Edit word: #{@user_word.text}"
@@ -115,6 +115,7 @@ class UserWordsController < ApplicationController
 
     user_word.user = current_user
     user_word.assign_attributes(word_params[:user_word])
+    user_word.type_id = word_params[:type_id]
     saved = user_word.save_with_relations(new_translations, new_synonyms, new_categories)
     @user_word = user_word
     if saved
@@ -142,6 +143,8 @@ class UserWordsController < ApplicationController
 
   private
   def word_params
-    params.permit(:text, :translation_0, :translation_1, :translation_2, :translation_3, :synonym_0, :synonym_1, :synonym_2, :synonym_3, :category_0, :language_id, :user_word => [:language_id, :type_id, :text])
+    params.permit(:text, :type_id, :translation_0, :translation_1, :translation_2, :translation_3, :synonym_0,
+                  :synonym_1, :synonym_2, :synonym_3, :category_0, :language_id,
+                  :user_word => [:language_id, :type_id, :text])
   end
 end

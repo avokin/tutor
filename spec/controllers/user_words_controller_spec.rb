@@ -12,9 +12,9 @@ describe UserWordsController, :type => :controller do
       FactoryGirl.create(:user_category, :name => "excluded", :is_default => true, :language => german_language)
     end
 
-    it 'should have right title' do
+    it 'should display word customization' do
       get :new, :text => 'parrot'
-      expect(response.body).to have_title('Tutor - New word')
+      expect(response.body).to have_content('Transcription')
     end
 
     it 'should have default category of target languages' do
@@ -44,14 +44,16 @@ describe UserWordsController, :type => :controller do
 
     it 'should create word with correct attributes' do
       lambda do
-        put :create, {user: first_user, translation_0: 'tran0', translation_1: 'tran1', synonym_0: 'syn0', category_0: 'cat0',
-                      user_word: {language_id: first_user.target_language.id, text: 'new_word', type_id: 1}}
+        put :create, {user: first_user, translation_0: 'tran0', translation_1: 'tran1', synonym_0: 'syn0',
+                      category_0: 'cat0', type_id: 1,
+                      user_word: {language_id: first_user.target_language.id, text: 'new_word'}}
       end.should change(UserWord, :count)
 
       word = UserWord.find_by text: 'new_word'
       expect(word.translations.count).to eq(2)
       expect(word.synonyms.count).to eq(1)
       expect(word.user_word_categories.count).to eq(1)
+      expect(word.type_id).not_to be(nil)
     end
   end
 end
