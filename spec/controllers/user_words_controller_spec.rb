@@ -46,7 +46,8 @@ describe UserWordsController, :type => :controller do
       lambda do
         put :create, {user: first_user, translation_0: 'tran0', translation_1: 'tran1', synonym_0: 'syn0',
                       category_0: 'cat0',
-                      user_word: {language_id: first_user.target_language.id, text: 'new_word', type_id: 1}}
+                      user_word: {language_id: first_user.target_language.id, text: 'new_word', type_id: 1,
+                                  custom_int_field1: 1, custom_string_field1: 'custom'}}
       end.should change(UserWord, :count)
 
       word = UserWord.find_by text: 'new_word'
@@ -54,6 +55,8 @@ describe UserWordsController, :type => :controller do
       expect(word.synonyms.count).to eq(1)
       expect(word.user_word_categories.count).to eq(1)
       expect(word.type_id).not_to be(nil)
+      expect(word.custom_int_field1).to eq(1)
+      expect(word.custom_string_field1).to eq('custom')
     end
   end
 end
