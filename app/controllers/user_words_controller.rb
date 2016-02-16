@@ -114,8 +114,8 @@ class UserWordsController < ApplicationController
     end
 
     user_word.user = current_user
-    user_word.assign_attributes(word_params[:user_word])
     user_word.type_id = word_params[:type_id]
+    user_word.assign_attributes(word_params[:user_word])
     saved = user_word.save_with_relations(new_translations, new_synonyms, new_categories)
     @user_word = user_word
     if saved

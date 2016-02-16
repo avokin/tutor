@@ -45,8 +45,8 @@ describe UserWordsController, :type => :controller do
     it 'should create word with correct attributes' do
       lambda do
         put :create, {user: first_user, translation_0: 'tran0', translation_1: 'tran1', synonym_0: 'syn0',
-                      category_0: 'cat0', type_id: 1,
-                      user_word: {language_id: first_user.target_language.id, text: 'new_word'}}
+                      category_0: 'cat0',
+                      user_word: {language_id: first_user.target_language.id, text: 'new_word', type_id: 1}}
       end.should change(UserWord, :count)
 
       word = UserWord.find_by text: 'new_word'
