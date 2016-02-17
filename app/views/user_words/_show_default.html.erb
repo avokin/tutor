@@ -9,11 +9,11 @@
   <div class="col-md-1">
   </div>
 
-  <div class="col-md-4 col-md-offset-2 center-aligned">
+  <div class="col-md-6 col-md-offset-1 center-aligned">
     <span class="user_data big-text"><%= @user_word.text %></span>
   </div>
 
-  <div class="col-md-4 right-aligned">
+  <div class="col-md-3 right-aligned">
     <a href="#myModal" role="button" class="btn btn-default" data-toggle="modal">Lingvo</a>
 
     <%= button_to 'Edit', edit_user_word_path(@user_word), :method => :get, :form_class => 'inline', :class => 'btn btn-default without-bottom-margin' %>
