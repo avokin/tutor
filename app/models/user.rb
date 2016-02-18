@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
     self.password_reset_sent_at = Time.zone.now
     save!
     email = UserMailer.password_reset(self)
-    email.deliver
+    email.deliver_now
     email
   end
 
@@ -81,10 +81,11 @@ class User < ActiveRecord::Base
     20
   end
 
-  def update_password(params)
+  def update_password(password, password_confirmation)
     result = false
     User.transaction do
-      self.assign_attributes(params)
+      self.password = password
+      self.password_confirmation = password_confirmation
       if self.valid?
         self.password_reset_token = nil
         if !self.save

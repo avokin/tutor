@@ -46,7 +46,7 @@ describe User do
     end
   end
 
-  describe "foreign_user_words" do
+  describe 'foreign_user_words' do
     describe "should take only words of 'target_language_id' language" do
       before(:each) do
         FactoryGirl.create(:english_user_word)
@@ -56,11 +56,11 @@ describe User do
       it "should take only English words" do
         user = User.first
         user.foreign_user_words.length.should == 1
-        user.foreign_user_words[0].language.name.should == "English"
+        user.foreign_user_words[0].language.name.should == 'English'
         user.foreign_user_words[0].text.should =~ /^english/
       end
 
-      it "should take only German words" do
+      it 'should take only German words' do
         user = User.first
         user.target_language = Language.last
 
@@ -71,12 +71,12 @@ describe User do
     end
   end
 
-  describe "send_password_reset" do
+  describe 'send_password_reset' do
     before(:each) do
       @user = FactoryGirl.create(:user)
     end
 
-    it "should send email with password recovery instructions" do
+    it 'should send email with password recovery instructions' do
       @user.password_reset_token.should be_nil
       @user.password_reset_sent_at.should be_nil
 
@@ -90,32 +90,32 @@ describe User do
     end
   end
 
-  describe "update_password" do
+  describe 'update_password' do
     before(:each) do
       @user = FactoryGirl.create(:user)
     end
 
-    it "should update correct password" do
-      result = @user.update_password :password => "password1", :password_confirmation => "password1"
+    it 'should update correct password' do
+      result = @user.update_password 'password1', 'password1'
       expect(result).to be true
 
-      User.authenticate(@user.email, "password1").should_not be_nil
+      User.authenticate(@user.email, 'password1').should_not be_nil
       @user.password_reset_token.should be_nil
     end
 
-    it "should decline incorrect password" do
-      result = @user.update_password :password => "pass", :password_confirmation => "pass"
+    it 'should decline incorrect password' do
+      result = @user.update_password 'pass', 'pass'
       result.should be false
 
-      User.authenticate(@user.email, "pass").should be_nil
+      User.authenticate(@user.email, 'pass').should be_nil
     end
 
-    it "should decline wrong confirmation" do
-      result = @user.update_password :password => "password1", :password_confirmation => "password2"
+    it 'should decline wrong confirmation' do
+      result = @user.update_password 'password1', 'password2'
       result.should be false
 
-      User.authenticate(@user.email, "password1").should be_nil
-      User.authenticate(@user.email, "password2").should be_nil
+      User.authenticate(@user.email, 'password1').should be_nil
+      User.authenticate(@user.email, 'password2').should be_nil
     end
   end
 end

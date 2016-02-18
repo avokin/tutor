@@ -54,7 +54,6 @@ Tutor::Application.routes.draw do
   end
 
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :password_resets
 
   root :to => 'user_words#index'
 
