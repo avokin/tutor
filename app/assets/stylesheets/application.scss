@@ -3,6 +3,7 @@
 *= require_self
 *= require_tree .
 */
+$grid-gutter-width: 10px;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
