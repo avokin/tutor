@@ -65,19 +65,34 @@
       </div>
     </div>
 
-    <div class="row with-bottom-margin">
-      <div class="col-md-12" id="categories">
-        <div class="category_list">
-          <%= render @user_word.user_word_categories %>
+    <% if @user_word.user_word_categories.count > 0 %>
+      <div class="row with-bottom-margin">
+        <div class="col-md-12" id="categories">
+          <div class="category_list">
+            <%= render @user_word.user_word_categories %>
+          </div>
         </div>
-      </div>
-    </div>
+        </div>
+    <% end %>
 
     <div class="row">
-      <div class="col-md-4 new-category">
-        <%= autocomplete_field_tag :category_0, '', search_autocomplete_user_category_name_path, class: 'form-control',
-                                   :placeholder => 'You could add categories here' %>
-        <%= f.submit ' Add ', :id => 'add_category', :class => 'btn btn-default' %>
+      <div class="col-md-6 new-category">
+
+        <div class="transparent-box">
+          <table class="table without-bottom-margin">
+            <tbody>
+            <tr>
+              <td class="no-border">
+                <%= autocomplete_field_tag :category_0, '', search_autocomplete_user_category_name_path, class: 'form-control',
+                                           :placeholder => 'You could add categories here' %>
+              </td>
+              <td class="no-border">
+                <%= f.submit ' Add ', :id => 'add_category', :class => 'btn btn-default btn-add-inside-table' %>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 <% end %>
