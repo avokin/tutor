@@ -26,14 +26,67 @@ describe UserWordsController, :type => :controller do
 
   describe 'POST "update"' do
     before :each do
-      @word = FactoryGirl.create(:word_relation_translation).source_user_word
-      FactoryGirl.create(:word_relation_translation, :source_user_word => @word)
+      @word = FactoryGirl.create(:english_user_word)
     end
 
-    it 'should save checked translations' do
-      lambda do
-        post :update, :id => @word.id
-      end.should_not change(WordRelation, :count)
+    describe 'not logged in user' do
+      it 'should redirect to signing path' do
+        post :update, id: @word.id, translation_0: '', synonym_0: '', category_0: ''
+        expect(response).to redirect_to signin_path
+      end
+    end
+
+    describe 'wrong user' do
+      before :each do
+        test_sign_in(second_user)
+      end
+
+      it 'should redirect to the main page and write into log' do
+        post :update, id: @word.id, translation_0: '', synonym_0: '', category_0: ''
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    describe 'correct user' do
+      before :each do
+        test_sign_in(first_user)
+      end
+
+      it 'should save checked translations' do
+        @word = FactoryGirl.create(:word_relation_translation).source_user_word
+        FactoryGirl.create(:word_relation_translation, :source_user_word => @word)
+
+        lambda do
+          post :update, id: @word.id, translation_0: '', synonym_0: '', category_0: '',
+               translation_1: @word.translations[0].related_user_word.text,
+               translation_2: @word.translations[1].related_user_word.text
+
+        end.should_not change(WordRelation, :count)
+      end
+
+      it 'should add category' do
+        expect do
+          post :update, id: @word.id, translation_0: '', synonym_0: '', category_0: 'new_category'
+          @word.reload
+          expect(@word.user_categories.last.name).to eq('new_category')
+        end.to change { UserWordCategory.count }.by(1)
+      end
+
+      it 'should add translation' do
+        expect do
+          post :update, id: @word.id, translation_0: 'new_tran', synonym_0: '', category_0: ''
+          @word.reload
+          expect(@word.translations.last.related_user_word.text).to eq('new_tran')
+        end.to change { WordRelation.count }.by(1)
+      end
+
+      it 'should add synonym' do
+        expect do
+          post :update, id: @word.id, translation_0: '', synonym_0: 'new_sym', category_0: ''
+          @word.reload
+          expect(@word.synonyms.last.related_user_word.text).to eq('new_sym')
+        end.to change { WordRelation.count }.by(1)
+      end
     end
   end
 

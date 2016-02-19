@@ -52,6 +52,7 @@ class UserWordsController < ApplicationController
   end
 
   def update
+    return unless check_user
     user_word = UserWord.find params[:id]
     create_or_update(user_word)
   end
@@ -115,7 +116,9 @@ class UserWordsController < ApplicationController
 
     user_word.user = current_user
     user_word.type_id = word_params[:type_id]
-    user_word.assign_attributes(word_params[:user_word])
+    if word_params[:user_word]
+      user_word.assign_attributes(word_params[:user_word])
+    end
     saved = user_word.save_with_relations(new_translations, new_synonyms, new_categories)
     @user_word = user_word
     if saved
@@ -126,11 +129,13 @@ class UserWordsController < ApplicationController
     end
   end
 
+  private
+
   def check_user
     @user_word = UserWord.find(params[:id])
     unless @user_word.nil?
       if @user_word.user != current_user
-        render 'pages/message'
+        redirect_to(root_path, :flash => {:error => 'Error another user'}) unless current_user?(@user_word.user)
         return false
       end
     end
@@ -141,7 +146,6 @@ class UserWordsController < ApplicationController
     @active_tab = :dictionary
   end
 
-  private
   def word_params
     params.permit(:text, :type_id, :translation_0, :translation_1, :translation_2, :translation_3, :synonym_0,
                   :synonym_1, :synonym_2, :synonym_3, :category_0, :language_id,
