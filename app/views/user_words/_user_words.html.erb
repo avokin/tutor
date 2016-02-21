@@ -18,7 +18,7 @@
   <tfoot>
   <tr>
     <td colspan="4">
-      <%= will_paginate @user_words %>
+      <%= will_paginate @user_words, renderer: BootstrapPagination::Rails %>
     </td>
   </tr>
   </tfoot>
