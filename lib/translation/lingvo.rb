@@ -20,11 +20,6 @@ module Translation::Lingvo
   def request_lingvo(word, dest_language)
     source_language = get_source_language(word)
 
-    preprocessor = LingvoParserFactory.get_word_preprocessor(source_language)
-    unless preprocessor.nil?
-      preprocessor.process(word)
-    end
-
     if ENV['RAILS_ENV'] == "test"
       if word.text == "Kind"
         doc = Nokogiri::HTML(IO.read("lib/translation/german_kind.html"))
@@ -59,15 +54,6 @@ module Translation::Lingvo
           GermanLingvoParser.new
         else
           DefaultLingvoParser.new
-      end
-    end
-
-    def self.get_word_preprocessor(source_language)
-      case source_language
-        when :de then
-          GermanWordPreprocessor.new
-        else
-          nil
       end
     end
   end
