@@ -27,6 +27,7 @@ describe UserWordsController, :type => :controller do
   describe 'POST "update"' do
     before :each do
       @word = FactoryGirl.create(:english_user_word)
+      @translation = FactoryGirl.create(:word_relation_translation, :source_user_word => @word)
     end
 
     describe 'not logged in user' do
@@ -53,9 +54,6 @@ describe UserWordsController, :type => :controller do
       end
 
       it 'should save checked translations' do
-        @word = FactoryGirl.create(:word_relation_translation).source_user_word
-        FactoryGirl.create(:word_relation_translation, :source_user_word => @word)
-
         lambda do
           post :update, id: @word.id, translation_0: '', synonym_0: '', category_0: '',
                translation_1: @word.translations[0].related_user_word.text,
@@ -78,6 +76,20 @@ describe UserWordsController, :type => :controller do
           @word.reload
           expect(@word.translations.last.related_user_word.text).to eq('new_tran')
         end.to change { WordRelation.count }.by(1)
+      end
+
+      it 'should not add duplicated translation' do
+        word = @translation.source_user_word
+        translation = @translation.related_user_word
+        expect do
+          post :update, id: word.id, translation_0: translation.text, synonym_0: '', category_0: ''
+        end.not_to change { WordRelation.count }
+
+        word = @translation.source_user_word
+        translation = @translation.related_user_word
+        expect do
+          post :update, id: word.id, translation_0: translation.text, synonym_0: '', category_0: ''
+        end.not_to change { WordRelation.count }
       end
 
       it 'should add synonym' do
