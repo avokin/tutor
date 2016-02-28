@@ -1,9 +1,13 @@
-<div id="myModal" class="modal hide fade external-source" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Lingvo reference</h3>
-  </div>
-  <div class="modal-body">
-    <iframe src="<%= get_lingvo_url(@user_word, :ru)%>"></iframe>
+<div class="modal fade external-source" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Lingvo reference</h4>
+      </div>
+      <div class="modal-body">
+        <iframe src="<%= get_lingvo_url(@user_word, :ru)%>"></iframe>
+      </div>
+    </div>
   </div>
 </div>

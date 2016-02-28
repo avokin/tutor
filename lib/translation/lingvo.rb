@@ -14,7 +14,7 @@ module Translation::Lingvo
 
   def get_lingvo_url(word, dest_language)
     source_language = get_source_language(word)
-    URI::encode("http://www.lingvo-online.ru/ru/Translate/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word.text}")
+    URI::encode("http://lingvolive.ru/translate/#{@@language_hash[source_language]}-#{@@language_hash[dest_language]}/#{word.text}")
   end
 
   def request_lingvo(word, dest_language)
