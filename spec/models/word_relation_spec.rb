@@ -25,6 +25,24 @@ describe WordRelation do
     end
   end
 
+  describe 'validation' do
+    before(:each) do
+      @synonym = FactoryGirl.create(:word_relation_synonym)
+    end
+
+    it 'should not create duplicated relation when there is the same direct relation exist' do
+      expect do
+        WordRelation.create_relation(@user, @synonym.source_user_word, @synonym.related_user_word.text, '2')
+      end.not_to change { WordRelation.count }
+    end
+
+    it 'should not create duplicated relation when there is the same backward relation exist' do
+      expect do
+        WordRelation.create_relation(@user, @synonym.related_user_word, @synonym.source_user_word.text, '2')
+      end.not_to change { WordRelation.count }
+    end
+  end
+
   it "should require relation_type" do
     empty_relation = WordRelation.new
     empty_relation.should_not be_valid

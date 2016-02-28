@@ -10,9 +10,10 @@ class WordRelation < ActiveRecord::Base
   validates :user, :presence => true
 
   validates_uniqueness_of :relation_type, :scope => [:source_user_word_id, :related_user_word_id]
+  validate :backward_relation
 
   def self.create_relation(user, user_word, translated_text, relation_type)
-    if relation_type == "1"
+    if relation_type == '1'
       language = user.language
     else
       language = user_word.language
@@ -39,11 +40,11 @@ class WordRelation < ActiveRecord::Base
       else
         word_relation = nil
     end
-    if (!word_relation.nil?)
+    unless word_relation.nil?
       word_relation.user = user
       word_relation.related_user_word = related_user_word
-      if (word_relation.valid? || word_relation.source_user_word_id.nil?)
-        word_relation.save()
+      if word_relation.valid? || word_relation.source_user_word_id.nil?
+        word_relation.save
       else
         word_relation = nil
       end
@@ -51,15 +52,13 @@ class WordRelation < ActiveRecord::Base
     word_relation
   end
 
-  def self.find_all_translation(user, text)
-    WordRelation.where(:user_id => user.id).where(:relation_type => 1).joins(:source_user_word => :word).where(:words => {:text => text})
-  end
+  def backward_relation
+    backward_relation = WordRelation.find_by(source_user_word_id: self.related_user_word_id,
+                         related_user_word_id: self.source_user_word_id,
+                         relation_type: self.relation_type)
 
-  def self.find_all_by_user_id_relation_type_status_id(user, relation_type, status_id, category)
-    if !category.nil?
-      WordRelation.where(:user_id => user.id, :relation_type => relation_type, :status_id => status_id).joins(:source_user_word => :user_categories).where(:user_categories => {:id => category})
-    else
-      WordRelation.where(:user_id => user.id, :relation_type => relation_type, :status_id => status_id)
+    if backward_relation
+      errors.add(:related_user_word_id, 'Must be unique')
     end
   end
 end
