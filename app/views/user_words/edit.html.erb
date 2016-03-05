@@ -27,14 +27,15 @@
                 <%= render :partial => "word_relations/edit_word_relation", :collection => @user_word.translations %>
             <% else %>
                 <tr>
-                  <td colspan="3">Empty</td>
+                  <td colspan="2">Empty</td>
                 </tr>
             <% end %>
             <tr>
-              <td>
-                <%= autocomplete_field_tag :translation_0, '', search_autocomplete_user_word_text_path, :placeholder => "You could add translations here" %>
+              <td colspan="2">
+                <%= autocomplete_field_tag :translation_0, '', search_autocomplete_user_word_text_path,
+                                           class: 'full-width form-control',
+                                           placeholder: 'You could add translations here' %>
               </td>
-              <td></td>
             </tr>
             </tbody>
           </table>
@@ -49,17 +50,26 @@
                 <%= render :partial => "word_relations/edit_word_relation", :collection => @user_word.synonyms %>
             <% else %>
                 <tr>
-                  <td colspan="3">Empty</td>
+                  <td colspan="2">Empty</td>
                 </tr>
             <% end %>
             <tr>
-              <td>
-                <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_user_word_text_path, :placeholder => "You could add synonyms here" %>
+              <td colspan="2">
+                <%= autocomplete_field_tag :synonym_0, '', search_autocomplete_user_word_text_path,
+                                           class: 'full-width form-control',
+                                           placeholder: 'You could add synonyms here' %>
               </td>
-              <td></td>
             </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row with-bottom-margin">
+      <div class="col-md-12">
+        <div id="comment" class="box comment-box form-horizontal">
+          <%= f.text_area :comment, class: 'full-width form-control' %>
         </div>
       </div>
     </div>

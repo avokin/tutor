@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130506215413) do
+ActiveRecord::Schema.define(version: 20160305040115) do
 
   create_table "languages", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -52,13 +52,14 @@ ActiveRecord::Schema.define(version: 20130506215413) do
     t.datetime "created_at",                                                            null: false
     t.datetime "updated_at",                                                            null: false
     t.integer  "translation_success_count",             default: 0,                     null: false
-    t.datetime "time_to_check",                         default: '2015-06-10 09:27:09', null: false
+    t.datetime "time_to_check",                         default: '2015-04-20 16:23:54', null: false
     t.string   "text",                      limit: 255,                                 null: false
     t.integer  "language_id",                                                           null: false
     t.integer  "type_id"
     t.integer  "custom_int_field1"
     t.string   "custom_string_field1",      limit: 255
     t.string   "transcription",             limit: 255
+    t.string   "comment"
   end
 
   add_index "user_words", ["user_id", "text", "language_id"], name: "IndexUserWordUnique", unique: true

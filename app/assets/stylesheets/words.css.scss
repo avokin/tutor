@@ -62,12 +62,20 @@
   content: "Synonyms";
 }
 
+.comment-box::after {
+  content: "Comment";
+}
+
 .categories-box::after {
   content: "Categories";
 }
 
 .forms-box::after {
   content: "Forms";
+}
+
+.full-width {
+  width: 100%;
 }
 
 .external-source {

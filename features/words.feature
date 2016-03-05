@@ -13,11 +13,13 @@ Feature: UserWord's page
     Then I uncheck "translation_1"
     And check "translation_2"
     And I fill in "translation_0" with "ptica"
+    And I fill in "user_word_comment" with "my comment"
     And I press "Save word"
     And I wait for 1 second
     Then I should be on the "parrot" word's page
     And I should see "kakadu"
     And I should see "ptica"
+    And I should see "my comment"
     And I should not see "popugay"
 
   Scenario Outline: Autocompletion in the category field

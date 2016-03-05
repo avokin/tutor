@@ -65,6 +65,14 @@
       </div>
     </div>
 
+    <div class="row with-bottom-margin">
+      <div class="col-md-12">
+        <div id="comment" class="box comment-box form-horizontal">
+          <%= @user_word.comment %>
+        </div>
+      </div>
+    </div>
+
     <% if @user_word.user_word_categories.count > 0 %>
       <div class="row with-bottom-margin">
         <div class="col-md-12" id="categories">
