@@ -14,7 +14,7 @@ documentKeypress = (e) ->
     #ctrl + B
   else if e.keyCode == 115 || e.keyCode == 83
     # s or S
-    if e.srcElement.type isnt "text"
+    if e.srcElement.type isnt "text" and e.srcElement.type isnt 'textarea'
       wordToSearch = $("#search_text").get(0)
       wordToSearch.focus()
       false
