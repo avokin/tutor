@@ -1,7 +1,7 @@
 class UserWordsController < ApplicationController
 
   include UserWordsHelper
-  include Translation::Lingvo
+  include Translation::Multitran
 
   before_filter :authenticate
   before_filter :set_active_tab
@@ -17,7 +17,7 @@ class UserWordsController < ApplicationController
     @user_word.assign_attributes word_params
     @user_word.user = current_user
 
-    request_lingvo(@user_word, :ru)
+    request_translation(@user_word, current_user.language)
 
     @categories = UserCategory.find_all_by_is_default(current_user)
     @user_word_categories = @categories.map {|category| UserWordCategory.new :user_word => @user_word, :user_category => category}
