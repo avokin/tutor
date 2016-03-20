@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Lingvo reference</h4>
       </div>
       <div class="modal-body">
-        <iframe src="<%= get_lingvo_url(@user_word, :ru)%>"></iframe>
+        <iframe src="<%= get_lingvo_url(@user_word, current_user.language)%>"></iframe>
       </div>
     </div>
   </div>

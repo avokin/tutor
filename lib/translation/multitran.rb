@@ -12,7 +12,7 @@ module Translation::Multitran
   LANGUAGE_HASH[3] = '2'
 
   def get_lingvo_url(word, dest_language)
-    URI::encode("http://lingvolive.ru/translate/#{LANGUAGE_HASH['ru']}-#{LANGUAGE_HASH['de']}/#{word.text}")
+    URI::encode("http://lingvolive.ru/translate/#{word.language.short_name}-#{dest_language.short_name}/#{word.text}")
   end
 
   def get_translation_url(word, dest_language)
