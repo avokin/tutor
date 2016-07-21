@@ -8,7 +8,8 @@ class UserWord < ActiveRecord::Base
   has_many :direct_synonyms, -> { where 'relation_type = 2' }, :class_name => 'WordRelation', :foreign_key => 'source_user_word_id', :dependent => :delete_all
   has_many :backward_synonyms, -> { where 'relation_type = 2' }, :class_name => 'WordRelation', :foreign_key => 'related_user_word_id', :dependent => :delete_all
 
-  has_many :user_word_categories
+  has_many :user_word_categories, :dependent => :destroy
+
   has_many :user_categories, :through => :user_word_categories
 
   validates :text, :presence => true
@@ -84,9 +85,7 @@ class UserWord < ActiveRecord::Base
         end
 
         self.user_word_categories.each do |word_category|
-          if !new_categories.include?(word_category.user_category.name)
-            self.user_word_categories.delete(word_category)
-          else
+          if new_categories.include?(word_category.user_category.name)
             new_categories.delete word_category.user_category.name
           end
         end

@@ -110,12 +110,6 @@ describe UserWord do
         @word.user_categories[0].name.should == @category.name
         @word.user_categories[1].name.should == @new_cagegory_name
       end
-
-      it "should remove categories missed in the list" do
-        @word.save_with_relations([], [], [@new_cagegory_name])
-        @word.user_categories.length.should == 1
-        @word.user_categories[0].name.should == @new_cagegory_name
-      end
     end
   end
 

@@ -68,6 +68,12 @@ describe UserWordsController, :type => :controller do
           @word.reload
           expect(@word.user_categories.last.name).to eq('new_category')
         end.to change { UserWordCategory.count }.by(1)
+
+        expect do
+          post :update, id: @word.id, translation_0: '', synonym_0: '', category_0: 'another_category'
+          @word.reload
+          expect(@word.user_categories.last.name).to eq('another_category')
+        end.to change { UserWordCategory.count }.by(1)
       end
 
       it 'should add translation' do
