@@ -6,7 +6,16 @@ class GermanMultitranParser
     custom_int_field1 = nil
     custom_string_field1 = nil
 
-    grammar = doc.css('em')[0]
+    doc.css('td')[0]
+
+    td_search = doc.xpath("//td[contains(text(), '#{word.text}')]")
+    if td_search.length == nil
+      return
+    end
+
+    td = td_search[0]
+
+    grammar = td.css('em')[0]
     if grammar
       translation_container = grammar.parent.parent.next
 
