@@ -148,7 +148,7 @@ class UserWordsController < ApplicationController
 
   def word_params
     params.permit(:text, :type_id, :translation_0, :translation_1, :translation_2, :translation_3, :synonym_0,
-                  :synonym_1, :synonym_2, :synonym_3, :category_0, :language_id,
+                  :synonym_1, :synonym_2, :synonym_3, :category_0, :category_1, :category_2, :category_3, :language_id,
                   :user_word => [:language_id, :type_id, :text, :custom_int_field1, :custom_string_field1, :comment])
   end
 end

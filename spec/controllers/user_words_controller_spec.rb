@@ -108,14 +108,17 @@ describe UserWordsController, :type => :controller do
   describe "Put 'create'" do
     before(:each) do
       test_sign_in(first_user)
+
+      @category = FactoryGirl.create(:user_category, :name => "first", :is_default => true)
+      @put_parameters = {user: first_user, translation_0: '', symonym_0: '', category_0: '',
+                         user_word: {language_id: first_user.target_language.id, text: 'new_word', type_id: 1,
+                                     custom_int_field1: 1, custom_string_field1: 'custom'}}
     end
 
     it 'should create word with correct attributes' do
       lambda do
-        put :create, {user: first_user, translation_0: 'tran0', translation_1: 'tran1', synonym_0: 'syn0',
-                      category_0: 'cat0',
-                      user_word: {language_id: first_user.target_language.id, text: 'new_word', type_id: 1,
-                                  custom_int_field1: 1, custom_string_field1: 'custom'}}
+        put :create, @put_parameters.merge(translation_0: 'tran0', translation_1: 'tran1', synonym_0: 'syn0',
+                                           category_0: 'cat0')
       end.should change(UserWord, :count)
 
       word = UserWord.find_by text: 'new_word'
@@ -125,6 +128,12 @@ describe UserWordsController, :type => :controller do
       expect(word.type_id).not_to be(nil)
       expect(word.custom_int_field1).to eq(1)
       expect(word.custom_string_field1).to eq('custom')
+    end
+
+    it 'should add default category' do
+      expect do
+        put :create, @put_parameters.merge(category_1: @category.name)
+      end.to change(UserWordCategory, :count).by(1)
     end
   end
 end
