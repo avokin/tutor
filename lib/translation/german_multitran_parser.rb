@@ -15,6 +15,10 @@ class GermanMultitranParser
 
     td = td_search[0]
 
+    if td == nil
+      return
+    end
+
     grammar = td.css('em')[0]
     if grammar
       translation_container = grammar.parent.parent.next
