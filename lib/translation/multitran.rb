@@ -30,7 +30,7 @@ module Translation::Multitran
       elsif word.text =~ /^Getr.*$/
         doc = Nokogiri::HTML(IO.read("lib/translation/german_getraenk.html"))
       else
-        doc = Nokogiri::HTML(IO.read("lib/translation/english_parrot.html"))
+        doc = Nokogiri::HTML(IO.read("lib/translation/german_papagei.html", encoding: 'windows-1251'))
       end
     else
       encoded_url = get_translation_url(word, dest_language)

@@ -7,20 +7,21 @@ describe UserWordsController, :type => :controller do
 
   describe "GET 'new'" do
     before(:each) do
-      test_sign_in(first_user)
-      FactoryGirl.create(:user_category, :name => "included", :is_default => true)
-      FactoryGirl.create(:user_category, :name => "excluded", :is_default => true, :language => german_language)
+      test_sign_in(first_user(german_language))
+      FactoryGirl.create(:user_category, :name => "included", :is_default => true, :language => german_language)
+      FactoryGirl.create(:user_category, :name => "excluded", :is_default => true, :language => english_language)
+      FactoryGirl.create(:user_category, :name => "another excluded", :is_default => false, :language => german_language)
     end
 
-    it 'should display word customization' do
-      get :new, :text => 'parrot'
-      expect(response.body).to have_content('Transcription')
+    it 'should not fail' do
+      get :new, :text => 'Papagei'
     end
 
     it 'should have default category of target languages' do
-      get :new, :text => 'parrot'
+      get :new, :text => 'Papagei'
       expect(response.body).to have_content('included')
       expect(response.body).not_to have_content('excluded')
+      expect(response.body).not_to have_content('another excluded')
     end
   end
 
@@ -28,6 +29,7 @@ describe UserWordsController, :type => :controller do
     before :each do
       @word = FactoryGirl.create(:english_user_word)
       @translation = FactoryGirl.create(:word_relation_translation, :source_user_word => @word)
+      FactoryGirl.create(:word_relation_translation, :source_user_word => @word)
     end
 
     describe 'not logged in user' do
@@ -51,13 +53,15 @@ describe UserWordsController, :type => :controller do
     describe 'correct user' do
       before :each do
         test_sign_in(first_user)
+
+        @post_arguments = {id: @word.id, translation_0: '', synonym_0: '', category_0: '',
+                           translation_1: @word.translations[0].related_user_word.text,
+                           translation_2: @word.translations[1].related_user_word.text}
       end
 
       it 'should save checked translations' do
         lambda do
-          post :update, id: @word.id, translation_0: '', synonym_0: '', category_0: '',
-               translation_1: @word.translations[0].related_user_word.text,
-               translation_2: @word.translations[1].related_user_word.text
+          post :update, @post_arguments
 
         end.should_not change(WordRelation, :count)
       end
@@ -78,29 +82,22 @@ describe UserWordsController, :type => :controller do
 
       it 'should add translation' do
         expect do
-          post :update, id: @word.id, translation_0: 'new_tran', synonym_0: '', category_0: ''
+          post :update, @post_arguments.merge(translation_0: 'new_tran')
           @word.reload
           expect(@word.translations.last.related_user_word.text).to eq('new_tran')
         end.to change { WordRelation.count }.by(1)
       end
 
       it 'should not add duplicated translation' do
-        word = @translation.source_user_word
         translation = @translation.related_user_word
         expect do
-          post :update, id: word.id, translation_0: translation.text, synonym_0: '', category_0: ''
-        end.not_to change { WordRelation.count }
-
-        word = @translation.source_user_word
-        translation = @translation.related_user_word
-        expect do
-          post :update, id: word.id, translation_0: translation.text, synonym_0: '', category_0: ''
+          post :update, @post_arguments.merge(translation_0: translation.text)
         end.not_to change { WordRelation.count }
       end
 
       it 'should add synonym' do
         expect do
-          post :update, id: @word.id, translation_0: '', synonym_0: 'new_sym', category_0: ''
+          post :update, @post_arguments.merge(synonym_0: 'new_sym')
           @word.reload
           expect(@word.synonyms.last.related_user_word.text).to eq('new_sym')
         end.to change { WordRelation.count }.by(1)

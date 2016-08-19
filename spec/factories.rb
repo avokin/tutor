@@ -23,8 +23,8 @@ def second_language
   Language.all[1]
 end
 
-def first_user
-  User.first || FactoryGirl.create(:user)
+def first_user(target_language = english_language)
+  User.first || FactoryGirl.create(:user, target_language: target_language)
 end
 
 def second_user
@@ -33,7 +33,6 @@ def second_user
   end
   User.all[1]
 end
-
 
 FactoryGirl.define do
   factory :language do |language|
