@@ -19,7 +19,7 @@ And /^I fill login information for the first user$/ do
 end
 
 Given /^signed in user$/ do
-  user = first_user
+  user = first_user(german_language)
   visit("/signin")
   fill_in("session_email", :with => user.email)
   fill_in("session_password", :with => "password")
