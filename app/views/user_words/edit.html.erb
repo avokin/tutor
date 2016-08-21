@@ -7,11 +7,12 @@
           <%= f.select(:language_id, target_language_select, {}, {:class => 'form-control'}) %>
         </div>
       </div>
-      <div class="col-md-2 col-md-offset-3">
-        <h1 class="without-bottom-margin"><span class="user_data"><%= link_to @user_word.text, @user_word %></span></h1>
+      <div class="col-md-3">
+        <h1 class="without-bottom-margin"><span class="user_data center center-aligned"><%= f.text_field :text,
+           size: 40, class: 'center' %></span></h1>
       </div>
 
-      <div class="col-md-1 col-md-offset-4 right-aligned">
+      <div class="col-md-1 col-md-offset-6 right-aligned">
         <a class="btn btn-default" data-toggle="modal" data-target="#myModal">Lingvo</a>
       </div>
     </div>

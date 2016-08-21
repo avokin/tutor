@@ -102,6 +102,12 @@ describe UserWordsController, :type => :controller do
           expect(@word.synonyms.last.related_user_word.text).to eq('new_sym')
         end.to change { WordRelation.count }.by(1)
       end
+
+      it 'should change word' do
+        post :update, @post_arguments.merge(user_word: {text: 'new_text'})
+        @word.reload
+        expect(@word.text).to eq('new_text')
+      end
     end
   end
 
