@@ -5,5 +5,9 @@ $ ->
     if ///type_id=[0-9]///.test(href)
       new_path = href.replace(///type_id=[0-9]///, "type_id=" + new_type)
     else
-      new_path = href + "&type_id=" + new_type
+      if href.includes('?')
+        separator = '&'
+      else
+        separator = '?'
+      new_path = href + separator + "type_id=" + new_type
     window.location = new_path
