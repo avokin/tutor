@@ -1,6 +1,5 @@
 module ApplicationHelper
   ANOTHER_USER_ERROR_MESSAGE = "You are trying to access to object that created by another user"
-  NOT_SIGNED_IN_USER_ERROR_MESSAGE = "You must sign in!"
   def logo
     image_tag('logo.png', :alt => 'Tutor', :class => "logo")
   end
@@ -33,6 +32,6 @@ module ApplicationHelper
   end
 
   def deny_access
-    redirect_to signin_path, :flash => {:error => NOT_SIGNED_IN_USER_ERROR_MESSAGE}
+    redirect_to signin_path
   end
 end
