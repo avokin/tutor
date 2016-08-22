@@ -20,6 +20,7 @@
             <li <% if @active_tab == :dictionary %>class="active"<% end %> ><%= link_to "Dictionary", root_path %></li>
             <li <% if @active_tab == :categories %>class="active"<% end %> ><%= link_to "Categories", user_categories_path %></li>
             <li <% if @active_tab == :training %>class="active"<% end %> ><%= link_to "Training", trainings_path %></li>
+            <li><%= link_to "New Word", new_user_word_path %> </li>
           </ul>
           <ul class="nav navbar-nav pull-right">
             <li class="dropdown">

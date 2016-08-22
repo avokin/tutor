@@ -17,7 +17,9 @@ class UserWordsController < ApplicationController
     @user_word.assign_attributes word_params
     @user_word.user = current_user
 
-    request_translation(@user_word, current_user.language)
+    if @user_word.text != nil
+      request_translation(@user_word, current_user.language)
+    end
 
     @categories = UserCategory.find_all_by_is_default(current_user)
     @user_word_categories = @categories.map {|category| UserWordCategory.new :user_word => @user_word, :user_category => category}
