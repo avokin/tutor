@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def authenticate
-    authenticate_user()
+    authenticate_user
   end
 end
 
