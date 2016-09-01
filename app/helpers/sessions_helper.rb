@@ -10,7 +10,7 @@ module SessionsHelper
   end
 
   def current_user
-    @current_user ||= user_from_remember_token
+    @current_user ||= try_to_authorize
   end
 
   def current_user=(user)
@@ -26,8 +26,14 @@ module SessionsHelper
   end
 
   private
-    def user_from_remember_token
-      User.authenticate_with_salt(*remember_token)
+    def try_to_authorize
+      authentication_token = request.headers["HTTP_AUTHORIZATION"]
+      if authentication_token != nil
+        login_password = authentication_token.split(':')
+        User.authenticate *login_password
+      else
+        User.authenticate_with_salt(*remember_token)
+      end
     end
 
     def remember_token
