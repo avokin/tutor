@@ -4,7 +4,7 @@ module SessionsHelper
     self.current_user = user
   end
 
-  def sign_out()
+  def sign_out
     cookies.permanent.signed[:remember_token] = [nil, nil]
     self.current_user = nil
   end
@@ -27,10 +27,9 @@ module SessionsHelper
 
   private
     def try_to_authorize
-      authentication_token = request.headers["HTTP_AUTHORIZATION"]
+      authentication_token = controller.request.headers['HTTP_AUTHORIZATION']
       if authentication_token != nil
-        login_password = authentication_token.split(':')
-        User.authenticate *login_password
+        User.authenticate_with_token authentication_token
       else
         User.authenticate_with_salt(*remember_token)
       end
