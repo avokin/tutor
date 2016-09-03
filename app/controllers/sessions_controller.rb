@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
   def new
-    @title = "Sign in"
+    @title = 'Sign in'
   end
 
   def destroy
-    sign_out()
+    sign_out
     redirect_to(root_path)
   end
 
