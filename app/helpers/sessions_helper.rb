@@ -27,7 +27,8 @@ module SessionsHelper
 
   private
     def try_to_authorize
-      authentication_token = controller.request.headers['HTTP_AUTHORIZATION']
+      request |= controller.request
+      authentication_token = request.headers['HTTP_AUTHORIZATION']
       if authentication_token != nil
         User.authenticate_with_token authentication_token
       else
