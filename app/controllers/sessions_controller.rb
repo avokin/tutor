@@ -23,9 +23,9 @@ class SessionsController < ApplicationController
       end
       format.json {
         if user.nil?
-          render json: '{error: "Bad credentials"}', status: 401
+          render json: '{"error": "Bad credentials"}', status: 401
         else
-          render json: "{token: \"#{user.encrypted_password}\"}"
+          render json: "{\"token\": \"#{user.encrypted_password}\"}"
         end
       }
     end
