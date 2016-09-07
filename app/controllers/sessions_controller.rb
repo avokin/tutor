@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.authenticate(params[:session][:email], params[:session][:password])
+    user = User.authenticate_with_email_and_password(params[:session][:email], params[:session][:password])
     respond_to do |format|
       format.html do
         if user.nil?

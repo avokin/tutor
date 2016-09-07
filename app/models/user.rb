@@ -56,6 +56,14 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(submitted_password)
   end
 
+  def self.authenticate_with_email_and_password(email, submitted_password)
+    user = User.find_by_email(email)
+    unless user.nil?
+      return user.has_password?(submitted_password) ? user : nil
+    end
+    nil
+  end
+
   def self.authenticate_with_token(token)
     User.find_by_encrypted_password(token)
   end
