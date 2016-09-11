@@ -2,8 +2,8 @@ doctype html
 html
   head
     title Trackapp
-    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
   body
@@ -19,20 +19,20 @@ div.row
       div.form-group
         span.add-on
           i.icon-envelope
-        = f.text_field :email, :size => 30, :placeholder => "Email", class: 'form-control'
+        = f.text_field :email, :size => 30, :placeholder => 'Email', class: 'form-control'
 
       div.form-group
         span.add-on
           i.icon-lock
-        = f.password_field :password, :placeholder => "Password", class: 'form-control'
+        = f.password_field :password, :placeholder => 'Password', class: 'form-control'
 
       div.center
-        = f.submit "Sign in", :class => "btn btn-primary"
+        = f.submit 'Sign in', :class => 'btn btn-primary'
 
     div.center
       p
-      p = link_to "forgotten password?", new_password_reset_path
+      p = link_to 'forgotten password?', new_password_reset_path
 
       p
         | New user?
-        = link_to "Sign up now!", signup_path
+        = link_to 'Sign up now!', signup_path

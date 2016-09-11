@@ -61,13 +61,13 @@ class UserWord < ActiveRecord::Base
 
         new_translations.each do |translation|
           if user.language.id != self.language.id
-            WordRelation.create_relation(user, self, translation, "1")
+            WordRelation.create_relation(user, self, translation, '1')
           else
             related_user_word = UserWord.get_for_user(user, translation, user.target_language)
             if related_user_word.new_record?
               related_user_word.save!
             end
-            WordRelation.create_relation(user, related_user_word, self.text, "1")
+            WordRelation.create_relation(user, related_user_word, self.text, '1')
           end
         end
 
@@ -81,7 +81,7 @@ class UserWord < ActiveRecord::Base
         end
 
         new_synonyms.each do |synonym|
-          WordRelation.create_relation(user, self, synonym, "2")
+          WordRelation.create_relation(user, self, synonym, '2')
         end
 
         self.user_word_categories.each do |word_category|

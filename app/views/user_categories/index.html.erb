@@ -37,7 +37,7 @@
     <tfoot>
     <tr>
       <td colspan="6">
-        <%= button_to "Create Category", new_user_category_path, :method => :get, :form_class => "inline", :class => "btn btn-default without-bottom-margin" %>
+        <%= button_to 'Create Category', new_user_category_path, :method => :get, :form_class => 'inline', :class => 'btn btn-default without-bottom-margin' %>
       </td>
     </tr>
     </tfoot>
@@ -46,7 +46,7 @@
     <% @categories.each() do |category| %>
       <tr>
         <td>
-          <%= check_box_tag("id#{category.id}", "", false, :class => "mass_checkbox") %>
+          <%= check_box_tag("id#{category.id}", '', false, :class => 'mass_checkbox') %>
         </td>
 
         <%= render category %>

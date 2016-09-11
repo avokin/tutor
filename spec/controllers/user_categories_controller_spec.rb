@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe UserCategoriesController, :type => :controller do
   #render_views
@@ -20,9 +20,9 @@ describe UserCategoriesController, :type => :controller do
       test_sign_in(@user)
     end
 
-    it "should have right title" do
+    it 'should have right title' do
       get :index
-      expect(response.body).to have_title("Tutor - Your categories")
+      expect(response.body).to have_title('Tutor - Your categories')
     end
 
     it 'should display only categories for current language' do
@@ -33,21 +33,21 @@ describe UserCategoriesController, :type => :controller do
   end
 
   describe "DELETE 'destroy'" do
-    describe "unauthorized access" do
-      describe "not logged in user" do
-        it "should redirect to signin path" do
+    describe 'unauthorized access' do
+      describe 'not logged in user' do
+        it 'should redirect to signin path' do
           delete :destroy, :id => @category.id
           expect(response).to redirect_to signin_path
         end
       end
 
-      describe "not owner user" do
+      describe 'not owner user' do
         before(:each) do
           user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
-        it "should redirect to root path and display flash with error" do
+        it 'should redirect to root path and display flash with error' do
           delete :destroy, :id => @category.id
           expect(response).to redirect_to root_path
           expect(flash[:error]).to match /Error.*another user/
@@ -55,12 +55,12 @@ describe UserCategoriesController, :type => :controller do
       end
     end
 
-    describe "authorized access" do
+    describe 'authorized access' do
       before(:each) do
         test_sign_in @user
       end
 
-      it "should remove UserCategory record and all depending records" do
+      it 'should remove UserCategory record and all depending records' do
         expect do
           expect do
             delete :destroy, :id => @category.id
@@ -68,7 +68,7 @@ describe UserCategoriesController, :type => :controller do
         end.to change(UserWordCategory, :count).by(-1)
       end
 
-      it "should redirect to root path" do
+      it 'should redirect to root path' do
         delete :destroy, :id => @category.id
         expect(response).to redirect_to user_categories_path
       end
@@ -80,34 +80,34 @@ describe UserCategoriesController, :type => :controller do
       test_sign_in(@user)
     end
 
-    describe "creation a new Category" do
-      it "should create new UserCategory record" do
+    describe 'creation a new Category' do
+      it 'should create new UserCategory record' do
         expect do
-          post :create, :user_category => {:name => "new category"}
+          post :create, :user_category => {:name => 'new category'}
         end.to change(UserCategory, :count).by(1)
         expect(UserCategory.last.language).to eq @user.target_language
       end
 
-      it "should redirect to word list" do
-        post :create, :user_category => {:name => "new category"}
+      it 'should redirect to word list' do
+        post :create, :user_category => {:name => 'new category'}
         expect(response).to redirect_to user_categories_path
       end
     end
 
-    describe "creation a new Category with already used name and language" do
+    describe 'creation a new Category with already used name and language' do
       it "shouldn't create new Category" do
         expect do
           post :create, :user_category => {:name => @category.name}
         end.to_not change(UserCategory, :count)
       end
 
-      it "should redirect to error page" do
+      it 'should redirect to error page' do
         post :create, :user_category => {:name => @category.name}
-        expect(response).to render_template("pages/message")
+        expect(response).to render_template('pages/message')
       end
     end
 
-    describe "creation a new Category with already used name but not language" do
+    describe 'creation a new Category with already used name but not language' do
       before :each do
         @user.target_language = german_language
         @user.save!
@@ -119,7 +119,7 @@ describe UserCategoriesController, :type => :controller do
         end.to change(UserCategory, :count).by(1)
       end
 
-      it "should redirect to word list" do
+      it 'should redirect to word list' do
         post :create, :user_category => {:name => @category.name}
         expect(response).to redirect_to user_categories_path
       end
@@ -127,21 +127,21 @@ describe UserCategoriesController, :type => :controller do
   end
 
   describe "PUT 'update'" do
-    describe "unauthorized access" do
-      describe "not logged in user" do
-        it "should redirect to signin path" do
+    describe 'unauthorized access' do
+      describe 'not logged in user' do
+        it 'should redirect to signin path' do
           put :update, :id => @category
           expect(response).to redirect_to signin_path
         end
       end
 
-      describe "not owner user" do
+      describe 'not owner user' do
         before(:each) do
           user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
-        it "should redirect to root path and display flash with error" do
+        it 'should redirect to root path and display flash with error' do
           put :update, :id => @category
           expect(response).to redirect_to root_path
           expect(flash[:error]).to match /Error.*another user/
@@ -149,7 +149,7 @@ describe UserCategoriesController, :type => :controller do
       end
     end
 
-    describe "authorized access" do
+    describe 'authorized access' do
       before(:each) do
         test_sign_in @user
       end
@@ -161,7 +161,7 @@ describe UserCategoriesController, :type => :controller do
         expect(@category.is_default).to be true
       end
 
-      it "should redirect to category word list" do
+      it 'should redirect to category word list' do
         put :update, :id => @category.id, :user_category => {:name => 'new category'}, :btn_update => 'true'
         expect(response).to redirect_to user_category_path(@category)
       end
@@ -169,21 +169,21 @@ describe UserCategoriesController, :type => :controller do
   end
 
   describe "GET 'show'" do
-    describe "unauthorized access" do
-      describe "not logged in user" do
-        it "should redirect to signin path" do
+    describe 'unauthorized access' do
+      describe 'not logged in user' do
+        it 'should redirect to signin path' do
           get :show, :id => @category.id
           expect(response).to redirect_to signin_path
         end
       end
 
-      describe "not owner user" do
+      describe 'not owner user' do
         before(:each) do
           user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
-        it "should redirect to root path and display flash with error" do
+        it 'should redirect to root path and display flash with error' do
           get :show, :id => @category.id
           expect(response).to redirect_to root_path
           expect(flash[:error]).to match /Error.*another user/
@@ -191,7 +191,7 @@ describe UserCategoriesController, :type => :controller do
       end
     end
 
-    describe "authrorized access" do
+    describe 'authrorized access' do
       before(:each) do
         test_sign_in @user
       end
@@ -208,7 +208,7 @@ describe UserCategoriesController, :type => :controller do
 
       it "should display the 'Edit' link" do
         get :show, :id => @category.id
-        expect(response.body).to have_selector('a', :text => "Edit")
+        expect(response.body).to have_selector('a', :text => 'Edit')
       end
     end
   end
@@ -218,7 +218,7 @@ describe UserCategoriesController, :type => :controller do
       test_sign_in @user
     end
 
-    it "should have right title" do
+    it 'should have right title' do
       get :new
       expect(response.body).to have_title('Tutor - New category')
 
@@ -229,21 +229,21 @@ describe UserCategoriesController, :type => :controller do
   end
 
   describe "GET 'edit'" do
-    describe "unauthorized access" do
-      describe "not logged in user" do
-        it "should redirect to signin path" do
+    describe 'unauthorized access' do
+      describe 'not logged in user' do
+        it 'should redirect to signin path' do
           get :edit, :id => @category.id
           expect(response).to redirect_to signin_path
         end
       end
 
-      describe "not owner user" do
+      describe 'not owner user' do
         before(:each) do
           user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
-        it "should redirect to root path and display flash with error" do
+        it 'should redirect to root path and display flash with error' do
           get :edit, :id => @category.id
           expect(response).to redirect_to root_path
           expect(flash[:error]).to match /Error.*another user/
@@ -251,7 +251,7 @@ describe UserCategoriesController, :type => :controller do
       end
     end
 
-    describe "authorized access" do
+    describe 'authorized access' do
       before(:each) do
         test_sign_in @user
       end
@@ -272,21 +272,21 @@ describe UserCategoriesController, :type => :controller do
       @category2 = @user_word_category.user_category
     end
 
-    describe "unauthorized access" do
-      describe "not logged in user" do
-        it "should redirect to signin path" do
+    describe 'unauthorized access' do
+      describe 'not logged in user' do
+        it 'should redirect to signin path' do
           put :merge, :ids => "#{@category.id}, #{@category2.id}"
           expect(response).to redirect_to signin_path
         end
       end
 
-      describe "not owner user" do
+      describe 'not owner user' do
         before(:each) do
           user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
-        it "should redirect to root path and display flash with error" do
+        it 'should redirect to root path and display flash with error' do
           put :merge, :ids => "#{@category.id}, #{@category2.id}"
           expect(response).to redirect_to root_path
           expect(flash[:error]).to match /Error.*another user/
@@ -294,12 +294,12 @@ describe UserCategoriesController, :type => :controller do
       end
     end
 
-    describe "authorized access" do
+    describe 'authorized access' do
       before(:each) do
         test_sign_in @user
       end
 
-      it "should move all words to the first category" do
+      it 'should move all words to the first category' do
         words_to_move = @category2.user_words
         put :merge, :ids => "#{@category.id}, #{@category2.id}"
 
@@ -309,7 +309,7 @@ describe UserCategoriesController, :type => :controller do
         end
       end
 
-      it "should remove all categories except the first" do
+      it 'should remove all categories except the first' do
         put :merge, :ids => "#{@category.id}, #{@category2.id}"
         expect(UserCategory.find_by_id(@category2.id)).to be_nil
       end

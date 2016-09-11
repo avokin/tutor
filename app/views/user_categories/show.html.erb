@@ -3,7 +3,7 @@
     <h1>Category: <span class="user_data"><%= @category.name %></span> <% if @category.is_default %> [default] <% end %> (<%= pluralize(@user_words.count, 'word')%>)</h1>
   </div>
   <div class="col-md-1">
-    <%= link_to "Edit", edit_user_category_path(@category) %>
+    <%= link_to 'Edit', edit_user_category_path(@category) %>
   </div>
 </div>
 

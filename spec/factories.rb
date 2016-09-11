@@ -5,15 +5,15 @@ def init_db
 end
 
 def russian_language
-  Language.find_by_name("Russian")
+  Language.find_by_name('Russian')
 end
 
 def german_language
-  Language.find_by_name("Deutsch")
+  Language.find_by_name('Deutsch')
 end
 
 def english_language
-  Language.find_by_name("English")
+  Language.find_by_name('English')
 end
 
 def second_language
@@ -38,11 +38,11 @@ FactoryGirl.define do
   factory :language do |language|
     language.sequence(:name) do |i| case i % 3
                                      when 1
-                                       "English"
+                                       'English'
                                      when 2
-                                       "Russian"
+                                       'Russian'
                                      when 0
-                                       "Deutsch"
+                                       'Deutsch'
       end
     end
   end
@@ -91,15 +91,15 @@ FactoryGirl.define do
   end
 
   factory :user do |user|
-    user.name "UserName UserSurname"
+    user.name 'UserName UserSurname'
     user.sequence(:email) { |i| "test#{i}@gmail.com" }
-    user.password "password"
-    user.password_confirmation "password"
+    user.password 'password'
+    user.password_confirmation 'password'
     user.success_count 5
     user.language do
-      Language.find_by_name("Russian")
+      Language.find_by_name('Russian')
     end
-    user.target_language { Language.find_by_name("English") }
+    user.target_language { Language.find_by_name('English') }
   end
 
   factory :user_category do |user_category|
@@ -127,7 +127,7 @@ FactoryGirl.define do
     german_noun.language_id { 3 }
 
     german_noun.type_id { 1 }
-    german_noun.custom_string_field1 { "die" }
-    german_noun.custom_string_field2 { "Omas" }
+    german_noun.custom_string_field1 { 'die' }
+    german_noun.custom_string_field2 { 'Omas' }
   end
 end

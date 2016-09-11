@@ -9,9 +9,9 @@
 
     <%= form_tag password_resets_path, :method => :post do %>
         <div class="input-prepend">
-          <span class="add-on"><i class="icon-envelope"></i></span><%= text_field_tag :email, "", :size => 30, :placeholder => "Email" %>
+          <span class="add-on"><i class="icon-envelope"></i></span><%= text_field_tag :email, '', :size => 30, :placeholder => 'Email' %>
         </div>
-        <div class="actions"><%= submit_tag "Reset Password", :class => "btn"%></div>
+        <div class="actions"><%= submit_tag 'Reset Password', :class => 'btn'%></div>
     <% end %>
   </div>
 </div>

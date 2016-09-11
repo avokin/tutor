@@ -12,13 +12,13 @@ describe WordRelationsController, :type => :controller do
       @user_word = FactoryGirl.create(:english_user_word)
     end
 
-    describe "fail" do
-      describe "fail if incorrect relation type" do
+    describe 'fail' do
+      describe 'fail if incorrect relation type' do
         before(:each) do
-          @attr = {:user_word_id => @user_word.id, :related_word => 'related_word', :relation_type => "0"}
+          @attr = {:user_word_id => @user_word.id, :related_word => 'related_word', :relation_type => '0'}
         end
 
-        it "should fail because of non-existed word" do
+        it 'should fail because of non-existed word' do
           expect do
             post :create, :word_relation => @attr
           end.to_not change(WordRelation, :count)
@@ -28,7 +28,7 @@ describe WordRelationsController, :type => :controller do
 
       describe "fail if can't save relation'" do
         before(:each) do
-          @attr = {:user_word_id => @user_word.id, :related_word => nil, :relation_type => "1"}
+          @attr = {:user_word_id => @user_word.id, :related_word => nil, :relation_type => '1'}
         end
 
         it 'should fail because of empty related word' do
@@ -42,7 +42,7 @@ describe WordRelationsController, :type => :controller do
 
     describe 'success' do
       before(:each) do
-        @attr = {:user_word_id => @user_word.id, :related_word => 'related_word', :relation_type => "1"}
+        @attr = {:user_word_id => @user_word.id, :related_word => 'related_word', :relation_type => '1'}
       end
 
       it 'should create a new Word and a new WordRelation' do
@@ -58,21 +58,21 @@ describe WordRelationsController, :type => :controller do
       @word_relation = FactoryGirl.create(:word_relation_translation)
     end
 
-    describe "unauthorized access" do
-      describe "not logged in user" do
-        it "should redirect to signin path" do
+    describe 'unauthorized access' do
+      describe 'not logged in user' do
+        it 'should redirect to signin path' do
           delete :destroy, :id => @word_relation
           expect(response).to redirect_to signin_path
         end
       end
 
-      describe "not owner user" do
+      describe 'not owner user' do
         before(:each) do
           user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
-        it "should redirect to root path and display flash with error" do
+        it 'should redirect to root path and display flash with error' do
           delete :destroy, :id => @word_relation
           expect(response).to redirect_to root_path
           expect(flash[:error]).to match /Error.*another user/
@@ -80,15 +80,15 @@ describe WordRelationsController, :type => :controller do
       end
     end
 
-    describe "authorized access" do
+    describe 'authorized access' do
       before(:each) do
         test_sign_in @word_relation.user
       end
 
-      it "should delete record" do
+      it 'should delete record' do
         expect do
           delete :destroy, :id => @word_relation
-          expect(response.code).to eq "302"
+          expect(response.code).to eq '302'
           expect(response).to redirect_to(user_word_path(@word_relation.source_user_word))
         end.to change(WordRelation, :count).by(-1)
       end
@@ -100,21 +100,21 @@ describe WordRelationsController, :type => :controller do
       @word_relation = FactoryGirl.create(:word_relation_translation)
     end
 
-    describe "unauthorized access" do
-      describe "not logged in user" do
-        it "should redirect to signin path" do
+    describe 'unauthorized access' do
+      describe 'not logged in user' do
+        it 'should redirect to signin path' do
           delete :destroy_with_related_word, :id => @word_relation.id
           expect(response).to redirect_to signin_path
         end
       end
 
-      describe "not owner user" do
+      describe 'not owner user' do
         before(:each) do
           user = FactoryGirl.create(:user)
           test_sign_in user
         end
 
-        it "should redirect to root path and display flash with error" do
+        it 'should redirect to root path and display flash with error' do
           delete :destroy_with_related_word, :id => @word_relation.id
           expect(response).to redirect_to root_path
           expect(flash[:error]).to match /Error.*another user/
@@ -122,12 +122,12 @@ describe WordRelationsController, :type => :controller do
       end
     end
 
-    describe "authorized access" do
+    describe 'authorized access' do
       before(:each) do
         test_sign_in @word_relation.user
       end
 
-      it "should delete related UserWord and WordRelation itself" do
+      it 'should delete related UserWord and WordRelation itself' do
         expect do
           expect do
             delete :destroy_with_related_word, :id => @word_relation.id

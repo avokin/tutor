@@ -10,9 +10,9 @@ module NavigationHelpers
       when /^the home\s?page$/
         '/'
       when /^the login page$/
-        "/signin"
+        '/signin'
       when /^the word\'s page$/
-        "/user_words/1"
+        '/user_words/1'
       when /^the "([^"]*)" word's page$/
         user_word = UserWord.find_by_text($1)
         user_word_path user_word
@@ -23,15 +23,15 @@ module NavigationHelpers
         user_category = UserCategory.find_by_user_and_name(User.first, $1)
         user_category_path user_category
       when /^the new word page$/
-        "/user_words/new"
+        '/user_words/new'
       when /^the new german noun "([^"]*)" page$/
         "/user_words/new?text=#{$1}"
       when /^the new word "([^"]*)" page$/
         new_user_word_path :text => $1
       when /^the user\'s page$/
-        "/users/1"
+        '/users/1'
       when /^start learning page$/
-        "/tries"
+        '/tries'
       when /^the trainings page$/
         trainings_path
       when /^the training page$/
@@ -39,7 +39,7 @@ module NavigationHelpers
       when /^the learning page$/
         learning_training_path Training.first
       when /^learning page$/
-        "/tries/1"
+        '/tries/1'
       when /^the "([^"]*)" category page$/
         user_category_path UserCategory.find_by_name($1)
       when /^the edit "([^"]*)" category page$/

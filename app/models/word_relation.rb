@@ -24,13 +24,13 @@ class WordRelation < ActiveRecord::Base
     end
 
     case relation_type
-      when "1"
+      when '1'
         if related_user_word.language_id == user_word.language_id
           return nil
         end
         word_relation = user_word.direct_translations.build(:status_id => 1)
         word_relation.relation_type = 1
-      when "2"
+      when '2'
         if related_user_word.language_id != user_word.language_id || related_user_word == user_word
           return nil
         end

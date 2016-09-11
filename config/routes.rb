@@ -25,7 +25,7 @@ Tutor::Application.routes.draw do
   end
 
   resources :user_word_categories, :only => [:destroy]
-  get "user_word_categories/delete"
+  get 'user_word_categories/delete'
 
   resources :user_words do
     collection do

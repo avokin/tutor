@@ -29,13 +29,13 @@ gem 'rails3-jquery-autocomplete'
 gem 'nifty-generators'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
-gem "nokogiri", '1.6.7'
+gem 'nokogiri', '1.6.7'
 
-gem "bcrypt-ruby", :require => "bcrypt"
+gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'slim-rails'
 gem 'haml-rails'
 
-gem "twitter-bootstrap-rails"
+gem 'twitter-bootstrap-rails'
 
 group :production do
   gem 'pg'

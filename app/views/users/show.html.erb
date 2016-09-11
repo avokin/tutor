@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for current_user, :url => {:controller => "users", :action => "update"} do |f| %>
+    <%= form_for current_user, :url => {:controller => 'users', :action => 'update'} do |f| %>
         <table class="table table-striped">
           <thead>
           <tr>
@@ -18,7 +18,7 @@
           <tfoot>
           <tr>
             <td colspan="2">
-              <%= f.submit "Save", :class => "btn" %>
+              <%= f.submit 'Save', :class => 'btn' %>
             </td>
           </tr>
           </tfoot>
@@ -29,7 +29,7 @@
           </tr>
           <tr>
             <td>Native Language</td>
-            <td><%= !current_user.language.nil? ? current_user.language.name : "" %></td>
+            <td><%= !current_user.language.nil? ? current_user.language.name : '' %></td>
           </tr>
           <tr>
             <td>Target Language</td>

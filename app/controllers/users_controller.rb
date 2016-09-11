@@ -2,12 +2,12 @@ class UsersController < ApplicationController
   before_filter :authenticate, :except => [:new, :create]
 
   def new
-    @title = "Sign up"
+    @title = 'Sign up'
     @user = User.new
   end
 
   def edit
-    @title = "Edit Account"
+    @title = 'Edit Account'
   end
 
   def create
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       sign_in(@user)
       redirect_to @user
     else
-      @title = "Sign up"
+      @title = 'Sign up'
       render 'new'
     end
   end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     current_user.update_attributes(user_params)
     current_user.target_language = Language.find(user_params[:target_language_id])
     current_user.save
-    render "show"
+    render 'show'
   end
 
   def set_target_language

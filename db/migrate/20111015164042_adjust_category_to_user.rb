@@ -2,7 +2,7 @@ class AdjustCategoryToUser < ActiveRecord::Migration
   def self.up
     rename_table :categories, :user_categories
     add_column :user_categories, :user_id, :integer
-    UserCategory.update_all ["user_id = ?", 1]
+    UserCategory.update_all ['user_id = ?', 1]
     change_column :user_categories, :user_id, :integer, :null => false
 
     rename_table :word_categories, :user_word_categories

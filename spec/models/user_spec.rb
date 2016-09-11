@@ -53,7 +53,7 @@ describe User do
         FactoryGirl.create(:german_user_word)
       end
 
-      it "should take only English words" do
+      it 'should take only English words' do
         user = User.first
         expect(user.foreign_user_words.length).to eq 1
         expect(user.foreign_user_words[0].language.name).to eq 'English'

@@ -1,7 +1,7 @@
 module ApplicationHelper
-  ANOTHER_USER_ERROR_MESSAGE = "You are trying to access to object that created by another user"
+  ANOTHER_USER_ERROR_MESSAGE = 'You are trying to access to object that created by another user'
   def logo
-    image_tag('logo.png', :alt => 'Tutor', :class => "logo")
+    image_tag('logo.png', :alt => 'Tutor', :class => 'logo')
   end
 
   # put this in the body after a form to set the input focus to a specific control id
@@ -18,7 +18,7 @@ module ApplicationHelper
     target_lang = current_user.target_language
     native_lang = current_user.language
     other_languages = Language.all.find_all{|language| language.id != target_lang.id && language.id != native_lang.id};
-    content_tag :ul, :class => "dropdown-menu" do
+    content_tag :ul, :class => 'dropdown-menu' do
       other_languages.collect do |language|
         concat(content_tag(:li, link_to(language.name, "/users/set_target_language?id=#{language.id}")))
       end

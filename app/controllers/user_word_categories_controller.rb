@@ -2,7 +2,7 @@ class UserWordCategoriesController < ApplicationController
   def destroy
     user_word_category = UserWordCategory.find(params[:id])
     if user_word_category.user_word.user != current_user
-      render "pages/message"
+      render 'pages/message'
       return
     end
 

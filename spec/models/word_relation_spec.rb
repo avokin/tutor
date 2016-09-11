@@ -43,7 +43,7 @@ describe WordRelation do
     end
   end
 
-  it "should require relation_type" do
+  it 'should require relation_type' do
     empty_relation = WordRelation.new
     expect(empty_relation).to_not be_valid
   end

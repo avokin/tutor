@@ -1,1 +1,1 @@
-Language.create!([{:name => "Russian"}, {:name => "English"}, {:name => "Deutsch"}])
+Language.create!([{:name => 'Russian'}, {:name => 'English'}, {:name => 'Deutsch'}])

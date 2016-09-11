@@ -22,15 +22,15 @@ module Translation::Multitran
 
   def request_translation(word, dest_language)
     # Todo: move to test translator
-    if ENV['RAILS_ENV'] == "test"
-      if word.text == "Kind"
-        doc = Nokogiri::HTML(IO.read("lib/translation/german_kind.html"))
-      elsif word.text == "Oma"
-        doc = Nokogiri::HTML(IO.read("lib/translation/german_oma.html"))
+    if ENV['RAILS_ENV'] == 'test'
+      if word.text == 'Kind'
+        doc = Nokogiri::HTML(IO.read('lib/translation/german_kind.html'))
+      elsif word.text == 'Oma'
+        doc = Nokogiri::HTML(IO.read('lib/translation/german_oma.html'))
       elsif word.text =~ /^Getr.*$/
-        doc = Nokogiri::HTML(IO.read("lib/translation/german_getraenk.html"))
+        doc = Nokogiri::HTML(IO.read('lib/translation/german_getraenk.html'))
       else
-        doc = Nokogiri::HTML(IO.read("lib/translation/german_papagei.html", encoding: 'windows-1251'))
+        doc = Nokogiri::HTML(IO.read('lib/translation/german_papagei.html', encoding: 'windows-1251'))
       end
     else
       encoded_url = get_translation_url(word, dest_language)

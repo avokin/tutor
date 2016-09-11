@@ -39,7 +39,7 @@ class WordRelationsController < ApplicationController
       else
         @user = @word_relation.user
 
-        redirect_to(root_path, :flash => { :error => "Error another user" }) unless current_user?(@user)
+        redirect_to(root_path, :flash => { :error => 'Error another user'}) unless current_user?(@user)
       end
     end
 end

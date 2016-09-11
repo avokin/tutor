@@ -3,8 +3,8 @@
 </td>
 <td>
   <%= form_for(user_category, :remote => true) do |f| %>
-    <%= f.check_box :is_default, :onclick => "this.form.commit.click();", :id => "chkDefault_#{user_category.id}"%>
-    <%= f.submit "submit", :class => "btn invisible" %>
+    <%= f.check_box :is_default, :onclick => 'this.form.commit.click();', :id => "chkDefault_#{user_category.id}"%>
+    <%= f.submit 'submit', :class => 'btn invisible' %>
   <% end %>
 </td>
 <td>
@@ -14,6 +14,6 @@
   undefined
 </td>
 <td>
-  <%= button_to "Edit", edit_user_category_path(user_category), :method => :get, :form_class => "inline", :class => "btn btn-default without-bottom-margin" %>
-  <%= button_to "Delete", user_category, :form_class => "inline", :class => "btn btn-danger without-bottom-margin", :method => :delete, :confirm => "You sure?", :title => "Delete category?" %>
+  <%= button_to 'Edit', edit_user_category_path(user_category), :method => :get, :form_class => 'inline', :class => 'btn btn-default without-bottom-margin' %>
+  <%= button_to 'Delete', user_category, :form_class => 'inline', :class => 'btn btn-danger without-bottom-margin', :method => :delete, :confirm => 'You sure?', :title => 'Delete category?' %>
 </td>

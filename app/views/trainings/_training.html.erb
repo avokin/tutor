@@ -1,17 +1,17 @@
 <tr>
   <td>
-    <%= training.user_category.nil? ? "" : link_to(training.user_category.name, training.user_category) %>
+    <%= training.user_category.nil? ? '' : link_to(training.user_category.name, training.user_category) %>
   </td>
   <td></td>
   <td>
-    <%= training.direction == :direct? ? "foreign -> native" : "native -> foreign" %>
+    <%= training.direction == :direct? ? 'foreign -> native' : 'native -> foreign' %>
   </td>
   <td>
     <%= training.get_ready_user_words(nil).size %> /
     <%= total_words_count = training.get_user_words(nil).size %>
   </td>
   <td>
-    <%= button_to "Delete", training, :form_class => "inline", :class => "btn btn-danger without-bottom-margin", :method => :delete, :confirm => "You sure?", :title => "Delete training?" %>
+    <%= button_to 'Delete', training, :form_class => 'inline', :class => 'btn btn-danger without-bottom-margin', :method => :delete, :confirm => 'You sure?', :title => 'Delete training?' %>
   </td>
 </tr>
 
@@ -29,12 +29,12 @@
     </td>
     <td>
       <% if word_count == 0 %>
-        <%= button_to "Start", start_training_path(training, :page => i + 1), :form_class => "inline", :class => "btn btn-primary without-bottom-margin .disabled", :disabled => "true" %>
+        <%= button_to 'Start', start_training_path(training, :page => i + 1), :form_class => 'inline', :class => 'btn btn-primary without-bottom-margin .disabled', :disabled => 'true' %>
       <% else %>
-        <%= button_to "Start", start_training_path(training, :page => i + 1), :form_class => "inline", :class => "btn btn-primary without-bottom-margin"%>
+        <%= button_to 'Start', start_training_path(training, :page => i + 1), :form_class => 'inline', :class => 'btn btn-primary without-bottom-margin'%>
       <% end %>
 
-      <%= button_to "Learn", learn_training_path(training, :page => i + 1), :form_class => "inline", :class => "btn without-bottom-margin"%>
+      <%= button_to 'Learn', learn_training_path(training, :page => i + 1), :form_class => 'inline', :class => 'btn without-bottom-margin'%>
     </td>
   </tr>
 <% end %>

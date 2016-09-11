@@ -14,16 +14,16 @@ end
 
 And /^I fill login information for the first user$/ do
   user = first_user
-  fill_in("session_email", :with => user.email)
-  fill_in("session_password", :with => "password")
+  fill_in('session_email', :with => user.email)
+  fill_in('session_password', :with => 'password')
 end
 
 Given /^signed in user$/ do
   user = first_user(german_language)
-  visit("/signin")
-  fill_in("session_email", :with => user.email)
-  fill_in("session_password", :with => "password")
-  click_button("Sign in")
+  visit('/signin')
+  fill_in('session_email', :with => user.email)
+  fill_in('session_password', :with => 'password')
+  click_button('Sign in')
 end
 
 Given /^word "([^"]*)" with synonym "([^"]*)"$/ do |text, synonym|
@@ -56,7 +56,7 @@ Given /^word "([^"]*)" with translations "([^"]*)", "([^"]*)"$/ do |text, transl
 end
 
 When /^Success count should (increase|zero)$/ do |success_count|
-  if success_count == "increase"
+  if success_count == 'increase'
     @user_word.translations[0].success_count.should == 1
   else
     @user_word.translations[0].success_count.should == 0
@@ -73,7 +73,7 @@ When /^I wait for (\d+) seconds?$/ do |secs|
 end
 
 When /^I submit the form$/ do
-  page.evaluate_script("document.forms[0].submit()")
+  page.evaluate_script('document.forms[0].submit()')
 end
 
 When /^I confirm popup$/ do
@@ -99,8 +99,8 @@ Given /^(\d+) Russian words$/ do |arg|
 end
 
 Then /^I should see only english words$/ do
-  page.should have_content("english")
-  page.should_not have_content("russian")
+  page.should have_content('english')
+  page.should_not have_content('russian')
 end
 
 When /^I should see paginator$/ do
@@ -133,8 +133,8 @@ end
 
 When /^I fill wrong login information for the first user$/ do
   user = first_user
-  fill_in("session_email", :with => user.email)
-  fill_in("session_password", :with => "password2")
+  fill_in('session_email', :with => user.email)
+  fill_in('session_password', :with => 'password2')
 end
 
 Given /^German Noun "([^"]*)" with artikel "([^"]*)" and plural form "([^"]*)"$/ do |text, artikel, plural_form|
@@ -149,11 +149,11 @@ When /^My target language is "([^"]*)"$/ do |language_name|
 end
 
 Given /^signed in user with target_language "([^"]*)"$/ do |language|
-  user = FactoryGirl.create(:user, :target_language => Language.find_by_name("Deutsch"))
-  visit("/signin")
-  fill_in("session_email", :with => user.email)
-  fill_in("session_password", :with => "password")
-  click_button("Sign in")
+  user = FactoryGirl.create(:user, :target_language => Language.find_by_name('Deutsch'))
+  visit('/signin')
+  fill_in('session_email', :with => user.email)
+  fill_in('session_password', :with => 'password')
+  click_button('Sign in')
 end
 
 When /^I have training for category (.*)$/ do |category|

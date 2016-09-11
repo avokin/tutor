@@ -18,18 +18,18 @@ class TrainingsController < ApplicationController
   end
 
   def show
-    @title = "Training"
+    @title = 'Training'
     @active_tab = :training
 
     @variants = Array.new(@user_word.direct_translations.length)
-    @answer_classes = Hash[nil => ""]
+    @answer_classes = Hash[nil => '']
   end
 
   def learn
     cookies.permanent.signed[:training_id] = params[:id]
     cookies.permanent.signed[:page] = params[:page]
 
-    @title = "Learning"
+    @title = 'Learning'
     @active_tab = :training
 
     @page = params[:page]
@@ -38,7 +38,7 @@ class TrainingsController < ApplicationController
   end
 
   def learning
-    @title = "Learning"
+    @title = 'Learning'
     @active_tab = :training
 
     @page = cookies.signed[:page]
@@ -54,7 +54,7 @@ class TrainingsController < ApplicationController
         @previous_word = UserWord.find(params[:previous_id])
         if correct_user_for_user_word @previous_word
           result = params[:result]
-          if result == "true"
+          if result == 'true'
             @previous_word.success_attempt
           else
             @previous_word.fail_attempt
@@ -78,7 +78,7 @@ class TrainingsController < ApplicationController
   end
 
   def new
-    @title = "New Training"
+    @title = 'New Training'
     @active_tab = :training
 
     @training = Training.new
@@ -96,7 +96,7 @@ class TrainingsController < ApplicationController
         training.user = current_user
         if training.valid?
           training.save!
-          redirect_to trainings_path, :flash => {:success => "Training created."}
+          redirect_to trainings_path, :flash => {:success => 'Training created.'}
           return
         end
       end

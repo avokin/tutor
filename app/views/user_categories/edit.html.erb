@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-offset-4 col-md-4">
-    <%= form_for(@category, :form_class => "well") do |f| %>
+    <%= form_for(@category, :form_class => 'well') do |f| %>
         <div class="field">
           <%= f.label :name %>
           <%= f.text_field :name, class: 'form-control' %>
@@ -10,8 +10,8 @@
           </label>
         </div>
         <div class="center">
-          <%= f.submit "Update", :name => "btn_update", :class => "btn btn-primary" %>
-          <%= f.submit "Cancel", :name => "btn_cancel", :class => "btn btn-default" %>
+          <%= f.submit 'Update', :name => 'btn_update', :class => 'btn btn-primary' %>
+          <%= f.submit 'Cancel', :name => 'btn_cancel', :class => 'btn btn-default' %>
         </div>
     <% end %>
   </div>

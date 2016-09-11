@@ -53,7 +53,7 @@ class Training < ActiveRecord::Base
   def user_category_must_belong_to_user
     unless self.user_category.nil?
       if self.user_category.user != self.user
-        errors.add(:user_category, "must belongs to current user")
+        errors.add(:user_category, 'must belongs to current user')
       end
     end
   end

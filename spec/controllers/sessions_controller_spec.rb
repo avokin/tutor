@@ -8,7 +8,7 @@ describe SessionsController, :type => :controller do
   end
 
   describe "GET 'new'" do
-    it "should be successful" do
+    it 'should be successful' do
       get :new
       expect(response).to be_success
     end
@@ -20,7 +20,7 @@ describe SessionsController, :type => :controller do
   end
 
   describe "POST 'create'" do
-    describe "invalid sign in" do
+    describe 'invalid sign in' do
       before(:each) do
         @attr = {:email => 'test@test.com', :password => 'invalid'}
       end
@@ -30,25 +30,25 @@ describe SessionsController, :type => :controller do
         expect(response).to redirect_to signin_path
       end
 
-      it "should display flash with errors" do
+      it 'should display flash with errors' do
         post :create, :session => @attr
         expect(flash.now[:error]).to match /invalid/i
       end
     end
 
-    describe "correct sign in" do
+    describe 'correct sign in' do
       before(:each) do
         @user = FactoryGirl.create(:user)
         @attr = {:email => @user.email, :password => @user.password}
       end
 
-      it "should sign a user in" do
+      it 'should sign a user in' do
         post :create, :session => @attr
         expect(controller.current_user).to eq @user
         expect(controller).to be_signed_in
       end
 
-      it "should redirect to user show page" do
+      it 'should redirect to user show page' do
         post :create, :session => @attr
         expect(response).to redirect_to user_path(@user)
       end

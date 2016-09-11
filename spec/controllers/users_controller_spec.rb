@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe UsersController, :type => :controller do
-  #render_views
-
   before(:each) do
     init_db
   end
@@ -12,9 +10,9 @@ describe UsersController, :type => :controller do
       init_db
     end
 
-    describe "failure" do
+    describe 'failure' do
       before(:each) do
-        @attr = {:name => "", :email => "", :password => "", :password_confirmation => ""}
+        @attr = {:name => '', :email => '', :password => '', :password_confirmation => ''}
       end
 
       it "shouldn't create user" do
@@ -64,7 +62,7 @@ describe UsersController, :type => :controller do
         test_sign_in @user
       end
 
-      it "should change Users attributes" do
+      it 'should change Users attributes' do
         put :update, :id => @user.id, :user => @attributes
         @user.reload
         expect(@user.success_count).to eq @attributes[:success_count]
