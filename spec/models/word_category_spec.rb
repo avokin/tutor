@@ -11,7 +11,7 @@ describe UserWordCategory do
 
       expect do
         FactoryGirl.create(:user_word_category, :user_category => category)
-      end.to raise_error
+      end.to raise_error ActiveRecord::RecordInvalid
     end
 
     it 'should validate language from category and from word' do
@@ -19,7 +19,7 @@ describe UserWordCategory do
 
       expect do
         FactoryGirl.create(:user_word_category, :user_category => category)
-      end.to raise_error
+      end.to raise_error ActiveRecord::RecordInvalid
     end
   end
 end
