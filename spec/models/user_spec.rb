@@ -27,11 +27,11 @@ describe User do
 
     describe 'authenticate method' do
       it 'should authenticate user' do
-        User.authenticate(@attr[:email], @attr[:password]).should_not be_nil
+        User.authenticate_with_email_and_password(@attr[:email], @attr[:password]).should_not be_nil
       end
 
       it 'should decline user' do
-        User.authenticate(@attr[:email], 'invalid').should be_nil
+        User.authenticate_with_email_and_password(@attr[:email], 'invalid').should be_nil
       end
     end
 
@@ -41,7 +41,7 @@ describe User do
       end
 
       it 'should decline user' do
-        User.authenticate(@attr[:id], 'invalid').should be_nil
+        User.authenticate_with_email_and_password(@attr[:id], 'invalid').should be_nil
       end
     end
   end
@@ -99,7 +99,7 @@ describe User do
       result = @user.update_password 'password1', 'password1'
       expect(result).to be true
 
-      User.authenticate(@user.email, 'password1').should_not be_nil
+      User.authenticate_with_email_and_password(@user.email, 'password1').should_not be_nil
       @user.password_reset_token.should be_nil
     end
 
@@ -107,15 +107,15 @@ describe User do
       result = @user.update_password 'pass', 'pass'
       result.should be false
 
-      User.authenticate(@user.email, 'pass').should be_nil
+      User.authenticate_with_email_and_password(@user.email, 'pass').should be_nil
     end
 
     it 'should decline wrong confirmation' do
       result = @user.update_password 'password1', 'password2'
       result.should be false
 
-      User.authenticate(@user.email, 'password1').should be_nil
-      User.authenticate(@user.email, 'password2').should be_nil
+      User.authenticate_with_email_and_password(@user.email, 'password1').should be_nil
+      User.authenticate_with_email_and_password(@user.email, 'password2').should be_nil
     end
   end
 end
