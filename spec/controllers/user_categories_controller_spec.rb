@@ -37,7 +37,7 @@ describe UserCategoriesController, :type => :controller do
       describe "not logged in user" do
         it "should redirect to signin path" do
           delete :destroy, :id => @category.id
-          response.should redirect_to signin_path
+          expect(response).to redirect_to signin_path
         end
       end
 
@@ -49,8 +49,8 @@ describe UserCategoriesController, :type => :controller do
 
         it "should redirect to root path and display flash with error" do
           delete :destroy, :id => @category.id
-          response.should redirect_to root_path
-          flash[:error].should =~ /Error.*another user/
+          expect(response).to redirect_to root_path
+          expect(flash[:error]).to match /Error.*another user/
         end
       end
     end
@@ -61,16 +61,16 @@ describe UserCategoriesController, :type => :controller do
       end
 
       it "should remove UserCategory record and all depending records" do
-        lambda do
-          lambda do
+        expect do
+          expect do
             delete :destroy, :id => @category.id
-          end.should change(UserCategory, :count).by(-1)
-        end.should change(UserWordCategory, :count).by(-1)
+          end.to change(UserCategory, :count).by(-1)
+        end.to change(UserWordCategory, :count).by(-1)
       end
 
       it "should redirect to root path" do
         delete :destroy, :id => @category.id
-        response.should redirect_to user_categories_path
+        expect(response).to redirect_to user_categories_path
       end
     end
   end
@@ -82,28 +82,28 @@ describe UserCategoriesController, :type => :controller do
 
     describe "creation a new Category" do
       it "should create new UserCategory record" do
-        lambda do
+        expect do
           post :create, :user_category => {:name => "new category"}
-        end.should change(UserCategory, :count).by(1)
-        UserCategory.last.language.should == @user.target_language
+        end.to change(UserCategory, :count).by(1)
+        expect(UserCategory.last.language).to eq @user.target_language
       end
 
       it "should redirect to word list" do
         post :create, :user_category => {:name => "new category"}
-        response.should redirect_to user_categories_path
+        expect(response).to redirect_to user_categories_path
       end
     end
 
     describe "creation a new Category with already used name and language" do
       it "shouldn't create new Category" do
-        lambda do
+        expect do
           post :create, :user_category => {:name => @category.name}
-        end.should_not change(UserCategory, :count)
+        end.to_not change(UserCategory, :count)
       end
 
       it "should redirect to error page" do
         post :create, :user_category => {:name => @category.name}
-        response.should render_template("pages/message")
+        expect(response).to render_template("pages/message")
       end
     end
 
@@ -114,14 +114,14 @@ describe UserCategoriesController, :type => :controller do
       end
 
       it "shouldn't create new Category" do
-        lambda do
+        expect do
           post :create, :user_category => {:name => @category.name}
-        end.should change(UserCategory, :count).by(1)
+        end.to change(UserCategory, :count).by(1)
       end
 
       it "should redirect to word list" do
         post :create, :user_category => {:name => @category.name}
-        response.should redirect_to user_categories_path
+        expect(response).to redirect_to user_categories_path
       end
     end
   end
@@ -131,7 +131,7 @@ describe UserCategoriesController, :type => :controller do
       describe "not logged in user" do
         it "should redirect to signin path" do
           put :update, :id => @category
-          response.should redirect_to signin_path
+          expect(response).to redirect_to signin_path
         end
       end
 
@@ -143,8 +143,8 @@ describe UserCategoriesController, :type => :controller do
 
         it "should redirect to root path and display flash with error" do
           put :update, :id => @category
-          response.should redirect_to root_path
-          flash[:error].should =~ /Error.*another user/
+          expect(response).to redirect_to root_path
+          expect(flash[:error]).to match /Error.*another user/
         end
       end
     end
@@ -157,13 +157,13 @@ describe UserCategoriesController, :type => :controller do
       it "should change name of the category and it's default state" do
         put :update, :id => @category.id, :user_category => {:name => 'new category', :is_default => true}, :btn_update => 'true'
         @category.reload
-        @category.name.should == 'new category'
-        @category.is_default.should be true
+        expect(@category.name).to eq 'new category'
+        expect(@category.is_default).to be true
       end
 
       it "should redirect to category word list" do
         put :update, :id => @category.id, :user_category => {:name => 'new category'}, :btn_update => 'true'
-        response.should redirect_to user_category_path(@category)
+        expect(response).to redirect_to user_category_path(@category)
       end
     end
   end
@@ -173,7 +173,7 @@ describe UserCategoriesController, :type => :controller do
       describe "not logged in user" do
         it "should redirect to signin path" do
           get :show, :id => @category.id
-          response.should redirect_to signin_path
+          expect(response).to redirect_to signin_path
         end
       end
 
@@ -185,8 +185,8 @@ describe UserCategoriesController, :type => :controller do
 
         it "should redirect to root path and display flash with error" do
           get :show, :id => @category.id
-          response.should redirect_to root_path
-          flash[:error].should =~ /Error.*another user/
+          expect(response).to redirect_to root_path
+          expect(flash[:error]).to match /Error.*another user/
         end
       end
     end
@@ -223,7 +223,7 @@ describe UserCategoriesController, :type => :controller do
       expect(response.body).to have_title('Tutor - New category')
 
       expect(response.body).to have_selector('li.active') do |li|
-        li.should have_selector('a', :text => 'Categories')
+        expect(li).to have_selector('a', :text => 'Categories')
       end
     end
   end
@@ -233,7 +233,7 @@ describe UserCategoriesController, :type => :controller do
       describe "not logged in user" do
         it "should redirect to signin path" do
           get :edit, :id => @category.id
-          response.should redirect_to signin_path
+          expect(response).to redirect_to signin_path
         end
       end
 
@@ -245,8 +245,8 @@ describe UserCategoriesController, :type => :controller do
 
         it "should redirect to root path and display flash with error" do
           get :edit, :id => @category.id
-          response.should redirect_to root_path
-          flash[:error].should =~ /Error.*another user/
+          expect(response).to redirect_to root_path
+          expect(flash[:error]).to match /Error.*another user/
         end
       end
     end
@@ -260,7 +260,7 @@ describe UserCategoriesController, :type => :controller do
         get :edit, :id => @category.id
         expect(response.body).to have_title("Tutor - Edit category: #{@category.name}")
         expect(response.body).to have_selector('li.active') do |li|
-          li.should have_selector('a', :content => 'Categories')
+          expect(li).to have_selector('a', :content => 'Categories')
         end
       end
     end
@@ -276,7 +276,7 @@ describe UserCategoriesController, :type => :controller do
       describe "not logged in user" do
         it "should redirect to signin path" do
           put :merge, :ids => "#{@category.id}, #{@category2.id}"
-          response.should redirect_to signin_path
+          expect(response).to redirect_to signin_path
         end
       end
 
@@ -288,8 +288,8 @@ describe UserCategoriesController, :type => :controller do
 
         it "should redirect to root path and display flash with error" do
           put :merge, :ids => "#{@category.id}, #{@category2.id}"
-          response.should redirect_to root_path
-          flash[:error].should =~ /Error.*another user/
+          expect(response).to redirect_to root_path
+          expect(flash[:error]).to match /Error.*another user/
         end
       end
     end
@@ -305,13 +305,13 @@ describe UserCategoriesController, :type => :controller do
 
         words_to_move.each do |word|
           word.reload
-          word.user_category.first.should == @category
+          expect(word.user_category.first).to eq @category
         end
       end
 
       it "should remove all categories except the first" do
         put :merge, :ids => "#{@category.id}, #{@category2.id}"
-        UserCategory.find_by_id(@category2.id).should be_nil
+        expect(UserCategory.find_by_id(@category2.id)).to be_nil
       end
     end
   end

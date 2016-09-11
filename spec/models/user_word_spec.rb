@@ -24,22 +24,22 @@ describe UserWord do
     end
 
     it 'should have related word' do
-      @user_word1.translations.count.should == 1
-      @user_word1.synonyms.count.should == 0
+      expect(@user_word1.translations.count).to eq 1
+      expect(@user_word1.synonyms.count).to eq 0
 
-      @user_word2.translations.count.should == 1
-      @user_word2.synonyms.count.should == 1
+      expect(@user_word2.translations.count).to eq 1
+      expect(@user_word2.synonyms.count).to eq 1
 
-      @user_word3.translations.count.should == 0
-      @user_word3.synonyms.count.should == 1
+      expect(@user_word3.translations.count).to eq 0
+      expect(@user_word3.synonyms.count).to eq 1
     end
   end
 
   describe 'creation UserWord with relations' do
     before(:each) do
-      @translations = ['translation1', 'translation2']
+      @translations = %w(translation1 translation2)
       @synonyms = ['synonym1']
-      @categories = ["category1"]
+      @categories = ['category1']
     end
 
     describe 'successful creation of UserWord' do
@@ -48,36 +48,36 @@ describe UserWord do
         @user_word = UserWord.new :user => @user, :text => @text, :language_id => @user.target_language.id
       end
 
-      it "should create Word if needed" do
-        lambda do
+      it 'should create Word if needed' do
+        expect do
           @user_word.save_with_relations(@translations, [], [])
-        end.should change(UserWord, :count).by(3)
+        end.to change(UserWord, :count).by(3)
       end
 
-      it "should not create Word if it exists" do
-        lambda do
+      it 'should not create Word if it exists' do
+        expect do
           @user_word.save_with_relations(@translations, @synonyms, [])
-        end.should change(UserWord, :count).by(4)
+        end.to change(UserWord, :count).by(4)
       end
 
-      it "should create translations" do
-        lambda do
+      it 'should create translations' do
+        expect do
           @user_word.save_with_relations(@translations, [], [])
-        end.should change(UserWord, :count).by(3)
+        end.to change(UserWord, :count).by(3)
       end
 
-      it "should create synonyms" do
-        lambda do
+      it 'should create synonyms' do
+        expect do
           @user_word.save_with_relations([], @synonyms, [])
-        end.should change(UserWord, :count).by(2)
+        end.to change(UserWord, :count).by(2)
       end
 
-      it "should create category" do
-        lambda do
-          lambda do
+      it 'should create category' do
+        expect do
+          expect do
             @user_word.save_with_relations([], @synonyms, @categories)
-          end.should change(UserWordCategory, :count).by(1)
-        end.should change(UserCategory, :count).by(1)
+          end.to change(UserWordCategory, :count).by(1)
+        end.to change(UserCategory, :count).by(1)
       end
     end
 
@@ -88,27 +88,27 @@ describe UserWord do
       end
 
       it 'should not create a Word' do
-        lambda do
+        expect do
           @result = @user_word.save_with_relations(@translations, [], [])
-        end.should_not change(UserWord, :count)
+        end.to_not change(UserWord, :count)
       end
     end
   end
 
-  describe "updating Word with relations" do
-    describe "categories" do
+  describe 'updating Word with relations' do
+    describe 'categories' do
       before(:each) do
         word_category = FactoryGirl.create(:user_word_category)
         @word = word_category.user_word
         @category = word_category.user_category
-        @new_cagegory_name = "new_category"
+        @new_cagegory_name = 'new_category'
       end
 
-      it "should add new categories from the list" do
+      it 'should add new categories from the list' do
         @word.save_with_relations([], [], [@category.name, @new_cagegory_name])
-        @word.user_categories.length.should == 2
-        @word.user_categories[0].name.should == @category.name
-        @word.user_categories[1].name.should == @new_cagegory_name
+        expect(@word.user_categories.length).to eq 2
+        expect(@word.user_categories[0].name).to eq @category.name
+        expect(@word.user_categories[1].name).to eq @new_cagegory_name
       end
     end
   end
@@ -120,61 +120,61 @@ describe UserWord do
     end
 
     it 'should not find word of another user' do
-      UserWord.find_for_user(@user2, @user_word1.text).should be_nil
+      expect(UserWord.find_for_user(@user2, @user_word1.text)).to be_nil
     end
 
     it 'should find word of current user' do
-      UserWord.find_for_user(@user_word1.user, @user_word1.text).should_not be_nil
+      expect(UserWord.find_for_user(@user_word1.user, @user_word1.text)).to_not be_nil
     end
   end
 
-  describe "relation with categories" do
+  describe 'relation with categories' do
     before(:each) do
       @user_word_category = FactoryGirl.create(:user_word_category)
       @user_word = @user_word_category.user_word
       @user_category = @user_word_category.user_category
     end
 
-    it "should have list of category" do
-      @user_word.user_categories.length.should == 1
-      @user_word.user_categories[0].should == @user_category
+    it 'should have list of category' do
+      expect(@user_word.user_categories.length).to eq 1
+      expect(@user_word.user_categories[0]).to eq @user_category
     end
   end
 
-  describe "save_attempt" do
+  describe 'save_attempt' do
     before(:each) do
       @user_word = FactoryGirl.create(:english_user_word, :translation_success_count => 1)
     end
 
-    describe "failed attempt" do
+    describe 'failed attempt' do
       before(:each) do
         @user_word.save_attempt false
         @user_word.reload
       end
 
-      it "should zero translation_success_count" do
-        @user_word.translation_success_count.should == 0
+      it 'should zero translation_success_count' do
+        expect(@user_word.translation_success_count).to eq 0
       end
 
-      it "should set time_to_check 4 hours after" do
-        @user_word.time_to_check.should > DateTime.now + 3.hours
-        @user_word.time_to_check.should < DateTime.now + 5.hours
+      it 'should set time_to_check 4 hours after' do
+        expect(@user_word.time_to_check).to satisfy {|n| n > DateTime.now + 3.hours}
+        expect(@user_word.time_to_check).to satisfy {|n| n < DateTime.now + 5.hours}
       end
     end
 
-    describe "successful attempt" do
+    describe 'successful attempt' do
       before(:each) do
         @user_word.save_attempt true
         @user_word.reload
       end
 
-      it "should increase translation_success_count" do
-        @user_word.translation_success_count.should == 2
+      it 'should increase translation_success_count' do
+        expect(@user_word.translation_success_count).to eq 2
       end
 
-      it "should set time_to_check 4 hours after" do
-        @user_word.time_to_check.should > DateTime.now + 7.hours
-        @user_word.time_to_check.should < DateTime.now + 9.hours
+      it 'should set time_to_check 4 hours after' do
+        expect(@user_word.time_to_check).to satisfy {|n| n > DateTime.now + 7.hours}
+        expect(@user_word.time_to_check).to satisfy {|n| n < DateTime.now + 9.hours}
       end
     end
   end

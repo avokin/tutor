@@ -14,14 +14,14 @@ describe WordRelation do
     end
 
     it 'should create a new related word' do
-      lambda do
+      expect do
         WordRelation.create_relation(@user, @user_word, @new_word_text, '1')
-      end.should change(UserWord, :count).by(1)
+      end.to change(UserWord, :count).by(1)
       word_relation = WordRelation.first
-      word_relation.should_not be_nil
-      word_relation.source_user_word.should == @user_word
-      word_relation.related_user_word.text.should == @new_word_text
-      word_relation.relation_type.should == 1
+      expect(word_relation).to_not be_nil
+      expect(word_relation.source_user_word).to eq @user_word
+      expect(word_relation.related_user_word.text).to eq @new_word_text
+      expect(word_relation.relation_type).to eq 1
     end
   end
 
@@ -45,6 +45,6 @@ describe WordRelation do
 
   it "should require relation_type" do
     empty_relation = WordRelation.new
-    empty_relation.should_not be_valid
+    expect(empty_relation).to_not be_valid
   end
 end

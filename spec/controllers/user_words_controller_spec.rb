@@ -60,10 +60,9 @@ describe UserWordsController, :type => :controller do
       end
 
       it 'should save checked translations' do
-        lambda do
+        expect do
           post :update, @post_arguments
-
-        end.should_not change(WordRelation, :count)
+        end.to_not change(WordRelation, :count)
       end
 
       it 'should add category' do
@@ -122,10 +121,10 @@ describe UserWordsController, :type => :controller do
     end
 
     it 'should create word with correct attributes' do
-      lambda do
+      expect do
         put :create, @put_parameters.merge(translation_0: 'tran0', translation_1: 'tran1', synonym_0: 'syn0',
                                            category_0: 'cat0')
-      end.should change(UserWord, :count)
+      end.to change(UserWord, :count)
 
       word = UserWord.find_by text: 'new_word'
       expect(word.translations.count).to eq(2)

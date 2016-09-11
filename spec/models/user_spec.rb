@@ -12,36 +12,36 @@ describe User do
     end
 
     it 'should set encrypted password' do
-      @user.encrypted_password.should_not be_blank
+      expect(@user.encrypted_password).not_to be_blank
     end
 
     describe 'has_password? method' do
       it 'should accept valid password' do
-        @user.has_password?(@attr[:password]).should be true
+        expect(@user.has_password?(@attr[:password])).to be true
       end
 
       it 'should decline invalid password' do
-        @user.has_password?('invalid').should be false
+        expect(@user.has_password?('invalid')).to be false
       end
     end
 
     describe 'authenticate method' do
       it 'should authenticate user' do
-        User.authenticate_with_email_and_password(@attr[:email], @attr[:password]).should_not be_nil
+        expect(User.authenticate_with_email_and_password(@attr[:email], @attr[:password])).not_to be_nil
       end
 
       it 'should decline user' do
-        User.authenticate_with_email_and_password(@attr[:email], 'invalid').should be_nil
+        expect(User.authenticate_with_email_and_password(@attr[:email], 'invalid')).to be_nil
       end
     end
 
     describe 'authenticate_with_salt method' do
       it 'should authenticate user' do
-        User.authenticate_with_salt(@user.id, @user.salt).should_not be_nil
+        expect(User.authenticate_with_salt(@user.id, @user.salt)).not_to be_nil
       end
 
       it 'should decline user' do
-        User.authenticate_with_email_and_password(@attr[:id], 'invalid').should be_nil
+        expect(User.authenticate_with_email_and_password(@attr[:id], 'invalid')).to be_nil
       end
     end
   end
@@ -55,18 +55,18 @@ describe User do
 
       it "should take only English words" do
         user = User.first
-        user.foreign_user_words.length.should == 1
-        user.foreign_user_words[0].language.name.should == 'English'
-        user.foreign_user_words[0].text.should =~ /^english/
+        expect(user.foreign_user_words.length).to eq 1
+        expect(user.foreign_user_words[0].language.name).to eq 'English'
+        expect(user.foreign_user_words[0].text).to match /^english/
       end
 
       it 'should take only German words' do
         user = User.first
         user.target_language = Language.last
 
-        user.foreign_user_words.length.should == 1
-        user.foreign_user_words[0].language_id.should == 3
-        user.foreign_user_words[0].text.should =~ /^german/
+        expect(user.foreign_user_words.length).to eq 1
+        expect(user.foreign_user_words[0].language_id).to eq 3
+        expect(user.foreign_user_words[0].text).to match /^german/
       end
     end
   end
@@ -77,16 +77,16 @@ describe User do
     end
 
     it 'should send email with password recovery instructions' do
-      @user.password_reset_token.should be_nil
-      @user.password_reset_sent_at.should be_nil
+      expect(@user.password_reset_token).to be_nil
+      expect(@user.password_reset_sent_at).to be_nil
 
       @email = @user.send_password_reset
 
-      @user.password_reset_token.should_not be_nil
-      @user.password_reset_sent_at.should_not be_nil
+      expect(@user.password_reset_token).to_not be_nil
+      expect(@user.password_reset_sent_at).to_not be_nil
 
-      @email.should deliver_to(@user.email)
-      @email.should have_body_text(/.*#{@user.password_reset_token}.*/)
+      expect(@email).to deliver_to(@user.email)
+      expect(@email).to have_body_text(/.*#{@user.password_reset_token}.*/)
     end
   end
 
@@ -99,23 +99,23 @@ describe User do
       result = @user.update_password 'password1', 'password1'
       expect(result).to be true
 
-      User.authenticate_with_email_and_password(@user.email, 'password1').should_not be_nil
-      @user.password_reset_token.should be_nil
+      expect(User.authenticate_with_email_and_password(@user.email, 'password1')).to_not be_nil
+      expect(@user.password_reset_token).to be_nil
     end
 
     it 'should decline incorrect password' do
       result = @user.update_password 'pass', 'pass'
-      result.should be false
+      expect(result).to be false
 
-      User.authenticate_with_email_and_password(@user.email, 'pass').should be_nil
+      expect(User.authenticate_with_email_and_password(@user.email, 'pass')).to be_nil
     end
 
     it 'should decline wrong confirmation' do
       result = @user.update_password 'password1', 'password2'
-      result.should be false
+      expect(result).to be false
 
-      User.authenticate_with_email_and_password(@user.email, 'password1').should be_nil
-      User.authenticate_with_email_and_password(@user.email, 'password2').should be_nil
+      expect(User.authenticate_with_email_and_password(@user.email, 'password1')).to be_nil
+      expect(User.authenticate_with_email_and_password(@user.email, 'password2')).to be_nil
     end
   end
 end

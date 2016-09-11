@@ -18,11 +18,11 @@ describe UsersController, :type => :controller do
       end
 
       it "shouldn't create user" do
-        lambda do
+        expect do
           post :create, :user => @attr
-        end.should_not change(User, :count)
+        end.to_not change(User, :count)
 
-        response.should render_template('new')
+        expect(response).to render_template('new')
       end
     end
 
@@ -32,10 +32,10 @@ describe UsersController, :type => :controller do
       end
 
       it 'should create user' do
-        lambda do
+        expect do
           post :create, :user => @attr
-        end.should change(User, :count).by(1)
-        controller.should be_signed_in
+        end.to change(User, :count).by(1)
+        expect(controller).to be_signed_in
       end
     end
   end
@@ -67,21 +67,21 @@ describe UsersController, :type => :controller do
       it "should change Users attributes" do
         put :update, :id => @user.id, :user => @attributes
         @user.reload
-        @user.success_count.should == @attributes[:success_count]
-        @user.native_language_id.should == @attributes[:native_language_id]
+        expect(@user.success_count).to eq @attributes[:success_count]
+        expect(@user.native_language_id).to eq @attributes[:native_language_id]
       end
     end
 
     describe "Not authorized user can't edit settings" do
       it "should not change user's attributes" do
         put :update, :id => @user.id, :user => @attributes
-        response.should redirect_to signin_path
+        expect(response).to redirect_to signin_path
 
         success_count = @user.success_count
         native_language_id = @user.native_language_id
         @user.reload
-        @user.success_count.should == success_count
-        @user.native_language_id.should == native_language_id
+        expect(@user.success_count).to eq success_count
+        expect(@user.native_language_id).to eq native_language_id
       end
     end
   end

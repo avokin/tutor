@@ -16,20 +16,20 @@ describe Training do
     it "should not create a new instance without user-category" do
       training = Training.new @attr
       training.user = @user
-      training.valid?.should be false
+      expect(training.valid?).to be false
     end
 
     it "should create a new instance with user-category" do
       training = Training.new @attr.merge(:user_category => @user_category)
       training.user = @user
       training.save!
-      training.user_category.should == @user_category
+      expect(training.user_category).to eq @user_category
     end
 
     it "should not bind category of another user" do
       training = Training.new @attr.merge(:user_category => @user_category)
       training.user = @another_user
-      training.should_not be_valid
+      expect(training).not_to be_valid
     end
 
     it "should validate uniqueness of user_category_id and direction" do
@@ -39,7 +39,7 @@ describe Training do
 
       training2 = Training.new @attr.merge(:user_category => @user_category)
       training2.user = @user
-      training2.should_not be_valid
+      expect(training2).not_to be_valid
     end
   end
 
@@ -53,8 +53,8 @@ describe Training do
 
     it "should find all Training object for user" do
       @trainings = Training.where user_id: @training.user.id
-      @trainings.length.should == 1
-      @trainings.first.should == @training
+      expect(@trainings.length).to eq 1
+      expect(@trainings.first).to eq @training
     end
   end
 
@@ -77,26 +77,26 @@ describe Training do
 
     it "should return only ready words for the page" do
       @words_on_page_1 = @training.get_ready_user_words(1)
-      @words_on_page_1.size.should == 10
+      expect(@words_on_page_1.size).to eq 10
 
-      @words_on_page_1.should include(@english_words[0])
-      @words_on_page_1.should_not include(@english_words[1])
-      @words_on_page_1.should include(@english_words[2])
-      @words_on_page_1.should_not include(@english_words[3])
-      @words_on_page_1.should include(@english_words[4])
+      expect(@words_on_page_1).to include(@english_words[0])
+      expect(@words_on_page_1).not_to include(@english_words[1])
+      expect(@words_on_page_1).to include(@english_words[2])
+      expect(@words_on_page_1).not_to include(@english_words[3])
+      expect(@words_on_page_1).to include(@english_words[4])
 
       @words_on_page_2 = @training.get_ready_user_words(2)
-      @words_on_page_2.size.should == 10
-      @words_on_page_2.should include(@english_words[20])
-      @words_on_page_2.should_not include(@english_words[21])
-      @words_on_page_2.should include(@english_words[22])
-      @words_on_page_2.should_not include(@english_words[23])
-      @words_on_page_2.should include(@english_words[24])
+      expect(@words_on_page_2.size).to eq 10
+      expect(@words_on_page_2).to include(@english_words[20])
+      expect(@words_on_page_2).not_to include(@english_words[21])
+      expect(@words_on_page_2).to include(@english_words[22])
+      expect(@words_on_page_2).not_to include(@english_words[23])
+      expect(@words_on_page_2).to include(@english_words[24])
     end
 
     it "should return only ready words for the entire training" do
       @words_on_page_2 = @training.get_ready_user_words(nil)
-      @words_on_page_2.size.should == 20
+      expect(@words_on_page_2.size).to eq 20
     end
   end
 
@@ -115,9 +115,9 @@ describe Training do
 
     it "should return corresponding words only once" do
       @words_on_page_1 = @training.get_user_words(1)
-      @words_on_page_1.length.should == 2
+      expect(@words_on_page_1.length).to eq 2
 
-      @words_on_page_1.should include(@user_word)
+      expect(@words_on_page_1).to include(@user_word)
     end
   end
 end

@@ -10,7 +10,7 @@ describe SessionsController, :type => :controller do
   describe "GET 'new'" do
     it "should be successful" do
       get :new
-      response.should be_success
+      expect(response).to be_success
     end
 
     it 'should have right title' do
@@ -27,12 +27,12 @@ describe SessionsController, :type => :controller do
 
       it "should re-render 'new' template" do
         post :create, :session => @attr
-        response.should redirect_to signin_path
+        expect(response).to redirect_to signin_path
       end
 
       it "should display flash with errors" do
         post :create, :session => @attr
-        flash.now[:error].should =~ /invalid/i
+        expect(flash.now[:error]).to match /invalid/i
       end
     end
 
@@ -44,13 +44,13 @@ describe SessionsController, :type => :controller do
 
       it "should sign a user in" do
         post :create, :session => @attr
-        controller.current_user.should == @user
-        controller.should be_signed_in
+        expect(controller.current_user).to eq @user
+        expect(controller).to be_signed_in
       end
 
       it "should redirect to user show page" do
         post :create, :session => @attr
-        response.should redirect_to user_path(@user)
+        expect(response).to redirect_to user_path(@user)
       end
     end
   end
@@ -59,8 +59,8 @@ describe SessionsController, :type => :controller do
     it 'should sign a user out' do
       test_sign_in(FactoryGirl.create(:user))
       delete :destroy
-      controller.should_not be_signed_in
-      response.should redirect_to(root_path)
+      expect(controller).not_to be_signed_in
+      expect(response).to redirect_to(root_path)
     end
   end
 end

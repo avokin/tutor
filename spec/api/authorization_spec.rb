@@ -14,7 +14,7 @@ describe SessionsController, :type => :controller do
     it 'should return authorization token' do
       post :create, :format => :json, :session => @attr
 
-      response.status.should eql(200)
+      expect(response.status).to eql(200)
       expect(response.body).to include('token')
     end
   end
@@ -28,7 +28,7 @@ describe SessionsController, :type => :controller do
     it 'should not login when incorrect password' do
       post :create, :format => :json, :session => @attr
 
-      response.status.should eql(401)
+      expect(response.status).to eql(401)
       expect(response.body).to include('Bad credentials')
     end
   end
