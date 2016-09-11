@@ -5,33 +5,33 @@ describe UserCategory do
     init_db
   end
 
-  describe "find by user and name" do
+  describe 'find by user and name' do
     before(:each) do
       @category = FactoryGirl.create(:user_category)
       FactoryGirl.create(:user_category)
     end
 
-    it "should find category for the first user" do
-      UserCategory.find_by_user_and_name(first_user, @category.name).should == @category
+    it 'should find category for the first user' do
+      expect(UserCategory.find_by_user_and_name(first_user, @category.name)).to eq @category
     end
 
     it "shouldn't find category by the wrong name" do
-      UserCategory.find_by_user_and_name(first_user, "wrong category name").should be_nil
+      expect(UserCategory.find_by_user_and_name(first_user, 'wrong category name')).to be_nil
     end
 
     it "shouldn't find category of the another language" do
       user = first_user
       user.target_language = german_language
       user.save!
-      UserCategory.find_by_user_and_name(first_user, @category.name).should be_nil
+      expect(UserCategory.find_by_user_and_name(first_user, @category.name)).to be_nil
     end
 
     it "shouldn't find category for another user" do
-      UserCategory.find_by_user_and_name(second_user, @category.name).should be_nil
+      expect(UserCategory.find_by_user_and_name(second_user, @category.name)).to be_nil
     end
   end
 
-  describe "delete category" do
+  describe 'delete category' do
     before(:each) do
       @user_word_category = FactoryGirl.create(:user_word_category)
       @user_category = @user_word_category.user_category
@@ -39,19 +39,19 @@ describe UserCategory do
       @training = FactoryGirl.create(:training, :user_category => @user_category)
     end
 
-    it "should delete relation to user words" do
-      UserCategory.destroy(@user_category)
-      UserWordCategory.find_by_id(@user_word_category.id).should be_nil
+    it 'should delete relation to user words' do
+      @user_category.destroy
+      expect(UserWordCategory.find_by_id(@user_word_category.id)).to be_nil
     end
 
-    it "should delete relation to user words" do
-      UserCategory.destroy(@user_category)
-      Training.find_by_id(@training.id).should be_nil
+    it 'should delete relation to user words' do
+      @user_category.destroy
+      expect(Training.find_by_id(@training.id)).to be_nil
     end
   end
 
-  describe "merge" do
-    describe "authorized access" do
+  describe 'merge' do
+    describe 'authorized access' do
       before(:each) do
         @merging_categories = Array.new
         @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
@@ -61,40 +61,39 @@ describe UserCategory do
         @word_count = @merging_categories.length
       end
 
-      it "should delete merging categories" do
+      it 'should delete merging categories' do
         first = @merging_categories[0]
-        UserCategory.merge(first_user, @merging_categories).should be true
+        expect(UserCategory.merge(first_user, @merging_categories)).to be true
 
         @merging_categories.each do |merging_category_id|
-          UserCategory.exists?(merging_category_id).should == (first == merging_category_id)
+          expect(UserCategory.exists?(merging_category_id)).to eq (first == merging_category_id)
         end
       end
 
       it 'should move all words from merging categoreis to the main one' do
-        UserCategory.merge(first_user, @merging_categories).should be true
+        expect(UserCategory.merge(first_user, @merging_categories)).to be true
 
         main_category = UserCategory.find(@merging_categories[0])
-        main_category.user_words.length.should == @word_count
+        expect(main_category.user_words.length).to eq @word_count
       end
 
-      it "should skip categories from another languages" do
+      it 'should skip categories from another languages' do
         last = FactoryGirl.create(:user_category, :language => german_language)
         word = FactoryGirl.create(:german_user_word)
         FactoryGirl.create(:user_word_category, :user_word => word, :user_category => last)
         @merging_categories << last.id
 
-        first = @merging_categories[0]
-        UserCategory.merge(first_user, @merging_categories).should be false
+        expect(UserCategory.merge(first_user, @merging_categories)).to eq false
 
         @merging_categories.each do |merging_category_id|
-          UserCategory.exists?(merging_category_id).should == true
+          expect(UserCategory.exists?(merging_category_id)).to eq true
         end
 
-        last.user_words.length.should == 1
+        expect(last.user_words.length).to eq 1
       end
     end
 
-    describe "unauthorized access" do
+    describe 'unauthorized access' do
       before(:each) do
         @merging_categories = Array.new
         @merging_categories << FactoryGirl.create(:user_category, :user => second_user).id
@@ -104,34 +103,34 @@ describe UserCategory do
         @word_count = @merging_categories.length
       end
 
-      it "should return false in cause of categories of another user" do
-        UserCategory.merge(first_user, @merging_categories).should be false
+      it 'should return false in cause of categories of another user' do
+        expect(UserCategory.merge(first_user, @merging_categories)).to be false
       end
 
-      it "should return false in cause of categories of another user" do
-        UserCategory.merge(second_user, @merging_categories).should be false
+      it 'should return false in cause of categories of another user' do
+        expect(UserCategory.merge(second_user, @merging_categories)).to be false
       end
 
-      it "should not merge categories" do
+      it 'should not merge categories' do
         @merging_categories.each do |merging_category_id|
-          UserCategory.exists?(merging_category_id).should be true
-          UserCategory.find(merging_category_id).user_words.length.should == (merging_category_id == @merging_categories[0] ? 0 : 1)
+          expect(UserCategory.exists?(merging_category_id)).to be true
+          expect(UserCategory.find(merging_category_id).user_words.length).to eq (merging_category_id == @merging_categories[0] ? 0 : 1)
         end
       end
     end
   end
 
-  describe "find_by_is_default" do
+  describe 'find_by_is_default' do
     before :each do
       @default_category = FactoryGirl.create(:user_category, :is_default => true)
       FactoryGirl.create(:user_category)
       FactoryGirl.create(:user_category, :is_default => true, :language => german_language)
     end
 
-    it "should find only default category of current language" do
+    it 'should find only default category of current language' do
       categories = UserCategory.find_all_by_is_default first_user
-      categories.length.should == 1
-      categories[0].id.should == @default_category.id
+      expect(categories.length).to eq 1
+      expect(categories[0].id).to eq @default_category.id
     end
   end
 end
