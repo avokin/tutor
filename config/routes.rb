@@ -1,4 +1,6 @@
 Tutor::Application.routes.draw do
+  get 'export/export'
+
   resource :search, :controller => 'search'
   get 'search/autocomplete_user_word_text'
   get 'search/autocomplete_user_category_name'

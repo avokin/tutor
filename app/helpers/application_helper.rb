@@ -32,6 +32,14 @@ module ApplicationHelper
   end
 
   def deny_access
-    redirect_to signin_path
+    respond_to do |format|
+      format.html do
+        redirect_to signin_path
+      end
+
+      format.json do
+        render plain: '{"error": "Unauthorized"}', status: 401
+      end
+    end
   end
 end
