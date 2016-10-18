@@ -8,10 +8,10 @@
   <% end %>
 </td>
 <td>
-  <%= user_category.user_words.count %>
+  <%= user_category.words_count %>
 </td>
 <td>
-  undefined
+  <%= user_category.ready_words_count%>
 </td>
 <td>
   <%= button_to 'Edit', edit_user_category_path(user_category), :method => :get, :form_class => 'inline', :class => 'btn btn-default without-bottom-margin' %>

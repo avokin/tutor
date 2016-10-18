@@ -27,8 +27,7 @@ class UserCategoriesController < ApplicationController
 
   def index
     @title = 'Your categories'
-    @categories = UserCategory.where(:user_id => current_user.id, :language_id => current_user.target_language.id)
-
+    @categories = UserCategory.all_with_info(current_user)
     response
   end
 

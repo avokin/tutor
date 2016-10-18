@@ -133,4 +133,27 @@ describe UserCategory do
       expect(categories[0].id).to eq @default_category.id
     end
   end
+
+  describe 'all_with_info' do
+    before do
+      @category = FactoryGirl.create(:user_word_category).user_category
+      FactoryGirl.create(:user_word_category, user_category: @category)
+
+      UserWord.first.time_to_check = DateTime.now
+      last = UserWord.last
+      last.time_to_check = DateTime.now + 1.day
+      last.save!
+    end
+
+    it 'should have two words and one of them ready' do
+      categories = UserCategory.all_with_info(@category.user)
+
+      expect(categories.length).to eq(1)
+      category = categories.first
+
+      expect(category.words_count).to eq(2)
+      expect(category.ready_words_count).to eq(1)
+    end
+
+  end
 end
