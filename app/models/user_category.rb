@@ -14,7 +14,7 @@ class UserCategory < ActiveRecord::Base
   end
 
   def self.all_with_info(user)
-    UserCategory.joins(:user_words).select('user_category_id as id', :is_default, :name, 'count(user_category_id) as words_count', "sum(case when time_to_check < '#{DateTime.now }' then 1 else 0 end) as ready_words_count").group(:user_category_id, :is_default).where(:user_id => user.id, :language_id => user.target_language.id)
+    UserCategory.joins(:user_words).select('user_category_id as id', :is_default, :name, 'count(user_category_id) as words_count', "sum(case when time_to_check < '#{DateTime.now }' then 1 else 0 end) as ready_words_count").group(:user_category_id, :name, :is_default).where(:user_id => user.id, :language_id => user.target_language.id)
   end
 
   def self.merge(user, merging_category_ids)
