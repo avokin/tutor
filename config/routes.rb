@@ -1,4 +1,6 @@
 Tutor::Application.routes.draw do
+  post 'api/import'
+
   get 'export/export'
 
   resource :search, :controller => 'search'
