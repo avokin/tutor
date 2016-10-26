@@ -143,7 +143,7 @@ describe UserWord do
 
   describe 'save_attempt' do
     before(:each) do
-      @user_word = FactoryGirl.create(:english_user_word, :translation_success_count => 1)
+      @user_word = FactoryGirl.create(:english_user_word, :success_count => 1)
     end
 
     describe 'failed attempt' do
@@ -152,8 +152,8 @@ describe UserWord do
         @user_word.reload
       end
 
-      it 'should zero translation_success_count' do
-        expect(@user_word.translation_success_count).to eq 0
+      it 'should zero success_count' do
+        expect(@user_word.success_count).to eq 0
       end
 
       it 'should set time_to_check 4 hours after' do
@@ -168,8 +168,8 @@ describe UserWord do
         @user_word.reload
       end
 
-      it 'should increase translation_success_count' do
-        expect(@user_word.translation_success_count).to eq 2
+      it 'should increase success_count' do
+        expect(@user_word.success_count).to eq 2
       end
 
       it 'should set time_to_check 4 hours after' do

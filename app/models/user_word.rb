@@ -112,14 +112,14 @@ class UserWord < ActiveRecord::Base
   end
 
   def fail_attempt
-    self.translation_success_count = 0
+    self.success_count = 0
     self.time_to_check = DateTime.now + TIME_LAPSES[0]
   end
 
   def success_attempt
-    k = [TIME_LAPSES.length - 1, self.translation_success_count].min
+    k = [TIME_LAPSES.length - 1, self.success_count].min
     self.time_to_check = DateTime.now + TIME_LAPSES[k]
-    self.translation_success_count += 1
+    self.success_count += 1
   end
 
   def save_attempt(ok)
