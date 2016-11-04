@@ -10,6 +10,7 @@ class ApiController < ApplicationController
           word = UserWord.find_by_id(updated_word[:id])
           unless word.nil?
             word.success_count = updated_word[:success_count]
+            word.time_to_check = updated_word[:time_to_check]
             word.save!
           end
         end
