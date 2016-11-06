@@ -117,7 +117,9 @@ class UserWordsController < ApplicationController
     end
 
     user_word.user = current_user
-    user_word.type_id = word_params[:type_id]
+    if word_params[:type_id]
+      user_word.type_id = word_params[:type_id]
+    end
     if word_params[:user_word]
       user_word.assign_attributes(word_params[:user_word])
     end
