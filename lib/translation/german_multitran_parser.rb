@@ -37,6 +37,10 @@ class GermanMultitranParser
             break
           end
 
+          if translation.content.include?('/')
+            next
+          end
+
           unless processed.include?(translation.content)
             translation_word = UserWord.new(:text => translation.content, :user => word.user, :language => word.user.language)
             relation = WordRelation.new({ :status_id => 1, :user => word.user, :relation_type => '1',
