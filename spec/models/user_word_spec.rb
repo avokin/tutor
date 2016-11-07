@@ -110,6 +110,18 @@ describe UserWord do
         expect(@word.user_categories[0].name).to eq @category.name
         expect(@word.user_categories[1].name).to eq @new_cagegory_name
       end
+
+      describe 'categories of another user' do
+        it 'should not user categories of another user' do
+          another_category_name = 'another_category'
+          another_user = FactoryGirl.create(:user)
+          category_of_another_user = FactoryGirl.create(:user_category, name: another_category_name, user: another_user)
+          @word.save_with_relations([], [], [another_category_name])
+          expect(@word.user_categories.length).to eq 2
+          expect(@word.user_categories[1].name).to eq another_category_name
+          expect(@word.user_categories[1].id).not_to eq category_of_another_user.id
+        end
+      end
     end
   end
 

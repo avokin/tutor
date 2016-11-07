@@ -6,7 +6,7 @@ class UserWordCategory < ActiveRecord::Base
   validate :user_of_category_and_word
 
   def self.create_word_category(user_word, category_name)
-    user_category = UserCategory.find_by_name(category_name)
+    user_category = UserCategory.where(name: category_name, user_id: user_word.user_id).take
     if user_category.nil?
       user_category = UserCategory.new :name => category_name, :user => user_word.user, :language => user_word.language
       unless user_category.save
