@@ -2,6 +2,7 @@ Tutor::Application.routes.draw do
   post 'api/import'
   get 'api/export'
   get 'api/word'
+  put 'api/add_word'
 
   resource :search, :controller => 'search'
   get 'search/autocomplete_user_word_text'

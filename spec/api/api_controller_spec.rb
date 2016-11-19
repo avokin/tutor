@@ -70,4 +70,46 @@ describe ApiController, :type => :controller do
       expect(response.body).to eql("{\n  \"type_id\": 2,\n  \"custom_int_field1\": 4,\n  \"custom_string_field1\": \"-er\",\n  \"translations\": [\n      \"ребёнок\",\n      \"дитя\",\n      \"малыш\",\n  ]\n}")
     end
   end
+
+  describe 'add word' do
+    before(:each) do
+      request.env['HTTP_AUTHORIZATION'] = @token
+
+      @put_parameters = {translation_0: 'translation_0', synonym_0: 'synonym_0', category_0: 'category_0',
+                         user_word: {language_id: @user.target_language.id, text: 'word', type_id: 1,
+                                     custom_int_field1: 1, custom_string_field1: 'custom'}}
+    end
+
+    it 'should create word' do
+      expect do
+        put :add_word, format: :json, **@put_parameters
+      end.to change(UserWord, :count).by(3)
+
+      word = UserWord.find_by_text('word')
+
+      expect(response.body).to include("#{word.id}")
+
+      expect(word.translations.count).to eq(1)
+      expect(word.translations[0].related_user_word.text).to eq('translation_0')
+
+      expect(word.synonyms.count).to eq(1)
+      expect(word.synonyms[0].related_user_word.text).to eq('synonym_0')
+
+      expect(word.user_categories.count).to eq(1)
+      expect(word.user_categories[0].name).to eq('category_0')
+    end
+
+    describe 'unauthorized access' do
+      it 'should return error' do
+        request.env['HTTP_AUTHORIZATION'] = nil
+
+        expect do
+          put :add_word, format: :json, **@put_parameters
+        end.not_to change(UserWord, :count)
+
+        expect(response.status).to eql(401)
+        expect(response.body).to include('Unauthorized')
+      end
+    end
+  end
 end

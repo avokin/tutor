@@ -1,6 +1,7 @@
 class ApiController < ApplicationController
   before_filter :authenticate, except: :word
   include Translation::Multitran
+  include UserWordsHelper
 
   def import
     begin
@@ -35,5 +36,20 @@ class ApiController < ApplicationController
     @word = UserWord.new text: params[:query], language_id: 3
     language = Language.find(1)
     request_translation(@word, language)
+  end
+
+  def add_word
+    user_word = UserWord.new :user_id => current_user.id
+    saved = create_or_update(user_word)
+    if saved
+      render text: "{\"word_id\": \"#{user_word.id}\"}"
+    else
+      render text: "{\"error\": \"Can't save\"}"
+    end
+  end
+
+  private
+  def word_params
+    permit_params(params)
   end
 end
