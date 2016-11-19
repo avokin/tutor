@@ -1,5 +1,6 @@
 class ApiController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate, except: :word
+  include Translation::Multitran
 
   def import
     begin
@@ -28,5 +29,11 @@ class ApiController < ApplicationController
     @word_relations = WordRelation.joins(:source_user_word).where(user_words: { user_id: current_user.id })
     @user_categories = UserCategory.where(user_id: current_user.id)
     @user_word_categories = UserWordCategory.joins(:user_word).where(user_words: { user_id: current_user.id })
+  end
+
+  def word
+    @word = UserWord.new text: params[:query], language_id: 3
+    language = Language.find(1)
+    request_translation(@word, language)
   end
 end

@@ -3,8 +3,8 @@ class GermanMultitranParser
 
   def parse(doc, word)
     type_id = 1
-    custom_int_field1 = nil
-    custom_string_field1 = nil
+    custom_int_field1 = 0
+    custom_string_field1 = ''
 
     doc.css('td')[0]
 
@@ -42,7 +42,7 @@ class GermanMultitranParser
           end
 
           unless processed.include?(translation.content)
-            translation_word = UserWord.new(:text => translation.content, :user => word.user, :language => word.user.language)
+            translation_word = UserWord.new(:text => translation.content, :user => word.user, :language => word.language)
             relation = WordRelation.new({ :status_id => 1, :user => word.user, :relation_type => '1',
                                           :source_user_word => word, :related_user_word => translation_word })
 

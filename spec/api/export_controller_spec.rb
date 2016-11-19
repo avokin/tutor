@@ -62,4 +62,12 @@ describe ApiController, :type => :controller do
       end
     end
   end
+
+  describe 'word request' do
+    it 'should provide word translations and grammar' do
+      post :word, query: 'Kind', format: :json
+
+      expect(response.body).to eql("{\n  \"type_id\": 2,\n  \"custom_int_field1\": 4,\n  \"custom_string_field1\": \"-er\",\n  \"translations\": [\n      \"ребёнок\",\n      \"дитя\",\n      \"малыш\",\n  ]\n}")
+    end
+  end
 end

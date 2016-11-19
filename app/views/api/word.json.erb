@@ -1,0 +1,10 @@
+{
+  "type_id": <%= @word.type_id %>,
+  "custom_int_field1": <%= @word.custom_int_field1 %>,
+  "custom_string_field1": "<%= @word.custom_string_field1 %>",
+  "translations": [
+    <% @word.translations.each do |t| %>
+      "<%="#{t.related_user_word.text}"%>",
+    <% end %>
+  ]
+}
