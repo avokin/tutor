@@ -115,7 +115,7 @@ describe UserWordsController, :type => :controller do
       test_sign_in(first_user)
 
       @category = FactoryGirl.create(:user_category, :name => 'first', :is_default => true)
-      @put_parameters = {user: first_user, translation_0: '', symonym_0: '', category_0: '',
+      @put_parameters = {user: first_user, translation_0: '', synonym_0: '', category_0: '',
                          user_word: {language_id: first_user.target_language.id, text: 'new_word', type_id: 1,
                                      custom_int_field1: 1, custom_string_field1: 'custom'}}
     end

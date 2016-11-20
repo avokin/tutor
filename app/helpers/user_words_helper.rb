@@ -68,49 +68,9 @@ module UserWordsHelper
   end
 
   def create_or_update(user_word)
-    new_translations = Array.new
-    word_params['translation_0'].split(';').each do |s|
-      unless s.nil?
-        translation = s.strip
-        if translation.length > 0
-          new_translations << translation
-        end
-      end
-    end
-
-    (1..[4, user_word.translations.length].max).each do |i|
-      s = word_params["translation_#{i}"]
-      if !s.nil? && s.length > 0
-        new_translations << s
-      end
-    end
-
-    i = 0
-    new_synonyms = Array.new
-    until word_params["synonym_#{i}"].nil? do
-      s = word_params["synonym_#{i}"]
-      if s.length > 0
-        new_synonyms << s
-      end
-      i = i + 1
-    end
-
-    i = 1
-    new_categories = Array.new
-    until word_params["category_#{i}"].nil? do
-      s = word_params["category_#{i}"]
-      if s.length > 0 && !new_categories.include?(s)
-        new_categories << s
-      end
-      i = i + 1
-    end
-
-    word_params['category_0'].split(',').each do |s|
-      s.strip!
-      if !s.nil? && s.length > 0 && !new_categories.include?(s)
-        new_categories << s
-      end
-    end
+    new_translations = read_all_parameters_with_prefix('translation')
+    new_synonyms = read_all_parameters_with_prefix('synonym')
+    new_categories = read_all_parameters_with_prefix('category')
 
     user_word.user = current_user
     if word_params[:type_id]
@@ -126,5 +86,26 @@ module UserWordsHelper
     params.permit(:text, :type_id, :translation_0, :translation_1, :translation_2, :translation_3, :synonym_0,
                   :synonym_1, :synonym_2, :synonym_3, :category_0, :category_1, :category_2, :category_3, :language_id,
                   :user_word => [:language_id, :type_id, :text, :custom_int_field1, :custom_string_field1, :comment])
+  end
+
+  private
+
+  def read_all_parameters_with_prefix(prefix)
+    result = Array.new
+    word_params[prefix + '_0'].split(';').each do |s|
+      unless s.nil?
+        value = s.strip
+        if value.length > 0
+          result << value
+        end
+      end
+    end
+
+    i = 1
+    until (s = word_params[prefix + "_#{i}"]).nil? do
+      result << s
+      i += 1
+    end
+    result
   end
 end
