@@ -190,4 +190,11 @@ describe UserWord do
       end
     end
   end
+
+  describe 'validation' do
+    it 'should validate language' do
+      word = UserWord.new :user => @user, :text => "Test"
+      expect(word).not_to be_valid
+    end
+  end
 end

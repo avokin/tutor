@@ -73,6 +73,9 @@ module UserWordsHelper
     new_categories = read_all_parameters_with_prefix('category')
 
     user_word.user = current_user
+    if word_params[:text]
+      user_word.text = word_params[:text]
+    end
     if word_params[:type_id]
       user_word.type_id = word_params[:type_id]
     end

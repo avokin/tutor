@@ -14,6 +14,7 @@ class UserWord < ActiveRecord::Base
 
   validates :text, :presence => true
   validates :user, :presence => true
+  validates :language, :presence => true
   validates :time_to_check, :presence => true
 
   validates_uniqueness_of :text, :scope => [:user_id, :language_id]
