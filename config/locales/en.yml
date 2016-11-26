@@ -3,3 +3,10 @@
 
 en:
   hello: "Hello world"
+  training:
+    learn: "Learn"
+    start: "Start"
+    delete: "Delete"
+    direction:
+      direct: "foreign -> native"
+      reverse: "native -> foreign"
