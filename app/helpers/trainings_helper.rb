@@ -1,4 +1,12 @@
 module TrainingsHelper
+  def learning_word_customization(word)
+    if word.language.is_german
+      if word.type_id == 2
+        return 'trainings/german_noun.js.erb'
+      end
+    end
+    'trainings/word.js.erb'
+  end
 
   def check_answers(user_word, answers, answer_statuses)
     result = true

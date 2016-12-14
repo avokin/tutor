@@ -5,9 +5,16 @@
 </div>
 
 <div class="row" id="word_row">
-  <div class="col-md-6 col-md-offset-3" >
-    <h2 class="user_data center" id="word_text">
-    </h2>
+  <div class="col-md-6 col-md-offset-3 center" >
+    <span class="linguistics" id="word_prefix">
+
+    </span>
+    <span class="user_data big-text center" id="word_text">
+    </span>
+    <span class="linguistics" id="word_suffix">
+
+    </span>
+
   </div>
 </div>
 <div class="row" id="word_row">
@@ -25,7 +32,11 @@
 </div>
 
 <script type="text/javascript">
-    words = [<%= render :partial => 'trainings/word.js.erb', :collection => @words %>];
+    words = [
+        <% @words.each do |w| %>
+          <%= render :partial => learning_word_customization(w), locals: {word: w} %>
+        <% end %>
+    ];
 
     index = 0;
     function selectItem(i) {
@@ -36,8 +47,12 @@
             i = words.length - 1;
         }
         index = i;
-        $("#word_text").text(words[index][0]);
-        $("#word_translations").text(words[index][1]);
+        $("#word_text").prop('href', '/user_words/' + words[index][0]);
+        $("#word_text").text(words[index][1]);
+        $("#word_translations").text(words[index][2]);
+
+        $("#word_prefix").text(words[index][3]);
+        $("#word_suffix").text(words[index][4]);
     }
     selectItem(0);
 </script>
