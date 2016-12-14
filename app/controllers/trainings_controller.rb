@@ -26,6 +26,7 @@ class TrainingsController < ApplicationController
   end
 
   def learn
+    #ToDo remove this method
     cookies.permanent.signed[:training_id] = params[:id]
     cookies.permanent.signed[:page] = params[:page]
 
@@ -38,14 +39,14 @@ class TrainingsController < ApplicationController
   end
 
   def learning
-    @title = 'Learning'
+    @title = t('training.learning')
     @active_tab = :training
 
     @page = cookies.signed[:page]
 
     training_id = cookies.signed[:training_id]
     @training = Training.find(training_id)
-    @user_words = @training.get_user_words(@page)
+    @words = @training.get_user_words(@page)
   end
 
   def training_data

@@ -10,3 +10,4 @@ en:
     direction:
       direct: "foreign -> native"
       reverse: "native -> foreign"
+    learning: "Learning"

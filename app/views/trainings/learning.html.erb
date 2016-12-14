@@ -4,17 +4,41 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-
-    <div id="learningCarousel" class="carousel slide" data-interval="false">
-      <!-- Carousel items -->
-      <div class="carousel-inner">
-        <%= render :partial => 'trainings/user_word', :collection => @user_words %>
-      </div>
-      <!-- Carousel nav -->
-      <a class="carousel-control left" href="#learningCarousel" data-slide="prev">&lsaquo;</a>
-      <a class="carousel-control right" href="#learningCarousel" data-slide="next">&rsaquo;</a>
-    </div>
+<div class="row" id="word_row">
+  <div class="col-md-6 col-md-offset-3" >
+    <h2 class="user_data center" id="word_text">
+    </h2>
   </div>
 </div>
+<div class="row" id="word_row">
+  <div class="col-md-6 col-md-offset-3" >
+    <h2 class="user_data center" id="word_translations">
+    </h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 center">
+    <button class="btn btn-default" onclick="selectItem(index - 1)">Prev</button>
+    <button class="btn btn-default" onclick="selectItem(index + 1)">Next</button>
+  </div>
+</div>
+
+<script type="text/javascript">
+    words = [<%= render :partial => 'trainings/word.js.erb', :collection => @words %>];
+
+    index = 0;
+    function selectItem(i) {
+        if (i >= words.length) {
+            i = 0;
+        }
+        if (i < 0) {
+            i = words.length - 1;
+        }
+        index = i;
+        $("#word_text").text(words[index][0]);
+        $("#word_translations").text(words[index][1]);
+    }
+    selectItem(0);
+</script>
+
