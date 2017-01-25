@@ -21,9 +21,11 @@ class TrainingsController < ApplicationController
     @title = 'Training'
     @active_tab = :training
 
-    @variants = Array.new(@user_word.direct_translations.length)
-    @answer_classes = Hash[nil => '']
-  end
+    @page = cookies.signed[:page]
+
+    training_id = cookies.signed[:training_id]
+    @training = Training.find(training_id)
+    @words = @training.get_user_words(@page)  end
 
   def learn
     #ToDo remove this method
@@ -50,26 +52,18 @@ class TrainingsController < ApplicationController
   end
 
   def training_data
-    if params[:id].nil?
-      unless params[:previous_id].nil?
-        @previous_word = UserWord.find(params[:previous_id])
-        if correct_user_for_user_word @previous_word
-          result = params[:result]
-          if result == 'true'
-            @previous_word.success_attempt
-          else
-            @previous_word.fail_attempt
-          end
-
-          @previous_word.save!
+    unless params[:word_id].nil?
+      word = UserWord.find(params[:word_id])
+      if correct_user_for_user_word word
+        result = params[:result]
+        if result == 'true'
+          word.success_attempt
+        else
+          word.fail_attempt
         end
+
+        word.save!
       end
-      training = Training.find cookies.signed[:training_id]
-      page = cookies.signed[:page]
-      @user_word = select_user_word(training, page)
-      render 'training_finished' if @user_word.nil?
-    else
-      correct_user_for_user_word
     end
   end
 

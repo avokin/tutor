@@ -1,109 +1,25 @@
-<script type="text/javascript">
-    var user_word_id = <%= @user_word.id %>;
-</script>
-
 <div class="row" id="page_title">
   <div class="col-md-12">
-    <h1>Training</h1>
+    <h1><%= @title %></h1>
   </div>
 </div>
+
+<%= render partial: 'training_placeholder' %>
 
 <div class="row">
-  <div id="trainingContent" class="offset2 span4">
-    <div class="row-fluid">
-      <div class="col-md-12">Your variants</div>
-    </div>
-    <div class="row-fluid">
-      <div class="col-md-12">
-        <table id="attemptTable" class="table table-striped">
-          <tfoot>
-          <tr>
-            <td>
-            </td>
-            <td></td>
-          </tr>
-          </tfoot>
-          <tbody>
-
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row-fluid">
-      <div class="col-md-4"><input type="button" class="btn btn-primary" id="btnCheck" value="Check"/></div>
-      <div class="col-md-4"><input type="button" class="btn" id="btnHint" value="Hint"/></div>
-      <div class="col-md-4"><input type="button" class="btn" id="btnSkip" value="Skip"/></div>
-    </div>
-    <table>
-      <tbody>
-      <tr>
-        <td id="userWordCell" class="biglink">
-          <%= link_to @user_word do %>
-              <%= @user_word.text %>
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-md-4">
-    <!--<div class="view view-fifth">-->
-    <!--<img src="/assets/Help.gif"/>-->
-
-    <!--<div id="hintBlock" class="mask">-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <div class="hint-container">
-      <div id="hint" class="hint">
-        <div class="card">
-
-        </div>
-
-        <div class="card">
-          <div class="card-even">
-            <%= render @user_word.direct_translations %>
-          </div>
-
-        </div>
-
-        <div class="card">
-          <%= render @user_word.synonyms %>
-        </div>
-
-        <div class="card">
-          <div class="card-even">
-            <%= @user_word.text %>
-          </div>
-        </div>
-
-        <div class="card">
-          <%= @user_word.text %>
-        </div>
-      </div>
-    </div>
+  <div class="col-md-6 col-md-offset-3 center">
+    <input type="button" class="btn btn-success" id="btnRemember" value="Remember" onclick="remember(index)"/>
+    <input type="button" class="btn btn-default" id="btnCheck" value="Check" onclick="showTrainingWordHint()"/>
+    <input type="button" class="btn btn-danger" id="btnForgot" value="Forgot" onclick="forgot(index)"/>
   </div>
 </div>
 
-<!--<div class="row">-->
-<!--<div class="span4 offset4">-->
-<!--<div id="flip" class="flip_box">-->
-<!--<span class="biglink">-->
-<!--<%= link_to @user_word do %>-->
-    <!--<%= @user_word.text %>-->
-    <!--
-<% end %>-->
-<!--</span>-->
-<!--</div>-->
-
-<!--<input type="button" id="flipButton" value="flip"/>-->
-<!--</div>-->
-<!--</div>-->
-
 <script type="text/javascript">
-    globalInitTraining(<%=@user_word.id %>)
+    words = [
+        <% @words.each do |w| %>
+        <%= render :partial => learning_word_customization(w), locals: {word: w} %>
+        <% end %>
+    ];
+
+    selectTrainingWord(0);
 </script>
