@@ -46,7 +46,12 @@ innerForgot = (index) ->
   sendTrainingResult(index, false)
   innerSelectTrainingWord(index + 1)
 
+innerSelectLearningWord = (i) ->
+  innerSelectTrainingWord(i)
+  innerShowTrainingWordHint()
+
 `selectTrainingWord = innerSelectTrainingWord;`
+`selectLearningWord = innerSelectLearningWord;`
 `showTrainingWordHint = innerShowTrainingWordHint;`
 `remember = innerRemember;`
 `forgot = innerForgot;`
