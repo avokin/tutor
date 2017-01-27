@@ -21,5 +21,14 @@
     ];
 
     selectLearningWord(0);
+
+    function onLeftPressed() {
+        selectLearningWord(index - 1)
+    }
+    function onRightPressed() {
+        selectLearningWord(index + 1)
+    }
+    document.keyboardProcessor.onLeftPressed = onLeftPressed;
+    document.keyboardProcessor.onRightPressed = onRightPressed;
 </script>
 

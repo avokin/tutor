@@ -1,3 +1,12 @@
+class KeyboardProcessor
+  onLeftPressed: -> false
+  onRightPressed: -> false
+  onFPressed: -> false
+  onSpacePressed: -> false
+  onJPressed: -> false
+
+document.keyboardProcessor = new KeyboardProcessor()
+
 documentKeypress = (e) ->
   if e.ctrlKey
     # i
@@ -18,7 +27,17 @@ documentKeypress = (e) ->
       wordToSearch = $("#search_text").get(0)
       wordToSearch.focus()
       false
+  else if e.keyCode == 37
+    document.keyboardProcessor.onLeftPressed()
+  else if e.keyCode == 39
+    document.keyboardProcessor.onRightPressed()
+  else if e.keyCode == 70
+    document.keyboardProcessor.onFPressed()
+  else if e.keyCode == 32
+    document.keyboardProcessor.onSpacePressed()
+  else if e.keyCode == 74
+    document.keyboardProcessor.onJPressed()
 $ ->
   $(document).ready ->
-    document.onkeypress = documentKeypress
+    document.onkeydown = documentKeypress
 

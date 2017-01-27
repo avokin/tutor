@@ -22,4 +22,14 @@
     ];
 
     selectTrainingWord(0);
+
+    document.keyboardProcessor.onFPressed = function() {
+        remember(index)
+    };
+    document.keyboardProcessor.onSpacePressed = function() {
+        showTrainingWordHint()
+    };
+    document.keyboardProcessor.onJPressed = function() {
+        forgot(index)
+    };
 </script>
