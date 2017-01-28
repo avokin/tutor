@@ -25,7 +25,8 @@ class TrainingsController < ApplicationController
 
     training_id = cookies.signed[:training_id]
     @training = Training.find(training_id)
-    @words = @training.get_user_words(@page)  end
+    @words = @training.get_ready_user_words(@page)
+  end
 
   def learn
     #ToDo remove this method

@@ -10,18 +10,27 @@ keypress = (event) ->
 `index = 0`
 
 innerSelectTrainingWord = (i) ->
+  innerSelectWord(i, true)
+
+innerSelectWord = (i, atEndStop) ->
+  $("#word_translations").text('')
+  $("#word_prefix").text('')
+  $("#word_suffix").text('')
+  $("#word_text").text('')
+
   if i >= words.length
-    i = 0
+    if atEndStop
+      $("#word_text").text('Done')
+      $('#trainingButtons').html('<input type="button" class="btn btn-default" value="Ok" onclick="document.location.href=\'/trainings\'">')
+      return
+    else
+      i = 0
 
   if i < 0
     i = words.length - 1
 
   `index = i`
   $("#word_text").prop('href', '/user_words/' + words[index][0]).text(words[index][1])
-
-  $("#word_translations").text('')
-  $("#word_prefix").text('')
-  $("#word_suffix").text('')
 
 
 innerShowTrainingWordHint = ->
@@ -40,14 +49,14 @@ sendTrainingResult = (index, result) ->
 
 innerRemember = (index) ->
   sendTrainingResult(index, true)
-  innerSelectTrainingWord(index + 1)
+  innerSelectWord(index + 1, true)
 
 innerForgot = (index) ->
   sendTrainingResult(index, false)
-  innerSelectTrainingWord(index + 1)
+  innerSelectWord(index + 1, true)
 
 innerSelectLearningWord = (i) ->
-  innerSelectTrainingWord(i)
+  innerSelectWord(i, false)
   innerShowTrainingWordHint()
 
 `selectTrainingWord = innerSelectTrainingWord;`
