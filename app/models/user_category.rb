@@ -5,6 +5,12 @@ class UserCategory < ActiveRecord::Base
   belongs_to :user
   belongs_to :language
 
+  def paginate(page_number, page_size)
+    start_index = (page_number - 1) * page_size
+    length = [user_words.count - start_index + 1, page_size].min
+    user_words[start_index, length]
+  end
+
   def self.find_by_user_and_name(user, name)
     UserCategory.where(:user_id => user.id).where(:name => name).where(:language_id => user.target_language.id).first
   end

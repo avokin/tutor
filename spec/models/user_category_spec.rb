@@ -154,6 +154,28 @@ describe UserCategory do
       expect(category.words_count).to eq(2)
       expect(category.ready_words_count).to eq(1)
     end
+  end
 
+  describe 'paginate' do
+    before do
+      user_word_category = FactoryGirl.create(:user_word_category)
+      @category = user_word_category.user_category
+      @word_1 = user_word_category.user_word
+      @word_2 = FactoryGirl.create(:user_word_category, user_category: @category).user_word
+      @word_3 = FactoryGirl.create(:user_word_category, user_category: @category).user_word
+      @word_4 = FactoryGirl.create(:user_word_category, user_category: @category).user_word
+      @word_5 = FactoryGirl.create(:user_word_category, user_category: @category).user_word
+    end
+
+    it 'should correctly paginate words' do
+      list = @category.paginate(1, 2)
+      expect(list).to contain_exactly(@word_1, @word_2)
+
+      list = @category.paginate(2, 2)
+      expect(list).to contain_exactly(@word_3, @word_4)
+
+      list = @category.paginate(3, 2)
+      expect(list).to contain_exactly(@word_5)
+    end
   end
 end
