@@ -1,15 +1,9 @@
 class UserCategory < ActiveRecord::Base
   has_many :user_word_categories, :dependent => :delete_all
-  has_many :user_words, -> { order 'created_at desc' }, :through => :user_word_categories
+  has_many :user_words, -> { order 'id asc' }, :through => :user_word_categories
   has_many :trainings, :dependent => :delete_all
   belongs_to :user
   belongs_to :language
-
-  def paginate(page_number, page_size)
-    start_index = (page_number - 1) * page_size
-    length = [user_words.count - start_index + 1, page_size].min
-    user_words[start_index, length]
-  end
 
   def self.find_by_user_and_name(user, name)
     UserCategory.where(:user_id => user.id).where(:name => name).where(:language_id => user.target_language.id).first
