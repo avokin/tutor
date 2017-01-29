@@ -40,7 +40,6 @@ class Training < ActiveRecord::Base
   end
 
   def get_user_words(page)
-    user_words = Array.new
     user_words = self.user_category.user_words
     unless page.nil?
       user_words = user_words.paginate(:page => page, :per_page => self.user.word_per_page)

@@ -1,6 +1,6 @@
 class UserCategory < ActiveRecord::Base
   has_many :user_word_categories, :dependent => :delete_all
-  has_many :user_words, :through => :user_word_categories
+  has_many :user_words, {:through => :user_word_categories}, -> { order 'created_at desc' }
   has_many :trainings, :dependent => :delete_all
   belongs_to :user
   belongs_to :language
