@@ -1,9 +1,9 @@
 class KeyboardProcessor
-  onLeftPressed: -> false
-  onRightPressed: -> false
-  onFPressed: -> false
-  onSpacePressed: -> false
-  onJPressed: -> false
+  onLeftPressed: -> true
+  onRightPressed: -> true
+  onFPressed: -> true
+  onSpacePressed: -> true
+  onJPressed: -> true
 
 document.keyboardProcessor = new KeyboardProcessor()
 
