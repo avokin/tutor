@@ -105,8 +105,10 @@ module UserWordsHelper
     end
 
     i = 1
-    until (s = word_params[prefix + "_#{i}"]).nil? do
-      result << s
+    until (s = word_params[prefix + "_#{i}"]).nil? && i > 3 do
+      unless s.nil?
+        result << s
+      end
       i += 1
     end
     result
