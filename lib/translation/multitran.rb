@@ -16,11 +16,12 @@ module Translation::Multitran
   end
 
   def get_translation_url(word, dest_language)
-    url = "http://www.multitran.ru/c/m.exe?l1=#{LANGUAGE_HASH[dest_language.id]}&l2=#{LANGUAGE_HASH[word.language.id]}&s=#{word.text}"
+    url = "https://www.multitran.ru/c/m.exe?l1=#{LANGUAGE_HASH[dest_language.id]}&l2=#{LANGUAGE_HASH[word.language.id]}&s=#{word.text}"
     URI::encode(url)
   end
 
   def request_translation(word, dest_language)
+    doc = nil
     # Todo: move to test translator
     if ENV['RAILS_ENV'] == 'test'
       if word.text == 'Kind'
@@ -34,7 +35,10 @@ module Translation::Multitran
       end
     else
       encoded_url = get_translation_url(word, dest_language)
-      doc = Nokogiri::HTML(open(encoded_url))
+      begin
+        doc = Nokogiri::HTML(open(encoded_url))
+      rescue # ignored
+      end
     end
 
     MultitranParserFactory.get_parser(word).parse(doc, word)

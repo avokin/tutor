@@ -2,6 +2,9 @@ class GermanMultitranParser
   include Translation::GermanLanguage
 
   def parse(doc, word)
+    if doc.nil?
+      return
+    end
     type_id = 1
     custom_int_field1 = 0
     custom_string_field1 = ''
