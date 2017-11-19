@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019094412) do
+ActiveRecord::Schema.define(version: 20171119095747) do
+
+  create_table "checkings", force: :cascade do |t|
+    t.integer  "user_category_id"
+    t.integer  "direction_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "user_id",          null: false
+  end
 
   create_table "languages", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -20,14 +28,6 @@ ActiveRecord::Schema.define(version: 20161019094412) do
   end
 
   add_index "languages", ["name"], name: "IndexLanguageNameUnique", unique: true
-
-  create_table "trainings", force: :cascade do |t|
-    t.integer  "user_category_id"
-    t.integer  "direction_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.integer  "user_id",          null: false
-  end
 
   create_table "user_categories", force: :cascade do |t|
     t.string   "name",        limit: 255,                 null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20161019094412) do
     t.string   "custom_string_field1", limit: 255
     t.string   "transcription",        limit: 255
     t.string   "comment"
+    t.integer  "request_count",                    default: 0
   end
 
   add_index "user_words", ["user_id", "text", "language_id"], name: "IndexUserWordUnique", unique: true

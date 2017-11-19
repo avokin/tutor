@@ -36,6 +36,8 @@ class UserWordsController < ApplicationController
 
   def show
     return unless check_user
+    @user_word.request_count += 1
+    @user_word.save!
 
     @title = "Card for word: #{@user_word.text}"
   end

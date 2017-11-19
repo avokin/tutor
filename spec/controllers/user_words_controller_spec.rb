@@ -110,6 +110,21 @@ describe UserWordsController, :type => :controller do
     end
   end
 
+  describe "GET 'show'" do
+    before(:each) do
+      test_sign_in(first_user)
+      @word = FactoryGirl.create(:english_user_word)
+    end
+
+    it 'should increase request counter' do
+      expect do
+        get :show, :id => @word.id
+        @word.reload
+      end.to change { @word.request_count }.by(1)
+    end
+
+  end
+
   describe "Put 'create'" do
     before(:each) do
       test_sign_in(first_user)

@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   end
 
   def foreign_user_words
-    UserWord.where('user_id = ?', self.id).where('language_id = ?', self.target_language.id)
+    UserWord.where('user_id = ?', self.id).where('language_id = ?', self.target_language.id).order('request_count DESC')
   end
 
   def native_user_words
