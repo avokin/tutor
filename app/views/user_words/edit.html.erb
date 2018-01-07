@@ -84,9 +84,11 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row with-bottom-margin">
       <div class="col-md-4 new-category">
-        <%= autocomplete_field_tag :category_0, '', search_autocomplete_user_category_name_path, :placeholder => "You could add categories here" %>
+        <%= autocomplete_field_tag :category_0, '', search_autocomplete_user_category_name_path,
+                                   class: 'form-control',
+                                   placeholder: '!You could add categories here' %>
       </div>
     </div>
 
