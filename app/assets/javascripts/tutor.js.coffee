@@ -55,3 +55,4 @@ $ ->
 
   $('input:text').keydown(inputKeypress)
 
+  wordToSearch = $("#search_text").focus()
