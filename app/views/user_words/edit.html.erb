@@ -1,5 +1,3 @@
-<%= render "user_words/lingvo_reference" %>
-<%= render "user_words/multitran_reference" %>
 <%= form_for(@user_word) do |f| %>
     <div class="row">
       <div class="col-md-2">
@@ -13,8 +11,8 @@
       </div>
 
       <div class="col-md-2 right-aligned">
-        <a class="btn btn-default" data-toggle="modal" data-target="#myMultitranReference">Multitran</a>
-        <a class="btn btn-default" data-toggle="modal" data-target="#myModal">Lingvo</a>
+        <a class="btn btn-default" target="_blank" href="<%= get_translation_url(@user_word, current_user.language)%>">Multitran</a>
+        <a class="btn btn-default" target="_blank" href="<%= get_lingvo_url(@user_word, current_user.language)%>">Lingvo</a>
       </div>
     </div>
 
