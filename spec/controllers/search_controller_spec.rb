@@ -42,18 +42,6 @@ describe SearchController, :type => :controller do
         post :create, :search => {:text => @another_user_word.text}
         expect(response).to redirect_to(new_user_word_path(:text => @another_user_word.text))
       end
-
-      describe 'searching with several foreign languages' do
-        before(:each) do
-          @english_word = FactoryGirl.create(:english_user_word)
-          @german_word = FactoryGirl.create(:german_user_word)
-        end
-
-        it 'should not find word of another language' do
-          post :create, :search => {:text => @german_word.text}
-          expect(response).to redirect_to(new_user_word_path(:text => @german_word.text))
-        end
-      end
     end
   end
 

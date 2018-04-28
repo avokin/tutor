@@ -101,7 +101,7 @@ class UserWord < ActiveRecord::Base
   end
 
   def self.find_for_user(user, text)
-    find_for_user_and_language(user, text, user.target_language)
+    where(:user_id => user.id).where(:text => text).first
   end
 
   def self.find_for_user_and_language(user, text, language)
