@@ -13,70 +13,70 @@
 
 ActiveRecord::Schema.define(version: 20171119095747) do
 
-  create_table "checkings", force: :cascade do |t|
-    t.integer  "user_category_id"
-    t.integer  "direction_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.integer  "user_id",          null: false
-  end
-
   create_table "languages", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "languages", ["name"], name: "IndexLanguageNameUnique", unique: true
 
+  create_table "trainings", force: :cascade do |t|
+    t.integer  "user_category_id"
+    t.integer  "direction_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",          null: false
+  end
+
   create_table "user_categories", force: :cascade do |t|
-    t.string   "name",        limit: 255,                 null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.integer  "user_id",                                 null: false
-    t.boolean  "is_default",              default: false, null: false
+    t.string   "name",                        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",                     null: false
+    t.boolean  "is_default",  default: false, null: false
     t.integer  "language_id"
   end
 
   add_index "user_categories", ["name", "language_id", "user_id"], name: "IndexCategoryNameUnique", unique: true
 
   create_table "user_word_categories", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_word_id"
     t.integer  "user_category_id"
   end
 
   create_table "user_words", force: :cascade do |t|
-    t.integer  "user_id",                                                          null: false
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
-    t.integer  "success_count",                    default: 0,                     null: false
-    t.datetime "time_to_check",                    default: '2015-04-20 16:23:54', null: false
-    t.string   "text",                 limit: 255,                                 null: false
-    t.integer  "language_id",                                                      null: false
+    t.integer  "user_id",                                              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "success_count",        default: 0,                     null: false
+    t.datetime "time_to_check",        default: '2018-04-28 06:47:58', null: false
+    t.string   "text",                                                 null: false
+    t.integer  "language_id",                                          null: false
     t.integer  "type_id"
     t.integer  "custom_int_field1"
-    t.string   "custom_string_field1", limit: 255
-    t.string   "transcription",        limit: 255
+    t.string   "custom_string_field1"
+    t.string   "transcription"
     t.string   "comment"
-    t.integer  "request_count",                    default: 0
+    t.integer  "request_count",        default: 0
   end
 
   add_index "user_words", ["user_id", "text", "language_id"], name: "IndexUserWordUnique", unique: true
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                   limit: 255,             null: false
-    t.string   "email",                  limit: 255,             null: false
-    t.string   "encrypted_password",     limit: 255,             null: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.string   "salt",                   limit: 255,             null: false
-    t.integer  "native_language_id",                 default: 1, null: false
-    t.integer  "success_count",                      default: 5, null: false
-    t.integer  "target_language_id",                 default: 2, null: false
-    t.string   "auth_token",             limit: 255
-    t.string   "password_reset_token",   limit: 255
+    t.string   "name",                               null: false
+    t.string   "email",                              null: false
+    t.string   "encrypted_password",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "salt",                               null: false
+    t.integer  "native_language_id",     default: 1, null: false
+    t.integer  "success_count",          default: 5, null: false
+    t.integer  "target_language_id",     default: 2, null: false
+    t.string   "auth_token"
+    t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
   end
 
@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(version: 20171119095747) do
   create_table "word_relations", force: :cascade do |t|
     t.integer  "source_user_word_id",  null: false
     t.integer  "related_user_word_id", null: false
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "relation_type",        null: false
     t.integer  "user_id",              null: false
     t.integer  "status_id",            null: false
