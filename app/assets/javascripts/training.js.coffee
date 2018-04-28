@@ -34,7 +34,11 @@ innerSelectWord = (i, atEndStop) ->
 
 
 innerShowTrainingWordHint = ->
-  $("#word_translations").text(words[index][2])
+  translationHtml = ""
+  translations = words[index][2].split(";")
+  for translation in translations
+    translationHtml += translation + "<br/>"
+  $("#word_translations").html(translationHtml)
   $("#word_prefix").text(words[index][3])
   $("#word_suffix").text(words[index][4])
 
