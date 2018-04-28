@@ -37,12 +37,19 @@ gem 'haml-rails'
 
 gem 'twitter-bootstrap-rails'
 
-gem 'pg'
 gem 'rails_12factor'
 
 group :development, :test do
   gem 'byebug'
   gem 'spring'
+end
+
+group :development, :production do
+  gem 'pg'
+end
+
+group :test do
+  gem 'sqlite3'
 end
 
 group :test do
