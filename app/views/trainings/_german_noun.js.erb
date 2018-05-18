@@ -1,1 +1,1 @@
-[<%= word.id %>, "<%= word.text %>", "<%= word.translations.map {|t| "#{t.related_user_word.text}"}.join(';') %>", "<%= get_german_artikel_by_number(word.custom_int_field1) %>", "<%= word.custom_string_field1 %>"],
+[<%= word.id %>, "<%= word.text %>", "<%= word.translations.map {|t| "#{t.related_user_word.text}"}.join(';') %>", "<%= get_german_artikel_by_number(word.custom_int_field1) %>", "<%= word.custom_string_field1 %>", "<%= escape_javascript(word.comment) %>"]

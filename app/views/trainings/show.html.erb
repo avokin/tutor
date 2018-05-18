@@ -19,7 +19,7 @@
 <script type="text/javascript">
     words = [
         <% @words.each do |w| %>
-        <%= render :partial => learning_word_customization(w), locals: {word: w} %>
+        <%= render :partial => learning_word_customization(w), locals: {word: w} %>,
         <% end %>
     ];
 

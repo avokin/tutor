@@ -14,6 +14,7 @@ innerSelectTrainingWord = (i) ->
 
 innerSelectWord = (i, atEndStop) ->
   $("#word_translations").text('')
+  $("#word_comments").text('')
   $("#word_prefix").text('')
   $("#word_suffix").text('')
   $("#word_text").text('')
@@ -39,6 +40,13 @@ innerShowTrainingWordHint = ->
   for translation in translations
     translationHtml += translation + "<br/>"
   $("#word_translations").html(translationHtml)
+
+  commentsHtml = ""
+  comments = words[index][5].split("\n")
+  for comment in comments
+    commentsHtml += comment + "<br/>"
+  $("#word_comments").html(commentsHtml)
+
   $("#word_prefix").text(words[index][3])
   $("#word_suffix").text(words[index][4])
 

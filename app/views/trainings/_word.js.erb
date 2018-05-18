@@ -1,1 +1,1 @@
-[<%= word.id %>, "<%= word.text %>", "<%= word.translations.map {|t| "#{t.related_user_word.text}"}.join(';') %>", "", ""],
+[<%= word.id %>, "<%= word.text %>", "<%= word.translations.map {|t| "#{t.related_user_word.text}"}.join(';') %>", "", "", "<%= escape_javascript(word.comment) %>"]
