@@ -52,6 +52,7 @@ FactoryGirl.define do
     user_word.time_to_check { DateTime.new(2001, 2, 3, 4, 5, 6) }
     user_word.sequence(:text) { |i| "english#{i}" }
     user_word.language { english_language }
+    user_word.comment { '' }
   end
 
   factory :russian_user_word, :class => :user_word do |user_word|
