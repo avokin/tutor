@@ -68,7 +68,10 @@
     <div class="row with-bottom-margin">
       <div class="col-md-12">
         <div id="comment" class="box comment-box form-horizontal">
-          <%= @user_word.comment %>
+          <% @comments.each do |comment| %>
+            <%= comment %>
+            <br/>
+          <% end %>
         </div>
       </div>
     </div>
