@@ -7,8 +7,8 @@
     <%= training.direction == :direct? ? t('training.direction.direct') : t('training.direction.reverse') %>
   </td>
   <td>
-    <%= training.get_ready_user_words.size %> /
-    <%= training.get_user_words.size %>
+    <%= UserWord.from_category_ready(training.user_category).size %> /
+    <%= UserWord.from_category(training.user_category).size %>
   </td>
   <td>
     <%= button_to t('training.start'), training_path(training), method: :get, :form_class => 'inline', :class => 'btn btn-primary without-bottom-margin'%>

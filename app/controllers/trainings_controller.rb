@@ -12,18 +12,12 @@ class TrainingsController < ApplicationController
 
     training_id = params[:id]
     @training = Training.find(training_id)
-    @words = @training.get_ready_user_words
+    @words = UserWord.from_category_ready(@training.user_category)
   end
 
   def learn
-    #ToDo remove this method
-    cookies.permanent.signed[:training_id] = params[:id]
-    cookies.permanent.signed[:page] = params[:page]
-
     @title = 'Learning'
     @active_tab = :training
-
-    @page = params[:page].to_i
 
     redirect_to learning_training_path
   end
@@ -33,7 +27,7 @@ class TrainingsController < ApplicationController
     @active_tab = :training
 
     @training = Training.find(params[:id])
-    @words = @training.get_user_words
+    @words = UserWord.from_category(@training.user_category)
   end
 
   def training_data

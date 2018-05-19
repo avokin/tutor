@@ -17,6 +17,14 @@ class UserWord < ActiveRecord::Base
   validates :language, :presence => true
   validates :time_to_check, :presence => true
 
+  scope :from_category, -> (category) {
+    joins(:user_word_categories).where('user_category_id = ?', category.id)
+  }
+
+  scope :from_category_ready, -> (category) {
+    from_category(category).where("time_to_check <= ?", Time.current)
+  }
+
   validates_uniqueness_of :text, :scope => [:user_id, :language_id]
 
   after_initialize :set_time_to_check
