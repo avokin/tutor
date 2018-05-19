@@ -75,27 +75,8 @@ describe Training do
       end
     end
 
-    it 'should return only ready words for the page' do
-      @words_on_page_1 = @training.get_ready_user_words(1)
-      expect(@words_on_page_1.size).to eq 10
-
-      expect(@words_on_page_1).to include(@english_words[0])
-      expect(@words_on_page_1).not_to include(@english_words[1])
-      expect(@words_on_page_1).to include(@english_words[2])
-      expect(@words_on_page_1).not_to include(@english_words[3])
-      expect(@words_on_page_1).to include(@english_words[4])
-
-      @words_on_page_2 = @training.get_ready_user_words(2)
-      expect(@words_on_page_2.size).to eq 10
-      expect(@words_on_page_2).to include(@english_words[20])
-      expect(@words_on_page_2).not_to include(@english_words[21])
-      expect(@words_on_page_2).to include(@english_words[22])
-      expect(@words_on_page_2).not_to include(@english_words[23])
-      expect(@words_on_page_2).to include(@english_words[24])
-    end
-
     it 'should return only ready words for the entire training' do
-      @words_on_page_2 = @training.get_ready_user_words(nil)
+      @words_on_page_2 = UserWord.from_category_ready(@training.user_category)
       expect(@words_on_page_2.size).to eq 20
     end
   end
@@ -114,10 +95,10 @@ describe Training do
     end
 
     it 'should return corresponding words only once' do
-      @words_on_page_1 = @training.get_user_words(1)
-      expect(@words_on_page_1.length).to eq 2
+      @training_words = UserWord.from_category(@training.user_category)
+      expect(@training_words.length).to eq 2
 
-      expect(@words_on_page_1).to include(@user_word)
+      expect(@training_words).to include(@user_word)
     end
   end
 end

@@ -6,23 +6,13 @@ class TrainingsController < ApplicationController
   before_filter :correct_user_training, :only => [:destroy, :start, :learn]
   before_filter :set_active_tab
 
-  def start
-    cookies.permanent.signed[:training_id] = params[:id]
-    cookies.permanent.signed[:page] = params[:page]
-
-    training = Training.find(params[:id])
-    @user_word = select_user_word(training, get_page)
-
-    redirect_to training_path(@user_word.id)
-  end
-
   def show
     @title = 'Training'
     @active_tab = :training
 
-    training_id = cookies.signed[:training_id]
+    training_id = params[:id]
     @training = Training.find(training_id)
-    @words = @training.get_ready_user_words(get_page)
+    @words = @training.get_ready_user_words
   end
 
   def learn
@@ -42,9 +32,8 @@ class TrainingsController < ApplicationController
     @title = t('training.learning')
     @active_tab = :training
 
-    training_id = cookies.signed[:training_id]
-    @training = Training.find(training_id)
-    @words = @training.get_user_words(get_page)
+    @training = Training.find(params[:id])
+    @words = @training.get_user_words
   end
 
   def training_data
@@ -138,9 +127,5 @@ class TrainingsController < ApplicationController
 
   def set_active_tab
     @active_tab = :training
-  end
-
-  def get_page
-    cookies.signed[:page].to_i
   end
 end

@@ -25,18 +25,4 @@ module TrainingsHelper
     user_word.save!
     result
   end
-
-  def skip(user_word)
-  end
-
-  def select_user_word(training, page)
-    user_words = training.get_ready_user_words(page)
-    count = user_words.length
-    if count == 0
-      nil
-    else
-      pos = rand(count)
-      user_words[pos]
-    end
-  end
 end

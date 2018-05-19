@@ -29,8 +29,8 @@ class Training < ActiveRecord::Base
     end
   end
 
-  def get_ready_user_words(page)
-    user_words = get_user_words(page)
+  def get_ready_user_words
+    user_words = get_user_words
     result = Array.new
     now = DateTime.now
     (0..user_words.length - 1).each do |i|
@@ -39,13 +39,8 @@ class Training < ActiveRecord::Base
     result
   end
 
-  def get_user_words(page)
-    user_words = self.user_category.user_words
-    unless page.nil?
-      user_words = user_words.paginate(:page => page, :per_page => self.user.word_per_page)
-    end
-
-    user_words
+  def get_user_words
+    self.user_category.user_words
   end
 
   private
