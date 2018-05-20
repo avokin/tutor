@@ -39,7 +39,11 @@ class UserWordsController < ApplicationController
     @user_word.request_count += 1
     @user_word.save
 
-    @comments = @user_word.comment.split("\n")
+    unless @user_word.comment.nil?
+      @comments = @user_word.comment.split("\n")
+    else
+      @comments = []
+    end
 
     @title = "Card for word: #{@user_word.text}"
   end
