@@ -4,8 +4,8 @@ describe WordRelation do
 
   before(:each) do
     init_db
-    @user = FactoryGirl.create(:user)
-    @user_word = FactoryGirl.create(:english_user_word)
+    @user = FactoryBot.create(:user)
+    @user_word = FactoryBot.create(:english_user_word)
   end
 
   describe 'create_relation' do
@@ -27,7 +27,7 @@ describe WordRelation do
 
   describe 'validation' do
     before(:each) do
-      @synonym = FactoryGirl.create(:word_relation_synonym)
+      @synonym = FactoryBot.create(:word_relation_synonym)
     end
 
     it 'should not create duplicated relation when there is the same direct relation exist' do

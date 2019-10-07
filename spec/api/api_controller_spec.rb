@@ -11,8 +11,8 @@ describe ApiController, :type => :controller do
 
   describe 'export process' do
     before(:each) do
-      FactoryGirl.create(:word_relation_translation)
-      FactoryGirl.create(:user_word_category)
+      FactoryBot.create(:word_relation_translation)
+      FactoryBot.create(:user_word_category)
       request.env['HTTP_AUTHORIZATION'] = @token
     end
 
@@ -36,8 +36,8 @@ describe ApiController, :type => :controller do
 
   describe 'import process' do
     before(:each) do
-      FactoryGirl.create(:word_relation_translation)
-      FactoryGirl.create(:user_word_category)
+      FactoryBot.create(:word_relation_translation)
+      FactoryBot.create(:user_word_category)
       @word_id = UserWord.first.id
       request.env['HTTP_AUTHORIZATION'] = @token
     end

@@ -8,8 +8,8 @@ describe SearchController, :type => :controller do
   describe "POST 'create'" do
     before(:each) do
       @new_word = 'new word'
-      @user_word = FactoryGirl.create(:english_user_word)
-      @another_user_word = FactoryGirl.create(:user_word_for_another_user)
+      @user_word = FactoryBot.create(:english_user_word)
+      @another_user_word = FactoryBot.create(:user_word_for_another_user)
 
       @user = @user_word.user
     end
@@ -55,13 +55,13 @@ describe SearchController, :type => :controller do
 
     describe 'authorized access' do
       before(:each) do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryBot.create(:user)
         test_sign_in(@user)
       end
 
       describe 'success' do
         before(:each) do
-          @user_word1 = FactoryGirl.create(:english_user_word)
+          @user_word1 = FactoryBot.create(:english_user_word)
         end
 
         it 'should return correspond words' do
@@ -82,13 +82,13 @@ describe SearchController, :type => :controller do
 
     describe 'authorized access' do
       before(:each) do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryBot.create(:user)
         test_sign_in(@user)
       end
 
       describe 'success' do
         before(:each) do
-          @user_category = FactoryGirl.create(:user_category)
+          @user_category = FactoryBot.create(:user_category)
         end
 
         it 'should return correspond words' do

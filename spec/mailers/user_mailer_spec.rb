@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UserMailer do
   before(:each) do
     init_db
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
     @user.password_reset_token = 'something'
     @user.save!
   end

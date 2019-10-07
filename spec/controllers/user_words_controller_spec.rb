@@ -8,9 +8,9 @@ describe UserWordsController, :type => :controller do
   describe "GET 'new'" do
     before(:each) do
       test_sign_in(first_user(german_language))
-      FactoryGirl.create(:user_category, :name => 'included', :is_default => true, :language => german_language)
-      FactoryGirl.create(:user_category, :name => 'excluded', :is_default => true, :language => english_language)
-      FactoryGirl.create(:user_category, :name => 'another excluded', :is_default => false, :language => german_language)
+      FactoryBot.create(:user_category, :name => 'included', :is_default => true, :language => german_language)
+      FactoryBot.create(:user_category, :name => 'excluded', :is_default => true, :language => english_language)
+      FactoryBot.create(:user_category, :name => 'another excluded', :is_default => false, :language => german_language)
     end
 
     it 'should not fail' do
@@ -27,9 +27,9 @@ describe UserWordsController, :type => :controller do
 
   describe 'POST "update"' do
     before :each do
-      @word = FactoryGirl.create(:english_user_word)
-      @translation = FactoryGirl.create(:word_relation_translation, :source_user_word => @word)
-      FactoryGirl.create(:word_relation_translation, :source_user_word => @word)
+      @word = FactoryBot.create(:english_user_word)
+      @translation = FactoryBot.create(:word_relation_translation, :source_user_word => @word)
+      FactoryBot.create(:word_relation_translation, :source_user_word => @word)
     end
 
     describe 'not logged in user' do
@@ -113,7 +113,7 @@ describe UserWordsController, :type => :controller do
   describe "GET 'show'" do
     before(:each) do
       test_sign_in(first_user)
-      @word = FactoryGirl.create(:english_user_word)
+      @word = FactoryBot.create(:english_user_word)
     end
 
     it 'should increase request counter' do
@@ -129,7 +129,7 @@ describe UserWordsController, :type => :controller do
     before(:each) do
       test_sign_in(first_user)
 
-      @category = FactoryGirl.create(:user_category, :name => 'first', :is_default => true)
+      @category = FactoryBot.create(:user_category, :name => 'first', :is_default => true)
       @put_parameters = {user: first_user, translation_0: '', synonym_0: '', category_0: '',
                          user_word: {language_id: first_user.target_language.id, text: 'new_word', type_id: 1,
                                      custom_int_field1: 1, custom_string_field1: 'custom'}}

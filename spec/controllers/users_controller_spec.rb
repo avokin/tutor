@@ -40,7 +40,7 @@ describe UsersController, :type => :controller do
 
   describe "GET 'edit'" do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       @attributes = {:native_language_id => 3, :success_count => 10}
       test_sign_in(@user)
     end
@@ -53,7 +53,7 @@ describe UsersController, :type => :controller do
 
   describe "PUT 'update'" do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       @attributes = {:success_count => 10, :native_language_id => 3, :target_language_id => 2}
     end
 

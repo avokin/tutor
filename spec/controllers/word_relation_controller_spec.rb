@@ -7,9 +7,9 @@ describe WordRelationsController, :type => :controller do
 
   describe "POST 'create'" do
     before(:each) do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       test_sign_in(user)
-      @user_word = FactoryGirl.create(:english_user_word)
+      @user_word = FactoryBot.create(:english_user_word)
     end
 
     describe 'fail' do
@@ -55,7 +55,7 @@ describe WordRelationsController, :type => :controller do
 
   describe "DELETE 'destroy'" do
     before(:each) do
-      @word_relation = FactoryGirl.create(:word_relation_translation)
+      @word_relation = FactoryBot.create(:word_relation_translation)
     end
 
     describe 'unauthorized access' do
@@ -68,7 +68,7 @@ describe WordRelationsController, :type => :controller do
 
       describe 'not owner user' do
         before(:each) do
-          user = FactoryGirl.create(:user)
+          user = FactoryBot.create(:user)
           test_sign_in user
         end
 
@@ -97,7 +97,7 @@ describe WordRelationsController, :type => :controller do
 
   describe "DELETE 'destroy_with_related_word'" do
     before(:each) do
-      @word_relation = FactoryGirl.create(:word_relation_translation)
+      @word_relation = FactoryBot.create(:word_relation_translation)
     end
 
     describe 'unauthorized access' do
@@ -110,7 +110,7 @@ describe WordRelationsController, :type => :controller do
 
       describe 'not owner user' do
         before(:each) do
-          user = FactoryGirl.create(:user)
+          user = FactoryBot.create(:user)
           test_sign_in user
         end
 

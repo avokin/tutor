@@ -49,8 +49,8 @@ describe User do
   describe 'foreign_user_words' do
     describe "should take only words of 'target_language_id' language" do
       before(:each) do
-        FactoryGirl.create(:english_user_word)
-        FactoryGirl.create(:german_user_word)
+        FactoryBot.create(:english_user_word)
+        FactoryBot.create(:german_user_word)
       end
 
       it 'should take only English words' do
@@ -73,7 +73,7 @@ describe User do
 
   describe 'send_password_reset' do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
     end
 
     it 'should send email with password recovery instructions' do
@@ -92,7 +92,7 @@ describe User do
 
   describe 'update_password' do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
     end
 
     it 'should update correct password' do

@@ -8,10 +8,10 @@ describe UserCategoriesController, :type => :controller do
   end
 
   before(:each) do
-    @user_word_category = FactoryGirl.create(:user_word_category)
+    @user_word_category = FactoryBot.create(:user_word_category)
     @category = @user_word_category.user_category
     @user_word = @user_word_category.user_word
-    @category_german = FactoryGirl.create(:user_category, :language => german_language)
+    @category_german = FactoryBot.create(:user_category, :language => german_language)
     @user = @user_word.user
   end
 
@@ -43,7 +43,7 @@ describe UserCategoriesController, :type => :controller do
 
       describe 'not owner user' do
         before(:each) do
-          user = FactoryGirl.create(:user)
+          user = FactoryBot.create(:user)
           test_sign_in user
         end
 
@@ -137,7 +137,7 @@ describe UserCategoriesController, :type => :controller do
 
       describe 'not owner user' do
         before(:each) do
-          user = FactoryGirl.create(:user)
+          user = FactoryBot.create(:user)
           test_sign_in user
         end
 
@@ -179,7 +179,7 @@ describe UserCategoriesController, :type => :controller do
 
       describe 'not owner user' do
         before(:each) do
-          user = FactoryGirl.create(:user)
+          user = FactoryBot.create(:user)
           test_sign_in user
         end
 
@@ -239,7 +239,7 @@ describe UserCategoriesController, :type => :controller do
 
       describe 'not owner user' do
         before(:each) do
-          user = FactoryGirl.create(:user)
+          user = FactoryBot.create(:user)
           test_sign_in user
         end
 
@@ -268,7 +268,7 @@ describe UserCategoriesController, :type => :controller do
 
   describe "PUT 'merge'" do
     before(:each) do
-      @user_word_category = FactoryGirl.create(:user_word_category)
+      @user_word_category = FactoryBot.create(:user_word_category)
       @category2 = @user_word_category.user_category
     end
 
@@ -282,7 +282,7 @@ describe UserCategoriesController, :type => :controller do
 
       describe 'not owner user' do
         before(:each) do
-          user = FactoryGirl.create(:user)
+          user = FactoryBot.create(:user)
           test_sign_in user
         end
 

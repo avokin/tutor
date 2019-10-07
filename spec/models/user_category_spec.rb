@@ -7,8 +7,8 @@ describe UserCategory do
 
   describe 'find by user and name' do
     before(:each) do
-      @category = FactoryGirl.create(:user_category)
-      FactoryGirl.create(:user_category)
+      @category = FactoryBot.create(:user_category)
+      FactoryBot.create(:user_category)
     end
 
     it 'should find category for the first user' do
@@ -33,10 +33,10 @@ describe UserCategory do
 
   describe 'delete category' do
     before(:each) do
-      @user_word_category = FactoryGirl.create(:user_word_category)
+      @user_word_category = FactoryBot.create(:user_word_category)
       @user_category = @user_word_category.user_category
 
-      @training = FactoryGirl.create(:training, :user_category => @user_category)
+      @training = FactoryBot.create(:training, :user_category => @user_category)
     end
 
     it 'should delete relation to user words' do
@@ -54,9 +54,9 @@ describe UserCategory do
     describe 'authorized access' do
       before(:each) do
         @merging_categories = Array.new
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
+        @merging_categories << FactoryBot.create(:user_word_category).user_category.id
+        @merging_categories << FactoryBot.create(:user_word_category).user_category.id
+        @merging_categories << FactoryBot.create(:user_word_category).user_category.id
 
         @word_count = @merging_categories.length
       end
@@ -78,9 +78,9 @@ describe UserCategory do
       end
 
       it 'should skip categories from another languages' do
-        last = FactoryGirl.create(:user_category, :language => german_language)
-        word = FactoryGirl.create(:german_user_word)
-        FactoryGirl.create(:user_word_category, :user_word => word, :user_category => last)
+        last = FactoryBot.create(:user_category, :language => german_language)
+        word = FactoryBot.create(:german_user_word)
+        FactoryBot.create(:user_word_category, :user_word => word, :user_category => last)
         @merging_categories << last.id
 
         expect(UserCategory.merge(first_user, @merging_categories)).to eq false
@@ -96,9 +96,9 @@ describe UserCategory do
     describe 'unauthorized access' do
       before(:each) do
         @merging_categories = Array.new
-        @merging_categories << FactoryGirl.create(:user_category, :user => second_user).id
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
-        @merging_categories << FactoryGirl.create(:user_word_category).user_category.id
+        @merging_categories << FactoryBot.create(:user_category, :user => second_user).id
+        @merging_categories << FactoryBot.create(:user_word_category).user_category.id
+        @merging_categories << FactoryBot.create(:user_word_category).user_category.id
 
         @word_count = @merging_categories.length
       end
@@ -122,9 +122,9 @@ describe UserCategory do
 
   describe 'find_by_is_default' do
     before :each do
-      @default_category = FactoryGirl.create(:user_category, :is_default => true)
-      FactoryGirl.create(:user_category)
-      FactoryGirl.create(:user_category, :is_default => true, :language => german_language)
+      @default_category = FactoryBot.create(:user_category, :is_default => true)
+      FactoryBot.create(:user_category)
+      FactoryBot.create(:user_category, :is_default => true, :language => german_language)
     end
 
     it 'should find only default category of current language' do
@@ -136,8 +136,8 @@ describe UserCategory do
 
   describe 'all_with_info' do
     before do
-      @category = FactoryGirl.create(:user_word_category).user_category
-      FactoryGirl.create(:user_word_category, user_category: @category)
+      @category = FactoryBot.create(:user_word_category).user_category
+      FactoryBot.create(:user_word_category, user_category: @category)
 
       UserWord.first.time_to_check = DateTime.now
       last = UserWord.last

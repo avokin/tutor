@@ -9,7 +9,7 @@ describe 'Multitran' do
   describe 'translation' do
     before(:each) do
       @parser = GermanMultitranParser.new
-      @user_word = FactoryGirl.create(:german_user_word)
+      @user_word = FactoryBot.create(:german_user_word)
     end
 
     it 'should parse german article' do

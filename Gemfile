@@ -62,7 +62,7 @@ group :test do
   gem 'selenium-webdriver'
 
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
 
   gem 'email_spec'
 end

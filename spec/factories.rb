@@ -1,6 +1,6 @@
 def init_db
   while Language.all.size < 3
-    FactoryGirl.create(:language)
+    FactoryBot.create(:language)
   end
 end
 
@@ -18,23 +18,23 @@ end
 
 def second_language
   while Language.all.size < 3
-    FactoryGirl.create(:language)
+    FactoryBot.create(:language)
   end
   Language.all[1]
 end
 
 def first_user(target_language = english_language)
-  User.first || FactoryGirl.create(:user, target_language: target_language)
+  User.first || FactoryBot.create(:user, target_language: target_language)
 end
 
 def second_user
   while User.all.size < 2
-    FactoryGirl.create(:user)
+    FactoryBot.create(:user)
   end
   User.all[1]
 end
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :language do |language|
     language.sequence(:name) do |i| case i % 3
                                      when 1

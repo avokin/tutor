@@ -7,7 +7,7 @@ describe SessionsController, :type => :controller do
 
   describe 'Successful login' do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       @attr = {:email => @user.email, :password => @user.password}
     end
 
@@ -21,7 +21,7 @@ describe SessionsController, :type => :controller do
 
   describe 'Failed login' do
     before(:each) do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       @attr = {:email => @user.email, :password => 'wrong password'}
     end
 
